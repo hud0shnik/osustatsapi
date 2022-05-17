@@ -14,8 +14,9 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	UserID   string `json:"id"`
-	Username string `json:"username"`
+	UserID      string `json:"id"`
+	Username    string `json:"username"`
+	CountryRank string `json:"countryRank"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -73,9 +74,12 @@ func getUserInfo(id string) UserInfo {
 	# после каждого поиска тело сайта обрезается для оптимизации #
 	------------------------------------------------------------ */
 
-	// Репозитории
+	// Юзернейм
 	result.Username, i = find(pageStr, "<title>", ' ')
 	pageStr = pageStr[i:]
+
+	// Рейтинг в стране
+	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
 
 	return result
 }
