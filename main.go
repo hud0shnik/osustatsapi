@@ -14,15 +14,16 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	UserID      string `json:"id"`
-	Username    string `json:"username"`
-	GlobalRank  string `json:"globalRank"`
-	CountryRank string `json:"countryRank"`
-	Accuracy    string `json:"accuracy"`
-	PlayCount   string `json:"playCount"`
-	PlayTime    string `json:"playTime"` // В секундах
-	TotalScore  string `json:"totalScore"`
-	TotalHits   string `json:"totalHits"`
+	UserID       string `json:"id"`
+	Username     string `json:"username"`
+	GlobalRank   string `json:"globalRank"`
+	CountryRank  string `json:"countryRank"`
+	Accuracy     string `json:"accuracy"`
+	PlayCount    string `json:"playCount"`
+	PlayTime     string `json:"playTime"` // В секундах
+	TotalScore   string `json:"totalScore"`
+	TotalHits    string `json:"totalHits"`
+	MaximumCombo string `json:"maximumCombo"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -90,15 +91,15 @@ func getUserInfo(id string) UserInfo {
 	result.GlobalRank, i = find(pageStr, "global_rank&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// Accuracy
+	// Точность попаданий
 	result.Accuracy, i = find(pageStr, "hit_accuracy&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// Play count
+	// Количество игр
 	result.PlayCount, i = find(pageStr, "play_count&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// Play time
+	// Времени в игре
 	result.PlayTime, i = find(pageStr, "play_time&quot;:", ',')
 	pageStr = pageStr[i:]
 
@@ -108,7 +109,10 @@ func getUserInfo(id string) UserInfo {
 	// Всего попаданий
 	result.TotalHits, _ = find(pageStr, "total_hits&quot;:", ',')
 
-	// Всего очков
+	// Максимальное комбо
+	result.MaximumCombo, _ = find(pageStr, "maximum_combo&quot;:", ',')
+
+	// Рейтинговые очки
 	result.TotalScore, _ = find(pageStr, "total_score&quot;:", ',')
 
 	return result
