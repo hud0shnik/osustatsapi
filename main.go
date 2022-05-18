@@ -19,6 +19,7 @@ type UserInfo struct {
 	GlobalRank  string `json:"globalRank"`
 	CountryRank string `json:"countryRank"`
 	Accuracy    string `json:"accuracy"`
+	PlayCount   string `json:"playCount"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -71,22 +72,31 @@ func getUserInfo(id string) UserInfo {
 	// Обрезка юзелесс части html'ки
 	pageStr = pageStr[strings.Index(pageStr, "js-react--profile-page osu-layout osu-layout--full\""):]
 
+	i := 0
+
 	/* -----------------------------------------------------------
 	# Далее происходит заполнение полей функцией find			 #
 	# после каждого поиска тело сайта обрезается для оптимизации #
 	------------------------------------------------------------ */
 
 	// Юзернейм
-	result.CountryRank, _ = find(pageStr, "username&quot;:&quot;", '&')
+	result.Username, i = find(pageStr, "username&quot;:&quot;", '&')
+	pageStr = pageStr[i:]
+
+	// Глобальный рейтинг
+	result.GlobalRank, i = find(pageStr, "global_rank&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// Accuracy
+	result.Accuracy, i = find(pageStr, "hit_accuracy&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// Play count
+	result.PlayCount, i = find(pageStr, "play_count&quot;:", ',')
+	pageStr = pageStr[i:]
 
 	// Рейтинг в стране
 	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
-
-	// Глобальный рейтинг
-	result.GlobalRank, _ = find(pageStr, "global_rank&quot;:", ',')
-
-	// Accuracy
-	result.Accuracy, _ = find(pageStr, "hit_accuracy&quot;:", ',')
 
 	return result
 }
