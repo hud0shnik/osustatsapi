@@ -66,6 +66,9 @@ func getUserInfo(id string) UserInfo {
 		UserID: id,
 	}
 
+	// Обрезка юзелесс части html'ки
+	pageStr = pageStr[strings.Index(pageStr, "js-react--profile-page osu-layout osu-layout--full\""):]
+
 	// Индекс конца последней найденной строки
 	i := 0
 
