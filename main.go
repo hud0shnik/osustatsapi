@@ -16,6 +16,7 @@ import (
 type UserInfo struct {
 	UserID      string `json:"id"`
 	Username    string `json:"username"`
+	GlobalRank  string `json:"globalRank"`
 	CountryRank string `json:"countryRank"`
 }
 
@@ -83,6 +84,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Рейтинг в стране
 	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
+
+	// Глобальный рейтинг
+	result.GlobalRank, _ = find(pageStr, "global_rank&quot;:", ',')
 
 	return result
 }
