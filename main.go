@@ -20,6 +20,8 @@ type UserInfo struct {
 	CountryRank string `json:"countryRank"`
 	Accuracy    string `json:"accuracy"`
 	PlayCount   string `json:"playCount"`
+	PlayTime    string `json:"playTime"` // В секундах
+	TotalScore  string `json:"totalScore"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -95,8 +97,15 @@ func getUserInfo(id string) UserInfo {
 	result.PlayCount, i = find(pageStr, "play_count&quot;:", ',')
 	pageStr = pageStr[i:]
 
+	// Play time
+	result.PlayTime, i = find(pageStr, "play_time&quot;:", ',')
+	pageStr = pageStr[i:]
+
 	// Рейтинг в стране
 	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
+
+	// Всего очков
+	result.TotalScore, _ = find(pageStr, "total_score&quot;:", ',')
 
 	return result
 }
