@@ -22,6 +22,7 @@ type UserInfo struct {
 	PlayCount   string `json:"playCount"`
 	PlayTime    string `json:"playTime"` // В секундах
 	TotalScore  string `json:"totalScore"`
+	TotalHits   string `json:"totalHits"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -103,6 +104,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Рейтинг в стране
 	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
+
+	// Всего попаданий
+	result.TotalHits, _ = find(pageStr, "total_hits&quot;:", ',')
 
 	// Всего очков
 	result.TotalScore, _ = find(pageStr, "total_score&quot;:", ',')
