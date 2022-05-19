@@ -39,7 +39,8 @@ type UserInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
-	Id string `json:"id"`
+	Id       string `json:"id"`
+	Accuracy string `json:"accuracy"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -101,6 +102,7 @@ func getUserInfo(id string) UserInfo {
 	------------------------------------------------------------ */
 
 	// Лучшая мапа
+	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
 	result.BestBeatMap.Id, i = find(pageStr, "beatmap_id :", ',')
 	pageStr = pageStr[i:]
 
