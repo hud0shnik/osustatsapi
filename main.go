@@ -43,6 +43,7 @@ type beatMap struct {
 	Accuracy     string `json:"accuracy"`
 	Ended_at     string `json:"ended_at"`
 	MaximumCombo string `json:"maximumCombo"`
+	Passed       string `json:"passed"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -108,6 +109,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
 	result.BestBeatMap.Ended_at, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
+	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 
 	pageStr = pageStr[i:]
 
