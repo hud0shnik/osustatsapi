@@ -75,9 +75,7 @@ func getUserInfo(id string) UserInfo {
 	pageStr := string(body)
 
 	// Обрезка юзелесс части html'ки
-	//pageStr = pageStr[strings.Index(pageStr, "js-react--profile-page osu-layout osu-layout--full")+79:]
 	pageStr = pageStr[strings.Index(pageStr, "current_mode&quot;:&quot;osu&quot;"):]
-	pageStr = pageStr[:strings.Index(pageStr, "\"\n    ></div>")]
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
 	// Сохранение html'ки в файл sample.html
@@ -106,7 +104,7 @@ func getUserInfo(id string) UserInfo {
 	pageStr = pageStr[i:]
 
 	// Уровень
-	result.Level, i = find(pageStr, "level :{ current :", '.')
+	result.Level, i = find(pageStr, "level :{ current :", ',')
 	pageStr = pageStr[i:]
 
 	// Глобальный рейтинг
