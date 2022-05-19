@@ -30,6 +30,7 @@ type UserInfo struct {
 	SH           string `json:"sh"`
 	S            string `json:"s"`
 	A            string `json:"a"`
+	SupportLvl   string `json:"supportLevel"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -146,7 +147,11 @@ func getUserInfo(id string) UserInfo {
 	pageStr = pageStr[i:]
 
 	// Рейтинг в стране
-	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
+	result.CountryRank, i = find(pageStr, "country_rank&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// Уровень подписки
+	result.SupportLvl, _ = find(pageStr, "support_level&quot;:", ',')
 
 	return result
 }
