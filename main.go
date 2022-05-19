@@ -25,6 +25,8 @@ type UserInfo struct {
 	TotalHits    string `json:"totalHits"`
 	MaximumCombo string `json:"maximumCombo"`
 	Replays      string `json:"replays"`
+	X            string `json:"ss"`
+	XH           string `json:"xh"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -104,20 +106,32 @@ func getUserInfo(id string) UserInfo {
 	result.PlayTime, i = find(pageStr, "play_time&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// Рейтинг в стране
-	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
+	// Рейтинговые очки
+	result.TotalScore, i = find(pageStr, "total_score&quot;:", ',')
+	pageStr = pageStr[i:]
 
 	// Всего попаданий
-	result.TotalHits, _ = find(pageStr, "total_hits&quot;:", ',')
+	result.TotalHits, i = find(pageStr, "total_hits&quot;:", ',')
+	pageStr = pageStr[i:]
 
 	// Максимальное комбо
-	result.MaximumCombo, _ = find(pageStr, "maximum_combo&quot;:", ',')
+	result.MaximumCombo, i = find(pageStr, "maximum_combo&quot;:", ',')
+	pageStr = pageStr[i:]
 
 	// Реплеев просмотрено другими
-	result.Replays, _ = find(pageStr, "replays_watched_by_others&quot;:", ',')
+	result.Replays, i = find(pageStr, "replays_watched_by_others&quot;:", ',')
+	pageStr = pageStr[i:]
 
-	// Рейтинговые очки
-	result.TotalScore, _ = find(pageStr, "total_score&quot;:", ',')
+	// X'ки
+	result.X, i = find(pageStr, "grade_counts&quot;:{&quot;ss&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// XH'ки
+	result.XH, i = find(pageStr, "ssh&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// Рейтинг в стране
+	result.CountryRank, _ = find(pageStr, "country_rank&quot;:", ',')
 
 	return result
 }
