@@ -4,3 +4,4 @@ sample.html
 test/test.go
 
 /DEV/
+*.html
