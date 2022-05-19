@@ -20,6 +20,7 @@ type UserInfo struct {
 	GlobalRank    string `json:"globalRank"`
 	CountryRank   string `json:"countryRank"`
 	PP            string `json:"pp"`
+	Level         string `json:"level"`
 	PlayTime      string `json:"playTime"` // В секундах
 	Accuracy      string `json:"accuracy"`
 	PlayCount     string `json:"playCount"`
@@ -102,6 +103,10 @@ func getUserInfo(id string) UserInfo {
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
+	pageStr = pageStr[i:]
+
+	// Уровень
+	result.Level, i = find(pageStr, "level :{ current :", '.')
 	pageStr = pageStr[i:]
 
 	// Глобальный рейтинг
