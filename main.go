@@ -24,6 +24,7 @@ type UserInfo struct {
 	TotalScore   string `json:"totalScore"`
 	TotalHits    string `json:"totalHits"`
 	MaximumCombo string `json:"maximumCombo"`
+	Replays      string `json:"replays"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -111,6 +112,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Максимальное комбо
 	result.MaximumCombo, _ = find(pageStr, "maximum_combo&quot;:", ',')
+
+	// Реплеев просмотрено другими
+	result.Replays, _ = find(pageStr, "replays_watched_by_others&quot;:", ',')
 
 	// Рейтинговые очки
 	result.TotalScore, _ = find(pageStr, "total_score&quot;:", ',')
