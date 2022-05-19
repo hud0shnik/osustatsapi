@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -14,24 +15,25 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	UserID       string `json:"id"`
-	Username     string `json:"username"`
-	GlobalRank   string `json:"globalRank"`
-	CountryRank  string `json:"countryRank"`
-	PP           string `json:"pp"`
-	PlayTime     string `json:"playTime"` // В секундах
-	Accuracy     string `json:"accuracy"`
-	PlayCount    string `json:"playCount"`
-	TotalScore   string `json:"totalScore"`
-	TotalHits    string `json:"totalHits"`
-	MaximumCombo string `json:"maximumCombo"`
-	Replays      string `json:"replays"`
-	SSH          string `json:"ssh"`
-	SS           string `json:"ss"`
-	SH           string `json:"sh"`
-	S            string `json:"s"`
-	A            string `json:"a"`
-	SupportLvl   string `json:"supportLevel"`
+	UserID        string `json:"id"`
+	Username      string `json:"username"`
+	GlobalRank    string `json:"globalRank"`
+	CountryRank   string `json:"countryRank"`
+	PP            string `json:"pp"`
+	PlayTime      string `json:"playTime"` // В секундах
+	Accuracy      string `json:"accuracy"`
+	PlayCount     string `json:"playCount"`
+	TotalScore    string `json:"totalScore"`
+	TotalHits     string `json:"totalHits"`
+	MaximumCombo  string `json:"maximumCombo"`
+	Replays       string `json:"replays"`
+	SSH           string `json:"ssh"`
+	SS            string `json:"ss"`
+	SH            string `json:"sh"`
+	S             string `json:"s"`
+	A             string `json:"a"`
+	SupportLvl    string `json:"supportLevel"`
+	BestBeatMapId string `json:"bestBeatMapId"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -71,18 +73,21 @@ func getUserInfo(id string) UserInfo {
 	// HTML полученной страницы в формате string
 	pageStr := string(body)
 
+	// Обрезка юзелесс части html'ки
+	//pageStr = pageStr[strings.Index(pageStr, "js-react--profile-page osu-layout osu-layout--full")+79:]
+	pageStr = pageStr[strings.Index(pageStr, "current_mode&quot;:&quot;osu&quot;"):]
+	pageStr = pageStr[:strings.Index(pageStr, "\"\n    ></div>")]
+	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
+
 	// Сохранение html'ки в файл sample.html
-	/*if err := os.WriteFile("sample.html", body, 0666); err != nil {
+	if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}*/
+	}
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
 		UserID: id,
 	}
-
-	// Обрезка юзелесс части html'ки
-	pageStr = pageStr[strings.Index(pageStr, "js-react--profile-page osu-layout osu-layout--full\""):]
 
 	i := 0
 
@@ -91,72 +96,76 @@ func getUserInfo(id string) UserInfo {
 	# после каждого поиска тело сайта обрезается для оптимизации #
 	------------------------------------------------------------ */
 
+	// Лучшая мапа
+	result.BestBeatMapId, i = find(pageStr, "beatmap_id :", ',')
+	pageStr = pageStr[i:]
+
 	// Юзернейм
-	result.Username, i = find(pageStr, "username&quot;:&quot;", '&')
+	result.Username, i = find(pageStr, "username : ", ' ')
 	pageStr = pageStr[i:]
 
 	// Глобальный рейтинг
-	result.GlobalRank, i = find(pageStr, "global_rank&quot;:", ',')
+	result.GlobalRank, i = find(pageStr, "global_rank :", ',')
 	pageStr = pageStr[i:]
 
 	// PP-хи
-	result.PP, i = find(pageStr, "pp&quot;:", ',')
+	result.PP, i = find(pageStr, "pp :", ',')
 	pageStr = pageStr[i:]
 
 	// Точность попаданий
-	result.Accuracy, i = find(pageStr, "hit_accuracy&quot;:", ',')
+	result.Accuracy, i = find(pageStr, "hit_accuracy :", ',')
 	pageStr = pageStr[i:]
 
 	// Количество игр
-	result.PlayCount, i = find(pageStr, "play_count&quot;:", ',')
+	result.PlayCount, i = find(pageStr, "play_count :", ',')
 	pageStr = pageStr[i:]
 
 	// Времени в игре
-	result.PlayTime, i = find(pageStr, "play_time&quot;:", ',')
+	result.PlayTime, i = find(pageStr, "play_time :", ',')
 	pageStr = pageStr[i:]
 
 	// Рейтинговые очки
-	result.TotalScore, i = find(pageStr, "total_score&quot;:", ',')
+	result.TotalScore, i = find(pageStr, "total_score :", ',')
 	pageStr = pageStr[i:]
 
 	// Всего попаданий
-	result.TotalHits, i = find(pageStr, "total_hits&quot;:", ',')
+	result.TotalHits, i = find(pageStr, "total_hits :", ',')
 	pageStr = pageStr[i:]
 
 	// Максимальное комбо
-	result.MaximumCombo, i = find(pageStr, "maximum_combo&quot;:", ',')
+	result.MaximumCombo, i = find(pageStr, "maximum_combo :", ',')
 	pageStr = pageStr[i:]
 
 	// Реплеев просмотрено другими
-	result.Replays, i = find(pageStr, "replays_watched_by_others&quot;:", ',')
+	result.Replays, i = find(pageStr, "replays_watched_by_others :", ',')
 	pageStr = pageStr[i:]
 
 	// SS-ки
-	result.SS, i = find(pageStr, "grade_counts&quot;:{&quot;ss&quot;:", ',')
+	result.SS, i = find(pageStr, "grade_counts :{ ss :", ',')
 	pageStr = pageStr[i:]
 
 	// SSH-ки
-	result.SSH, i = find(pageStr, "ssh&quot;:", ',')
+	result.SSH, i = find(pageStr, "ssh :", ',')
 	pageStr = pageStr[i:]
 
 	// S-ки
-	result.S, i = find(pageStr, "s&quot;:", ',')
+	result.S, i = find(pageStr, "s :", ',')
 	pageStr = pageStr[i:]
 
 	// SH-ки
-	result.SH, i = find(pageStr, "sh&quot;:", ',')
+	result.SH, i = find(pageStr, "sh :", ',')
 	pageStr = pageStr[i:]
 
 	// A-хи
-	result.A, i = find(pageStr, "a&quot;:", '}')
+	result.A, i = find(pageStr, "a :", '}')
 	pageStr = pageStr[i:]
 
 	// Рейтинг в стране
-	result.CountryRank, i = find(pageStr, "country_rank&quot;:", ',')
+	result.CountryRank, i = find(pageStr, "country_rank :", ',')
 	pageStr = pageStr[i:]
 
 	// Уровень подписки
-	result.SupportLvl, _ = find(pageStr, "support_level&quot;:", ',')
+	result.SupportLvl, _ = find(pageStr, "support_level :", ',')
 
 	return result
 }
