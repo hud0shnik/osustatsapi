@@ -25,8 +25,10 @@ type UserInfo struct {
 	TotalHits    string `json:"totalHits"`
 	MaximumCombo string `json:"maximumCombo"`
 	Replays      string `json:"replays"`
-	X            string `json:"ss"`
-	XH           string `json:"xh"`
+	SS           string `json:"ss"`
+	SSH          string `json:"ssh"`
+	S            string `json:"s"`
+	SH           string `json:"sh"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -122,12 +124,20 @@ func getUserInfo(id string) UserInfo {
 	result.Replays, i = find(pageStr, "replays_watched_by_others&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// X'ки
-	result.X, i = find(pageStr, "grade_counts&quot;:{&quot;ss&quot;:", ',')
+	// SS-ки
+	result.SS, i = find(pageStr, "grade_counts&quot;:{&quot;ss&quot;:", ',')
 	pageStr = pageStr[i:]
 
-	// XH'ки
-	result.XH, i = find(pageStr, "ssh&quot;:", ',')
+	// SSH-ки
+	result.SSH, i = find(pageStr, "ssh&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// S-ки
+	result.S, i = find(pageStr, "s&quot;:", ',')
+	pageStr = pageStr[i:]
+
+	// SH-ки
+	result.SH, i = find(pageStr, "sh&quot;:", ',')
 	pageStr = pageStr[i:]
 
 	// Рейтинг в стране
