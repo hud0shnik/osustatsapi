@@ -15,26 +15,31 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	UserID        string `json:"id"`
-	Username      string `json:"username"`
-	GlobalRank    string `json:"globalRank"`
-	CountryRank   string `json:"countryRank"`
-	PP            string `json:"pp"`
-	Level         string `json:"level"`
-	PlayTime      string `json:"playTime"` // В секундах
-	Accuracy      string `json:"accuracy"`
-	PlayCount     string `json:"playCount"`
-	TotalScore    string `json:"totalScore"`
-	TotalHits     string `json:"totalHits"`
-	MaximumCombo  string `json:"maximumCombo"`
-	Replays       string `json:"replays"`
-	SSH           string `json:"ssh"`
-	SS            string `json:"ss"`
-	SH            string `json:"sh"`
-	S             string `json:"s"`
-	A             string `json:"a"`
-	SupportLvl    string `json:"supportLevel"`
-	BestBeatMapId string `json:"bestBeatMapId"`
+	UserID       string  `json:"id"`
+	Username     string  `json:"username"`
+	GlobalRank   string  `json:"globalRank"`
+	CountryRank  string  `json:"countryRank"`
+	PP           string  `json:"pp"`
+	Level        string  `json:"level"`
+	PlayTime     string  `json:"playTime"` // В секундах
+	Accuracy     string  `json:"accuracy"`
+	PlayCount    string  `json:"playCount"`
+	TotalScore   string  `json:"totalScore"`
+	TotalHits    string  `json:"totalHits"`
+	MaximumCombo string  `json:"maximumCombo"`
+	Replays      string  `json:"replays"`
+	SSH          string  `json:"ssh"`
+	SS           string  `json:"ss"`
+	SH           string  `json:"sh"`
+	S            string  `json:"s"`
+	A            string  `json:"a"`
+	SupportLvl   string  `json:"supportLevel"`
+	BestBeatMap  beatMap `json:"bestBeatMap"`
+}
+
+// Структура для хранения информации о мапе
+type beatMap struct {
+	Id string `json:"id"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -96,7 +101,7 @@ func getUserInfo(id string) UserInfo {
 	------------------------------------------------------------ */
 
 	// Лучшая мапа
-	result.BestBeatMapId, i = find(pageStr, "beatmap_id :", ',')
+	result.BestBeatMap.Id, i = find(pageStr, "beatmap_id :", ',')
 	pageStr = pageStr[i:]
 
 	// Юзернейм
