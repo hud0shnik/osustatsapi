@@ -49,6 +49,7 @@ type beatMap struct {
 	PP               string `json:"pp"`
 	Replay           string `json:"replay"`
 	DifficultyRating string `json:"difficulty_rating"`
+	Mode             string `json:"mode"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -123,6 +124,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.PP, _ = find(pageStr, "pp :", ',')
 	result.BestBeatMap.Replay, _ = find(pageStr, "replay :", ',')
 	result.BestBeatMap.DifficultyRating, _ = find(pageStr, "difficulty_rating :", ',')
+	result.BestBeatMap.Mode, _ = find(pageStr, "mode : ", ' ')
 
 	pageStr = pageStr[i:]
 
