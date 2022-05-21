@@ -52,6 +52,7 @@ type beatMap struct {
 	Mode             string `json:"mode"`
 	Status           string `json:"status"`
 	TotalLength      string `json:"total_length"`
+	Ar               string `json:"ar"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -129,6 +130,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Mode, _ = find(pageStr, "mode : ", ' ')
 	result.BestBeatMap.Status, _ = find(pageStr, "status : ", ' ')
 	result.BestBeatMap.TotalLength, _ = find(pageStr, "total_length :", ',')
+	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
 
 	pageStr = pageStr[i:]
 
