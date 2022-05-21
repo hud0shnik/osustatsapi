@@ -39,13 +39,14 @@ type UserInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
-	Id           string `json:"id"`
-	Accuracy     string `json:"accuracy"`
-	Ended_at     string `json:"ended_at"`
-	MaximumCombo string `json:"maximumCombo"`
-	Passed       string `json:"passed"`
-	Rank         string `json:"rank"`
-	TotalScore   string `json:"totalScore"`
+	Id            string `json:"id"`
+	Accuracy      string `json:"accuracy"`
+	Ended_at      string `json:"ended_at"`
+	MaximumCombo  string `json:"maximumCombo"`
+	Passed        string `json:"passed"`
+	Rank          string `json:"rank"`
+	TotalScore    string `json:"totalScore"`
+	LegacyPerfect string `json:"legacy_perfect"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -114,6 +115,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
 	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
+	result.BestBeatMap.LegacyPerfect, _ = find(pageStr, "legacy_perfect :", ',')
 
 	pageStr = pageStr[i:]
 
