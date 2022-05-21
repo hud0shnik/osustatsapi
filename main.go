@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -39,16 +38,17 @@ type UserInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
-	Id            string `json:"id"`
-	Accuracy      string `json:"accuracy"`
-	Ended_at      string `json:"ended_at"`
-	MaximumCombo  string `json:"maximumCombo"`
-	Passed        string `json:"passed"`
-	Rank          string `json:"rank"`
-	TotalScore    string `json:"totalScore"`
-	LegacyPerfect string `json:"legacy_perfect"`
-	PP            string `json:"pp"`
-	Replay        string `json:"replay"`
+	Id               string `json:"id"`
+	Accuracy         string `json:"accuracy"`
+	Ended_at         string `json:"ended_at"`
+	MaximumCombo     string `json:"maximumCombo"`
+	Passed           string `json:"passed"`
+	Rank             string `json:"rank"`
+	TotalScore       string `json:"totalScore"`
+	LegacyPerfect    string `json:"legacyPerfect"`
+	PP               string `json:"pp"`
+	Replay           string `json:"replay"`
+	DifficultyRating string `json:"difficulty_rating"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -93,9 +93,11 @@ func getUserInfo(id string) UserInfo {
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
 	// Сохранение html'ки в файл sample.html
-	if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
-		log.Fatal(err)
-	}
+	/*
+		if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
+			log.Fatal(err)
+		}
+	*/
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -120,6 +122,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.LegacyPerfect, _ = find(pageStr, "legacy_perfect :", ',')
 	result.BestBeatMap.PP, _ = find(pageStr, "pp :", ',')
 	result.BestBeatMap.Replay, _ = find(pageStr, "replay :", ',')
+	result.BestBeatMap.DifficultyRating, _ = find(pageStr, "difficulty_rating :", ',')
 
 	pageStr = pageStr[i:]
 
