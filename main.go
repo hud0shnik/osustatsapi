@@ -58,6 +58,7 @@ type beatMap struct {
 	CountCircles     string `json:"count_circles"`
 	CountSliders     string `json:"count_sliders"`
 	CountSpinners    string `json:"count_spinners"`
+	Cs               string `json:"cs"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -141,6 +142,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.CountCircles, _ = find(pageStr, "count_circles :", ',')
 	result.BestBeatMap.CountSliders, _ = find(pageStr, "count_sliders :", ',')
 	result.BestBeatMap.CountSpinners, _ = find(pageStr, "count_spinners :", ',')
+	result.BestBeatMap.Cs, _ = find(pageStr, " cs :", ',')
 
 	pageStr = pageStr[i:]
 
