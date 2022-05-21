@@ -54,6 +54,7 @@ type beatMap struct {
 	TotalLength      string `json:"total_length"`
 	Ar               string `json:"ar"`
 	Bpm              string `json:"bpm"`
+	Convert          string `json:"convert"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -133,6 +134,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.TotalLength, _ = find(pageStr, "total_length :", ',')
 	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
 	result.BestBeatMap.Bpm, _ = find(pageStr, "bpm :", ',')
+	result.BestBeatMap.Convert, _ = find(pageStr, "convert :", ',')
 
 	pageStr = pageStr[i:]
 
