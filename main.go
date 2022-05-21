@@ -59,6 +59,9 @@ type beatMap struct {
 	CountSliders     string `json:"count_sliders"`
 	CountSpinners    string `json:"count_spinners"`
 	Cs               string `json:"cs"`
+	DeletedAt        string `json:"deleted_at"`
+	Drain            string `json:"drain"`
+	HitLength        string `json:"hit_length"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -143,6 +146,9 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.CountSliders, _ = find(pageStr, "count_sliders :", ',')
 	result.BestBeatMap.CountSpinners, _ = find(pageStr, "count_spinners :", ',')
 	result.BestBeatMap.Cs, _ = find(pageStr, " cs :", ',')
+	result.BestBeatMap.DeletedAt, _ = find(pageStr, "deleted_at :", ',')
+	result.BestBeatMap.Drain, _ = find(pageStr, "drain :", ',')
+	result.BestBeatMap.HitLength, _ = find(pageStr, "hit_length :", ',')
 
 	pageStr = pageStr[i:]
 
