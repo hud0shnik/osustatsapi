@@ -45,6 +45,7 @@ type beatMap struct {
 	MaximumCombo string `json:"maximumCombo"`
 	Passed       string `json:"passed"`
 	Rank         string `json:"rank"`
+	TotalScore   string `json:"totalScore"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -112,6 +113,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
+	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
 
 	pageStr = pageStr[i:]
 
