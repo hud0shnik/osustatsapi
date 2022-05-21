@@ -47,6 +47,7 @@ type beatMap struct {
 	Rank          string `json:"rank"`
 	TotalScore    string `json:"totalScore"`
 	LegacyPerfect string `json:"legacy_perfect"`
+	PP            string `json:"pp"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -116,6 +117,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
 	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
 	result.BestBeatMap.LegacyPerfect, _ = find(pageStr, "legacy_perfect :", ',')
+	result.BestBeatMap.PP, _ = find(pageStr, "pp :", ',')
 
 	pageStr = pageStr[i:]
 
