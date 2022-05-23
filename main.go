@@ -35,6 +35,7 @@ type UserInfo struct {
 	SupportLvl   string  `json:"support_level"`
 	CountryCode  string  `json:"country_code"`
 	AvatarUrl    string  `json:"avatar_url"`
+	DefaultGroup string  `json:"default_group"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -184,12 +185,16 @@ func getUserInfo(id string) UserInfo {
 
 	pageStr = pageStr[i:]
 
-	// Код страны
-	result.CountryCode, _ = find(pageStr, "country_code : ", ' ')
-
+	// Ссылка на аватар
 	result.AvatarUrl, i = find(pageStr, "avatar_url : ", ' ')
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
 	pageStr = pageStr[i:]
+
+	// Код страны
+	result.CountryCode, _ = find(pageStr, "country_code : ", ' ')
+
+	// Группа
+	result.DefaultGroup, _ = find(pageStr, "default_group : ", ' ')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
