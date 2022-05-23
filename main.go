@@ -63,6 +63,7 @@ type beatMap struct {
 	Drain            string `json:"drain"`
 	HitLength        string `json:"hit_length"`
 	IsScoreable      string `json:"is_scoreable"`
+	LastUpdated      string `json:"last_updated"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -151,6 +152,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Drain, _ = find(pageStr, "drain :", ',')
 	result.BestBeatMap.HitLength, _ = find(pageStr, "hit_length :", ',')
 	result.BestBeatMap.IsScoreable, _ = find(pageStr, "is_scoreable :", ',')
+	result.BestBeatMap.LastUpdated, _ = find(pageStr, "last_updated : ", ' ')
 
 	pageStr = pageStr[i:]
 
