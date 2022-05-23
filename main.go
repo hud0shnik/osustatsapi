@@ -36,6 +36,7 @@ type UserInfo struct {
 	CountryCode  string  `json:"country_code"`
 	AvatarUrl    string  `json:"avatar_url"`
 	DefaultGroup string  `json:"default_group"`
+	IsActive     string  `json:"is_active"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -195,6 +196,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Группа
 	result.DefaultGroup, _ = find(pageStr, "default_group : ", ' ')
+
+	// Активность
+	result.IsActive, _ = find(pageStr, "is_active :", ',')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
