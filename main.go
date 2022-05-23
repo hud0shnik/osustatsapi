@@ -71,6 +71,8 @@ type beatMap struct {
 	Url              string `json:"url"`
 	Checksum         string `json:"checksum"`
 	Creator          string `json:"creator"`
+	FavouriteCount   string `json:"favorite_count"`
+	Hype             string `json:"hype"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -168,7 +170,9 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum, i = find(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
-	result.BestBeatMap.Creator, i = find(pageStr, "creator : ", ' ')
+	result.BestBeatMap.Creator, _ = find(pageStr, "creator : ", ' ')
+	result.BestBeatMap.FavouriteCount, _ = find(pageStr, "favourite_count :", ',')
+	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
 
 	pageStr = pageStr[i:]
 
