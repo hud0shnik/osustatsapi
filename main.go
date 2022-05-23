@@ -73,6 +73,7 @@ type beatMap struct {
 	Creator          string `json:"creator"`
 	FavouriteCount   string `json:"favorite_count"`
 	Hype             string `json:"hype"`
+	Nsfw             string `json:"nsfw"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -173,6 +174,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Creator, _ = find(pageStr, "creator : ", ' ')
 	result.BestBeatMap.FavouriteCount, _ = find(pageStr, "favourite_count :", ',')
 	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
+	result.BestBeatMap.Nsfw, _ = find(pageStr, "nsfw :", ',')
 
 	pageStr = pageStr[i:]
 
