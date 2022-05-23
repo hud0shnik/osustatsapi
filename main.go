@@ -67,6 +67,8 @@ type beatMap struct {
 	ModeInt          string `json:"mode_int"`
 	PassCount        string `json:"pass_count"`
 	PlayCount        string `json:"play_count"`
+	Ranked           string `json:"ranked"`
+	Url              string `json:"url"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -159,6 +161,9 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.ModeInt, _ = find(pageStr, "mode_int :", ',')
 	result.BestBeatMap.PassCount, _ = find(pageStr, "passcount :", ',')
 	result.BestBeatMap.PlayCount, _ = find(pageStr, "playcount :", ',')
+	result.BestBeatMap.Ranked, _ = find(pageStr, "ranked :", ',')
+	result.BestBeatMap.Url, _ = find(pageStr, "url : ", ',')
+	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 
 	pageStr = pageStr[i:]
 
