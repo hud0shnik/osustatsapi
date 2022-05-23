@@ -16,36 +16,36 @@ import (
 type UserInfo struct {
 	UserID       string  `json:"id"`
 	Username     string  `json:"username"`
-	GlobalRank   string  `json:"globalRank"`
-	CountryRank  string  `json:"countryRank"`
+	GlobalRank   string  `json:"global_rank"`
+	CountryRank  string  `json:"country_rank"`
 	PP           string  `json:"pp"`
 	Level        string  `json:"level"`
-	PlayTime     string  `json:"playTime"` // В секундах
+	PlayTime     string  `json:"play_time"` // В секундах
 	Accuracy     string  `json:"accuracy"`
-	PlayCount    string  `json:"playCount"`
-	TotalScore   string  `json:"totalScore"`
-	TotalHits    string  `json:"totalHits"`
-	MaximumCombo string  `json:"maximumCombo"`
+	PlayCount    string  `json:"play_count"`
+	TotalScore   string  `json:"total_score"`
+	TotalHits    string  `json:"total_hits"`
+	MaximumCombo string  `json:"maximum_combo"`
 	Replays      string  `json:"replays"`
 	SSH          string  `json:"ssh"`
 	SS           string  `json:"ss"`
 	SH           string  `json:"sh"`
 	S            string  `json:"s"`
 	A            string  `json:"a"`
-	SupportLvl   string  `json:"supportLevel"`
-	BestBeatMap  beatMap `json:"bestBeatMap"`
+	SupportLvl   string  `json:"support_level"`
+	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
 // Структура для хранения информации о мапе
 type beatMap struct {
 	Id               string `json:"id"`
 	Accuracy         string `json:"accuracy"`
-	Ended_at         string `json:"ended_at"`
-	MaximumCombo     string `json:"maximumCombo"`
+	EndedAt          string `json:"ended_at"`
+	MaximumCombo     string `json:"maximum_combo"`
 	Passed           string `json:"passed"`
 	Rank             string `json:"rank"`
-	TotalScore       string `json:"totalScore"`
-	LegacyPerfect    string `json:"legacyPerfect"`
+	TotalScore       string `json:"total_score"`
+	LegacyPerfect    string `json:"legacy_perfect"`
 	PP               string `json:"pp"`
 	Replay           string `json:"replay"`
 	DifficultyRating string `json:"difficulty_rating"`
@@ -138,7 +138,7 @@ func getUserInfo(id string) UserInfo {
 	// Лучшая мапа
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
-	result.BestBeatMap.Ended_at, _ = find(pageStr, "ended_at : ", ' ')
+	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
