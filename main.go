@@ -69,6 +69,7 @@ type beatMap struct {
 	PlayCount        string `json:"play_count"`
 	Ranked           string `json:"ranked"`
 	Url              string `json:"url"`
+	Checksum         string `json:"checksum"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -164,6 +165,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Ranked, _ = find(pageStr, "ranked :", ',')
 	result.BestBeatMap.Url, _ = find(pageStr, "url : ", ',')
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
+	result.BestBeatMap.Checksum, _ = find(pageStr, "checksum : ", ' ')
 
 	pageStr = pageStr[i:]
 
