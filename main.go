@@ -33,6 +33,7 @@ type UserInfo struct {
 	S            string  `json:"s"`
 	A            string  `json:"a"`
 	SupportLvl   string  `json:"support_level"`
+	CountryCode  string  `json:"country_code"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -180,6 +181,10 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Offset, _ = find(pageStr, "offset :", ',')
 	result.BestBeatMap.Spotlight, _ = find(pageStr, "spotlight :", ',')
 
+	pageStr = pageStr[i:]
+
+	// Код страны
+	result.CountryCode, i = find(pageStr, "country_code : ", ' ')
 	pageStr = pageStr[i:]
 
 	// Юзернейм
