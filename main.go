@@ -75,6 +75,7 @@ type beatMap struct {
 	Hype             string `json:"hype"`
 	Nsfw             string `json:"nsfw"`
 	Offset           string `json:"offset"`
+	Spotlight        string `json:"spotlight"`
 }
 
 // Функция поиска. Возвращает искомое значение и индекс
@@ -177,6 +178,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
 	result.BestBeatMap.Nsfw, _ = find(pageStr, "nsfw :", ',')
 	result.BestBeatMap.Offset, _ = find(pageStr, "offset :", ',')
+	result.BestBeatMap.Spotlight, _ = find(pageStr, "spotlight :", ',')
 
 	pageStr = pageStr[i:]
 
