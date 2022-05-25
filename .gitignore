@@ -5,3 +5,4 @@ test/test.go
 
 /DEV/
 *.html
+.vscode/settings.json
