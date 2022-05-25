@@ -37,6 +37,7 @@ type UserInfo struct {
 	AvatarUrl    string  `json:"avatar_url"`
 	DefaultGroup string  `json:"default_group"`
 	IsActive     string  `json:"is_active"`
+	IsBot        string  `json:"is_bot"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -199,6 +200,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Активность
 	result.IsActive, _ = find(pageStr, "is_active :", ',')
+
+	// Проверка на бота
+	result.IsBot, _ = find(pageStr, "is_bot :", ',')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
