@@ -40,6 +40,7 @@ type UserInfo struct {
 	IsBot        string  `json:"is_bot"`
 	IsDeleted    string  `json:"is_deleted"`
 	IsOnline     string  `json:"is_online"`
+	IsSupporter  string  `json:"is_supporter"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -203,14 +204,17 @@ func getUserInfo(id string) UserInfo {
 	// Активность
 	result.IsActive, _ = find(pageStr, "is_active :", ',')
 
-	// Проверка на бота
+	// Бот
 	result.IsBot, _ = find(pageStr, "is_bot :", ',')
 
-	// Удалён ли профиль
+	// Удалённый профиль
 	result.IsDeleted, _ = find(pageStr, "is_deleted :", ',')
 
 	// Статус в сети
 	result.IsOnline, _ = find(pageStr, "is_online :", ',')
+
+	// Подписка
+	result.IsSupporter, _ = find(pageStr, "is_supporter :", ',')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
