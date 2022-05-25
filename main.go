@@ -39,6 +39,7 @@ type UserInfo struct {
 	IsActive     string  `json:"is_active"`
 	IsBot        string  `json:"is_bot"`
 	IsDeleted    string  `json:"is_deleted"`
+	IsOnline     string  `json:"is_online"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -207,6 +208,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Удалён ли профиль
 	result.IsDeleted, _ = find(pageStr, "is_deleted :", ',')
+
+	// Статус в сети
+	result.IsOnline, _ = find(pageStr, "is_online :", ',')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
