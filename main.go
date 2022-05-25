@@ -41,6 +41,7 @@ type UserInfo struct {
 	IsDeleted    string  `json:"is_deleted"`
 	IsOnline     string  `json:"is_online"`
 	IsSupporter  string  `json:"is_supporter"`
+	ProfileColor string  `json:"profile_color"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
@@ -215,6 +216,9 @@ func getUserInfo(id string) UserInfo {
 
 	// Подписка
 	result.IsSupporter, _ = find(pageStr, "is_supporter :", ',')
+
+	// Цвет профиля
+	result.ProfileColor, _ = find(pageStr, "profile_colour :", ',')
 
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
