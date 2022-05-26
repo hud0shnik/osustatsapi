@@ -14,32 +14,32 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	UserID       string  `json:"id"`
 	Username     string  `json:"username"`
+	AvatarUrl    string  `json:"avatar_url"`
+	UserID       string  `json:"id"`
+	CountryCode  string  `json:"country_code"`
 	GlobalRank   string  `json:"global_rank"`
 	CountryRank  string  `json:"country_rank"`
 	PP           string  `json:"pp"`
-	Level        string  `json:"level"`
 	PlayTime     string  `json:"play_time"` // В секундах
+	SSH          string  `json:"ssh"`
+	SS           string  `json:"ss"`
+	SH           string  `json:"sh"`
+	S            string  `json:"s"`
+	A            string  `json:"a"`
 	Accuracy     string  `json:"accuracy"`
 	PlayCount    string  `json:"play_count"`
 	TotalScore   string  `json:"total_score"`
 	TotalHits    string  `json:"total_hits"`
 	MaximumCombo string  `json:"maximum_combo"`
 	Replays      string  `json:"replays"`
-	SSH          string  `json:"ssh"`
-	SS           string  `json:"ss"`
-	SH           string  `json:"sh"`
-	S            string  `json:"s"`
-	A            string  `json:"a"`
+	Level        string  `json:"level"`
 	SupportLvl   string  `json:"support_level"`
-	CountryCode  string  `json:"country_code"`
-	AvatarUrl    string  `json:"avatar_url"`
 	DefaultGroup string  `json:"default_group"`
-	IsActive     string  `json:"is_active"`
-	IsBot        string  `json:"is_bot"`
-	IsDeleted    string  `json:"is_deleted"`
 	IsOnline     string  `json:"is_online"`
+	IsActive     string  `json:"is_active"`
+	IsDeleted    string  `json:"is_deleted"`
+	IsBot        string  `json:"is_bot"`
 	IsSupporter  string  `json:"is_supporter"`
 	ProfileColor string  `json:"profile_color"`
 	BestBeatMap  beatMap `json:"best_beat_map"`
@@ -48,14 +48,14 @@ type UserInfo struct {
 // Структура для хранения информации о мапе
 type beatMap struct {
 	Id               string `json:"id"`
-	Accuracy         string `json:"accuracy"`
-	EndedAt          string `json:"ended_at"`
-	MaximumCombo     string `json:"maximum_combo"`
-	Passed           string `json:"passed"`
 	Rank             string `json:"rank"`
+	EndedAt          string `json:"ended_at"`
+	Accuracy         string `json:"accuracy"`
+	MaximumCombo     string `json:"maximum_combo"`
+	PP               string `json:"pp"`
+	Passed           string `json:"passed"`
 	TotalScore       string `json:"total_score"`
 	LegacyPerfect    string `json:"legacy_perfect"`
-	PP               string `json:"pp"`
 	Replay           string `json:"replay"`
 	DifficultyRating string `json:"difficulty_rating"`
 	Mode             string `json:"mode"`
@@ -80,7 +80,7 @@ type beatMap struct {
 	Url              string `json:"url"`
 	Checksum         string `json:"checksum"`
 	Creator          string `json:"creator"`
-	FavouriteCount   string `json:"favorite_count"`
+	FavoriteCount    string `json:"favorite_count"`
 	Hype             string `json:"hype"`
 	Nsfw             string `json:"nsfw"`
 	Offset           string `json:"offset"`
@@ -183,7 +183,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.Checksum, i = find(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
 	result.BestBeatMap.Creator, _ = find(pageStr, "creator : ", ' ')
-	result.BestBeatMap.FavouriteCount, _ = find(pageStr, "favourite_count :", ',')
+	result.BestBeatMap.FavoriteCount, _ = find(pageStr, "favourite_count :", ',')
 	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
 	result.BestBeatMap.Nsfw, _ = find(pageStr, "nsfw :", ',')
 	result.BestBeatMap.Offset, _ = find(pageStr, "offset :", ',')
