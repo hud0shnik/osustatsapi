@@ -46,6 +46,10 @@ type UserInfo struct {
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
+type OnlineInfo struct {
+	Status string `json:"is_online"`
+}
+
 // Структура для хранения информации о мапе
 type beatMap struct {
 	Id               string `json:"id"`
@@ -299,6 +303,28 @@ func getUserInfo(id string) UserInfo {
 	return result
 }
 
+// Функция получения информации о пользователе
+func getOnlineInfo(id string) OnlineInfo {
+
+	// Формирование и исполнение запроса
+	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
+	if err != nil {
+		return OnlineInfo{}
+	}
+
+	// Запись респонса
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	// Структура, которую будет возвращать функция
+	result := OnlineInfo{}
+
+	// Статус в сети
+	result.Status, _ = find(string(body), "is_online&quot;:", ',')
+
+	return result
+}
+
 // Функция отправки информации о пользователе
 func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 
@@ -307,6 +333,16 @@ func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 
 	// Обработка данных и вывод результата
 	json.NewEncoder(writer).Encode(getUserInfo(mux.Vars(request)["id"]))
+}
+
+// Функция отправки информации о статусе пользователя
+func sendOnlineInfo(writer http.ResponseWriter, request *http.Request) {
+
+	// Заголовок, определяющий тип данных респонса
+	writer.Header().Set("Content-Type", "application/json")
+
+	// Обработка данных и вывод результата
+	json.NewEncoder(writer).Encode(getOnlineInfo(mux.Vars(request)["id"]))
 }
 
 func main() {
@@ -321,6 +357,9 @@ func main() {
 
 	router.HandleFunc("/user/{id}", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
+
+	router.HandleFunc("/online/{id}", sendOnlineInfo).Methods("GET")
+	router.HandleFunc("/online/{id}/", sendOnlineInfo).Methods("GET")
 
 	// Запуск API
 
