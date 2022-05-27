@@ -188,7 +188,7 @@ func getUserInfo(id string) UserInfo {
 	result.BestBeatMap.PassCount, _ = find(pageStr, "passcount :", ',')
 	result.BestBeatMap.PlayCount, _ = find(pageStr, "playcount :", ',')
 	result.BestBeatMap.Ranked, _ = find(pageStr, "ranked :", ',')
-	result.BestBeatMap.Url, _ = find(pageStr, "url : ", ',')
+	result.BestBeatMap.Url, _ = find(pageStr, "url : ", ' ')
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum, i = find(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
@@ -320,6 +320,11 @@ func getOnlineInfo(id string) OnlineInfo {
 	// Запись респонса
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
+
+	// Проверка на страницу пользователя
+	if !strings.Contains(string(body), "js-react--profile") {
+		return OnlineInfo{}
+	}
 
 	// Структура, которую будет возвращать функция
 	result := OnlineInfo{}
