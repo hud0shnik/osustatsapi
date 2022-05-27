@@ -15,39 +15,40 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	Username              string  `json:"username"`
-	Names                 string  `json:"previous_usernames"`
-	AvatarUrl             string  `json:"avatar_url"`
-	UserID                string  `json:"id"`
-	CountryCode           string  `json:"country_code"`
-	GlobalRank            string  `json:"global_rank"`
-	CountryRank           string  `json:"country_rank"`
-	PP                    string  `json:"pp"`
-	PlayTime              string  `json:"play_time"` // В секундах
-	SSH                   string  `json:"ssh"`
-	SS                    string  `json:"ss"`
-	SH                    string  `json:"sh"`
-	S                     string  `json:"s"`
-	A                     string  `json:"a"`
-	RankedScore           string  `json:"ranked_score"`
-	Accuracy              string  `json:"accuracy"`
-	PlayCount             string  `json:"play_count"`
-	TotalScore            string  `json:"total_score"`
-	TotalHits             string  `json:"total_hits"`
-	MaximumCombo          string  `json:"maximum_combo"`
-	Replays               string  `json:"replays"`
-	Level                 string  `json:"level"`
-	SupportLvl            string  `json:"support_level"`
-	DefaultGroup          string  `json:"default_group"`
-	IsOnline              string  `json:"is_online"`
-	IsActive              string  `json:"is_active"`
-	IsDeleted             string  `json:"is_deleted"`
-	IsBot                 string  `json:"is_bot"`
-	IsSupporter           string  `json:"is_supporter"`
-	LastVisit             string  `json:"last_visit"`
-	ProfileColor          string  `json:"profile_color"`
-	RankedBeatmapsetCount string  `json:"ranked_beatmapset_count"`
-	BestBeatMap           beatMap `json:"best_beat_map"`
+	Username               string  `json:"username"`
+	Names                  string  `json:"previous_usernames"`
+	AvatarUrl              string  `json:"avatar_url"`
+	UserID                 string  `json:"id"`
+	CountryCode            string  `json:"country_code"`
+	GlobalRank             string  `json:"global_rank"`
+	CountryRank            string  `json:"country_rank"`
+	PP                     string  `json:"pp"`
+	PlayTime               string  `json:"play_time"` // В секундах
+	SSH                    string  `json:"ssh"`
+	SS                     string  `json:"ss"`
+	SH                     string  `json:"sh"`
+	S                      string  `json:"s"`
+	A                      string  `json:"a"`
+	RankedScore            string  `json:"ranked_score"`
+	Accuracy               string  `json:"accuracy"`
+	PlayCount              string  `json:"play_count"`
+	TotalScore             string  `json:"total_score"`
+	TotalHits              string  `json:"total_hits"`
+	MaximumCombo           string  `json:"maximum_combo"`
+	Replays                string  `json:"replays"`
+	Level                  string  `json:"level"`
+	SupportLvl             string  `json:"support_level"`
+	DefaultGroup           string  `json:"default_group"`
+	IsOnline               string  `json:"is_online"`
+	IsActive               string  `json:"is_active"`
+	IsDeleted              string  `json:"is_deleted"`
+	IsBot                  string  `json:"is_bot"`
+	IsSupporter            string  `json:"is_supporter"`
+	LastVisit              string  `json:"last_visit"`
+	ProfileColor           string  `json:"profile_color"`
+	RankedBeatmapsetCount  string  `json:"ranked_beatmapset_count"`
+	PendingBeatmapsetCount string  `json:"pending_beatmapset_count"`
+	BestBeatMap            beatMap `json:"best_beat_map"`
 }
 
 // Структура для проверки статуса пользователя
@@ -237,6 +238,9 @@ func getUserInfo(id, mode string) UserInfo {
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
 	pageStr = pageStr[i:]
+
+	// Карты на рассмотрении
+	result.PendingBeatmapsetCount, _ = find(pageStr, "pending_beatmapset_count :", ',')
 
 	// Юзернеймы
 	result.Names, _ = find(pageStr, "previous_usernames :[ ", ']')
