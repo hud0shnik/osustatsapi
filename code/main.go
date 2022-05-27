@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -115,10 +116,10 @@ func find(str string, subStr string, char byte) (string, int) {
 }
 
 // Функция получения информации о пользователе
-func getUserInfo(id string) UserInfo {
+func getUserInfo(id, mode string) UserInfo {
 
 	// Формирование и исполнение запроса
-	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
+	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/" + mode)
 	if err != nil {
 		return UserInfo{}
 	}
@@ -136,15 +137,14 @@ func getUserInfo(id string) UserInfo {
 	}
 
 	// Обрезка юзелесс части html'ки
-	pageStr = pageStr[strings.Index(pageStr, "current_mode&quot;:&quot;osu&quot;"):]
+	pageStr = pageStr[strings.Index(pageStr, "current_mode"):]
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
 	// Сохранение html'ки в файл sample.html
-	/*
-		if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
-		}
-	*/
+
+	if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+		log.Fatal(err)
+	}
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -343,7 +343,7 @@ func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(getUserInfo(mux.Vars(request)["id"]))
+	json.NewEncoder(writer).Encode(getUserInfo(mux.Vars(request)["id"], mux.Vars(request)["mode"]))
 }
 
 // Функция отправки информации о статусе пользователя
@@ -368,6 +368,8 @@ func main() {
 
 	router.HandleFunc("/user/{id}", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
+	router.HandleFunc("/user/{id}/{mode}", sendUserInfo).Methods("GET")
+	router.HandleFunc("/user/{id}/{mode}/", sendUserInfo).Methods("GET")
 
 	router.HandleFunc("/online/{id}", sendOnlineInfo).Methods("GET")
 	router.HandleFunc("/online/{id}/", sendOnlineInfo).Methods("GET")
