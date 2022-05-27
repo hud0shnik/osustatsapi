@@ -16,6 +16,7 @@ import (
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
 	Username     string  `json:"username"`
+	Names        string  `json:"previous_usernames"`
 	AvatarUrl    string  `json:"avatar_url"`
 	UserID       string  `json:"id"`
 	CountryCode  string  `json:"country_code"`
@@ -234,6 +235,9 @@ func getUserInfo(id, mode string) UserInfo {
 	// Юзернейм
 	result.Username, i = find(pageStr, "username : ", ' ')
 	pageStr = pageStr[i:]
+
+	// Юзернеймы
+	result.Names, _ = find(pageStr, "previous_usernames :[ ", ']')
 
 	// Уровень
 	result.Level, i = find(pageStr, "level :{ current :", ',')
