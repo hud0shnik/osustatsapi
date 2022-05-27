@@ -27,6 +27,7 @@ type UserInfo struct {
 	SH           string  `json:"sh"`
 	S            string  `json:"s"`
 	A            string  `json:"a"`
+	RankedScore  string  `json:"ranked_score"`
 	Accuracy     string  `json:"accuracy"`
 	PlayCount    string  `json:"play_count"`
 	TotalScore   string  `json:"total_score"`
@@ -234,6 +235,10 @@ func getUserInfo(id string) UserInfo {
 
 	// PP-хи
 	result.PP, i = find(pageStr, "pp :", ',')
+	pageStr = pageStr[i:]
+
+	// Всего очков
+	result.RankedScore, i = find(pageStr, "ranked_score :", ',')
 	pageStr = pageStr[i:]
 
 	// Точность попаданий
