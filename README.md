@@ -13,8 +13,8 @@
    "avatar_url":"https://a.ppy.sh/29829158?1651433350.jpeg",
    "id":"29829158",
    "country_code":"RU",
-   "global_rank":"870882",
-   "country_rank":"77264",
+   "global_rank":"871480",
+   "country_rank":"77312",
    "pp":"616.145",
    "play_time":"76718",
    "ssh":"101",
@@ -22,6 +22,7 @@
    "sh":"0",
    "s":"3",
    "a":"6",
+   "ranked_score":"84787365",
    "accuracy":"99.9987",
    "play_count":"1836",
    "total_score":"305266199",
@@ -65,10 +66,10 @@
       "is_scoreable":"true",
       "last_updated":"2017-11-07T03:57:30+00:00",
       "mode_int":"0",
-      "pass_count":"40770",
-      "play_count":"78264",
+      "pass_count":"40779",
+      "play_count":"78273",
       "ranked":"1",
-      "url":"https://osu.ppy.sh/beatmaps/1445261 ",
+      "url":"https://osu.ppy.sh/beatmaps/1445261",
       "checksum":"3c8dee086cfd75224875253ed1f227b6",
       "creator":"fieryrage",
       "favorite_count":"99",
@@ -77,5 +78,4 @@
       "offset":"0",
       "spotlight":"false"
    }
-
    ```
