@@ -206,6 +206,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	pageStr = pageStr[i:]
 
+	// В последний раз был в сети
+	result.LastVisit, _ = find(pageStr, "last_visit :", ',')
+
 	// Ссылка на аватар
 	result.AvatarUrl, i = find(pageStr, "avatar_url : ", ' ')
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
