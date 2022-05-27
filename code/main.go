@@ -46,6 +46,7 @@ type UserInfo struct {
 	BestBeatMap  beatMap `json:"best_beat_map"`
 }
 
+// Структура для проверки статуса пользователя
 type OnlineInfo struct {
 	Status string `json:"is_online"`
 }
