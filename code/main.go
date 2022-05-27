@@ -129,6 +129,11 @@ func getUserInfo(id string) UserInfo {
 	// HTML полученной страницы в формате string
 	pageStr := string(body)
 
+	// Проверка на страницу пользователя
+	if !strings.Contains(pageStr, "js-react--profile") {
+		return UserInfo{}
+	}
+
 	// Обрезка юзелесс части html'ки
 	pageStr = pageStr[strings.Index(pageStr, "current_mode&quot;:&quot;osu&quot;"):]
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
