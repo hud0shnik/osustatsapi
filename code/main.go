@@ -51,6 +51,7 @@ type UserInfo struct {
 	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
 	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
 	CommentsCount            string  `json:"comments_count"`
+	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -254,6 +255,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Количество комментариев
 	result.CommentsCount, i = find(pageStr, "comments_count :", ',')
+	pageStr = pageStr[i:]
+
+	// Количество любимых карт
+	result.FavoriteBeatmapsetCount, i = find(pageStr, "favourite_beatmapset_count :", ',')
 	pageStr = pageStr[i:]
 
 	// Заброшенные карты
