@@ -50,6 +50,7 @@ type UserInfo struct {
 	PmFriendsOnly            string  `json:"pm_friends_only"`
 	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
 	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
+	CommentsCount            string  `json:"comments_count"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -250,6 +251,11 @@ func getUserInfo(id, mode string) UserInfo {
 	// Количество игр карт
 	result.BeatmapPlaycountsCount, i = find(pageStr, "beatmap_playcounts_count :", ',')
 	pageStr = pageStr[i:]
+
+	// Количество комментариев
+	result.CommentsCount, i = find(pageStr, "comments_count :", ',')
+	pageStr = pageStr[i:]
+
 	// Заброшенные карты
 	result.GraveyardBeatmapsetCount, _ = find(pageStr, "graveyard_beatmapset_count :", ',')
 
