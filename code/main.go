@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -64,6 +65,7 @@ type OnlineInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
+	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
 	Rank             string `json:"rank"`
 	EndedAt          string `json:"ended_at"`
@@ -74,7 +76,6 @@ type beatMap struct {
 	TotalScore       string `json:"total_score"`
 	LegacyPerfect    string `json:"legacy_perfect"`
 	Replay           string `json:"replay"`
-	DifficultyRating string `json:"difficulty_rating"`
 	Mode             string `json:"mode"`
 	Status           string `json:"status"`
 	TotalLength      string `json:"total_length"`
@@ -152,9 +153,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Сохранение html'ки в файл sample.html
 
-	/*if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+	if err := os.WriteFile("sampleN.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}*/
+	}
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -170,6 +171,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Лучшая мапа
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
+	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
+	result.BestBeatMap.Bpm, _ = find(pageStr, "bpm :", ',')
+	result.BestBeatMap.Convert, _ = find(pageStr, "convert :", ',')
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
 	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
@@ -183,9 +187,6 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Mode, _ = find(pageStr, "mode : ", ' ')
 	result.BestBeatMap.Status, _ = find(pageStr, "status : ", ' ')
 	result.BestBeatMap.TotalLength, _ = find(pageStr, "total_length :", ',')
-	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
-	result.BestBeatMap.Bpm, _ = find(pageStr, "bpm :", ',')
-	result.BestBeatMap.Convert, _ = find(pageStr, "convert :", ',')
 	result.BestBeatMap.CountCircles, _ = find(pageStr, "count_circles :", ',')
 	result.BestBeatMap.CountSliders, _ = find(pageStr, "count_sliders :", ',')
 	result.BestBeatMap.CountSpinners, _ = find(pageStr, "count_spinners :", ',')
