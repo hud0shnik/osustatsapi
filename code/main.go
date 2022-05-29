@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -50,6 +49,7 @@ type UserInfo struct {
 	PendingBeatmapsetCount   string  `json:"pending_beatmapset_count"`
 	PmFriendsOnly            string  `json:"pm_friends_only"`
 	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
+	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -148,9 +148,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Сохранение html'ки в файл sample.html
 
-	if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+	/*if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}
+	}*/
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -247,8 +247,11 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Username, i = find(pageStr, "username : ", ' ')
 	pageStr = pageStr[i:]
 
+	// Количество игр карт
+	result.BeatmapPlaycountsCount, i = find(pageStr, "beatmap_playcounts_count :", ',')
+	pageStr = pageStr[i:]
 	// Заброшенные карты
-	result.GraveyardBeatmapsetCount, _ = find(pageStr, "graveyard_beatmapset_count", ',')
+	result.GraveyardBeatmapsetCount, _ = find(pageStr, "graveyard_beatmapset_count :", ',')
 
 	// Карты на рассмотрении
 	result.PendingBeatmapsetCount, _ = find(pageStr, "pending_beatmapset_count :", ',')
