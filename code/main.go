@@ -48,6 +48,7 @@ type UserInfo struct {
 	ProfileColor           string  `json:"profile_color"`
 	RankedBeatmapsetCount  string  `json:"ranked_beatmapset_count"`
 	PendingBeatmapsetCount string  `json:"pending_beatmapset_count"`
+	PmFriendsOnly          string  `json:"pm_friends_only"`
 	BestBeatMap            beatMap `json:"best_beat_map"`
 }
 
@@ -208,6 +209,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// В последний раз был в сети
 	result.LastVisit, _ = find(pageStr, "last_visit :", ',')
+
+	// Сообщения только от друзей
+	result.PmFriendsOnly, _ = find(pageStr, "pm_friends_only :", ',')
 
 	// Ссылка на аватар
 	result.AvatarUrl, i = find(pageStr, "avatar_url : ", ' ')
