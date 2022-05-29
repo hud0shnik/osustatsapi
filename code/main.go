@@ -52,6 +52,7 @@ type UserInfo struct {
 	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
+	FollowerCount            string  `json:"follower_count"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -259,6 +260,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Количество любимых карт
 	result.FavoriteBeatmapsetCount, i = find(pageStr, "favourite_beatmapset_count :", ',')
+	pageStr = pageStr[i:]
+
+	// Подписчики
+	result.FollowerCount, i = find(pageStr, "follower_count :", ',')
 	pageStr = pageStr[i:]
 
 	// Заброшенные карты
