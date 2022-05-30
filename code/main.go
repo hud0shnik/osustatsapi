@@ -162,7 +162,7 @@ func getUserInfo(id, mode string) UserInfo {
 		UserID: id,
 	}
 
-	i := 0
+	i, i2 := 0, 0
 
 	/* -----------------------------------------------------------
 	# Далее происходит заполнение полей функцией find			 #
@@ -171,9 +171,6 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Лучшая мапа
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
-	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
-	result.BestBeatMap.Bpm, _ = find(pageStr, "bpm :", ',')
-	result.BestBeatMap.Convert, _ = find(pageStr, "convert :", ',')
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
 	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
@@ -187,6 +184,9 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Mode, _ = find(pageStr, "mode : ", ' ')
 	result.BestBeatMap.Status, _ = find(pageStr, "status : ", ' ')
 	result.BestBeatMap.TotalLength, _ = find(pageStr, "total_length :", ',')
+	result.BestBeatMap.Ar, _ = find(pageStr, "ar :", ',')
+	result.BestBeatMap.Bpm, _ = find(pageStr, "bpm :", ',')
+	result.BestBeatMap.Convert, _ = find(pageStr, "convert :", ',')
 	result.BestBeatMap.CountCircles, _ = find(pageStr, "count_circles :", ',')
 	result.BestBeatMap.CountSliders, _ = find(pageStr, "count_sliders :", ',')
 	result.BestBeatMap.CountSpinners, _ = find(pageStr, "count_spinners :", ',')
@@ -204,6 +204,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum, i = find(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
+	//
 	result.BestBeatMap.Creator, _ = find(pageStr, "creator : ", ' ')
 	result.BestBeatMap.FavoriteCount, _ = find(pageStr, "favourite_count :", ',')
 	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
@@ -214,145 +215,160 @@ func getUserInfo(id, mode string) UserInfo {
 	pageStr = pageStr[i:]
 
 	// В последний раз был в сети
-	result.LastVisit, _ = find(pageStr, "last_visit :", ',')
+	result.LastVisit, i = find(pageStr, "last_visit :", ',')
+	i2 += i
 
 	// Сообщения только от друзей
-	result.PmFriendsOnly, _ = find(pageStr, "pm_friends_only :", ',')
+	result.PmFriendsOnly, i = find(pageStr[i2:], "pm_friends_only :", ',')
+	i2 += i
 
 	// Ссылка на аватар
-	result.AvatarUrl, i = find(pageStr, "avatar_url : ", ' ')
+	result.AvatarUrl, i = find(pageStr[i2:], "avatar_url : ", ' ')
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
-	pageStr = pageStr[i:]
+	i2 += i
 
 	// Код страны
-	result.CountryCode, _ = find(pageStr, "country_code : ", ' ')
+	result.CountryCode, i = find(pageStr[i2:], "country_code : ", ' ')
+	i2 += i
 
 	// Группа
-	result.DefaultGroup, _ = find(pageStr, "default_group : ", ' ')
+	result.DefaultGroup, i = find(pageStr[i2:], "default_group : ", ' ')
+	i2 += i
 
 	// Активность
-	result.IsActive, _ = find(pageStr, "is_active :", ',')
+	result.IsActive, i = find(pageStr[i2:], "is_active :", ',')
+	i2 += i
 
 	// Бот
-	result.IsBot, _ = find(pageStr, "is_bot :", ',')
+	result.IsBot, i = find(pageStr[i2:], "is_bot :", ',')
+	i2 += i
 
 	// Удалённый профиль
-	result.IsDeleted, _ = find(pageStr, "is_deleted :", ',')
+	result.IsDeleted, i = find(pageStr[i2:], "is_deleted :", ',')
+	i2 += i
 
 	// Статус в сети
-	result.IsOnline, _ = find(pageStr, "is_online :", ',')
+	result.IsOnline, i = find(pageStr[i2:], "is_online :", ',')
+	i2 += i
 
 	// Подписка
-	result.IsSupporter, _ = find(pageStr, "is_supporter :", ',')
+	result.IsSupporter, i = find(pageStr[i2:], "is_supporter :", ',')
+	i2 += i
 
 	// Цвет профиля
-	result.ProfileColor, _ = find(pageStr, "profile_colour :", ',')
+	result.ProfileColor, i = find(pageStr[i2:], "profile_colour :", ',')
+	i2 += i
 
 	// Юзернейм
-	result.Username, i = find(pageStr, "username : ", ' ')
-	pageStr = pageStr[i:]
+	result.Username, i = find(pageStr[i2:], "username : ", ' ')
+	i2 += i
 
 	// Количество игр карт
-	result.BeatmapPlaycountsCount, i = find(pageStr, "beatmap_playcounts_count :", ',')
-	pageStr = pageStr[i:]
+	result.BeatmapPlaycountsCount, i = find(pageStr[i2:], "beatmap_playcounts_count :", ',')
+	i2 += i
 
 	// Количество комментариев
-	result.CommentsCount, i = find(pageStr, "comments_count :", ',')
-	pageStr = pageStr[i:]
+	result.CommentsCount, i = find(pageStr[i2:], "comments_count :", ',')
+	i2 += i
 
 	// Количество любимых карт
-	result.FavoriteBeatmapsetCount, i = find(pageStr, "favourite_beatmapset_count :", ',')
-	pageStr = pageStr[i:]
+	result.FavoriteBeatmapsetCount, i = find(pageStr[i2:], "favourite_beatmapset_count :", ',')
+	i2 += i
 
 	// Подписчики
-	result.FollowerCount, i = find(pageStr, "follower_count :", ',')
-	pageStr = pageStr[i:]
+	result.FollowerCount, i = find(pageStr[i2:], "follower_count :", ',')
+	i2 += i
 
 	// Заброшенные карты
-	result.GraveyardBeatmapsetCount, _ = find(pageStr, "graveyard_beatmapset_count :", ',')
+	result.GraveyardBeatmapsetCount, i = find(pageStr[i2:], "graveyard_beatmapset_count :", ',')
+	i2 += i
 
 	// Карты с гостевым участием
-	result.GuestBeatmapsetCount, _ = find(pageStr, "guest_beatmapset_count :", ',')
+	result.GuestBeatmapsetCount, i = find(pageStr[i2:], "guest_beatmapset_count :", ',')
+	i2 += i
 
 	// Карты на рассмотрении
-	result.PendingBeatmapsetCount, _ = find(pageStr, "pending_beatmapset_count :", ',')
+	result.PendingBeatmapsetCount, i = find(pageStr[i2:], "pending_beatmapset_count :", ',')
+	i2 += i
 
 	// Юзернеймы
-	result.Names, _ = find(pageStr, "previous_usernames :[ ", ']')
+	result.Names, i = find(pageStr[i2:], "previous_usernames :[ ", ']')
+	i2 += i
 
 	// Рейтинговые и одобренные карты
-	result.RankedBeatmapsetCount, _ = find(pageStr, "ranked_beatmapset_count :", ',')
+	result.RankedBeatmapsetCount, i = find(pageStr[i2:], "ranked_beatmapset_count :", ',')
+	i2 += i
 
 	// Уровень
-	result.Level, i = find(pageStr, "level :{ current :", ',')
-	pageStr = pageStr[i:]
+	result.Level, i = find(pageStr[i2:], "level :{ current :", ',')
+	i2 += i
 
 	// Глобальный рейтинг
-	result.GlobalRank, i = find(pageStr, "global_rank :", ',')
-	pageStr = pageStr[i:]
+	result.GlobalRank, i = find(pageStr[i2:], "global_rank :", ',')
+	i2 += i
 
 	// PP-хи
-	result.PP, i = find(pageStr, "pp :", ',')
-	pageStr = pageStr[i:]
+	result.PP, i = find(pageStr[i2:], "pp :", ',')
+	i2 += i
 
 	// Всего очков
-	result.RankedScore, i = find(pageStr, "ranked_score :", ',')
-	pageStr = pageStr[i:]
+	result.RankedScore, i = find(pageStr[i2:], "ranked_score :", ',')
+	i2 += i
 
 	// Точность попаданий
-	result.Accuracy, i = find(pageStr, "hit_accuracy :", ',')
-	pageStr = pageStr[i:]
+	result.Accuracy, i = find(pageStr[i2:], "hit_accuracy :", ',')
+	i2 += i
 
 	// Количество игр
-	result.PlayCount, i = find(pageStr, "play_count :", ',')
-	pageStr = pageStr[i:]
+	result.PlayCount, i = find(pageStr[i2:], "play_count :", ',')
+	i2 += i
 
 	// Времени в игре
-	result.PlayTime, i = find(pageStr, "play_time :", ',')
-	pageStr = pageStr[i:]
+	result.PlayTime, i = find(pageStr[i2:], "play_time :", ',')
+	i2 += i
 
 	// Рейтинговые очки
-	result.TotalScore, i = find(pageStr, "total_score :", ',')
-	pageStr = pageStr[i:]
+	result.TotalScore, i = find(pageStr[i2:], "total_score :", ',')
+	i2 += i
 
 	// Всего попаданий
-	result.TotalHits, i = find(pageStr, "total_hits :", ',')
-	pageStr = pageStr[i:]
+	result.TotalHits, i = find(pageStr[i2:], "total_hits :", ',')
+	i2 += i
 
 	// Максимальное комбо
-	result.MaximumCombo, i = find(pageStr, "maximum_combo :", ',')
-	pageStr = pageStr[i:]
+	result.MaximumCombo, i = find(pageStr[i2:], "maximum_combo :", ',')
+	i2 += i
 
 	// Реплеев просмотрено другими
-	result.Replays, i = find(pageStr, "replays_watched_by_others :", ',')
-	pageStr = pageStr[i:]
+	result.Replays, i = find(pageStr[i2:], "replays_watched_by_others :", ',')
+	i2 += i
 
 	// SS-ки
-	result.SS, i = find(pageStr, "grade_counts :{ ss :", ',')
-	pageStr = pageStr[i:]
+	result.SS, i = find(pageStr[i2:], "grade_counts :{ ss :", ',')
+	i2 += i
 
 	// SSH-ки
-	result.SSH, i = find(pageStr, "ssh :", ',')
-	pageStr = pageStr[i:]
+	result.SSH, i = find(pageStr[i2:], "ssh :", ',')
+	i2 += i
 
 	// S-ки
-	result.S, i = find(pageStr, "s :", ',')
-	pageStr = pageStr[i:]
+	result.S, i = find(pageStr[i2:], "s :", ',')
+	i2 += i
 
 	// SH-ки
-	result.SH, i = find(pageStr, "sh :", ',')
-	pageStr = pageStr[i:]
+	result.SH, i = find(pageStr[i2:], "sh :", ',')
+	i2 += i
 
 	// A-хи
-	result.A, i = find(pageStr, "a :", '}')
-	pageStr = pageStr[i:]
+	result.A, i = find(pageStr[i2:], "a :", '}')
+	i2 += i
 
 	// Рейтинг в стране
-	result.CountryRank, i = find(pageStr, "country_rank :", ',')
-	pageStr = pageStr[i:]
+	result.CountryRank, i = find(pageStr[i2:], "country_rank :", ',')
+	i2 += i
 
 	// Уровень подписки
-	result.SupportLvl, _ = find(pageStr, "support_level :", ',')
+	result.SupportLvl, _ = find(pageStr[i2:], "support_level :", ',')
 
 	return result
 }
@@ -408,6 +424,17 @@ func main() {
 
 	// Вывод времени начала работы
 	fmt.Println("API Start: " + string(time.Now().Format("2006-01-02 15:04:05")))
+
+	/*	Сетап для тестов
+		var sd int64
+		for i := 0; i < 100; i++ {
+			t := time.Now()
+			getUserInfo("29829158", "")
+			sd += time.Since(t).Milliseconds()
+			fmt.Println("{", i, "}cur: \t", sd/(int64(i)+1))
+		}
+		println("fin:\t", sd/100)
+	*/
 
 	// Роутер
 	router := mux.NewRouter()
