@@ -23,7 +23,8 @@ type UserInfo struct {
 	GlobalRank               string  `json:"global_rank"`
 	CountryRank              string  `json:"country_rank"`
 	PP                       string  `json:"pp"`
-	PlayTime                 string  `json:"play_time"` // В секундах
+	PlayTime                 string  `json:"play_time"`
+	PlayTimeSeconds          string  `json:"play_time_seconds"`
 	SSH                      string  `json:"ssh"`
 	SS                       string  `json:"ss"`
 	SH                       string  `json:"sh"`
@@ -323,9 +324,13 @@ func getUserInfo(id, mode string) UserInfo {
 	result.PlayCount, i = find(pageStr[i2:], "play_count :", ',')
 	i2 += i
 
-	// Времени в игре
-	result.PlayTime, i = find(pageStr[i2:], "play_time :", ',')
+	// Время в игре в секундах
+	result.PlayTimeSeconds, i = find(pageStr[i2:], "play_time :", ',')
 	i2 += i
+
+	// Время в игре в часах
+	duration, _ := time.ParseDuration(result.PlayTimeSeconds + "s")
+	result.PlayTime = duration.String()
 
 	// Рейтинговые очки
 	result.TotalScore, i = find(pageStr[i2:], "total_score :", ',')
