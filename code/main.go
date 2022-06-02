@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -153,10 +152,11 @@ func getUserInfo(id, mode string) UserInfo {
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
 	// Сохранение html'ки в файл sample.html
-
-	if err := os.WriteFile("sampleN.html", []byte(pageStr), 0666); err != nil {
-		log.Fatal(err)
-	}
+	/*
+		if err := os.WriteFile("sampleN.html", []byte(pageStr), 0666); err != nil {
+			log.Fatal(err)
+		}
+	*/
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -457,7 +457,7 @@ func main() {
 	// Запуск API
 
 	// Для Heroku
-	//log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
+	// log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 
 	// Для локалхоста (127.0.0.1:8080/)
 	log.Fatal(http.ListenAndServe(":8080", router))
