@@ -2,7 +2,7 @@
 
 Osu Stats Api provides fast and powerful
 access to player statistics,
-including real PP count and real Accuracy percentage.
+including real PP count and real Accuracy percentage
 
 <h3>Request sample </h3>
   
