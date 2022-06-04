@@ -1,5 +1,7 @@
 # 🎨 OsuStatsApi 🎶
 
+Osu Stats Api provides fast and powerful access to player statistics
+
 <h3>Request sample </h3>
   
    ``` Elixir
