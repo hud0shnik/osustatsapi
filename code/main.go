@@ -120,6 +120,7 @@ func find(str string, subStr string, char byte) (string, int) {
 		for ; str[right] != char; right++ {
 			// Доводит str[right] до символа char
 		}
+
 		return str[left:right], right
 	}
 
@@ -205,7 +206,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum, i = find(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
-	//
+
 	result.BestBeatMap.Creator, _ = find(pageStr, "creator : ", ' ')
 	result.BestBeatMap.FavoriteCount, _ = find(pageStr, "favourite_count :", ',')
 	result.BestBeatMap.Hype, _ = find(pageStr, "hype :", ',')
@@ -293,8 +294,10 @@ func getUserInfo(id, mode string) UserInfo {
 	i2 += i
 
 	// Юзернеймы
-	result.Names, i = find(pageStr[i2:], "previous_usernames :[ ", ']')
-	i2 += i
+	result.Names = pageStr[i2+strings.Index(pageStr[i2:], "previous_usernames :[ ")+22 : i2+strings.Index(pageStr[i2:], "],")-1]
+	if result.Names == ":" {
+		result.Names = ""
+	}
 
 	// Рейтинговые и одобренные карты
 	result.RankedBeatmapsetCount, i = find(pageStr[i2:], "ranked_beatmapset_count :", ',')
