@@ -4,6 +4,7 @@ Osu Stats Api provides fast and powerful
 access to player statistics,
 including real PP count and real Accuracy percentage
 
+<h2> /user/ </h2>
 <h3>Request sample </h3>
   
    ``` Elixir
@@ -94,4 +95,17 @@ including real PP count and real Accuracy percentage
       "offset":"0",
       "spotlight":"false"
    }
+   ```
+
+<h2> /online/ </h2>
+<h3>Request sample </h3>
+  
+   ``` Elixir
+   GET https://osu-stats-api.herokuapp.com/online/29829158
+   ```
+   
+ <h3>Response sample </h3>
+  
+   ``` Json
+   "is_online": "true"
    ```
