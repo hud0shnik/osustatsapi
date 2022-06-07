@@ -58,11 +58,6 @@ type UserInfo struct {
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
-// Структура для проверки статуса пользователя
-type OnlineInfo struct {
-	Status string `json:"is_online"`
-}
-
 // Структура для хранения информации о мапе
 type beatMap struct {
 	DifficultyRating string `json:"difficulty_rating"`
@@ -105,6 +100,11 @@ type beatMap struct {
 	Spotlight        string `json:"spotlight"`
 }
 
+// Структура для проверки статуса пользователя
+type OnlineInfo struct {
+	Status string `json:"is_online"`
+}
+
 // Функция поиска. Возвращает искомое значение и индекс
 func find(str string, subStr string, char byte) (string, int) {
 
@@ -129,6 +129,11 @@ func find(str string, subStr string, char byte) (string, int) {
 
 // Функция получения информации о пользователе
 func getUserInfo(id, mode string) UserInfo {
+
+	// Если пользователь не ввёл id, по умолчанию ставит мой id
+	if id == "" {
+		id = "29829158"
+	}
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/" + mode)
@@ -448,6 +453,9 @@ func main() {
 	router := mux.NewRouter()
 
 	// Маршруты
+
+	router.HandleFunc("/user", sendUserInfo).Methods("GET")
+	router.HandleFunc("/user/", sendUserInfo).Methods("GET")
 
 	router.HandleFunc("/user/{id}", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
