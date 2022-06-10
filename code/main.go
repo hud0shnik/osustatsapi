@@ -64,6 +64,7 @@ type beatMap struct {
 	Id               string `json:"id"`
 	Rank             string `json:"rank"`
 	EndedAt          string `json:"ended_at"`
+	StartedAt        string `json:"started_at"`
 	Accuracy         string `json:"accuracy"`
 	MaximumCombo     string `json:"maximum_combo"`
 	PP               string `json:"pp"`
@@ -182,6 +183,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
+	result.BestBeatMap.StartedAt, _ = find(pageStr, "started_at :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
 	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
 	result.BestBeatMap.LegacyPerfect, _ = find(pageStr, "legacy_perfect :", ',')
