@@ -1,4 +1,4 @@
-module goAPI
+module osustatsapi
 
 go 1.17
 
