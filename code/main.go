@@ -101,6 +101,7 @@ type beatMap struct {
 	Nsfw             string `json:"nsfw"`
 	Offset           string `json:"offset"`
 	Spotlight        string `json:"spotlight"`
+	RulesetId        string `json:"ruleset_id"`
 }
 
 // Структура для проверки статуса пользователя
@@ -203,6 +204,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.StartedAt, _ = find(pageStr, "started_at :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
+	result.BestBeatMap.RulesetId, _ = find(pageStr, "ruleset_id :", ',')
 	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
 	result.BestBeatMap.LegacyPerfect, _ = find(pageStr, "legacy_perfect :", ',')
 	result.BestBeatMap.PP, _ = find(pageStr, "pp :", ',')
