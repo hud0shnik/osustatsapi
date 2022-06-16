@@ -194,7 +194,7 @@ func getUserInfo(id, mode string) UserInfo {
 	}
 
 	// Обрезка пробела в начале
-	if result.BestBeatMap.Mods[0] == ' ' {
+	if len(result.BestBeatMap.Mods) > 1 {
 		result.BestBeatMap.Mods = result.BestBeatMap.Mods[1:]
 	}
 
