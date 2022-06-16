@@ -160,7 +160,7 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Сохранение html'ки в файл sample.html
 	/*
-		if err := os.WriteFile("sampleN.html", []byte(pageStr), 0666); err != nil {
+		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
 			log.Fatal(err)
 		}
 	*/
@@ -175,7 +175,7 @@ func getUserInfo(id, mode string) UserInfo {
 	/* -----------------------------------------------------------
 	# Далее происходит заполнение полей функцией find			 #
 	# после каждого поиска тело сайта обрезается для оптимизации #
-	------------------------------------------------------------ */
+	------------------------------------------------------------*/
 
 	// Лучшая мапа
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
@@ -220,7 +220,6 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Nsfw, _ = find(pageStr, "nsfw :", ',')
 	result.BestBeatMap.Offset, _ = find(pageStr, "offset :", ',')
 	result.BestBeatMap.Spotlight, _ = find(pageStr, "spotlight :", ',')
-
 	pageStr = pageStr[i:]
 
 	// В последний раз был в сети
