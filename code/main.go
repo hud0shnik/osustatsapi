@@ -62,6 +62,7 @@ type UserInfo struct {
 type beatMap struct {
 	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
+	BuildId          string `json:"build_id"`
 	Rank             string `json:"rank"`
 	Mods             string `json:"mods"`
 	EndedAt          string `json:"ended_at"`
@@ -182,6 +183,7 @@ func getUserInfo(id, mode string) UserInfo {
 
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
+	result.BestBeatMap.BuildId, _ = find(pageStr, "build_id :", ',')
 	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, i = find(pageStr, "max_combo :", ',')
 	pageStr = pageStr[i:]
