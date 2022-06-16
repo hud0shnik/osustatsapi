@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -63,6 +64,7 @@ type beatMap struct {
 	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
 	BuildId          string `json:"build_id"`
+	Statistics       string `json:"statistics"`
 	Rank             string `json:"rank"`
 	Mods             string `json:"mods"`
 	EndedAt          string `json:"ended_at"`
@@ -162,11 +164,10 @@ func getUserInfo(id, mode string) UserInfo {
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
 	// Сохранение html'ки в файл sample.html
-	/*
-		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
-		}
-	*/
+
+	if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+		log.Fatal(err)
+	}
 
 	// Структура, которую будет возвращать функция
 	result := UserInfo{
@@ -203,6 +204,7 @@ func getUserInfo(id, mode string) UserInfo {
 
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.StartedAt, _ = find(pageStr, "started_at :", ',')
+	result.BestBeatMap.Statistics, _ = find(pageStr, "statistics :{ ", '}')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
 	result.BestBeatMap.RulesetId, _ = find(pageStr, "ruleset_id :", ',')
 	result.BestBeatMap.TotalScore, _ = find(pageStr, "total_score :", ',')
