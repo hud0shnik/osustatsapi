@@ -63,6 +63,7 @@ type beatMap struct {
 	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
 	Rank             string `json:"rank"`
+	Mods             string `json:"mods"`
 	EndedAt          string `json:"ended_at"`
 	StartedAt        string `json:"started_at"`
 	Accuracy         string `json:"accuracy"`
@@ -177,11 +178,26 @@ func getUserInfo(id, mode string) UserInfo {
 	# после каждого поиска тело сайта обрезается для оптимизации #
 	------------------------------------------------------------*/
 
-	// Лучшая мапа
+	//--------------------------- Лучшая мапа ------------------------------
+
 	result.BestBeatMap.Accuracy, _ = find(pageStr, "accuracy :", ',')
 	result.BestBeatMap.Id, _ = find(pageStr, "beatmap_id :", ',')
 	result.BestBeatMap.EndedAt, _ = find(pageStr, "ended_at : ", ' ')
-	result.BestBeatMap.MaximumCombo, _ = find(pageStr, "max_combo :", ',')
+	result.BestBeatMap.MaximumCombo, i = find(pageStr, "max_combo :", ',')
+	pageStr = pageStr[i:]
+
+	// Цикл для обработки всех модов
+	for c := 0; pageStr[c] != ']'; c++ {
+		if pageStr[c:c+9] == "acronym :" {
+			result.BestBeatMap.Mods += pageStr[c+9 : c+12]
+		}
+	}
+
+	// Обрезка пробела в начале
+	if result.BestBeatMap.Mods[0] == ' ' {
+		result.BestBeatMap.Mods = result.BestBeatMap.Mods[1:]
+	}
+
 	result.BestBeatMap.Passed, _ = find(pageStr, "passed :", ',')
 	result.BestBeatMap.StartedAt, _ = find(pageStr, "started_at :", ',')
 	result.BestBeatMap.Rank, _ = find(pageStr, "rank : ", ' ')
@@ -221,6 +237,8 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Offset, _ = find(pageStr, "offset :", ',')
 	result.BestBeatMap.Spotlight, _ = find(pageStr, "spotlight :", ',')
 	pageStr = pageStr[i:]
+
+	//--------------------------- Статистика игрока ------------------------------
 
 	// В последний раз был в сети
 	result.LastVisit, i = find(pageStr, "last_visit :", ',')
