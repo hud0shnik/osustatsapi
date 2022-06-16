@@ -133,6 +133,28 @@ func findWithIndex(str string, subStr string, char byte) (string, int) {
 	return "", 0
 }
 
+// Облегчённая функция поиска. Возвращает только искомое значение
+func find(str string, subStr string, char byte) string {
+
+	// Поиск индекса начала нужной строки
+	left := strings.Index(str, subStr) + len(subStr)
+
+	// Проверка на существование нужной строки
+	if left > len(subStr)-1 {
+
+		// Крайняя часть искомой строки
+		right := left
+
+		for ; str[right] != char; right++ {
+			// Доводит str[right] до символа char
+		}
+
+		return str[left:right]
+	}
+
+	return ""
+}
+
 // Функция получения информации о пользователе
 func getUserInfo(id, mode string) UserInfo {
 
@@ -184,10 +206,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	//--------------------------- Лучшая мапа ------------------------------
 
-	result.BestBeatMap.Accuracy, _ = findWithIndex(pageStr, "accuracy :", ',')
-	result.BestBeatMap.Id, _ = findWithIndex(pageStr, "beatmap_id :", ',')
-	result.BestBeatMap.BuildId, _ = findWithIndex(pageStr, "build_id :", ',')
-	result.BestBeatMap.EndedAt, _ = findWithIndex(pageStr, "ended_at : ", ' ')
+	result.BestBeatMap.Accuracy = find(pageStr, "accuracy :", ',')
+	result.BestBeatMap.Id = find(pageStr, "beatmap_id :", ',')
+	result.BestBeatMap.BuildId = find(pageStr, "build_id :", ',')
+	result.BestBeatMap.EndedAt = find(pageStr, "ended_at : ", ' ')
 	result.BestBeatMap.MaximumCombo, i = findWithIndex(pageStr, "max_combo :", ',')
 	pageStr = pageStr[i:]
 
@@ -203,46 +225,46 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Mods = result.BestBeatMap.Mods[1:]
 	}
 
-	result.BestBeatMap.Passed, _ = findWithIndex(pageStr, "passed :", ',')
-	result.BestBeatMap.StartedAt, _ = findWithIndex(pageStr, "started_at :", ',')
-	result.BestBeatMap.Statistics, _ = findWithIndex(pageStr, "statistics :{ ", '}')
-	result.BestBeatMap.Rank, _ = findWithIndex(pageStr, "rank : ", ' ')
-	result.BestBeatMap.RulesetId, _ = findWithIndex(pageStr, "ruleset_id :", ',')
-	result.BestBeatMap.TotalScore, _ = findWithIndex(pageStr, "total_score :", ',')
-	result.BestBeatMap.LegacyPerfect, _ = findWithIndex(pageStr, "legacy_perfect :", ',')
-	result.BestBeatMap.PP, _ = findWithIndex(pageStr, "pp :", ',')
-	result.BestBeatMap.Replay, _ = findWithIndex(pageStr, "replay :", ',')
-	result.BestBeatMap.DifficultyRating, _ = findWithIndex(pageStr, "difficulty_rating :", ',')
-	result.BestBeatMap.Mode, _ = findWithIndex(pageStr, "mode : ", ' ')
-	result.BestBeatMap.Status, _ = findWithIndex(pageStr, "status : ", ' ')
-	result.BestBeatMap.TotalLength, _ = findWithIndex(pageStr, "total_length :", ',')
-	result.BestBeatMap.Ar, _ = findWithIndex(pageStr, "ar :", ',')
-	result.BestBeatMap.Bpm, _ = findWithIndex(pageStr, "bpm :", ',')
-	result.BestBeatMap.Convert, _ = findWithIndex(pageStr, "convert :", ',')
-	result.BestBeatMap.CountCircles, _ = findWithIndex(pageStr, "count_circles :", ',')
-	result.BestBeatMap.CountSliders, _ = findWithIndex(pageStr, "count_sliders :", ',')
-	result.BestBeatMap.CountSpinners, _ = findWithIndex(pageStr, "count_spinners :", ',')
-	result.BestBeatMap.Cs, _ = findWithIndex(pageStr, " cs :", ',')
-	result.BestBeatMap.DeletedAt, _ = findWithIndex(pageStr, "deleted_at :", ',')
-	result.BestBeatMap.Drain, _ = findWithIndex(pageStr, "drain :", ',')
-	result.BestBeatMap.HitLength, _ = findWithIndex(pageStr, "hit_length :", ',')
-	result.BestBeatMap.IsScoreable, _ = findWithIndex(pageStr, "is_scoreable :", ',')
-	result.BestBeatMap.LastUpdated, _ = findWithIndex(pageStr, "last_updated : ", ' ')
-	result.BestBeatMap.ModeInt, _ = findWithIndex(pageStr, "mode_int :", ',')
-	result.BestBeatMap.PassCount, _ = findWithIndex(pageStr, "passcount :", ',')
-	result.BestBeatMap.PlayCount, _ = findWithIndex(pageStr, "playcount :", ',')
-	result.BestBeatMap.Ranked, _ = findWithIndex(pageStr, "ranked :", ',')
-	result.BestBeatMap.Url, _ = findWithIndex(pageStr, "url : ", ' ')
+	result.BestBeatMap.Passed = find(pageStr, "passed :", ',')
+	result.BestBeatMap.StartedAt = find(pageStr, "started_at :", ',')
+	result.BestBeatMap.Statistics = find(pageStr, "statistics :{ ", '}')
+	result.BestBeatMap.Rank = find(pageStr, "rank : ", ' ')
+	result.BestBeatMap.RulesetId = find(pageStr, "ruleset_id :", ',')
+	result.BestBeatMap.TotalScore = find(pageStr, "total_score :", ',')
+	result.BestBeatMap.LegacyPerfect = find(pageStr, "legacy_perfect :", ',')
+	result.BestBeatMap.PP = find(pageStr, "pp :", ',')
+	result.BestBeatMap.Replay = find(pageStr, "replay :", ',')
+	result.BestBeatMap.DifficultyRating = find(pageStr, "difficulty_rating :", ',')
+	result.BestBeatMap.Mode = find(pageStr, "mode : ", ' ')
+	result.BestBeatMap.Status = find(pageStr, "status : ", ' ')
+	result.BestBeatMap.TotalLength = find(pageStr, "total_length :", ',')
+	result.BestBeatMap.Ar = find(pageStr, "ar :", ',')
+	result.BestBeatMap.Bpm = find(pageStr, "bpm :", ',')
+	result.BestBeatMap.Convert = find(pageStr, "convert :", ',')
+	result.BestBeatMap.CountCircles = find(pageStr, "count_circles :", ',')
+	result.BestBeatMap.CountSliders = find(pageStr, "count_sliders :", ',')
+	result.BestBeatMap.CountSpinners = find(pageStr, "count_spinners :", ',')
+	result.BestBeatMap.Cs = find(pageStr, " cs :", ',')
+	result.BestBeatMap.DeletedAt = find(pageStr, "deleted_at :", ',')
+	result.BestBeatMap.Drain = find(pageStr, "drain :", ',')
+	result.BestBeatMap.HitLength = find(pageStr, "hit_length :", ',')
+	result.BestBeatMap.IsScoreable = find(pageStr, "is_scoreable :", ',')
+	result.BestBeatMap.LastUpdated = find(pageStr, "last_updated : ", ' ')
+	result.BestBeatMap.ModeInt = find(pageStr, "mode_int :", ',')
+	result.BestBeatMap.PassCount = find(pageStr, "passcount :", ',')
+	result.BestBeatMap.PlayCount = find(pageStr, "playcount :", ',')
+	result.BestBeatMap.Ranked = find(pageStr, "ranked :", ',')
+	result.BestBeatMap.Url = find(pageStr, "url : ", ' ')
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum, i = findWithIndex(pageStr, "checksum : ", ' ')
 	pageStr = pageStr[i:]
 
-	result.BestBeatMap.Creator, _ = findWithIndex(pageStr, "creator : ", ' ')
-	result.BestBeatMap.FavoriteCount, _ = findWithIndex(pageStr, "favourite_count :", ',')
-	result.BestBeatMap.Hype, _ = findWithIndex(pageStr, "hype :", ',')
-	result.BestBeatMap.Nsfw, _ = findWithIndex(pageStr, "nsfw :", ',')
-	result.BestBeatMap.Offset, _ = findWithIndex(pageStr, "offset :", ',')
-	result.BestBeatMap.Spotlight, _ = findWithIndex(pageStr, "spotlight :", ',')
+	result.BestBeatMap.Creator = find(pageStr, "creator : ", ' ')
+	result.BestBeatMap.FavoriteCount = find(pageStr, "favourite_count :", ',')
+	result.BestBeatMap.Hype = find(pageStr, "hype :", ',')
+	result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ',')
+	result.BestBeatMap.Offset = find(pageStr, "offset :", ',')
+	result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ',')
 	pageStr = pageStr[i:]
 
 	//--------------------------- Статистика игрока ------------------------------
@@ -407,7 +429,7 @@ func getUserInfo(id, mode string) UserInfo {
 	i2 += i
 
 	// Уровень подписки
-	result.SupportLvl, _ = findWithIndex(pageStr[i2:], "support_level :", ',')
+	result.SupportLvl = find(pageStr[i2:], "support_level :", ',')
 
 	return result
 }
@@ -434,7 +456,7 @@ func getOnlineInfo(id string) OnlineInfo {
 	result := OnlineInfo{}
 
 	// Статус в сети
-	result.Status, _ = findWithIndex(string(body), "is_online&quot;:", ',')
+	result.Status = find(string(body), "is_online&quot;:", ',')
 
 	return result
 }
