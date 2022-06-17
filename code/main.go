@@ -265,7 +265,7 @@ func getUserInfo(id, mode string) UserInfo {
 	//--------------------------- Статистика игрока ------------------------------
 
 	// В последний раз был в сети
-	result.LastVisit, i = findWithIndex(pageStr, "last_visit :", ',')
+	result.LastVisit, i = findWithIndex(pageStr, "last_visit : ", ' ')
 	i2 += i
 
 	// Сообщения только от друзей
