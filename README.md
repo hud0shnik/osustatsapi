@@ -16,11 +16,12 @@ including real PP count and real Accuracy percentage
    ``` Json
   "username": "hud0shnik",
   "previous_usernames": "",
+  "badges": "",
   "avatar_url": "https://a.ppy.sh/29829158?1651433350.jpeg",
   "id": "29829158",
   "country_code": "RU",
-  "global_rank": "881235",
-  "country_rank": "78458",
+  "global_rank": "884257",
+  "country_rank": "78801",
   "pp": "616.145",
   "play_time": "21h18m38s",
   "play_time_seconds": "76718",
@@ -58,7 +59,10 @@ including real PP count and real Accuracy percentage
   "best_beat_map": {
     "difficulty_rating": "1.59",
     "id": "1445261",
+    "build_id": "null",
+    "statistics": "great :36",
     "rank": "XH",
+    "mods": "HD HR NC PF",
     "ended_at": "2022-05-14T18:33:06+00:00",
     "started_at": "null",
     "accuracy": "1",
@@ -84,8 +88,8 @@ including real PP count and real Accuracy percentage
     "is_scoreable": "true",
     "last_updated": "2017-11-07T03:57:30+00:00",
     "mode_int": "0",
-    "pass_count": "40959",
-    "play_count": "78642",
+    "pass_count": "40977",
+    "play_count": "78678",
     "ranked": "1",
     "url": "https://osu.ppy.sh/beatmaps/1445261",
     "checksum": "3c8dee086cfd75224875253ed1f227b6",
@@ -94,7 +98,8 @@ including real PP count and real Accuracy percentage
     "hype": "null",
     "nsfw": "false",
     "offset": "0",
-    "spotlight": "false"
+    "spotlight": "false",
+    "ruleset_id": "0"
   }
    ```
 
