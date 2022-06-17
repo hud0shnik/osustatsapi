@@ -111,7 +111,7 @@ type OnlineInfo struct {
 	Status string `json:"is_online"`
 }
 
-// Функция поиска. Возвращает искомое значение и индекс
+// Функция поиска. Возвращает искомое значение и индекс последнего символа
 func findWithIndex(str string, subStr string, char byte) (string, int) {
 
 	// Поиск индекса начала нужной строки
@@ -213,7 +213,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.MaximumCombo, i = findWithIndex(pageStr, "max_combo :", ',')
 	pageStr = pageStr[i:]
 
-	// Цикл для обработки всех модов
+	// Цикл для обработки модов
 	for c := 0; pageStr[c] != ']'; c++ {
 		if pageStr[c:c+10] == "acronym : " {
 			result.BestBeatMap.Mods = append(result.BestBeatMap.Mods, pageStr[c+10:c+12])
@@ -251,10 +251,10 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Ranked = find(pageStr, "ranked :", ',')
 	result.BestBeatMap.Url = find(pageStr, "url : ", ' ')
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
-	result.BestBeatMap.Checksum, i = findWithIndex(pageStr, "checksum : ", ' ')
+	result.BestBeatMap.Checksum = find(pageStr, "checksum : ", ' ')
+	result.BestBeatMap.Creator, i = findWithIndex(pageStr, "creator : ", ' ')
 	pageStr = pageStr[i:]
 
-	result.BestBeatMap.Creator = find(pageStr, "creator : ", ' ')
 	result.BestBeatMap.FavoriteCount = find(pageStr, "favourite_count :", ',')
 	result.BestBeatMap.Hype = find(pageStr, "hype :", ',')
 	result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ',')
