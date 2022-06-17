@@ -61,6 +61,7 @@ type UserInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
+	Title            string   `json:"title"`
 	DifficultyRating string   `json:"difficulty_rating"`
 	Id               string   `json:"id"`
 	BuildId          string   `json:"build_id"`
@@ -260,6 +261,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ',')
 	result.BestBeatMap.Offset = find(pageStr, "offset :", ',')
 	result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ',')
+	result.BestBeatMap.Title = find(pageStr, "title : ", ',')
 	pageStr = pageStr[i:]
 
 	//--------------------------- Статистика игрока ------------------------------
