@@ -12,51 +12,58 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Структура значка профиля
+type Badge struct {
+	AwardedAt   string `json:"awarded_at"`
+	Description string `json:"description"`
+	ImageUrl    string `json:"image_url"`
+}
+
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
-	Username                 string   `json:"username"`
-	Names                    string   `json:"previous_usernames"`
-	Badges                   []string `json:"badges"`
-	AvatarUrl                string   `json:"avatar_url"`
-	UserID                   string   `json:"id"`
-	CountryCode              string   `json:"country_code"`
-	GlobalRank               string   `json:"global_rank"`
-	CountryRank              string   `json:"country_rank"`
-	PP                       string   `json:"pp"`
-	PlayTime                 string   `json:"play_time"`
-	PlayTimeSeconds          string   `json:"play_time_seconds"`
-	SSH                      string   `json:"ssh"`
-	SS                       string   `json:"ss"`
-	SH                       string   `json:"sh"`
-	S                        string   `json:"s"`
-	A                        string   `json:"a"`
-	RankedScore              string   `json:"ranked_score"`
-	Accuracy                 string   `json:"accuracy"`
-	PlayCount                string   `json:"play_count"`
-	TotalScore               string   `json:"total_score"`
-	TotalHits                string   `json:"total_hits"`
-	MaximumCombo             string   `json:"maximum_combo"`
-	Replays                  string   `json:"replays"`
-	Level                    string   `json:"level"`
-	SupportLvl               string   `json:"support_level"`
-	DefaultGroup             string   `json:"default_group"`
-	IsOnline                 string   `json:"is_online"`
-	IsActive                 string   `json:"is_active"`
-	IsDeleted                string   `json:"is_deleted"`
-	IsBot                    string   `json:"is_bot"`
-	IsSupporter              string   `json:"is_supporter"`
-	LastVisit                string   `json:"last_visit"`
-	ProfileColor             string   `json:"profile_color"`
-	RankedBeatmapsetCount    string   `json:"ranked_beatmapset_count"`
-	PendingBeatmapsetCount   string   `json:"pending_beatmapset_count"`
-	PmFriendsOnly            string   `json:"pm_friends_only"`
-	GraveyardBeatmapsetCount string   `json:"graveyard_beatmapset_count"`
-	BeatmapPlaycountsCount   string   `json:"beatmap_playcounts_count"`
-	CommentsCount            string   `json:"comments_count"`
-	FavoriteBeatmapsetCount  string   `json:"favorite_beatmapset_count"`
-	GuestBeatmapsetCount     string   `json:"guest_beatmapset_count"`
-	FollowerCount            string   `json:"follower_count"`
-	BestBeatMap              beatMap  `json:"best_beat_map"`
+	Username                 string  `json:"username"`
+	Names                    string  `json:"previous_usernames"`
+	Badges                   []Badge `json:"badges"`
+	AvatarUrl                string  `json:"avatar_url"`
+	UserID                   string  `json:"id"`
+	CountryCode              string  `json:"country_code"`
+	GlobalRank               string  `json:"global_rank"`
+	CountryRank              string  `json:"country_rank"`
+	PP                       string  `json:"pp"`
+	PlayTime                 string  `json:"play_time"`
+	PlayTimeSeconds          string  `json:"play_time_seconds"`
+	SSH                      string  `json:"ssh"`
+	SS                       string  `json:"ss"`
+	SH                       string  `json:"sh"`
+	S                        string  `json:"s"`
+	A                        string  `json:"a"`
+	RankedScore              string  `json:"ranked_score"`
+	Accuracy                 string  `json:"accuracy"`
+	PlayCount                string  `json:"play_count"`
+	TotalScore               string  `json:"total_score"`
+	TotalHits                string  `json:"total_hits"`
+	MaximumCombo             string  `json:"maximum_combo"`
+	Replays                  string  `json:"replays"`
+	Level                    string  `json:"level"`
+	SupportLvl               string  `json:"support_level"`
+	DefaultGroup             string  `json:"default_group"`
+	IsOnline                 string  `json:"is_online"`
+	IsActive                 string  `json:"is_active"`
+	IsDeleted                string  `json:"is_deleted"`
+	IsBot                    string  `json:"is_bot"`
+	IsSupporter              string  `json:"is_supporter"`
+	LastVisit                string  `json:"last_visit"`
+	ProfileColor             string  `json:"profile_color"`
+	RankedBeatmapsetCount    string  `json:"ranked_beatmapset_count"`
+	PendingBeatmapsetCount   string  `json:"pending_beatmapset_count"`
+	PmFriendsOnly            string  `json:"pm_friends_only"`
+	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
+	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
+	CommentsCount            string  `json:"comments_count"`
+	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
+	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	FollowerCount            string  `json:"follower_count"`
+	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
 // Структура для хранения информации о мапе
@@ -317,8 +324,12 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Значки
 	for c := strings.Index(pageStr[i2:], "badges :["); pageStr[i2:][c] != ']'; c++ {
-		if pageStr[i2:][c:c+14] == "description : " {
-			result.Badges = append(result.Badges, find(pageStr[i2:][c:], "description : ", ','))
+		if pageStr[i2:][c:c+13] == "awarded_at : " {
+			result.Badges = append(result.Badges, Badge{
+				AwardedAt:   find(pageStr[i2:][c:], "awarded_at : ", ' '),
+				Description: find(pageStr[i2:][c:], "description : ", ','),
+				ImageUrl:    strings.ReplaceAll(find(pageStr[i2:][c:], "image_url : ", ' '), "\\", ""),
+			})
 		}
 	}
 
