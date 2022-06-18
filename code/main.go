@@ -50,6 +50,7 @@ type UserInfo struct {
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
 	IsDeleted                string  `json:"is_deleted"`
+	IsNat                    string  `json:"is_nat"`
 	IsBot                    string  `json:"is_bot"`
 	IsSilenced               string  `json:"is_silenced"`
 	IsRestricted             string  `json:"is_restricted"`
@@ -324,6 +325,10 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
 	i2 += i
 
+
+	// Команда оценки номинаций
+	result.IsNat, i = findWithIndex(pageStr[i2:], "is_nat :", ',')
+	i2 += i
 
 	// Ограничение
 	result.IsRestricted, i = findWithIndex(pageStr[i2:], "is_restricted :", ',')
