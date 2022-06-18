@@ -51,6 +51,7 @@ type UserInfo struct {
 	IsActive                 string  `json:"is_active"`
 	IsDeleted                string  `json:"is_deleted"`
 	IsBot                    string  `json:"is_bot"`
+	IsSilenced               string  `json:"is_silenced"`
 	IsSupporter              string  `json:"is_supporter"`
 	LastVisit                string  `json:"last_visit"`
 	ProfileColor             string  `json:"profile_color"`
@@ -320,6 +321,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Юзернейм
 	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
+	i2 += i
+
+	// Немота
+	result.IsSilenced, i = findWithIndex(pageStr[i2:], "is_silenced :", ',')
 	i2 += i
 
 	// Значки
