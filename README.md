@@ -4,145 +4,126 @@ Osu Stats Api provides fast and powerful
 access to player statistics,
 including real PP count and real Accuracy percentage
 
-<h2> /user/ </h2>
-<h3>Request sample </h3>
-  
-   ``` Elixir
-   GET https://osustatsapi.herokuapp.com/user/4504101
-   ```
-   
- <h3>Response sample </h3>
-  
-   ``` Json
-  "username": "WhiteCat",
-  "previous_usernames": "eZHG",
-  "badges": [
-    {
-      "awarded_at": "2021-11-29T16:11:23+00:00",
-      "description": "osu! World Cup 2021 2nd Place (Germany) ",
-      "image_url": "https://assets.ppy.sh/profile-badges/badge_owc2021_2nd_place.png"
-    },
-    {
-      "awarded_at": "2021-11-29T15:46:55+00:00",
-      "description": "Corsace Open 2021 2nd Place ",
-      "image_url": "https://assets.ppy.sh/profile-badges/corsace-2nd-2021.png"
-    },
-    {
-      "awarded_at": "2021-04-27T20:45:02+00:00",
-      "description": "Bundesl\\u00e4nder Battle 2021 by Second Circle Winning Team ",
-      "image_url": "https://assets.ppy.sh/profile-badges/blb-2021.png"
-    },
-    {
-      "awarded_at": "2020-12-06T19:38:14+00:00",
-      "description": "osu! World Cup 2020 2nd Place (Germany) ",
-      "image_url": "https://assets.ppy.sh/profile-badges/badge_owc2020_2nd.png"
-    }
-  ],
-  "avatar_url": "https://a.ppy.sh/4504101?1636063550.png",
-  "id": "4504101",
-  "country_code": "DE",
-  "global_rank": "4",
-  "country_rank": "1",
-  "pp": "19006.5",
-  "play_time": "622h47m14s",
-  "play_time_seconds": "2242034",
-  "ssh": "9",
-  "ss": "36",
-  "sh": "203",
-  "s": "203",
-  "a": "718",
-  "ranked_score": "25690983242",
-  "accuracy": "98.6239",
-  "play_count": "36448",
-  "total_score": "179182430408",
-  "total_hits": "12613574",
-  "maximum_combo": "7538",
-  "replays": "3401513",
-  "level": "101",
-  "support_level": "3",
-  "default_group": "default",
-  "is_online": "false",
-  "is_active": "true",
-  "is_deleted": "false",
-  "is_nat": "false",
-  "is_moderator": "false",
-  "is_bot": "false",
-  "is_silenced": "false",
-  "is_restricted": "false",
-  "is_limited_bn": "false",
-  "is_supporter": "true",
-  "last_visit": "2022-06-14T21:38:33+00:00",
-  "profile_color": "null",
-  "ranked_beatmapset_count": "0",
-  "pending_beatmapset_count": "0",
-  "pm_friends_only": "true",
-  "graveyard_beatmapset_count": "5",
-  "beatmap_playcounts_count": "2812",
-  "comments_count": "0",
-  "favorite_beatmapset_count": "1",
-  "guest_beatmapset_count": "0",
-  "follower_count": "88039",
-  "best_beat_map": {
-    "title": "Team Magma &amp; Aqua Leader Battle Theme (Unofficial) ",
-    "difficulty_rating": "6.14",
-    "id": "2097898",
-    "build_id": "null",
-    "statistics": "great :308, ok :8",
-    "rank": "SH",
-    "mods": [
-      "HD",
-      "HR",
-      "DT"
-    ],
-    "ended_at": "2019-10-10T19:30:20+00:00",
-    "started_at": "null",
-    "accuracy": "0.9831223628691983",
-    "maximum_combo": "427",
-    "pp": "1076.33",
-    "passed": "true",
-    "total_score": "4870654",
-    "legacy_perfect": "false",
-    "replay": "true",
-    "mode": "osu",
-    "status": "ranked",
-    "total_length": "74",
-    "ar": "9.2",
-    "bpm": "200.6",
-    "convert": "false",
-    "count_circles": "210",
-    "count_sliders": "105",
-    "count_spinners": "1",
-    "cs": "4",
-    "deleted_at": "null",
-    "drain": "6.2",
-    "hit_length": "74",
-    "is_scoreable": "true",
-    "last_updated": "2019-07-25T08:19:53+00:00",
-    "mode_int": "0",
-    "pass_count": "308502",
-    "play_count": "4812291",
-    "ranked": "1",
-    "url": "https://osu.ppy.sh/beatmaps/2097898",
-    "checksum": "d0158fbafb1507f5eaaf55b2af33eb92",
-    "creator": "Sotarks",
-    "favorite_count": "1185",
-    "hype": "null",
-    "nsfw": "false",
-    "offset": "0",
-    "spotlight": "false",
-    "ruleset_id": "0"
-  }
-   ```
+<h3>Structures</h3>
+<h4>/user/</h4>
 
-<h2> /online/ </h2>
-<h3>Request sample </h3>
-  
-   ``` Elixir
-   GET https://osustatsapi.herokuapp.com/online/29829158
-   ```
-   
- <h3>Response sample </h3>
-  
-   ``` Json
-   "is_online": "true"
-   ```
+```Go
+type UserInfo struct {
+	Username                 string  `json:"username"`
+	Names                    string  `json:"previous_usernames"`
+	Badges                   []Badge `json:"badges"`
+	AvatarUrl                string  `json:"avatar_url"`
+	UserID                   string  `json:"id"`
+	CountryCode              string  `json:"country_code"`
+	GlobalRank               string  `json:"global_rank"`
+	CountryRank              string  `json:"country_rank"`
+	PP                       string  `json:"pp"`
+	PlayTime                 string  `json:"play_time"`
+	PlayTimeSeconds          string  `json:"play_time_seconds"`
+	SSH                      string  `json:"ssh"`
+	SS                       string  `json:"ss"`
+	SH                       string  `json:"sh"`
+	S                        string  `json:"s"`
+	A                        string  `json:"a"`
+	RankedScore              string  `json:"ranked_score"`
+	Accuracy                 string  `json:"accuracy"`
+	PlayCount                string  `json:"play_count"`
+	TotalScore               string  `json:"total_score"`
+	TotalHits                string  `json:"total_hits"`
+	MaximumCombo             string  `json:"maximum_combo"`
+	Replays                  string  `json:"replays"`
+	Level                    string  `json:"level"`
+	SupportLvl               string  `json:"support_level"`
+	DefaultGroup             string  `json:"default_group"`
+	IsOnline                 string  `json:"is_online"`
+	IsActive                 string  `json:"is_active"`
+	IsDeleted                string  `json:"is_deleted"`
+	IsNat                    string  `json:"is_nat"`
+	IsModerator              string  `json:"is_moderator"`
+	IsBot                    string  `json:"is_bot"`
+	IsSilenced               string  `json:"is_silenced"`
+	IsRestricted             string  `json:"is_restricted"`
+	IsLimitedBn              string  `json:"is_limited_bn"`
+	IsSupporter              string  `json:"is_supporter"`
+	LastVisit                string  `json:"last_visit"`
+	ProfileColor             string  `json:"profile_color"`
+	RankedBeatmapsetCount    string  `json:"ranked_beatmapset_count"`
+	PendingBeatmapsetCount   string  `json:"pending_beatmapset_count"`
+	PmFriendsOnly            string  `json:"pm_friends_only"`
+	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
+	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
+	CommentsCount            string  `json:"comments_count"`
+	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
+	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	FollowerCount            string  `json:"follower_count"`
+	BestBeatMap              beatMap `json:"best_beat_map"`
+}
+
+```
+
+
+```Go
+type beatMap struct {
+	Title            string   `json:"title"`
+	DifficultyRating string   `json:"difficulty_rating"`
+	Id               string   `json:"id"`
+	BuildId          string   `json:"build_id"`
+	Statistics       string   `json:"statistics"`
+	Rank             string   `json:"rank"`
+	Mods             []string `json:"mods"`
+	EndedAt          string   `json:"ended_at"`
+	StartedAt        string   `json:"started_at"`
+	Accuracy         string   `json:"accuracy"`
+	MaximumCombo     string   `json:"maximum_combo"`
+	PP               string   `json:"pp"`
+	Passed           string   `json:"passed"`
+	TotalScore       string   `json:"total_score"`
+	LegacyPerfect    string   `json:"legacy_perfect"`
+	Replay           string   `json:"replay"`
+	Mode             string   `json:"mode"`
+	Status           string   `json:"status"`
+	TotalLength      string   `json:"total_length"`
+	Ar               string   `json:"ar"`
+	Bpm              string   `json:"bpm"`
+	Convert          string   `json:"convert"`
+	CountCircles     string   `json:"count_circles"`
+	CountSliders     string   `json:"count_sliders"`
+	CountSpinners    string   `json:"count_spinners"`
+	Cs               string   `json:"cs"`
+	DeletedAt        string   `json:"deleted_at"`
+	Drain            string   `json:"drain"`
+	HitLength        string   `json:"hit_length"`
+	IsScoreable      string   `json:"is_scoreable"`
+	LastUpdated      string   `json:"last_updated"`
+	ModeInt          string   `json:"mode_int"`
+	PassCount        string   `json:"pass_count"`
+	PlayCount        string   `json:"play_count"`
+	Ranked           string   `json:"ranked"`
+	Url              string   `json:"url"`
+	Checksum         string   `json:"checksum"`
+	Creator          string   `json:"creator"`
+	FavoriteCount    string   `json:"favorite_count"`
+	Hype             string   `json:"hype"`
+	Nsfw             string   `json:"nsfw"`
+	Offset           string   `json:"offset"`
+	Spotlight        string   `json:"spotlight"`
+	RulesetId        string   `json:"ruleset_id"`
+}
+```
+
+```Go
+type Badge struct {
+	AwardedAt   string `json:"awarded_at"`
+	Description string `json:"description"`
+	ImageUrl    string `json:"image_url"`
+}
+```
+
+
+<h4>/online/</h4>
+
+```Go
+type OnlineInfo struct {
+	Status string `json:"is_online"`
+}
+```
