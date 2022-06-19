@@ -5,119 +5,7 @@ access to player statistics,
 including real PP count and real Accuracy percentage
 
 <h3>Structures</h3>
-<h4>User</h4>
 
-Field | Type | Description
-------|------|------------
-username | string |
-previous_usernames | string |
-badges | []Badge |
-avatar_url | string |
-id | string |
-country_code | string |
-global_rank | string |
-country_rank | string |
-pp | string |
-play_time | string |
-play_time_seconds | string |
-ssh | string |
-ss | string |
-sh | string |
-s | string |
-a | string |
-ranked_score | string |
-accuracy | string |
-play_count | string |
-total_score | string |
-total_hits | string |
-maximum_combo | string |
-replays | string |
-level | string |
-support_level | string |
-default_group | string |
-is_online | string |
-is_active | string |
-is_deleted | string |
-is_nat | string |
-is_moderator | string |
-is_bot | string |
-is_silenced | string |
-is_restricted | string |
-is_limited_bn | string |
-is_supporter | string |
-last_visit | string |
-profile_color | string |
-ranked_beatmapset_count | string |
-pending_beatmapset_count | string |
-pm_friends_only | string |
-graveyard_beatmapset_count | string |
-beatmap_playcounts_count | string |
-comments_count | string |
-favorite_beatmapset_count | string |
-guest_beatmapset_count | string |
-follower_count | string |
-best_beat_map | beatMap |
-
-
-<h4>Beat map</h4>
-
-Field | Type | Description
-------|------|------------
-title | string | 
-difficulty_rating | string | 
-id | string | 
-build_id | string | 
-statistics | string | 
-rank | string | 
-mods | []string | 
-ended_at | string | 
-started_at | string | 
-accuracy | string | 
-maximum_combo | string | 
-pp | string | 
-passed | string | 
-total_score | string | 
-legacy_perfect | string | 
-replay | string | 
-mode | string | 
-status | string | 
-total_length | string | 
-ar | string | 
-bpm | string | 
-convert | string | 
-count_circles | string | 
-count_sliders | string | 
-count_spinners | string | 
-cs | string | 
-deleted_at | string | 
-drain | string | 
-hit_length | string | 
-is_scoreable | string | 
-last_updated | string | 
-mode_int | string | 
-pass_count | string | 
-play_count | string | 
-ranked | string | 
-url | string | 
-checksum | string | 
-creator | string | 
-favorite_count | string | 
-hype | string | 
-nsfw | string | 
-offset | string | 
-spotlight | string | 
-ruleset_id | string | 
-
-<h4>Badge</h4>
-
-Field | Type | Description
-------|------|------------
-awarded_at | string | 
-description | string | 
-image_url | string | 
-
-
-</br>
 <details>
 <summary> 📘 Go structures </summary>
 </br>
@@ -243,3 +131,115 @@ type OnlineInfo struct {
 }
 ```
 </details>
+
+<h4>User</h4>
+
+Field | Type | Description
+------|------|------------
+username | string |
+previous_usernames | string |
+badges | []Badge |
+avatar_url | string |
+id | string |
+country_code | string | like "RU" or "JP"
+global_rank | string |
+country_rank | string |
+pp | string | float value, 4 decimals
+play_time | string | 
+play_time_seconds | string |
+ssh | string |
+ss | string |
+sh | string |
+s | string |
+a | string |
+ranked_score | string |
+accuracy | string | 
+play_count | string |
+total_score | string |
+total_hits | string |
+maximum_combo | string |
+replays | string | Replays Watched by Others
+level | string |
+support_level | string |
+default_group | string |
+is_online | string |
+is_active | string |
+is_deleted | string |
+is_nat | string |
+is_moderator | string |
+is_bot | string |
+is_silenced | string |
+is_restricted | string |
+is_limited_bn | string |
+is_supporter | string |
+last_visit | string |
+profile_color | string |
+ranked_beatmapset_count | string |
+pending_beatmapset_count | string |
+pm_friends_only | string |
+graveyard_beatmapset_count | string |
+beatmap_playcounts_count | string |
+comments_count | string |
+favorite_beatmapset_count | string |
+guest_beatmapset_count | string |
+follower_count | string |
+best_beat_map | beatMap |
+
+
+<h4>Beat map</h4>
+
+Field | Type | Description
+------|------|------------
+title | string | song name
+difficulty_rating | string | 
+id | string | 
+build_id | string | 
+statistics | string | 
+rank | string | 
+mods | []string | 
+ended_at | string | 
+started_at | string | 
+accuracy | string | 
+maximum_combo | string | 
+pp | string | 
+passed | string | 
+total_score | string | 
+legacy_perfect | string | 
+replay | string | 
+mode | string | 
+status | string | 
+total_length | string | seconds from first note to last note including breaks 
+ar | string | Approach Rate 
+bpm | string | 
+convert | string | 
+count_circles | string | 
+count_sliders | string | 
+count_spinners | string | 
+cs | string | Circle size value
+deleted_at | string | 
+drain | string | Health drain
+hit_length | string | seconds from first note to last note not including breaks
+is_scoreable | string | 
+last_updated | string | 
+mode_int | string | 
+pass_count | string | Number of times the beatmap was passed, completed
+play_count | string | Number of times the beatmap was played
+ranked | string | 
+url | string | 
+checksum | string | 
+creator | string | 
+favorite_count | string | Number of times the beatmap was favourited
+hype | string | 
+nsfw | string | 
+offset | string | 
+spotlight | string | 
+ruleset_id | string | 
+
+<h4>Badge</h4>
+
+Field | Type | Description
+------|------|------------
+awarded_at | string | 
+description | string | Badge name
+image_url | string | Badge image
+
