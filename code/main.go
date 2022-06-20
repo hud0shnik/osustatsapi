@@ -52,6 +52,7 @@ type UserInfo struct {
 	IsDeleted                string  `json:"is_deleted"`
 	IsNat                    string  `json:"is_nat"`
 	IsModerator              string  `json:"is_moderator"`
+	IsAdmin                  string  `json:"is_admin"`
 	IsBot                    string  `json:"is_bot"`
 	IsGmt                    string  `json:"is_gmt"`
 	IsBng                    string  `json:"is_bng"`
@@ -328,6 +329,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Юзернейм
 	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
+	i2 += i
+
+	// Администрация
+	result.IsAdmin, i = findWithIndex(pageStr[i2:], "is_admin :", ',')
 	i2 += i
 
 	// Номинатор
