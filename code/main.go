@@ -53,6 +53,7 @@ type UserInfo struct {
 	IsNat                    string  `json:"is_nat"`
 	IsModerator              string  `json:"is_moderator"`
 	IsBot                    string  `json:"is_bot"`
+	IsGmt                    string  `json:"is_gmt"`
 	IsSilenced               string  `json:"is_silenced"`
 	IsRestricted             string  `json:"is_restricted"`
 	IsLimitedBn              string  `json:"is_limited_bn"`
@@ -327,6 +328,10 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
 	i2 += i
 
+
+	// Команда глобальной модерации
+	result.IsGmt, i = findWithIndex(pageStr[i2:], "is_gmt :", ',')
+	i2 += i
 
 	// Временный бан
 	result.IsLimitedBn, i = findWithIndex(pageStr[i2:], "is_limited_bn :", ',')
