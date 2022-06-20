@@ -54,6 +54,7 @@ type UserInfo struct {
 	IsModerator              string  `json:"is_moderator"`
 	IsBot                    string  `json:"is_bot"`
 	IsGmt                    string  `json:"is_gmt"`
+	IsBng                    string  `json:"is_bng"`
 	IsFullBan                string  `json:"is_full_bn"`
 	IsSilenced               string  `json:"is_silenced"`
 	IsRestricted             string  `json:"is_restricted"`
@@ -327,6 +328,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Юзернейм
 	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
+	i2 += i
+
+	// Номинатор
+	result.IsBng, i = findWithIndex(pageStr[i2:], "is_bng :", ',')
 	i2 += i
 
 	// Вечный бан
