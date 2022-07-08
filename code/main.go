@@ -129,20 +129,15 @@ type OnlineInfo struct {
 }
 
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
-func findWithIndex(str string, subStr string, char byte) (string, int) {
+func findWithIndex(str, subStr, stopChar string) (string, int) {
 
 	// Поиск индекса начала нужной строки
 	left := strings.Index(str, subStr) + len(subStr)
 
 	// Проверка на существование нужной строки
-	if left > len(subStr)-1 {
+	if strings.Contains(str, subStr) {
 
-		// Крайняя часть искомой строки
-		right := left
-
-		for ; str[right] != char; right++ {
-			// Доводит str[right] до символа char
-		}
+		right := left + strings.Index(str[left:], stopChar)
 
 		return str[left:right], right
 	}
@@ -151,22 +146,16 @@ func findWithIndex(str string, subStr string, char byte) (string, int) {
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
-func find(str string, subStr string, char byte) string {
-
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
+func find(str, subStr, stopChar string) string {
 
 	// Проверка на существование нужной строки
-	if left > len(subStr)-1 {
+	if strings.Contains(str, subStr) {
 
-		// Крайняя часть искомой строки
-		right := left
+		// Обрезка левой части
+		str = str[strings.Index(str, subStr)+len(subStr):]
 
-		for ; str[right] != char; right++ {
-			// Доводит str[right] до символа char
-		}
-
-		return str[left:right]
+		// Обрезка правой части и вывод результата
+		return str[:strings.Index(str, stopChar)]
 	}
 
 	return ""
@@ -198,11 +187,11 @@ func getUserInfo(id, mode string) UserInfo {
 		return UserInfo{}
 	}
 
-	// Обрезка юзелесс части html'ки
+	// Обрезка юзелесс части html"ки
 	pageStr = pageStr[strings.Index(pageStr, "current_mode"):]
 	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
 
-	// Сохранение html'ки в файл sample.html (для тестов)
+	// Сохранение html"ки в файл sample.html (для тестов)
 	/*
 		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
 			log.Fatal(err)
@@ -223,11 +212,11 @@ func getUserInfo(id, mode string) UserInfo {
 
 	//--------------------------- Лучшая мапа ------------------------------
 
-	result.BestBeatMap.Accuracy = find(pageStr, "accuracy :", ',')
-	result.BestBeatMap.Id = find(pageStr, "beatmap_id :", ',')
-	result.BestBeatMap.BuildId = find(pageStr, "build_id :", ',')
-	result.BestBeatMap.EndedAt = find(pageStr, "ended_at : ", ' ')
-	result.BestBeatMap.MaximumCombo, i = findWithIndex(pageStr, "max_combo :", ',')
+	result.BestBeatMap.Accuracy = find(pageStr, "accuracy :", ",")
+	result.BestBeatMap.Id = find(pageStr, "beatmap_id :", ",")
+	result.BestBeatMap.BuildId = find(pageStr, "build_id :", ",")
+	result.BestBeatMap.EndedAt = find(pageStr, "ended_at : ", " ")
+	result.BestBeatMap.MaximumCombo, i = findWithIndex(pageStr, "max_combo :", ",")
 	pageStr = pageStr[i:]
 
 	// Цикл для обработки модов
@@ -237,173 +226,173 @@ func getUserInfo(id, mode string) UserInfo {
 		}
 	}
 
-	result.BestBeatMap.Passed = find(pageStr, "passed :", ',')
-	result.BestBeatMap.StartedAt = find(pageStr, "started_at :", ',')
-	result.BestBeatMap.Statistics = find(pageStr, "statistics :{ ", '}')
-	result.BestBeatMap.Rank = find(pageStr, "rank : ", ' ')
-	result.BestBeatMap.RulesetId = find(pageStr, "ruleset_id :", ',')
-	result.BestBeatMap.TotalScore = find(pageStr, "total_score :", ',')
-	result.BestBeatMap.LegacyPerfect = find(pageStr, "legacy_perfect :", ',')
-	result.BestBeatMap.PP = find(pageStr, "pp :", ',')
-	result.BestBeatMap.Replay = find(pageStr, "replay :", ',')
-	result.BestBeatMap.DifficultyRating = find(pageStr, "difficulty_rating :", ',')
-	result.BestBeatMap.Mode = find(pageStr, "mode : ", ' ')
-	result.BestBeatMap.Status = find(pageStr, "status : ", ' ')
-	result.BestBeatMap.TotalLength = find(pageStr, "total_length :", ',')
-	result.BestBeatMap.Ar = find(pageStr, "ar :", ',')
-	result.BestBeatMap.Bpm = find(pageStr, "bpm :", ',')
-	result.BestBeatMap.Convert = find(pageStr, "convert :", ',')
-	result.BestBeatMap.CountCircles = find(pageStr, "count_circles :", ',')
-	result.BestBeatMap.CountSliders = find(pageStr, "count_sliders :", ',')
-	result.BestBeatMap.CountSpinners = find(pageStr, "count_spinners :", ',')
-	result.BestBeatMap.Cs = find(pageStr, " cs :", ',')
-	result.BestBeatMap.DeletedAt = find(pageStr, "deleted_at :", ',')
-	result.BestBeatMap.Drain = find(pageStr, "drain :", ',')
-	result.BestBeatMap.HitLength = find(pageStr, "hit_length :", ',')
-	result.BestBeatMap.IsScoreable = find(pageStr, "is_scoreable :", ',')
-	result.BestBeatMap.LastUpdated = find(pageStr, "last_updated : ", ' ')
-	result.BestBeatMap.ModeInt = find(pageStr, "mode_int :", ',')
-	result.BestBeatMap.PassCount = find(pageStr, "passcount :", ',')
-	result.BestBeatMap.PlayCount = find(pageStr, "playcount :", ',')
-	result.BestBeatMap.Ranked = find(pageStr, "ranked :", ',')
-	result.BestBeatMap.Url = find(pageStr, "url : ", ' ')
+	result.BestBeatMap.Passed = find(pageStr, "passed :", ",")
+	result.BestBeatMap.StartedAt = find(pageStr, "started_at :", ",")
+	result.BestBeatMap.Statistics = find(pageStr, "statistics :{ ", "}")
+	result.BestBeatMap.Rank = find(pageStr, "rank : ", " ")
+	result.BestBeatMap.RulesetId = find(pageStr, "ruleset_id :", ",")
+	result.BestBeatMap.TotalScore = find(pageStr, "total_score :", ",")
+	result.BestBeatMap.LegacyPerfect = find(pageStr, "legacy_perfect :", ",")
+	result.BestBeatMap.PP = find(pageStr, "pp :", ",")
+	result.BestBeatMap.Replay = find(pageStr, "replay :", ",")
+	result.BestBeatMap.DifficultyRating = find(pageStr, "difficulty_rating :", ",")
+	result.BestBeatMap.Mode = find(pageStr, "mode : ", " ")
+	result.BestBeatMap.Status = find(pageStr, "status : ", " ")
+	result.BestBeatMap.TotalLength = find(pageStr, "total_length :", ",")
+	result.BestBeatMap.Ar = find(pageStr, "ar :", ",")
+	result.BestBeatMap.Bpm = find(pageStr, "bpm :", ",")
+	result.BestBeatMap.Convert = find(pageStr, "convert :", ",")
+	result.BestBeatMap.CountCircles = find(pageStr, "count_circles :", ",")
+	result.BestBeatMap.CountSliders = find(pageStr, "count_sliders :", ",")
+	result.BestBeatMap.CountSpinners = find(pageStr, "count_spinners :", ",")
+	result.BestBeatMap.Cs = find(pageStr, " cs :", ",")
+	result.BestBeatMap.DeletedAt = find(pageStr, "deleted_at :", ",")
+	result.BestBeatMap.Drain = find(pageStr, "drain :", ",")
+	result.BestBeatMap.HitLength = find(pageStr, "hit_length :", ",")
+	result.BestBeatMap.IsScoreable = find(pageStr, "is_scoreable :", ",")
+	result.BestBeatMap.LastUpdated = find(pageStr, "last_updated : ", " ")
+	result.BestBeatMap.ModeInt = find(pageStr, "mode_int :", ",")
+	result.BestBeatMap.PassCount = find(pageStr, "passcount :", ",")
+	result.BestBeatMap.PlayCount = find(pageStr, "playcount :", ",")
+	result.BestBeatMap.Ranked = find(pageStr, "ranked :", ",")
+	result.BestBeatMap.Url = find(pageStr, "url : ", " ")
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
-	result.BestBeatMap.Checksum = find(pageStr, "checksum : ", ' ')
-	result.BestBeatMap.Creator, i = findWithIndex(pageStr, "creator : ", ' ')
+	result.BestBeatMap.Checksum = find(pageStr, "checksum : ", " ")
+	result.BestBeatMap.Creator, i = findWithIndex(pageStr, "creator : ", " ")
 	pageStr = pageStr[i:]
 
-	result.BestBeatMap.FavoriteCount = find(pageStr, "favourite_count :", ',')
-	result.BestBeatMap.Hype = find(pageStr, "hype :", ',')
-	result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ',')
-	result.BestBeatMap.Offset = find(pageStr, "offset :", ',')
-	result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ',')
-	result.BestBeatMap.Title = find(pageStr, "title : ", ',')
+	result.BestBeatMap.FavoriteCount = find(pageStr, "favourite_count :", ",")
+	result.BestBeatMap.Hype = find(pageStr, "hype :", ",")
+	result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ",")
+	result.BestBeatMap.Offset = find(pageStr, "offset :", ",")
+	result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ",")
+	result.BestBeatMap.Title = find(pageStr, "title : ", ",")
 	pageStr = pageStr[i:]
 
 	//--------------------------- Статистика игрока ------------------------------
 
 	// В последний раз был в сети
-	result.LastVisit, i = findWithIndex(pageStr, "last_visit : ", ' ')
+	result.LastVisit, i = findWithIndex(pageStr, "last_visit : ", " ")
 	i2 += i
 
 	// Сообщения только от друзей
-	result.PmFriendsOnly, i = findWithIndex(pageStr[i2:], "pm_friends_only :", ',')
+	result.PmFriendsOnly, i = findWithIndex(pageStr[i2:], "pm_friends_only :", ",")
 	i2 += i
 
 	// Ссылка на аватар
-	result.AvatarUrl, i = findWithIndex(pageStr[i2:], "avatar_url : ", ' ')
+	result.AvatarUrl, i = findWithIndex(pageStr[i2:], "avatar_url : ", " ")
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
 	i2 += i
 
 	// Код страны
-	result.CountryCode, i = findWithIndex(pageStr[i2:], "country_code : ", ' ')
+	result.CountryCode, i = findWithIndex(pageStr[i2:], "country_code : ", " ")
 	i2 += i
 
 	// Группа
-	result.DefaultGroup, i = findWithIndex(pageStr[i2:], "default_group : ", ' ')
+	result.DefaultGroup, i = findWithIndex(pageStr[i2:], "default_group : ", " ")
 	i2 += i
 
 	// Активность
-	result.IsActive, i = findWithIndex(pageStr[i2:], "is_active :", ',')
+	result.IsActive, i = findWithIndex(pageStr[i2:], "is_active :", ",")
 	i2 += i
 
 	// Бот
-	result.IsBot, i = findWithIndex(pageStr[i2:], "is_bot :", ',')
+	result.IsBot, i = findWithIndex(pageStr[i2:], "is_bot :", ",")
 	i2 += i
 
 	// Удалённый профиль
-	result.IsDeleted, i = findWithIndex(pageStr[i2:], "is_deleted :", ',')
+	result.IsDeleted, i = findWithIndex(pageStr[i2:], "is_deleted :", ",")
 	i2 += i
 
 	// Статус в сети
-	result.IsOnline, i = findWithIndex(pageStr[i2:], "is_online :", ',')
+	result.IsOnline, i = findWithIndex(pageStr[i2:], "is_online :", ",")
 	i2 += i
 
 	// Подписка
-	result.IsSupporter, i = findWithIndex(pageStr[i2:], "is_supporter :", ',')
+	result.IsSupporter, i = findWithIndex(pageStr[i2:], "is_supporter :", ",")
 	i2 += i
 
 	// Цвет профиля
-	result.ProfileColor, i = findWithIndex(pageStr[i2:], "profile_colour :", ',')
+	result.ProfileColor, i = findWithIndex(pageStr[i2:], "profile_colour :", ",")
 	i2 += i
 
 	// Юзернейм
-	result.Username, i = findWithIndex(pageStr[i2:], "username : ", ' ')
+	result.Username, i = findWithIndex(pageStr[i2:], "username : ", " ")
 	i2 += i
 
 	// Администрация
-	result.IsAdmin, i = findWithIndex(pageStr[i2:], "is_admin :", ',')
+	result.IsAdmin, i = findWithIndex(pageStr[i2:], "is_admin :", ",")
 	i2 += i
 
 	// Номинатор
-	result.IsBng, i = findWithIndex(pageStr[i2:], "is_bng :", ',')
+	result.IsBng, i = findWithIndex(pageStr[i2:], "is_bng :", ",")
 	i2 += i
 
 	// Вечный бан
-	result.IsFullBan, i = findWithIndex(pageStr[i2:], "is_full_bn :", ',')
+	result.IsFullBan, i = findWithIndex(pageStr[i2:], "is_full_bn :", ",")
 	i2 += i
 
 	// Команда глобальной модерации
-	result.IsGmt, i = findWithIndex(pageStr[i2:], "is_gmt :", ',')
+	result.IsGmt, i = findWithIndex(pageStr[i2:], "is_gmt :", ",")
 	i2 += i
 
 	// Временный бан
-	result.IsLimitedBan, i = findWithIndex(pageStr[i2:], "is_limited_bn :", ',')
+	result.IsLimitedBan, i = findWithIndex(pageStr[i2:], "is_limited_bn :", ",")
 	i2 += i
 
 	// Модератор
-	result.IsModerator, i = findWithIndex(pageStr[i2:], "is_moderator :", ',')
+	result.IsModerator, i = findWithIndex(pageStr[i2:], "is_moderator :", ",")
 	i2 += i
 
 	// Команда оценки номинаций
-	result.IsNat, i = findWithIndex(pageStr[i2:], "is_nat :", ',')
+	result.IsNat, i = findWithIndex(pageStr[i2:], "is_nat :", ",")
 	i2 += i
 
 	// Ограничение
-	result.IsRestricted, i = findWithIndex(pageStr[i2:], "is_restricted :", ',')
+	result.IsRestricted, i = findWithIndex(pageStr[i2:], "is_restricted :", ",")
 	i2 += i
 
 	// Немота
-	result.IsSilenced, i = findWithIndex(pageStr[i2:], "is_silenced :", ',')
+	result.IsSilenced, i = findWithIndex(pageStr[i2:], "is_silenced :", ",")
 	i2 += i
 
 	// Значки
 	for c := strings.Index(pageStr[i2:], "badges :["); pageStr[i2:][c] != ']'; c++ {
 		if pageStr[i2:][c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
-				AwardedAt:   find(pageStr[i2:][c:], "awarded_at : ", ' '),
-				Description: find(pageStr[i2:][c:], "description : ", ','),
-				ImageUrl:    strings.ReplaceAll(find(pageStr[i2:][c:], "image_url : ", ' '), "\\", ""),
+				AwardedAt:   find(pageStr[i2:][c:], "awarded_at : ", " "),
+				Description: find(pageStr[i2:][c:], "description : ", ","),
+				ImageUrl:    strings.ReplaceAll(find(pageStr[i2:][c:], "image_url : ", " "), "\\", ""),
 			})
 		}
 	}
 
 	// Количество игр карт
-	result.BeatmapPlaycountsCount, i = findWithIndex(pageStr[i2:], "beatmap_playcounts_count :", ',')
+	result.BeatmapPlaycountsCount, i = findWithIndex(pageStr[i2:], "beatmap_playcounts_count :", ",")
 	i2 += i
 
 	// Количество комментариев
-	result.CommentsCount, i = findWithIndex(pageStr[i2:], "comments_count :", ',')
+	result.CommentsCount, i = findWithIndex(pageStr[i2:], "comments_count :", ",")
 	i2 += i
 
 	// Количество любимых карт
-	result.FavoriteBeatmapsetCount, i = findWithIndex(pageStr[i2:], "favourite_beatmapset_count :", ',')
+	result.FavoriteBeatmapsetCount, i = findWithIndex(pageStr[i2:], "favourite_beatmapset_count :", ",")
 	i2 += i
 
 	// Подписчики
-	result.FollowerCount, i = findWithIndex(pageStr[i2:], "follower_count :", ',')
+	result.FollowerCount, i = findWithIndex(pageStr[i2:], "follower_count :", ",")
 	i2 += i
 
 	// Заброшенные карты
-	result.GraveyardBeatmapsetCount, i = findWithIndex(pageStr[i2:], "graveyard_beatmapset_count :", ',')
+	result.GraveyardBeatmapsetCount, i = findWithIndex(pageStr[i2:], "graveyard_beatmapset_count :", ",")
 	i2 += i
 
 	// Карты с гостевым участием
-	result.GuestBeatmapsetCount, i = findWithIndex(pageStr[i2:], "guest_beatmapset_count :", ',')
+	result.GuestBeatmapsetCount, i = findWithIndex(pageStr[i2:], "guest_beatmapset_count :", ",")
 	i2 += i
 
 	// Карты на рассмотрении
-	result.PendingBeatmapsetCount, i = findWithIndex(pageStr[i2:], "pending_beatmapset_count :", ',')
+	result.PendingBeatmapsetCount, i = findWithIndex(pageStr[i2:], "pending_beatmapset_count :", ",")
 	i2 += i
 
 	// Юзернеймы
@@ -413,35 +402,35 @@ func getUserInfo(id, mode string) UserInfo {
 	}
 
 	// Рейтинговые и одобренные карты
-	result.RankedBeatmapsetCount, i = findWithIndex(pageStr[i2:], "ranked_beatmapset_count :", ',')
+	result.RankedBeatmapsetCount, i = findWithIndex(pageStr[i2:], "ranked_beatmapset_count :", ",")
 	i2 += i
 
 	// Уровень
-	result.Level, i = findWithIndex(pageStr[i2:], "level :{ current :", ',')
+	result.Level, i = findWithIndex(pageStr[i2:], "level :{ current :", ",")
 	i2 += i
 
 	// Глобальный рейтинг
-	result.GlobalRank, i = findWithIndex(pageStr[i2:], "global_rank :", ',')
+	result.GlobalRank, i = findWithIndex(pageStr[i2:], "global_rank :", ",")
 	i2 += i
 
 	// PP-хи
-	result.PP, i = findWithIndex(pageStr[i2:], "pp :", ',')
+	result.PP, i = findWithIndex(pageStr[i2:], "pp :", ",")
 	i2 += i
 
 	// Всего очков
-	result.RankedScore, i = findWithIndex(pageStr[i2:], "ranked_score :", ',')
+	result.RankedScore, i = findWithIndex(pageStr[i2:], "ranked_score :", ",")
 	i2 += i
 
 	// Точность попаданий
-	result.Accuracy, i = findWithIndex(pageStr[i2:], "hit_accuracy :", ',')
+	result.Accuracy, i = findWithIndex(pageStr[i2:], "hit_accuracy :", ",")
 	i2 += i
 
 	// Количество игр
-	result.PlayCount, i = findWithIndex(pageStr[i2:], "play_count :", ',')
+	result.PlayCount, i = findWithIndex(pageStr[i2:], "play_count :", ",")
 	i2 += i
 
 	// Время в игре в секундах
-	result.PlayTimeSeconds, i = findWithIndex(pageStr[i2:], "play_time :", ',')
+	result.PlayTimeSeconds, i = findWithIndex(pageStr[i2:], "play_time :", ",")
 	i2 += i
 
 	// Время в игре в часах
@@ -449,47 +438,47 @@ func getUserInfo(id, mode string) UserInfo {
 	result.PlayTime = duration.String()
 
 	// Рейтинговые очки
-	result.TotalScore, i = findWithIndex(pageStr[i2:], "total_score :", ',')
+	result.TotalScore, i = findWithIndex(pageStr[i2:], "total_score :", ",")
 	i2 += i
 
 	// Всего попаданий
-	result.TotalHits, i = findWithIndex(pageStr[i2:], "total_hits :", ',')
+	result.TotalHits, i = findWithIndex(pageStr[i2:], "total_hits :", ",")
 	i2 += i
 
 	// Максимальное комбо
-	result.MaximumCombo, i = findWithIndex(pageStr[i2:], "maximum_combo :", ',')
+	result.MaximumCombo, i = findWithIndex(pageStr[i2:], "maximum_combo :", ",")
 	i2 += i
 
 	// Реплеев просмотрено другими
-	result.Replays, i = findWithIndex(pageStr[i2:], "replays_watched_by_others :", ',')
+	result.Replays, i = findWithIndex(pageStr[i2:], "replays_watched_by_others :", ",")
 	i2 += i
 
 	// SS-ки
-	result.SS, i = findWithIndex(pageStr[i2:], "grade_counts :{ ss :", ',')
+	result.SS, i = findWithIndex(pageStr[i2:], "grade_counts :{ ss :", ",")
 	i2 += i
 
 	// SSH-ки
-	result.SSH, i = findWithIndex(pageStr[i2:], "ssh :", ',')
+	result.SSH, i = findWithIndex(pageStr[i2:], "ssh :", ",")
 	i2 += i
 
 	// S-ки
-	result.S, i = findWithIndex(pageStr[i2:], "s :", ',')
+	result.S, i = findWithIndex(pageStr[i2:], "s :", ",")
 	i2 += i
 
 	// SH-ки
-	result.SH, i = findWithIndex(pageStr[i2:], "sh :", ',')
+	result.SH, i = findWithIndex(pageStr[i2:], "sh :", ",")
 	i2 += i
 
 	// A-хи
-	result.A, i = findWithIndex(pageStr[i2:], "a :", '}')
+	result.A, i = findWithIndex(pageStr[i2:], "a :", "}")
 	i2 += i
 
 	// Рейтинг в стране
-	result.CountryRank, i = findWithIndex(pageStr[i2:], "country_rank :", ',')
+	result.CountryRank, i = findWithIndex(pageStr[i2:], "country_rank :", ",")
 	i2 += i
 
 	// Уровень подписки
-	result.SupportLvl = find(pageStr[i2:], "support_level :", ',')
+	result.SupportLvl = find(pageStr[i2:], "support_level :", ",")
 
 	return result
 }
@@ -516,7 +505,7 @@ func getOnlineInfo(id string) OnlineInfo {
 	result := OnlineInfo{}
 
 	// Статус в сети
-	result.Status = find(string(body), "is_online&quot;:", ',')
+	result.Status = find(string(body), "is_online&quot;:", ",")
 
 	return result
 }
