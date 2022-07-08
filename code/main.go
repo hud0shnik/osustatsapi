@@ -129,19 +129,22 @@ type OnlineInfo struct {
 }
 
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
-func findWithIndex(str, subStr, stopChar string) (string, int) {
+func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
 
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
+	// Обрезка левой границы поиска
+	str = str[start:]
 
 	// Проверка на существование нужной строки
 	if strings.Contains(str, subStr) {
+
+		// Поиск индекса начала нужной строки
+		left := strings.Index(str, subStr) + len(subStr)
 
 		// Поиск правой границы
 		right := left + strings.Index(str[left:], stopChar)
 
 		// Обрезка и вывод результата
-		return str[left:right], right
+		return str[left:right], right + start
 	}
 
 	return "", 0
@@ -190,8 +193,7 @@ func getUserInfo(id, mode string) UserInfo {
 	}
 
 	// Обрезка юзелесс части html"ки
-	pageStr = pageStr[strings.Index(pageStr, "current_mode"):]
-	pageStr = strings.ReplaceAll(pageStr, "&quot;", " ")
+	pageStr = strings.ReplaceAll(pageStr[strings.Index(pageStr, "current_mode"):], "&quot;", " ")
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*
@@ -205,7 +207,7 @@ func getUserInfo(id, mode string) UserInfo {
 		UserID: id,
 	}
 
-	i, i2 := 0, 0
+	left := 0
 
 	/* -----------------------------------------------------------
 	# Далее происходит заполнение полей функцией find			 #
@@ -218,8 +220,8 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Id = find(pageStr, "beatmap_id :", ",")
 	result.BestBeatMap.BuildId = find(pageStr, "build_id :", ",")
 	result.BestBeatMap.EndedAt = find(pageStr, "ended_at : ", " ")
-	result.BestBeatMap.MaximumCombo, i = findWithIndex(pageStr, "max_combo :", ",")
-	pageStr = pageStr[i:]
+	result.BestBeatMap.MaximumCombo, left = findWithIndex(pageStr, "max_combo :", ",", 0)
+	pageStr = pageStr[left:]
 
 	// Цикл для обработки модов
 	for c := 0; pageStr[c] != ']'; c++ {
@@ -260,8 +262,8 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Url = find(pageStr, "url : ", " ")
 	result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 	result.BestBeatMap.Checksum = find(pageStr, "checksum : ", " ")
-	result.BestBeatMap.Creator, i = findWithIndex(pageStr, "creator : ", " ")
-	pageStr = pageStr[i:]
+	result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", 0)
+	pageStr = pageStr[left:]
 
 	result.BestBeatMap.FavoriteCount = find(pageStr, "favourite_count :", ",")
 	result.BestBeatMap.Hype = find(pageStr, "hype :", ",")
@@ -269,218 +271,168 @@ func getUserInfo(id, mode string) UserInfo {
 	result.BestBeatMap.Offset = find(pageStr, "offset :", ",")
 	result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ",")
 	result.BestBeatMap.Title = find(pageStr, "title : ", ",")
-	pageStr = pageStr[i:]
 
 	//--------------------------- Статистика игрока ------------------------------
 
 	// В последний раз был в сети
-	result.LastVisit, i = findWithIndex(pageStr, "last_visit : ", " ")
-	i2 += i
+	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", 0)
 
 	// Сообщения только от друзей
-	result.PmFriendsOnly, i = findWithIndex(pageStr[i2:], "pm_friends_only :", ",")
-	i2 += i
+	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left)
 
 	// Ссылка на аватар
-	result.AvatarUrl, i = findWithIndex(pageStr[i2:], "avatar_url : ", " ")
+	result.AvatarUrl, left = findWithIndex(pageStr, "avatar_url : ", " ", left)
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
-	i2 += i
 
 	// Код страны
-	result.CountryCode, i = findWithIndex(pageStr[i2:], "country_code : ", " ")
-	i2 += i
+	result.CountryCode, left = findWithIndex(pageStr, "country_code : ", " ", left)
 
 	// Группа
-	result.DefaultGroup, i = findWithIndex(pageStr[i2:], "default_group : ", " ")
-	i2 += i
+	result.DefaultGroup, left = findWithIndex(pageStr, "default_group : ", " ", left)
 
 	// Активность
-	result.IsActive, i = findWithIndex(pageStr[i2:], "is_active :", ",")
-	i2 += i
+	result.IsActive, left = findWithIndex(pageStr, "is_active :", ",", left)
 
 	// Бот
-	result.IsBot, i = findWithIndex(pageStr[i2:], "is_bot :", ",")
-	i2 += i
+	result.IsBot, left = findWithIndex(pageStr, "is_bot :", ",", left)
 
 	// Удалённый профиль
-	result.IsDeleted, i = findWithIndex(pageStr[i2:], "is_deleted :", ",")
-	i2 += i
+	result.IsDeleted, left = findWithIndex(pageStr, "is_deleted :", ",", left)
 
 	// Статус в сети
-	result.IsOnline, i = findWithIndex(pageStr[i2:], "is_online :", ",")
-	i2 += i
+	result.IsOnline, left = findWithIndex(pageStr, "is_online :", ",", left)
 
 	// Подписка
-	result.IsSupporter, i = findWithIndex(pageStr[i2:], "is_supporter :", ",")
-	i2 += i
+	result.IsSupporter, left = findWithIndex(pageStr, "is_supporter :", ",", left)
 
 	// Цвет профиля
-	result.ProfileColor, i = findWithIndex(pageStr[i2:], "profile_colour :", ",")
-	i2 += i
+	result.ProfileColor, left = findWithIndex(pageStr, "profile_colour :", ",", left)
 
 	// Юзернейм
-	result.Username, i = findWithIndex(pageStr[i2:], "username : ", " ")
-	i2 += i
+	result.Username, left = findWithIndex(pageStr, "username : ", " ", left)
 
 	// Администрация
-	result.IsAdmin, i = findWithIndex(pageStr[i2:], "is_admin :", ",")
-	i2 += i
+	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 
 	// Номинатор
-	result.IsBng, i = findWithIndex(pageStr[i2:], "is_bng :", ",")
-	i2 += i
+	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
 
 	// Вечный бан
-	result.IsFullBan, i = findWithIndex(pageStr[i2:], "is_full_bn :", ",")
-	i2 += i
+	result.IsFullBan, left = findWithIndex(pageStr, "is_full_bn :", ",", left)
 
 	// Команда глобальной модерации
-	result.IsGmt, i = findWithIndex(pageStr[i2:], "is_gmt :", ",")
-	i2 += i
+	result.IsGmt, left = findWithIndex(pageStr, "is_gmt :", ",", left)
 
 	// Временный бан
-	result.IsLimitedBan, i = findWithIndex(pageStr[i2:], "is_limited_bn :", ",")
-	i2 += i
+	result.IsLimitedBan, left = findWithIndex(pageStr, "is_limited_bn :", ",", left)
 
 	// Модератор
-	result.IsModerator, i = findWithIndex(pageStr[i2:], "is_moderator :", ",")
-	i2 += i
+	result.IsModerator, left = findWithIndex(pageStr, "is_moderator :", ",", left)
 
 	// Команда оценки номинаций
-	result.IsNat, i = findWithIndex(pageStr[i2:], "is_nat :", ",")
-	i2 += i
+	result.IsNat, left = findWithIndex(pageStr, "is_nat :", ",", left)
 
 	// Ограничение
-	result.IsRestricted, i = findWithIndex(pageStr[i2:], "is_restricted :", ",")
-	i2 += i
+	result.IsRestricted, left = findWithIndex(pageStr, "is_restricted :", ",", left)
 
 	// Немота
-	result.IsSilenced, i = findWithIndex(pageStr[i2:], "is_silenced :", ",")
-	i2 += i
+	result.IsSilenced, left = findWithIndex(pageStr, "is_silenced :", ",", left)
 
 	// Значки
-	for c := strings.Index(pageStr[i2:], "badges :["); pageStr[i2:][c] != ']'; c++ {
-		if pageStr[i2:][c:c+13] == "awarded_at : " {
+	for c := strings.Index(pageStr, "badges :["); pageStr[c] != ']'; c++ {
+		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
-				AwardedAt:   find(pageStr[i2:][c:], "awarded_at : ", " "),
-				Description: find(pageStr[i2:][c:], "description : ", ","),
-				ImageUrl:    strings.ReplaceAll(find(pageStr[i2:][c:], "image_url : ", " "), "\\", ""),
+				AwardedAt:   find(pageStr[c:], "awarded_at : ", " "),
+				Description: find(pageStr[c:], "description : ", ","),
+				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " "), "\\", ""),
 			})
 		}
 	}
 
 	// Количество игр карт
-	result.BeatmapPlaycountsCount, i = findWithIndex(pageStr[i2:], "beatmap_playcounts_count :", ",")
-	i2 += i
+	result.BeatmapPlaycountsCount, left = findWithIndex(pageStr, "beatmap_playcounts_count :", ",", left)
 
 	// Количество комментариев
-	result.CommentsCount, i = findWithIndex(pageStr[i2:], "comments_count :", ",")
-	i2 += i
+	result.CommentsCount, left = findWithIndex(pageStr, "comments_count :", ",", left)
 
 	// Количество любимых карт
-	result.FavoriteBeatmapsetCount, i = findWithIndex(pageStr[i2:], "favourite_beatmapset_count :", ",")
-	i2 += i
+	result.FavoriteBeatmapsetCount, left = findWithIndex(pageStr, "favourite_beatmapset_count :", ",", left)
 
 	// Подписчики
-	result.FollowerCount, i = findWithIndex(pageStr[i2:], "follower_count :", ",")
-	i2 += i
+	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left)
 
 	// Заброшенные карты
-	result.GraveyardBeatmapsetCount, i = findWithIndex(pageStr[i2:], "graveyard_beatmapset_count :", ",")
-	i2 += i
+	result.GraveyardBeatmapsetCount, left = findWithIndex(pageStr, "graveyard_beatmapset_count :", ",", left)
 
 	// Карты с гостевым участием
-	result.GuestBeatmapsetCount, i = findWithIndex(pageStr[i2:], "guest_beatmapset_count :", ",")
-	i2 += i
+	result.GuestBeatmapsetCount, left = findWithIndex(pageStr, "guest_beatmapset_count :", ",", left)
 
 	// Карты на рассмотрении
-	result.PendingBeatmapsetCount, i = findWithIndex(pageStr[i2:], "pending_beatmapset_count :", ",")
-	i2 += i
+	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
 
 	// Юзернеймы
-	result.Names = pageStr[i2+strings.Index(pageStr[i2:], "previous_usernames :[ ")+22 : i2+strings.Index(pageStr[i2:], "],")-1]
-	if result.Names == ":" {
-		result.Names = ""
-	}
+	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
 
 	// Рейтинговые и одобренные карты
-	result.RankedBeatmapsetCount, i = findWithIndex(pageStr[i2:], "ranked_beatmapset_count :", ",")
-	i2 += i
+	result.RankedBeatmapsetCount, left = findWithIndex(pageStr, "ranked_beatmapset_count :", ",", left)
 
 	// Уровень
-	result.Level, i = findWithIndex(pageStr[i2:], "level :{ current :", ",")
-	i2 += i
+	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left)
 
 	// Глобальный рейтинг
-	result.GlobalRank, i = findWithIndex(pageStr[i2:], "global_rank :", ",")
-	i2 += i
+	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left)
 
 	// PP-хи
-	result.PP, i = findWithIndex(pageStr[i2:], "pp :", ",")
-	i2 += i
+	result.PP, left = findWithIndex(pageStr, "pp :", ",", left)
 
 	// Всего очков
-	result.RankedScore, i = findWithIndex(pageStr[i2:], "ranked_score :", ",")
-	i2 += i
+	result.RankedScore, left = findWithIndex(pageStr, "ranked_score :", ",", left)
 
 	// Точность попаданий
-	result.Accuracy, i = findWithIndex(pageStr[i2:], "hit_accuracy :", ",")
-	i2 += i
+	result.Accuracy, left = findWithIndex(pageStr, "hit_accuracy :", ",", left)
 
 	// Количество игр
-	result.PlayCount, i = findWithIndex(pageStr[i2:], "play_count :", ",")
-	i2 += i
+	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
 
 	// Время в игре в секундах
-	result.PlayTimeSeconds, i = findWithIndex(pageStr[i2:], "play_time :", ",")
-	i2 += i
+	result.PlayTimeSeconds, left = findWithIndex(pageStr, "play_time :", ",", left)
 
 	// Время в игре в часах
 	duration, _ := time.ParseDuration(result.PlayTimeSeconds + "s")
 	result.PlayTime = duration.String()
 
 	// Рейтинговые очки
-	result.TotalScore, i = findWithIndex(pageStr[i2:], "total_score :", ",")
-	i2 += i
+	result.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
 
 	// Всего попаданий
-	result.TotalHits, i = findWithIndex(pageStr[i2:], "total_hits :", ",")
-	i2 += i
+	result.TotalHits, left = findWithIndex(pageStr, "total_hits :", ",", left)
 
 	// Максимальное комбо
-	result.MaximumCombo, i = findWithIndex(pageStr[i2:], "maximum_combo :", ",")
-	i2 += i
+	result.MaximumCombo, left = findWithIndex(pageStr, "maximum_combo :", ",", left)
 
 	// Реплеев просмотрено другими
-	result.Replays, i = findWithIndex(pageStr[i2:], "replays_watched_by_others :", ",")
-	i2 += i
+	result.Replays, left = findWithIndex(pageStr, "replays_watched_by_others :", ",", left)
 
 	// SS-ки
-	result.SS, i = findWithIndex(pageStr[i2:], "grade_counts :{ ss :", ",")
-	i2 += i
+	result.SS, left = findWithIndex(pageStr, "grade_counts :{ ss :", ",", left)
 
 	// SSH-ки
-	result.SSH, i = findWithIndex(pageStr[i2:], "ssh :", ",")
-	i2 += i
+	result.SSH, left = findWithIndex(pageStr, "ssh :", ",", left)
 
 	// S-ки
-	result.S, i = findWithIndex(pageStr[i2:], "s :", ",")
-	i2 += i
+	result.S, left = findWithIndex(pageStr, "s :", ",", left)
 
 	// SH-ки
-	result.SH, i = findWithIndex(pageStr[i2:], "sh :", ",")
-	i2 += i
+	result.SH, left = findWithIndex(pageStr, "sh :", ",", left)
 
 	// A-хи
-	result.A, i = findWithIndex(pageStr[i2:], "a :", "}")
-	i2 += i
+	result.A, left = findWithIndex(pageStr, "a :", "}", left)
 
 	// Рейтинг в стране
-	result.CountryRank, i = findWithIndex(pageStr[i2:], "country_rank :", ",")
-	i2 += i
+	result.CountryRank, _ = findWithIndex(pageStr, "country_rank :", ",", left)
 
 	// Уровень подписки
-	result.SupportLvl = find(pageStr[i2:], "support_level :", ",")
+	result.SupportLvl = find(pageStr, "support_level :", ",")
 
 	return result
 }
