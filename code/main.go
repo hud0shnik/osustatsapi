@@ -137,8 +137,10 @@ func findWithIndex(str, subStr, stopChar string) (string, int) {
 	// Проверка на существование нужной строки
 	if strings.Contains(str, subStr) {
 
+		// Поиск правой границы
 		right := left + strings.Index(str[left:], stopChar)
 
+		// Обрезка и вывод результата
 		return str[left:right], right
 	}
 
