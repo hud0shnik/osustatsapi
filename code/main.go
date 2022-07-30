@@ -272,7 +272,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Nsfw = find(pageStr, "nsfw :", ",")
 		result.BestBeatMap.Offset = find(pageStr, "offset :", ",")
 		result.BestBeatMap.Spotlight = find(pageStr, "spotlight :", ",")
-		result.BestBeatMap.Title = find(pageStr, "title : ", ",")
+		result.BestBeatMap.Title = find(pageStr, "title : ", " ,")
 	}
 
 	//--------------------------- Статистика игрока ------------------------------
@@ -346,7 +346,7 @@ func getUserInfo(id, mode string) UserInfo {
 		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
 				AwardedAt:   find(pageStr[c:], "awarded_at : ", " "),
-				Description: find(pageStr[c:], "description : ", ","),
+				Description: find(pageStr[c:], "description : ", " ,"),
 				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " "), "\\", ""),
 			})
 		}
