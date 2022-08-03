@@ -213,12 +213,11 @@ func getUserInfo(id, mode string) UserInfo {
 
 	if !strings.Contains(pageStr, "scoresBest :[]") {
 
-		result.BestBeatMap.Accuracy = find(pageStr, "accuracy :", ",")
-		result.BestBeatMap.Id = find(pageStr, "beatmap_id :", ",")
-		result.BestBeatMap.BuildId = find(pageStr, "build_id :", ",")
-		result.BestBeatMap.EndedAt = find(pageStr, "ended_at : ", " ")
-		result.BestBeatMap.MaximumCombo, left = findWithIndex(pageStr, "max_combo :", ",", 0)
-		pageStr = pageStr[left:]
+		result.BestBeatMap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
+		result.BestBeatMap.Id, left = findWithIndex(pageStr, "beatmap_id :", ",", left)
+		result.BestBeatMap.BuildId, left = findWithIndex(pageStr, "build_id :", ",", left)
+		result.BestBeatMap.EndedAt, left = findWithIndex(pageStr, "ended_at : ", " ", left)
+		result.BestBeatMap.MaximumCombo, _ = findWithIndex(pageStr, "max_combo :", ",", left)
 
 		// Цикл для обработки модов
 		for c := 0; pageStr[c] != ']'; c++ {
