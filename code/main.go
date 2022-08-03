@@ -203,9 +203,7 @@ func getUserInfo(id, mode string) UserInfo {
 	*/
 
 	// Структура, которую будет возвращать функция
-	result := UserInfo{
-		UserID: id,
-	}
+	result := UserInfo{}
 
 	left := 0
 
@@ -285,6 +283,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Группа
 	result.DefaultGroup, left = findWithIndex(pageStr, "default_group : ", " ", left)
+
+	// Айди
+	result.UserID, left = findWithIndex(pageStr, " id :", ",", left)
 
 	// Активность
 	result.IsActive, left = findWithIndex(pageStr, "is_active :", ",", left)
