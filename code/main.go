@@ -257,7 +257,6 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 		result.BestBeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
 		result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
-
 		result.BestBeatMap.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
 		result.BestBeatMap.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
@@ -311,7 +310,7 @@ func getUserInfo(id, mode string) UserInfo {
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 
-	// Номинатор
+	// Команда номинации
 	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
 
 	// Вечный бан
@@ -426,7 +425,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.A, left = findWithIndex(pageStr, "a :", "}", left)
 
 	// Рейтинг в стране
-	result.CountryRank, _ = findWithIndex(pageStr, "country_rank :", ",", left)
+	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left)
 
 	// Уровень подписки
 	result.SupportLvl, _ = findWithIndex(pageStr, "support_level :", ",", left)
