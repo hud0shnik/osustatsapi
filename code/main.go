@@ -265,14 +265,13 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
 		result.BestBeatMap.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
 		result.BestBeatMap.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
-		result.BestBeatMap.Title, _ = findWithIndex(pageStr, "title : ", " ,", left)
-		//
+		result.BestBeatMap.Title, left = findWithIndex(pageStr, "title : ", " ,", left)
 	}
 
 	//--------------------------- Статистика игрока ------------------------------
 
 	// В последний раз был в сети
-	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", 0)
+	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", left)
 
 	// Сообщения только от друзей
 	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left)
