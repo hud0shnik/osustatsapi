@@ -447,7 +447,14 @@ func getOnlineInfo(id string) OnlineInfo {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// HTML полученной страницы в формате string
-	pageStr := string(body)
+	pageStr := string(body)[90000:]
+
+	// Сохранение html"ки в файл sample.html (для тестов)
+	/*
+		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+			log.Fatal(err)
+		}
+	*/
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
