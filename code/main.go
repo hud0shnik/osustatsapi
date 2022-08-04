@@ -446,8 +446,11 @@ func getOnlineInfo(id string) OnlineInfo {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
+	// HTML полученной страницы в формате string
+	pageStr := string(body)
+
 	// Проверка на страницу пользователя
-	if !strings.Contains(string(body), "js-react--profile") {
+	if !strings.Contains(pageStr, "js-react--profile") {
 		return OnlineInfo{}
 	}
 
@@ -455,7 +458,7 @@ func getOnlineInfo(id string) OnlineInfo {
 	result := OnlineInfo{}
 
 	// Статус в сети
-	result.Status = find(string(body), "is_online&quot;:", ",")
+	result.Status = find(pageStr, "is_online&quot;:", ",")
 
 	return result
 }
