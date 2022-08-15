@@ -199,7 +199,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
-		return UserInfo{}
+		return UserInfo{
+			Error: "User not found",
+		}
 	}
 
 	// Обрезка юзелесс части html"ки
