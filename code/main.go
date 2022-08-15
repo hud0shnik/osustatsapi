@@ -478,13 +478,9 @@ func getOnlineInfo(id string) OnlineInfo {
 		}
 	}
 
-	// Структура, которую будет возвращать функция
-	result := OnlineInfo{}
-
-	// Статус в сети
-	result.Status = find(pageStr, "is_online&quot;:", ",")
-
-	return result
+	return OnlineInfo{
+		Status: find(pageStr, "is_online&quot;:", ","),
+	}
 }
 
 // Функция отправки информации о пользователе
