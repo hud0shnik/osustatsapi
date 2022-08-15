@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -449,6 +450,11 @@ func getUserInfo(id, mode string) UserInfo {
 // Функция получения информации о пользователе
 func getOnlineInfo(id string) OnlineInfo {
 
+	// Если пользователь не ввёл id, по умолчанию ставит мой id
+	if id == "" {
+		id = "29829158"
+	}
+
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
@@ -508,6 +514,7 @@ func main() {
 
 	// Вывод времени начала работы
 	fmt.Println("API Start: " + string(time.Now().Format("2006-01-02 15:04:05")))
+	fmt.Println("Port:\t" + os.Getenv("PORT"))
 
 	/*	Сетап для тестов
 		var sd int64
@@ -532,6 +539,9 @@ func main() {
 	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/{mode}", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/{mode}/", sendUserInfo).Methods("GET")
+
+	router.HandleFunc("/online", sendOnlineInfo).Methods("GET")
+	router.HandleFunc("/online/", sendOnlineInfo).Methods("GET")
 
 	router.HandleFunc("/online/{id}", sendOnlineInfo).Methods("GET")
 	router.HandleFunc("/online/{id}/", sendOnlineInfo).Methods("GET")
