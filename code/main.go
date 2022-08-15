@@ -126,6 +126,7 @@ type beatMap struct {
 
 // Структура для проверки статуса пользователя
 type OnlineInfo struct {
+	Error  string `json:"error"`
 	Status string `json:"is_online"`
 }
 
@@ -451,7 +452,9 @@ func getOnlineInfo(id string) OnlineInfo {
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return OnlineInfo{}
+		return OnlineInfo{
+			Error: "http.Get error",
+		}
 	}
 
 	// Запись респонса
@@ -470,7 +473,9 @@ func getOnlineInfo(id string) OnlineInfo {
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
-		return OnlineInfo{}
+		return OnlineInfo{
+			Error: "User not found",
+		}
 	}
 
 	// Структура, которую будет возвращать функция
