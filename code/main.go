@@ -21,6 +21,7 @@ type Badge struct {
 
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
+	Error                    string  `json:"error"`
 	Username                 string  `json:"username"`
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
@@ -177,7 +178,9 @@ func getUserInfo(id, mode string) UserInfo {
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/" + mode)
 	if err != nil {
-		return UserInfo{}
+		return UserInfo{
+			Error: "http.Get error",
+		}
 	}
 
 	// Запись респонса
