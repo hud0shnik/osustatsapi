@@ -547,10 +547,6 @@ func main() {
 	router.HandleFunc("/online/{id}/", sendOnlineInfo).Methods("GET")
 
 	// Запуск API
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 
-	// Для Heroku
-	// log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
-
-	// Для локалхоста (127.0.0.1:8080/)
-	log.Fatal(http.ListenAndServe(":8080", router))
 }
