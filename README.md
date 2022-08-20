@@ -12,6 +12,7 @@ including real PP count and real Accuracy percentage
 	
 ```Go
 type UserInfo struct {
+	Error                    string  `json:"error"`
 	Username                 string  `json:"username"`
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
@@ -37,16 +38,21 @@ type UserInfo struct {
 	Replays                  string  `json:"replays"`
 	Level                    string  `json:"level"`
 	SupportLvl               string  `json:"support_level"`
+	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
-	IsDeleted                string  `json:"is_deleted"`
-	IsNat                    string  `json:"is_nat"`
+	IsAdmin                  string  `json:"is_admin"`
 	IsModerator              string  `json:"is_moderator"`
+	IsNat                    string  `json:"is_nat"`
+	IsGmt                    string  `json:"is_gmt"`
+	IsBng                    string  `json:"is_bng"`
 	IsBot                    string  `json:"is_bot"`
 	IsSilenced               string  `json:"is_silenced"`
+	IsDeleted                string  `json:"is_deleted"`
 	IsRestricted             string  `json:"is_restricted"`
-	IsLimitedBn              string  `json:"is_limited_bn"`
+	IsLimitedBan             string  `json:"is_limited_bn"`
+	IsFullBan                string  `json:"is_full_bn"`
 	IsSupporter              string  `json:"is_supporter"`
 	LastVisit                string  `json:"last_visit"`
 	ProfileColor             string  `json:"profile_color"`
@@ -58,10 +64,8 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
-	FollowerCount            string  `json:"follower_count"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
-
 ```
 
 
@@ -127,6 +131,7 @@ type Badge struct {
 
 ```Go
 type OnlineInfo struct {
+	Error  string `json:"error"`
 	Status string `json:"is_online"`
 }
 ```
