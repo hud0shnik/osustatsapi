@@ -141,6 +141,7 @@ type OnlineInfo struct {
 
 Field | Type | Description
 ------|------|------------
+error | string | 
 username | string |
 previous_usernames | string |
 badges | []Badge |
