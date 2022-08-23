@@ -241,10 +241,10 @@ func getUserInfo(id, mode string) UserInfo {
 		}
 
 		result.BestBeatMap.Passed, left = findWithIndex(pageStr, "passed :", ",", left)
-		result.BestBeatMap.StartedAt, left = findWithIndex(pageStr, "started_at :", ",", left)
-		result.BestBeatMap.Statistics, left = findWithIndex(pageStr, "statistics :{ ", "}", left)
 		result.BestBeatMap.Rank, left = findWithIndex(pageStr, "rank : ", " ", left)
 		result.BestBeatMap.RulesetId, left = findWithIndex(pageStr, "ruleset_id :", ",", left)
+		result.BestBeatMap.StartedAt, left = findWithIndex(pageStr, "started_at :", ",", left)
+		result.BestBeatMap.Statistics, left = findWithIndex(pageStr, "statistics :{ ", "}", left)
 		result.BestBeatMap.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
 		result.BestBeatMap.LegacyPerfect, left = findWithIndex(pageStr, "legacy_perfect :", ",", left)
 		result.BestBeatMap.PP, left = findWithIndex(pageStr, "pp :", ",", left)
@@ -283,12 +283,6 @@ func getUserInfo(id, mode string) UserInfo {
 
 	//--------------------------- Статистика игрока ------------------------------
 
-	// В последний раз был в сети
-	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", left)
-
-	// Сообщения только от друзей
-	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left)
-
 	// Ссылка на аватар
 	result.AvatarUrl, left = findWithIndex(pageStr, "avatar_url : ", " ", left)
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
@@ -316,6 +310,12 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Подписка
 	result.IsSupporter, left = findWithIndex(pageStr, "is_supporter :", ",", left)
+
+	// В последний раз был в сети
+	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", left)
+
+	// Сообщения только от друзей
+	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left)
 
 	// Цвет профиля
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_colour :", ",", left)
