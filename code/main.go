@@ -45,6 +45,7 @@ type UserInfo struct {
 	Accuracy                 string  `json:"accuracy"`
 	PlayCount                string  `json:"play_count"`
 	ScoresBestCount          string  `json:"scores_best_count"`
+	ScoresFirstCount         string  `json:"scores_first_count"`
 	TotalScore               string  `json:"total_score"`
 	TotalHits                string  `json:"total_hits"`
 	MaximumCombo             string  `json:"maximum_combo"`
@@ -405,6 +406,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Лучшие рекорды
 	result.ScoresBestCount, left = findWithIndex(pageStr, "scores_best_count :", ",", left)
+
+	// Первые места
+	result.ScoresFirstCount, left = findWithIndex(pageStr, "scores_first_count :", ",", left)
 
 	// Уровень
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left)
