@@ -24,6 +24,8 @@ type Badge struct {
 type UserInfo struct {
 	Error                    string  `json:"error"`
 	Username                 string  `json:"username"`
+	Groups                   string  `json:"groups"`
+	ActiveTournamentBanner   string  `json:"active_tournament_banner"`
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
 	AvatarUrl                string  `json:"avatar_url"`
@@ -74,7 +76,6 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
-	Groups                   string  `json:"groups"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -348,6 +349,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Немота
 	result.IsSilenced, left = findWithIndex(pageStr, "is_silenced :", ",", left)
+
+	// Баннер текущего турнира
+	result.ActiveTournamentBanner, left = findWithIndex(pageStr, "active_tournament_banner :", ", badges", left)
+	result.ActiveTournamentBanner = strings.ReplaceAll(result.ActiveTournamentBanner, "\\", "")
 
 	// Значки
 	for c := strings.Index(pageStr, "badges :["); pageStr[c] != ']'; c++ {
