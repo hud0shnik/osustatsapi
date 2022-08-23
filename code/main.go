@@ -74,6 +74,7 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	Groups                   string  `json:"groups"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -373,6 +374,16 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Заброшенные карты
 	result.GraveyardBeatmapsetCount, left = findWithIndex(pageStr, "graveyard_beatmapset_count :", ",", left)
+
+	// Принадлежность к группам
+	for c := strings.Index(pageStr, "groups :["); pageStr[c] != ']'; c++ {
+		if pageStr[c] == '{' {
+			result.Groups += find(pageStr[c:], "name : ", " ,") + ", "
+		}
+	}
+	if result.Groups != "" {
+		result.Groups = result.Groups[:len(result.Groups)-2]
+	}
 
 	// Карты с гостевым участием
 	result.GuestBeatmapsetCount, left = findWithIndex(pageStr, "guest_beatmapset_count :", ",", left)
