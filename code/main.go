@@ -29,6 +29,7 @@ type UserInfo struct {
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
 	AvatarUrl                string  `json:"avatar_url"`
+	CoverUrl                 string  `json:"cover_url"`
 	UserID                   string  `json:"id"`
 	CountryCode              string  `json:"country_code"`
 	GlobalRank               string  `json:"global_rank"`
@@ -326,6 +327,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Юзернейм
 	result.Username, left = findWithIndex(pageStr, "username : ", " ", left)
+
+	// Шапка профиля
+	result.CoverUrl, left = findWithIndex(pageStr, "cover_url : ", " ", left)
+	result.CoverUrl = strings.ReplaceAll(result.CoverUrl, "\\", "")
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
