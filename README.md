@@ -14,9 +14,12 @@ including real PP count and real Accuracy percentage
 type UserInfo struct {
 	Error                    string  `json:"error"`
 	Username                 string  `json:"username"`
+	Groups                   string  `json:"groups"`
+	ActiveTournamentBanner   string  `json:"active_tournament_banner"`
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
 	AvatarUrl                string  `json:"avatar_url"`
+	CoverUrl                 string  `json:"cover_url"`
 	UserID                   string  `json:"id"`
 	CountryCode              string  `json:"country_code"`
 	GlobalRank               string  `json:"global_rank"`
@@ -32,6 +35,10 @@ type UserInfo struct {
 	RankedScore              string  `json:"ranked_score"`
 	Accuracy                 string  `json:"accuracy"`
 	PlayCount                string  `json:"play_count"`
+	ScoresBestCount          string  `json:"scores_best_count"`
+	ScoresFirstCount         string  `json:"scores_first_count"`
+	ScoresPinnedCount        string  `json:"scores_pinned_count"`
+	ScoresRecentCount        string  `json:"scores_recent_count"`
 	TotalScore               string  `json:"total_score"`
 	TotalHits                string  `json:"total_hits"`
 	MaximumCombo             string  `json:"maximum_combo"`
