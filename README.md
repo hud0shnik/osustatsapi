@@ -150,7 +150,7 @@ Field | Type | Description
 ------|------|------------
 error | string | 
 username | string |
-groups | string |
+groups | string | like "Developers"
 active_tournament_banner | string |
 previous_usernames | string |
 badges | []Badge |
@@ -161,7 +161,7 @@ country_code | string | like "RU" or "JP"
 global_rank | string |
 country_rank | string |
 pp | string | float value, 4 decimals
-play_time | string | 
+play_time | string | like "202h24m22s"
 play_time_seconds | string |
 ssh | string |
 ss | string |
@@ -169,7 +169,7 @@ sh | string |
 s | string |
 a | string |
 ranked_score | string |
-accuracy | string | 
+accuracy | string | like "97.132"
 play_count | string |
 scores_best_count | string |
 scores_first_count | string |
