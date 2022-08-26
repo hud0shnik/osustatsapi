@@ -123,6 +123,7 @@ type beatMap struct {
 	PlayCount        string   `json:"play_count"`
 	Ranked           string   `json:"ranked"`
 	Url              string   `json:"url"`
+	Artist           string   `json:"artist"`
 	Checksum         string   `json:"checksum"`
 	Creator          string   `json:"creator"`
 	FavoriteCount    string   `json:"favorite_count"`
@@ -278,6 +279,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
 		result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 		result.BestBeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
+		result.BestBeatMap.Artist, left = findWithIndex(pageStr, "artist :", ", artist_", left)
 		result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
 		result.BestBeatMap.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
