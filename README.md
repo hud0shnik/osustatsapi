@@ -14,9 +14,12 @@ including real PP count and real Accuracy percentage
 type UserInfo struct {
 	Error                    string  `json:"error"`
 	Username                 string  `json:"username"`
+	Groups                   string  `json:"groups"`
+	ActiveTournamentBanner   string  `json:"active_tournament_banner"`
 	Names                    string  `json:"previous_usernames"`
 	Badges                   []Badge `json:"badges"`
 	AvatarUrl                string  `json:"avatar_url"`
+	CoverUrl                 string  `json:"cover_url"`
 	UserID                   string  `json:"id"`
 	CountryCode              string  `json:"country_code"`
 	GlobalRank               string  `json:"global_rank"`
@@ -32,6 +35,10 @@ type UserInfo struct {
 	RankedScore              string  `json:"ranked_score"`
 	Accuracy                 string  `json:"accuracy"`
 	PlayCount                string  `json:"play_count"`
+	ScoresBestCount          string  `json:"scores_best_count"`
+	ScoresFirstCount         string  `json:"scores_first_count"`
+	ScoresPinnedCount        string  `json:"scores_pinned_count"`
+	ScoresRecentCount        string  `json:"scores_recent_count"`
 	TotalScore               string  `json:"total_score"`
 	TotalHits                string  `json:"total_hits"`
 	MaximumCombo             string  `json:"maximum_combo"`
@@ -143,15 +150,18 @@ Field | Type | Description
 ------|------|------------
 error | string | 
 username | string |
+groups | string | like "Developers"
+active_tournament_banner | string |
 previous_usernames | string |
 badges | []Badge |
 avatar_url | string |
+cover_url | string |
 id | string |
 country_code | string | like "RU" or "JP"
 global_rank | string |
 country_rank | string |
 pp | string | float value, 4 decimals
-play_time | string | 
+play_time | string | like "202h24m22s"
 play_time_seconds | string |
 ssh | string |
 ss | string |
@@ -159,24 +169,33 @@ sh | string |
 s | string |
 a | string |
 ranked_score | string |
-accuracy | string | 
+accuracy | string | like "97.132"
 play_count | string |
+scores_best_count | string |
+scores_first_count | string |
+scores_pinned_count | string |
+scores_recent_count | string |
 total_score | string |
 total_hits | string |
 maximum_combo | string |
 replays | string | Replays Watched by Others
 level | string |
 support_level | string |
+follower_count | string |
 default_group | string |
 is_online | string |
 is_active | string |
-is_deleted | string |
-is_nat | string |
+is_admin | string |
 is_moderator | string |
+is_nat | string |
+is_gmt | string |
+is_bng | string |
 is_bot | string |
 is_silenced | string |
+is_deleted | string |
 is_restricted | string |
 is_limited_bn | string |
+is_full_bn | string |
 is_supporter | string |
 last_visit | string |
 profile_color | string |
@@ -188,7 +207,6 @@ beatmap_playcounts_count | string |
 comments_count | string |
 favorite_beatmapset_count | string |
 guest_beatmapset_count | string |
-follower_count | string |
 best_beat_map | beatMap |
 
 
