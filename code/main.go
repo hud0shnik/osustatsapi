@@ -57,6 +57,7 @@ type UserInfo struct {
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
+	Discord                  string  `json:"discord"`
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
 	IsAdmin                  string  `json:"is_admin"`
@@ -331,6 +332,9 @@ func getUserInfo(id, mode string) UserInfo {
 	// Шапка профиля
 	result.CoverUrl, left = findWithIndex(pageStr, "cover_url : ", " ", left)
 	result.CoverUrl = strings.ReplaceAll(result.CoverUrl, "\\", "")
+
+	// Дискорд
+	result.Discord, left = findWithIndex(pageStr, "discord : ", " ", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
