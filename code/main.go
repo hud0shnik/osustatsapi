@@ -58,6 +58,7 @@ type UserInfo struct {
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
 	Discord                  string  `json:"discord"`
+	Interests                string  `json:"interests"`
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
 	IsAdmin                  string  `json:"is_admin"`
@@ -337,6 +338,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Дискорд
 	result.Discord, left = findWithIndex(pageStr, "discord : ", " ", left)
+
+	// Интересы
+	result.Interests, left = findWithIndex(pageStr, "interests : ", ", join_date", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
