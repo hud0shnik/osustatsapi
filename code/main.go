@@ -83,6 +83,7 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	JoinDate                 string  `json:"join_date"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -341,6 +342,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Интересы
 	result.Interests, left = findWithIndex(pageStr, "interests : ", ", join_date", left)
+
+	// Дата регистрации
+	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
