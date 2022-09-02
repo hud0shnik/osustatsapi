@@ -96,6 +96,7 @@ type beatMap struct {
 	Id               string   `json:"id"`
 	BuildId          string   `json:"build_id"`
 	Cover            string   `json:"cover"`
+	SlimCover        string   `json:"slimcover"`
 	Statistics       string   `json:"statistics"`
 	Rank             string   `json:"rank"`
 	Mods             []string `json:"mods"`
@@ -292,6 +293,8 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Cover = strings.ReplaceAll(result.BestBeatMap.Cover, "\\", "")
 		result.BestBeatMap.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
 		result.BestBeatMap.Card = strings.ReplaceAll(result.BestBeatMap.Card, "\\", "")
+		result.BestBeatMap.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
+		result.BestBeatMap.SlimCover = strings.ReplaceAll(result.BestBeatMap.SlimCover, "\\", "")
 		result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
 		result.BestBeatMap.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
