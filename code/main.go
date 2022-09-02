@@ -90,6 +90,7 @@ type UserInfo struct {
 // Структура для хранения информации о мапе
 type beatMap struct {
 	Title            string   `json:"title"`
+	Card             string   `json:"card"`
 	Version          string   `json:"version"`
 	DifficultyRating string   `json:"difficulty_rating"`
 	Id               string   `json:"id"`
@@ -289,6 +290,8 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Artist, left = findWithIndex(pageStr, "artist :", ", artist_", left)
 		result.BestBeatMap.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
 		result.BestBeatMap.Cover = strings.ReplaceAll(result.BestBeatMap.Cover, "\\", "")
+		result.BestBeatMap.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
+		result.BestBeatMap.Card = strings.ReplaceAll(result.BestBeatMap.Card, "\\", "")
 		result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
 		result.BestBeatMap.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
