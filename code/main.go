@@ -92,6 +92,7 @@ type beatMap struct {
 	Title            string   `json:"title"`
 	Card             string   `json:"card"`
 	Version          string   `json:"version"`
+	PreviewUrl       string   `json:"preview_url"`
 	DifficultyRating string   `json:"difficulty_rating"`
 	Id               string   `json:"id"`
 	BuildId          string   `json:"build_id"`
@@ -300,6 +301,8 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
 		result.BestBeatMap.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
 		result.BestBeatMap.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
+		result.BestBeatMap.PreviewUrl, left = findWithIndex(pageStr, "preview_url : \\/\\/", " , source", left)
+		result.BestBeatMap.PreviewUrl = strings.ReplaceAll(result.BestBeatMap.PreviewUrl, "\\", "")
 		result.BestBeatMap.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
 		result.BestBeatMap.Title, left = findWithIndex(pageStr, "title : ", " ,", left)
 	}
