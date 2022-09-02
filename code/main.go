@@ -93,6 +93,7 @@ type beatMap struct {
 	Card             string   `json:"card"`
 	Version          string   `json:"version"`
 	PreviewUrl       string   `json:"preview_url"`
+	TrackId          string   `json:"track_id"`
 	DifficultyRating string   `json:"difficulty_rating"`
 	Id               string   `json:"id"`
 	BuildId          string   `json:"build_id"`
@@ -305,6 +306,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.PreviewUrl = strings.ReplaceAll(result.BestBeatMap.PreviewUrl, "\\", "")
 		result.BestBeatMap.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
 		result.BestBeatMap.Title, left = findWithIndex(pageStr, "title : ", " ,", left)
+		result.BestBeatMap.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
 	}
 
 	//--------------------------- Статистика игрока ------------------------------
