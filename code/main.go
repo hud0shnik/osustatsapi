@@ -134,6 +134,7 @@ type beatMap struct {
 	Offset           string   `json:"offset"`
 	Spotlight        string   `json:"spotlight"`
 	RulesetId        string   `json:"ruleset_id"`
+	BeatMapSetId     string   `json:"beatmapset_id"`
 }
 
 // Структура для проверки статуса пользователя
@@ -258,6 +259,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.LegacyPerfect, left = findWithIndex(pageStr, "legacy_perfect :", ",", left)
 		result.BestBeatMap.PP, left = findWithIndex(pageStr, "pp :", ",", left)
 		result.BestBeatMap.Replay, left = findWithIndex(pageStr, "replay :", ",", left)
+		result.BestBeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		result.BestBeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
 		result.BestBeatMap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
 		result.BestBeatMap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
