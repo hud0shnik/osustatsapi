@@ -305,7 +305,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.PreviewUrl, left = findWithIndex(pageStr, "preview_url : \\/\\/", " , source", left)
 		result.BestBeatMap.PreviewUrl = strings.ReplaceAll(result.BestBeatMap.PreviewUrl, "\\", "")
 		result.BestBeatMap.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
-		result.BestBeatMap.Title, left = findWithIndex(pageStr, "title : ", " ,", left)
+		result.BestBeatMap.Title, left = findWithIndex(pageStr, "title : ", " , title_unicode", left)
 		result.BestBeatMap.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
 	}
 
@@ -364,6 +364,8 @@ func getUserInfo(id, mode string) UserInfo {
 	// Дата регистрации
 	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left)
 
+		max_friends :250,
+		occupation : Skater ,
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 
