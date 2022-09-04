@@ -47,6 +47,8 @@ type UserInfo struct {
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
+	Discord                  string  `json:"discord"`
+	Interests                string  `json:"interests"`
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
 	IsAdmin                  string  `json:"is_admin"`
@@ -71,6 +73,7 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	JoinDate                 string  `json:"join_date"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 ```
@@ -79,9 +82,15 @@ type UserInfo struct {
 ```Go
 type beatMap struct {
 	Title            string   `json:"title"`
+	Card             string   `json:"card"`
+	Version          string   `json:"version"`
+	PreviewUrl       string   `json:"preview_url"`
+	TrackId          string   `json:"track_id"`
 	DifficultyRating string   `json:"difficulty_rating"`
 	Id               string   `json:"id"`
 	BuildId          string   `json:"build_id"`
+	Cover            string   `json:"cover"`
+	SlimCover        string   `json:"slimcover"`
 	Statistics       string   `json:"statistics"`
 	Rank             string   `json:"rank"`
 	Mods             []string `json:"mods"`
@@ -114,6 +123,7 @@ type beatMap struct {
 	PlayCount        string   `json:"play_count"`
 	Ranked           string   `json:"ranked"`
 	Url              string   `json:"url"`
+	Artist           string   `json:"artist"`
 	Checksum         string   `json:"checksum"`
 	Creator          string   `json:"creator"`
 	FavoriteCount    string   `json:"favorite_count"`
@@ -122,6 +132,7 @@ type beatMap struct {
 	Offset           string   `json:"offset"`
 	Spotlight        string   `json:"spotlight"`
 	RulesetId        string   `json:"ruleset_id"`
+	BeatMapSetId     string   `json:"beatmapset_id"`
 }
 ```
 
