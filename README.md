@@ -218,6 +218,7 @@ beatmap_playcounts_count | string |
 comments_count | string |
 favorite_beatmapset_count | string |
 guest_beatmapset_count | string |
+join_date | string |
 best_beat_map | beatMap |
 
 
@@ -226,9 +227,15 @@ best_beat_map | beatMap |
 Field | Type | Description
 ------|------|------------
 title | string | song name
+сard | string |
+version | string |
+preview_url | string |   
+track_id | string | 
 difficulty_rating | string | 
 id | string | 
-build_id | string | 
+build_id | string |
+cover | string |
+slimcover | string | 
 statistics | string | 
 rank | string | 
 mods | []string | 
@@ -260,7 +267,8 @@ mode_int | string |
 pass_count | string | Number of times the beatmap was passed, completed
 play_count | string | Number of times the beatmap was played
 ranked | string | 
-url | string | 
+url | string |  
+artist | string | 
 checksum | string | 
 creator | string | 
 favorite_count | string | Number of times the beatmap was favourited
@@ -268,7 +276,8 @@ hype | string |
 nsfw | string | 
 offset | string | 
 spotlight | string | 
-ruleset_id | string | 
+ruleset_id | string |
+beatmapset_id | string | 
 
 <h4>Badge</h4>
 
