@@ -198,9 +198,9 @@ is_online | string |
 is_active | string |
 is_admin | string |
 is_moderator | string |
-is_nat | string |
-is_gmt | string |
-is_bng | string |
+is_nat | string | Nomination Assessment Team
+is_gmt | string | Global Moderation Team
+is_bng | string | Beatmap Nominators Groups
 is_bot | string |
 is_silenced | string |
 is_deleted | string |
