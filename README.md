@@ -174,22 +174,22 @@ country_rank | string |
 pp | string | float value, 4 decimals
 play_time | string | like "202h24m22s"
 play_time_seconds | string |
-ssh | string |
+ssh | string | silver ss
 ss | string |
-sh | string |
+sh | string | silver s
 s | string |
 a | string |
 ranked_score | string |
 accuracy | string | like "97.132"
 play_count | string |
 scores_best_count | string |
-scores_first_count | string |
+scores_first_count | string | first place ranks
 scores_pinned_count | string |
 scores_recent_count | string |
 total_score | string |
 total_hits | string |
 maximum_combo | string |
-replays | string | Replays Watched by Others
+replays | string | replays watched by others
 level | string |
 support_level | string |
 follower_count | string |
@@ -200,11 +200,11 @@ is_admin | string |
 is_moderator | string |
 is_nat | string | Nomination Assessment Team
 is_gmt | string | Global Moderation Team
-is_bng | string | Beatmap Nominators Groups
+is_bng | string | Beatmap Nominators Group
 is_bot | string |
 is_silenced | string |
 is_deleted | string |
-is_restricted | string |
+is_restricted | string | timeout from the community
 is_limited_bn | string |
 is_full_bn | string |
 is_supporter | string |
@@ -212,13 +212,13 @@ last_visit | string |
 profile_color | string |
 ranked_beatmapset_count | string |
 pending_beatmapset_count | string |
-pm_friends_only | string |
+pm_friends_only | string | PM allowed only for friend
 graveyard_beatmapset_count | string |
 beatmap_playcounts_count | string |
 comments_count | string |
 favorite_beatmapset_count | string |
 guest_beatmapset_count | string |
-join_date | string |
+join_date | string | like "2022-05-01T19:27:43+00:00"
 best_beat_map | beatMap |
 
 
@@ -251,21 +251,21 @@ replay | string |
 mode | string | 
 status | string | 
 total_length | string | seconds from first note to last note including breaks 
-ar | string | Approach Rate 
+ar | string | approach rate 
 bpm | string | 
 convert | string | 
 count_circles | string | 
 count_sliders | string | 
 count_spinners | string | 
-cs | string | Circle size value
+cs | string | circle size
 deleted_at | string | 
 drain | string | Health drain
 hit_length | string | seconds from first note to last note not including breaks
 is_scoreable | string | 
 last_updated | string | 
 mode_int | string | 
-pass_count | string | Number of times the beatmap was passed, completed
-play_count | string | Number of times the beatmap was played
+pass_count | string | number of times the beatmap was passed, completed
+play_count | string | number of times the beatmap was played
 ranked | string | 
 url | string |  
 artist | string | 
@@ -284,8 +284,8 @@ beatmapset_id | string |
 Field | Type | Description
 ------|------|------------
 awarded_at | string | 
-description | string | Badge name
-image_url | string | Badge image
+description | string | badge name
+image_url | string | badge image
 
 
 [![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
