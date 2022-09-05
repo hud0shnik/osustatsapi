@@ -55,6 +55,7 @@ type UserInfo struct {
 	Replays                  string  `json:"replays"`
 	Level                    string  `json:"level"`
 	Kudosu                   string  `json:"kudosu"`
+	Occupation               string  `json:"occupation"`
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
@@ -370,6 +371,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 		max_friends :250,
 		occupation : Skater ,
+	// Род деятельности
+	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " , playmode", left)
+
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 
