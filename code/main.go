@@ -54,6 +54,7 @@ type UserInfo struct {
 	MaximumCombo             string  `json:"maximum_combo"`
 	Replays                  string  `json:"replays"`
 	Level                    string  `json:"level"`
+	Kudosu                   string  `json:"kudosu"`
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
@@ -363,6 +364,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Дата регистрации
 	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left)
+
+	// Кудосу
+	result.Kudosu, left = findWithIndex(pageStr, "kudosu :{ total :", ",", left)
 
 		max_friends :250,
 		occupation : Skater ,
