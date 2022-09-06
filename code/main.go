@@ -31,6 +31,7 @@ type UserInfo struct {
 	AvatarUrl                string  `json:"avatar_url"`
 	CoverUrl                 string  `json:"cover_url"`
 	UserID                   string  `json:"id"`
+	Playmode                 string  `json:"playmode"`
 	CountryCode              string  `json:"country_code"`
 	GlobalRank               string  `json:"global_rank"`
 	CountryRank              string  `json:"country_rank"`
@@ -385,6 +386,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Род деятельности
 	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " , playmode", left)
+
+	// Режим игры
+	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
