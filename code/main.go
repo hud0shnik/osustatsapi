@@ -91,6 +91,7 @@ type UserInfo struct {
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
 	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
+	Website                  string  `json:"website"`
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
@@ -401,6 +402,10 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Порядок карточек в профиле
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
+
+	// Ссылка на вебсайт
+	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
+	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
