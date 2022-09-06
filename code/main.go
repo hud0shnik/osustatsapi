@@ -59,6 +59,7 @@ type UserInfo struct {
 	Playstyle                string  `json:"playstyle"`
 	Occupation               string  `json:"occupation"`
 	Location                 string  `json:"location"`
+	PostCount                string  `json:"post_count"`
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
@@ -393,6 +394,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Стиль игры
 	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
+
+	// Количество постов
+	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
