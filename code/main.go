@@ -88,6 +88,7 @@ type UserInfo struct {
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
 	JoinDate                 string  `json:"join_date"`
 	MaxFriends               string  `json:"max_friends"`
+	MaxBLock                 string  `json:"max_block"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 
@@ -376,6 +377,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 		max_friends :250,
 		occupation : Skater ,
+	// Размер черного списка
+	result.MaxBLock, left = findWithIndex(pageStr, "max_blocks :", ",", left)
+
 	// Максимальное количество друзей
 	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left)
 
