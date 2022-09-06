@@ -89,6 +89,7 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
@@ -397,6 +398,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Количество постов
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
+
+	// Порядок карточек в профиле
+	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
