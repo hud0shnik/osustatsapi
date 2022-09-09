@@ -178,6 +178,7 @@ badges | []Badge |
 avatar_url | string |
 cover_url | string |
 id | string |
+playmode | string |
 country_code | string | like "RU" or "JP"
 global_rank | string |
 country_rank | string |
@@ -201,9 +202,16 @@ total_hits | string |
 maximum_combo | string |
 replays | string | replays watched by others
 level | string |
+kudosu | string |
+playstyle | string |
+ocupation | string |
+location | string |
+post_count | string |
 support_level | string |
 follower_count | string |
 default_group | string |
+discord | string 
+interests | string |
 is_online | string |
 is_active | string |
 is_admin | string |
@@ -229,6 +237,9 @@ comments_count | string |
 favorite_beatmapset_count | string |
 guest_beatmapset_count | string |
 join_date | string | like "2022-05-01T19:27:43+00:00"
+website | string |
+max_friends | string |
+max_block | string |
 best_beat_map | beatMap |
 
 
