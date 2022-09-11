@@ -131,6 +131,7 @@ type BeatMap struct {
 	Mode             string `json:"mode"`
 	Status           string `json:"status"`
 	TotalLength      string `json:"total_length"`
+	UserId           string `json:"user_id"`
 	Version          string `json:"version"`
 	Accuracy         string `json:"accuracy"`
 	Ar               string `json:"ar"`
@@ -314,17 +315,24 @@ func getUserInfo(id, mode string) UserInfo {
 		result.ScoresBest[s].StartedAt, left = findWithIndex(pageStr, "started_at :", ",", left)
 		result.ScoresBest[s].Statistics, left = findWithIndex(pageStr, "statistics :{ ", "}", left)
 		result.ScoresBest[s].TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
+		result.ScoresBest[s].UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
+		result.ScoresBest[s].BestId, left = findWithIndex(pageStr, " best_id :", ",", left)
+		result.ScoresBest[s].Id, left = findWithIndex(pageStr, " id :", ",", left)
 		result.ScoresBest[s].LegacyPerfect, left = findWithIndex(pageStr, "legacy_perfect :", ",", left)
 		result.ScoresBest[s].PP, left = findWithIndex(pageStr, "pp :", ",", left)
 		result.ScoresBest[s].Replay, left = findWithIndex(pageStr, "replay :", ",", left)
 		result.ScoresBest[s].Type, left = findWithIndex(pageStr, "type : ", " ", left)
 		result.ScoresBest[s].CurrentUserAttributes, left = findWithIndex(pageStr, "current_user_attributes :{ ", "},", left)
+
 		result.ScoresBest[s].BeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		result.ScoresBest[s].BeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
+		result.ScoresBest[s].BeatMap.Id, left = findWithIndex(pageStr, "id :", ",", left)
 		result.ScoresBest[s].BeatMap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
 		result.ScoresBest[s].BeatMap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
 		result.ScoresBest[s].BeatMap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
+		result.ScoresBest[s].BeatMap.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
 		result.ScoresBest[s].BeatMap.Version, left = findWithIndex(pageStr, "version : ", " , accuracy", left)
+		result.ScoresBest[s].BeatMap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
 		result.ScoresBest[s].BeatMap.Ar, left = findWithIndex(pageStr, "ar :", ",", left)
 		result.ScoresBest[s].BeatMap.Bpm, left = findWithIndex(pageStr, "bpm :", ",", left)
 		result.ScoresBest[s].BeatMap.Convert, left = findWithIndex(pageStr, "convert :", ",", left)
@@ -346,6 +354,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.ScoresBest[s].BeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
 
 		result.ScoresBest[s].BeatMapSet.Artist, left = findWithIndex(pageStr, "artist :", ", artist_", left)
+		result.ScoresBest[s].BeatMapSet.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
 		result.ScoresBest[s].BeatMapSet.Covers.Cover = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.Cover, "\\", "")
 		result.ScoresBest[s].BeatMapSet.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ,", left)
@@ -354,6 +363,8 @@ func getUserInfo(id, mode string) UserInfo {
 		result.ScoresBest[s].BeatMapSet.Covers.Card = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.Card, "\\", "")
 		result.ScoresBest[s].BeatMapSet.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ,", left)
 		result.ScoresBest[s].BeatMapSet.Covers.Card2X = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.Card2X, "\\", "")
+		result.ScoresBest[s].BeatMapSet.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ,", left)
+		result.ScoresBest[s].BeatMapSet.Covers.List2X = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.List2X, "\\", "")
 		result.ScoresBest[s].BeatMapSet.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
 		result.ScoresBest[s].BeatMapSet.Covers.SlimCover = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.SlimCover, "\\", "")
 		result.ScoresBest[s].BeatMapSet.Covers.SlimCover2X, left = findWithIndex(pageStr, "slimcover@2x : ", " }", left)
@@ -362,13 +373,20 @@ func getUserInfo(id, mode string) UserInfo {
 		result.ScoresBest[s].BeatMapSet.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
 		result.ScoresBest[s].BeatMapSet.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
+		result.ScoresBest[s].BeatMapSet.Id, left = findWithIndex(pageStr, "id :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
+		result.ScoresBest[s].BeatMapSet.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
 		result.ScoresBest[s].BeatMapSet.PreviewUrl, left = findWithIndex(pageStr, "preview_url : \\/\\/", " , source", left)
 		result.ScoresBest[s].BeatMapSet.PreviewUrl = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.PreviewUrl, "\\", "")
+		result.ScoresBest[s].BeatMapSet.Source, left = findWithIndex(pageStr, "source :", " ", left)
 		result.ScoresBest[s].BeatMapSet.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
+		result.ScoresBest[s].BeatMapSet.Status, left = findWithIndex(pageStr, "status :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Title, left = findWithIndex(pageStr, "title : ", " , title_unicode", left)
+		result.ScoresBest[s].BeatMapSet.TitleUnicode, left = findWithIndex(pageStr, "title_unicode :", ",", left)
 		result.ScoresBest[s].BeatMapSet.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
+		result.ScoresBest[s].BeatMapSet.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
+		result.ScoresBest[s].BeatMapSet.Video, left = findWithIndex(pageStr, "video :", "}", left)
 	}
 
 	//--------------------------- Статистика игрока ------------------------------
@@ -418,10 +436,10 @@ func getUserInfo(id, mode string) UserInfo {
 	result.CoverUrl = strings.ReplaceAll(result.CoverUrl, "\\", "")
 
 	// Дискорд
-	result.Discord, left = findWithIndex(pageStr, "discord : ", " ", left)
+	result.Discord, left = findWithIndex(pageStr, "discord :", " ", left)
 
 	// Интересы
-	result.Interests, left = findWithIndex(pageStr, "interests : ", ", join_date", left)
+	result.Interests, left = findWithIndex(pageStr, "interests :", ", join_date", left)
 
 	// Дата регистрации
 	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left)
@@ -439,7 +457,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left)
 
 	// Род деятельности
-	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " , playmode", left)
+	result.Occupation, left = findWithIndex(pageStr, "occupation :", ",", left)
 
 	// Режим игры
 	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left)
@@ -454,7 +472,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 
 	// Ссылка на вебсайт
-	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
+	result.Website, left = findWithIndex(pageStr, "website :", " ,", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 
 	// Администрация
