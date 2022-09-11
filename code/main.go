@@ -97,7 +97,7 @@ type UserInfo struct {
 	ScoresBest               []Score `json:"scores_best"`
 }
 
-// Структура для хранения информации о мапе
+// Рекорд
 type Score struct {
 	Accuracy              string     `json:"accuracy"`
 	BeatMapId             string     `json:"beatmap_id"`
@@ -124,6 +124,7 @@ type Score struct {
 	Weight                Weight     `json:"weight"`
 }
 
+// Мапа
 type BeatMap struct {
 	BeatMapSetId     string `json:"beatmapset_id"`
 	DifficultyRating string `json:"difficulty_rating"`
@@ -154,6 +155,7 @@ type BeatMap struct {
 	Checksum         string `json:"checksum"`
 }
 
+// Мап сет
 type BeatMapSet struct {
 	Artist        string `json:"artist"`
 	ArtistUnicode string `json:"artist_unicode"`
@@ -176,6 +178,7 @@ type BeatMapSet struct {
 	Video         string `json:"video"`
 }
 
+// Картинки
 type Covers struct {
 	Cover       string `json:"cover"`
 	Cover2X     string `json:"cover@2x"`
@@ -187,12 +190,13 @@ type Covers struct {
 	SlimCover2X string `json:"slimcover@2x"`
 }
 
+// Статистика
 type Weight struct {
 	Percentage string `json:"percentage"`
 	PP         string `json:"pp"`
 }
 
-// Структура для проверки статуса пользователя
+// Статуса пользователя
 type OnlineInfo struct {
 	Error  string `json:"error"`
 	Status string `json:"is_online"`
@@ -471,7 +475,7 @@ func getUserInfo(id, mode string) UserInfo {
 	// Порядок карточек в профиле
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 
-	// Ссылка на вебсайт
+	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", " ,", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 
@@ -517,7 +521,7 @@ func getUserInfo(id, mode string) UserInfo {
 		}
 	}
 
-	// Количество игр карт
+	// Количество сыгранных карт
 	result.BeatmapPlaycountsCount, left = findWithIndex(pageStr, "beatmap_playcounts_count :", ",", left)
 
 	// Количество комментариев
