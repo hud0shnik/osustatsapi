@@ -109,6 +109,7 @@ type beatMap struct {
 	Id                    string   `json:"id"`
 	BuildId               string   `json:"build_id"`
 	Cover                 string   `json:"cover"`
+	Cover2X               string   `json:"cover@2x"`
 	SlimCover             string   `json:"slimcover"`
 	Statistics            string   `json:"statistics"`
 	Rank                  string   `json:"rank"`
@@ -304,13 +305,17 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
 		result.BestBeatMap.Url = strings.ReplaceAll(result.BestBeatMap.Url, "\\", "")
 		result.BestBeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
+
 		result.BestBeatMap.Artist, left = findWithIndex(pageStr, "artist :", ", artist_", left)
 		result.BestBeatMap.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
 		result.BestBeatMap.Cover = strings.ReplaceAll(result.BestBeatMap.Cover, "\\", "")
+		result.BestBeatMap.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ,", left)
+		result.BestBeatMap.Cover2X = strings.ReplaceAll(result.BestBeatMap.Cover2X, "\\", "")
 		result.BestBeatMap.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
 		result.BestBeatMap.Card = strings.ReplaceAll(result.BestBeatMap.Card, "\\", "")
 		result.BestBeatMap.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
 		result.BestBeatMap.SlimCover = strings.ReplaceAll(result.BestBeatMap.SlimCover, "\\", "")
+
 		result.BestBeatMap.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
 		result.BestBeatMap.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
 		result.BestBeatMap.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
@@ -384,8 +389,6 @@ func getUserInfo(id, mode string) UserInfo {
 	// Локация
 	result.Location, left = findWithIndex(pageStr, "location :", ",", left)
 
-		max_friends :250,
-		occupation : Skater ,
 	// Размер черного списка
 	result.MaxBLock, left = findWithIndex(pageStr, "max_blocks :", ",", left)
 
