@@ -99,59 +99,60 @@ type UserInfo struct {
 
 // Структура для хранения информации о мапе
 type beatMap struct {
-	Type             string   `json:"type"`
-	Title            string   `json:"title"`
-	Card             string   `json:"card"`
-	Version          string   `json:"version"`
-	PreviewUrl       string   `json:"preview_url"`
-	TrackId          string   `json:"track_id"`
-	DifficultyRating string   `json:"difficulty_rating"`
-	Id               string   `json:"id"`
-	BuildId          string   `json:"build_id"`
-	Cover            string   `json:"cover"`
-	SlimCover        string   `json:"slimcover"`
-	Statistics       string   `json:"statistics"`
-	Rank             string   `json:"rank"`
-	Mods             []string `json:"mods"`
-	EndedAt          string   `json:"ended_at"`
-	StartedAt        string   `json:"started_at"`
-	Accuracy         string   `json:"accuracy"`
-	MaximumCombo     string   `json:"maximum_combo"`
-	PP               string   `json:"pp"`
-	Passed           string   `json:"passed"`
-	TotalScore       string   `json:"total_score"`
-	LegacyPerfect    string   `json:"legacy_perfect"`
-	Replay           string   `json:"replay"`
-	Mode             string   `json:"mode"`
-	Status           string   `json:"status"`
-	TotalLength      string   `json:"total_length"`
-	Ar               string   `json:"ar"`
-	Bpm              string   `json:"bpm"`
-	Convert          string   `json:"convert"`
-	CountCircles     string   `json:"count_circles"`
-	CountSliders     string   `json:"count_sliders"`
-	CountSpinners    string   `json:"count_spinners"`
-	Cs               string   `json:"cs"`
-	DeletedAt        string   `json:"deleted_at"`
-	Drain            string   `json:"drain"`
-	HitLength        string   `json:"hit_length"`
-	IsScoreable      string   `json:"is_scoreable"`
-	LastUpdated      string   `json:"last_updated"`
-	ModeInt          string   `json:"mode_int"`
-	PassCount        string   `json:"pass_count"`
-	PlayCount        string   `json:"play_count"`
-	Ranked           string   `json:"ranked"`
-	Url              string   `json:"url"`
-	Artist           string   `json:"artist"`
-	Checksum         string   `json:"checksum"`
-	Creator          string   `json:"creator"`
-	FavoriteCount    string   `json:"favorite_count"`
-	Hype             string   `json:"hype"`
-	Nsfw             string   `json:"nsfw"`
-	Offset           string   `json:"offset"`
-	Spotlight        string   `json:"spotlight"`
-	RulesetId        string   `json:"ruleset_id"`
-	BeatMapSetId     string   `json:"beatmapset_id"`
+	Type                  string   `json:"type"`
+	Title                 string   `json:"title"`
+	Card                  string   `json:"card"`
+	Version               string   `json:"version"`
+	PreviewUrl            string   `json:"preview_url"`
+	TrackId               string   `json:"track_id"`
+	DifficultyRating      string   `json:"difficulty_rating"`
+	Id                    string   `json:"id"`
+	BuildId               string   `json:"build_id"`
+	Cover                 string   `json:"cover"`
+	SlimCover             string   `json:"slimcover"`
+	Statistics            string   `json:"statistics"`
+	Rank                  string   `json:"rank"`
+	Mods                  []string `json:"mods"`
+	EndedAt               string   `json:"ended_at"`
+	StartedAt             string   `json:"started_at"`
+	Accuracy              string   `json:"accuracy"`
+	MaximumCombo          string   `json:"maximum_combo"`
+	PP                    string   `json:"pp"`
+	Passed                string   `json:"passed"`
+	TotalScore            string   `json:"total_score"`
+	LegacyPerfect         string   `json:"legacy_perfect"`
+	Replay                string   `json:"replay"`
+	Mode                  string   `json:"mode"`
+	Status                string   `json:"status"`
+	TotalLength           string   `json:"total_length"`
+	Ar                    string   `json:"ar"`
+	Bpm                   string   `json:"bpm"`
+	Convert               string   `json:"convert"`
+	CountCircles          string   `json:"count_circles"`
+	CountSliders          string   `json:"count_sliders"`
+	CountSpinners         string   `json:"count_spinners"`
+	Cs                    string   `json:"cs"`
+	DeletedAt             string   `json:"deleted_at"`
+	Drain                 string   `json:"drain"`
+	HitLength             string   `json:"hit_length"`
+	IsScoreable           string   `json:"is_scoreable"`
+	LastUpdated           string   `json:"last_updated"`
+	ModeInt               string   `json:"mode_int"`
+	PassCount             string   `json:"pass_count"`
+	PlayCount             string   `json:"play_count"`
+	Ranked                string   `json:"ranked"`
+	Url                   string   `json:"url"`
+	Artist                string   `json:"artist"`
+	Checksum              string   `json:"checksum"`
+	Creator               string   `json:"creator"`
+	FavoriteCount         string   `json:"favorite_count"`
+	Hype                  string   `json:"hype"`
+	Nsfw                  string   `json:"nsfw"`
+	Offset                string   `json:"offset"`
+	Spotlight             string   `json:"spotlight"`
+	RulesetId             string   `json:"ruleset_id"`
+	BeatMapSetId          string   `json:"beatmapset_id"`
+	CurrentUserAttributes string   `json:"current_user_attributes"`
 }
 
 // Структура для проверки статуса пользователя
@@ -277,6 +278,7 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.PP, left = findWithIndex(pageStr, "pp :", ",", left)
 		result.BestBeatMap.Replay, left = findWithIndex(pageStr, "replay :", ",", left)
 		result.BestBeatMap.Type, left = findWithIndex(pageStr, "type : ", " ", left)
+		result.BestBeatMap.CurrentUserAttributes, left = findWithIndex(pageStr, "current_user_attributes :{ ", "},", left)
 		result.BestBeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		result.BestBeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
 		result.BestBeatMap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
