@@ -102,6 +102,7 @@ type beatMap struct {
 	Type                  string   `json:"type"`
 	Title                 string   `json:"title"`
 	Card                  string   `json:"card"`
+	Card2X                string   `json:"card@2x"`
 	Version               string   `json:"version"`
 	PreviewUrl            string   `json:"preview_url"`
 	TrackId               string   `json:"track_id"`
@@ -313,6 +314,8 @@ func getUserInfo(id, mode string) UserInfo {
 		result.BestBeatMap.Cover2X = strings.ReplaceAll(result.BestBeatMap.Cover2X, "\\", "")
 		result.BestBeatMap.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
 		result.BestBeatMap.Card = strings.ReplaceAll(result.BestBeatMap.Card, "\\", "")
+		result.BestBeatMap.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ,", left)
+		result.BestBeatMap.Card2X = strings.ReplaceAll(result.BestBeatMap.Card2X, "\\", "")
 		result.BestBeatMap.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
 		result.BestBeatMap.SlimCover = strings.ReplaceAll(result.BestBeatMap.SlimCover, "\\", "")
 
