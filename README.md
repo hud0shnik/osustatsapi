@@ -21,6 +21,7 @@ type UserInfo struct {
 	AvatarUrl                string  `json:"avatar_url"`
 	CoverUrl                 string  `json:"cover_url"`
 	UserID                   string  `json:"id"`
+	Playmode                 string  `json:"playmode"`
 	CountryCode              string  `json:"country_code"`
 	GlobalRank               string  `json:"global_rank"`
 	CountryRank              string  `json:"country_rank"`
@@ -44,6 +45,11 @@ type UserInfo struct {
 	MaximumCombo             string  `json:"maximum_combo"`
 	Replays                  string  `json:"replays"`
 	Level                    string  `json:"level"`
+	Kudosu                   string  `json:"kudosu"`
+	Playstyle                string  `json:"playstyle"`
+	Occupation               string  `json:"occupation"`
+	Location                 string  `json:"location"`
+	PostCount                string  `json:"post_count"`
 	SupportLvl               string  `json:"support_level"`
 	FollowerCount            string  `json:"follower_count"`
 	DefaultGroup             string  `json:"default_group"`
@@ -73,7 +79,11 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
+	Website                  string  `json:"website"`
+	MaxFriends               string  `json:"max_friends"`
+	MaxBLock                 string  `json:"max_block"`
 	BestBeatMap              beatMap `json:"best_beat_map"`
 }
 ```
@@ -168,6 +178,7 @@ badges | []Badge |
 avatar_url | string |
 cover_url | string |
 id | string |
+playmode | string |
 country_code | string | like "RU" or "JP"
 global_rank | string |
 country_rank | string |
@@ -191,9 +202,16 @@ total_hits | string |
 maximum_combo | string |
 replays | string | replays watched by others
 level | string |
+kudosu | string |
+playstyle | string |
+ocupation | string |
+location | string |
+post_count | string |
 support_level | string |
 follower_count | string |
 default_group | string |
+discord | string 
+interests | string |
 is_online | string |
 is_active | string |
 is_admin | string |
@@ -219,6 +237,9 @@ comments_count | string |
 favorite_beatmapset_count | string |
 guest_beatmapset_count | string |
 join_date | string | like "2022-05-01T19:27:43+00:00"
+website | string |
+max_friends | string |
+max_block | string |
 best_beat_map | beatMap |
 
 
