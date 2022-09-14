@@ -476,7 +476,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 
 	// Ссылка на сайт
-	result.Website, left = findWithIndex(pageStr, "website :", " ,", left)
+	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 
 	// Администрация
