@@ -96,6 +96,7 @@ type UserInfo struct {
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
 	Title                    string  `json:"title"`
+	TitleUrl                 string  `json:"title_url"`
 	ScoresBest               []Score `json:"scores_best"`
 }
 
@@ -482,6 +483,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Тайтл
 	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
+
+	// Адрес тайтла
+	result.TitleUrl, left = findWithIndex(pageStr, "title_url :", ",", left)
 
 	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
