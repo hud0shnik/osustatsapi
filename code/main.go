@@ -33,6 +33,7 @@ type UserInfo struct {
 	UserID                   string  `json:"id"`
 	Playmode                 string  `json:"playmode"`
 	CountryCode              string  `json:"country_code"`
+	CountyName               string  `json:"country_name"`
 	GlobalRank               string  `json:"global_rank"`
 	CountryRank              string  `json:"country_rank"`
 	PP                       string  `json:"pp"`
@@ -478,6 +479,9 @@ func getUserInfo(id, mode string) UserInfo {
 	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
+
+	// Название страны
+	result.CountyName, left = findWithIndex(pageStr, "name : ", " }", left)
 
 	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
