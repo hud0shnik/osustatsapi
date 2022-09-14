@@ -392,6 +392,9 @@ func getUserInfo(id, mode string) UserInfo {
 		result.ScoresBest[s].BeatMapSet.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
 		result.ScoresBest[s].BeatMapSet.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
 		result.ScoresBest[s].BeatMapSet.Video, left = findWithIndex(pageStr, "video :", "}", left)
+		result.ScoresBest[s].Weight.Percentage, left = findWithIndex(pageStr, "percentage :", ",", left)
+		result.ScoresBest[s].Weight.PP, left = findWithIndex(pageStr, "pp :", "}", left)
+
 	}
 
 	//--------------------------- Статистика игрока ------------------------------
