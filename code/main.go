@@ -93,6 +93,7 @@ type UserInfo struct {
 	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
 	Website                  string  `json:"website"`
+	Twitter                  string  `json:"twitter"`
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
 	Title                    string  `json:"title"`
@@ -486,6 +487,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Адрес тайтла
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url :", ",", left)
+
+	// Твиттер
+	result.Twitter, left = findWithIndex(pageStr, "twitter :", ",", left)
 
 	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
