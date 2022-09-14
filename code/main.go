@@ -95,6 +95,7 @@ type UserInfo struct {
 	Website                  string  `json:"website"`
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
+	Title                    string  `json:"title"`
 	ScoresBest               []Score `json:"scores_best"`
 }
 
@@ -478,6 +479,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// Порядок карточек в профиле
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
+
+	// Тайтл
+	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
 
 	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
