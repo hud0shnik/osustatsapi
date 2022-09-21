@@ -91,6 +91,7 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	LovedBeatmapsetCount     string  `json:"loved_beatmapset_count"`
 	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
 	Website                  string  `json:"website"`
@@ -485,6 +486,8 @@ func getUserInfo(id, mode string) UserInfo {
 	}
 
 	result.GuestBeatmapsetCount, left = findWithIndex(pageStr, "guest_beatmapset_count :", ",", left)
+	result.LovedBeatmapsetCount, left = findWithIndex(pageStr, "loved_beatmapset_count :", ",", left)
+
 
 	// Карты на рассмотрении
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
