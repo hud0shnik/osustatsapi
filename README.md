@@ -23,6 +23,7 @@ type UserInfo struct {
 	UserID                   string  `json:"id"`
 	Playmode                 string  `json:"playmode"`
 	CountryCode              string  `json:"country_code"`
+	CountyName               string  `json:"country_name"`
 	GlobalRank               string  `json:"global_rank"`
 	CountryRank              string  `json:"country_rank"`
 	PP                       string  `json:"pp"`
@@ -82,67 +83,117 @@ type UserInfo struct {
 	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
 	Website                  string  `json:"website"`
+	Twitter                  string  `json:"twitter"`
 	MaxFriends               string  `json:"max_friends"`
 	MaxBLock                 string  `json:"max_block"`
-	BestBeatMap              beatMap `json:"best_beat_map"`
+	Title                    string  `json:"title"`
+	TitleUrl                 string  `json:"title_url"`
+	ScoresBest               []Score `json:"scores_best"`
 }
 ```
 
 
 ```Go
-type beatMap struct {
-	Title            string   `json:"title"`
-	Card             string   `json:"card"`
-	Version          string   `json:"version"`
-	PreviewUrl       string   `json:"preview_url"`
-	TrackId          string   `json:"track_id"`
-	DifficultyRating string   `json:"difficulty_rating"`
-	Id               string   `json:"id"`
-	BuildId          string   `json:"build_id"`
-	Cover            string   `json:"cover"`
-	SlimCover        string   `json:"slimcover"`
-	Statistics       string   `json:"statistics"`
-	Rank             string   `json:"rank"`
-	Mods             []string `json:"mods"`
-	EndedAt          string   `json:"ended_at"`
-	StartedAt        string   `json:"started_at"`
-	Accuracy         string   `json:"accuracy"`
-	MaximumCombo     string   `json:"maximum_combo"`
-	PP               string   `json:"pp"`
-	Passed           string   `json:"passed"`
-	TotalScore       string   `json:"total_score"`
-	LegacyPerfect    string   `json:"legacy_perfect"`
-	Replay           string   `json:"replay"`
-	Mode             string   `json:"mode"`
-	Status           string   `json:"status"`
-	TotalLength      string   `json:"total_length"`
-	Ar               string   `json:"ar"`
-	Bpm              string   `json:"bpm"`
-	Convert          string   `json:"convert"`
-	CountCircles     string   `json:"count_circles"`
-	CountSliders     string   `json:"count_sliders"`
-	CountSpinners    string   `json:"count_spinners"`
-	Cs               string   `json:"cs"`
-	DeletedAt        string   `json:"deleted_at"`
-	Drain            string   `json:"drain"`
-	HitLength        string   `json:"hit_length"`
-	IsScoreable      string   `json:"is_scoreable"`
-	LastUpdated      string   `json:"last_updated"`
-	ModeInt          string   `json:"mode_int"`
-	PassCount        string   `json:"pass_count"`
-	PlayCount        string   `json:"play_count"`
-	Ranked           string   `json:"ranked"`
-	Url              string   `json:"url"`
-	Artist           string   `json:"artist"`
-	Checksum         string   `json:"checksum"`
-	Creator          string   `json:"creator"`
-	FavoriteCount    string   `json:"favorite_count"`
-	Hype             string   `json:"hype"`
-	Nsfw             string   `json:"nsfw"`
-	Offset           string   `json:"offset"`
-	Spotlight        string   `json:"spotlight"`
-	RulesetId        string   `json:"ruleset_id"`
-	BeatMapSetId     string   `json:"beatmapset_id"`
+type Score struct {
+	Accuracy              string     `json:"accuracy"`
+	BeatMapId             string     `json:"beatmap_id"`
+	BuildId               string     `json:"build_id"`
+	EndedAt               string     `json:"ended_at"`
+	MaximumCombo          string     `json:"maximum_combo"`
+	Mods                  []string   `json:"mods"`
+	Passed                string     `json:"passed"`
+	Rank                  string     `json:"rank"`
+	RulesetId             string     `json:"ruleset_id"`
+	StartedAt             string     `json:"started_at"`
+	Statistics            string     `json:"statistics"`
+	TotalScore            string     `json:"total_score"`
+	UserId                string     `json:"user_id"`
+	BestId                string     `json:"best_id"`
+	Id                    string     `json:"id"`
+	LegacyPerfect         string     `json:"legacy_perfect"`
+	PP                    string     `json:"pp"`
+	Replay                string     `json:"replay"`
+	Type                  string     `json:"type"`
+	CurrentUserAttributes string     `json:"current_user_attributes"`
+	BeatMap               BeatMap    `json:"beatmap"`
+	BeatMapSet            BeatMapSet `json:"beatmapset"`
+	Weight                Weight     `json:"weight"`
+}
+```
+
+```Go
+type BeatMap struct {
+	BeatMapSetId     string `json:"beatmapset_id"`
+	DifficultyRating string `json:"difficulty_rating"`
+	Id               string `json:"id"`
+	Mode             string `json:"mode"`
+	Status           string `json:"status"`
+	TotalLength      string `json:"total_length"`
+	UserId           string `json:"user_id"`
+	Version          string `json:"version"`
+	Accuracy         string `json:"accuracy"`
+	Ar               string `json:"ar"`
+	Bpm              string `json:"bpm"`
+	Convert          string `json:"convert"`
+	CountCircles     string `json:"count_circles"`
+	CountSliders     string `json:"count_sliders"`
+	CountSpinners    string `json:"count_spinners"`
+	Cs               string `json:"cs"`
+	DeletedAt        string `json:"deleted_at"`
+	Drain            string `json:"drain"`
+	HitLength        string `json:"hit_length"`
+	IsScoreable      string `json:"is_scoreable"`
+	LastUpdated      string `json:"last_updated"`
+	ModeInt          string `json:"mode_int"`
+	PassCount        string `json:"pass_count"`
+	PlayCount        string `json:"play_count"`
+	Ranked           string `json:"ranked"`
+	Url              string `json:"url"`
+	Checksum         string `json:"checksum"`
+}
+```
+
+```Go
+type BeatMapSet struct {
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_unicode"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount string `json:"favorite_count"`
+	Hype          string `json:"hype"`
+	Id            string `json:"id"`
+	Nsfw          string `json:"nsfw"`
+	Offset        string `json:"offset"`
+	PlayCount     string `json:"play_count"`
+	PreviewUrl    string `json:"preview_url"`
+	Source        string `json:"source"`
+	Spotlight     string `json:"spotlight"`
+	Status        string `json:"status"`
+	Title         string `json:"title"`
+	TitleUnicode  string `json:"title_unicode"`
+	TrackId       string `json:"track_id"`
+	UserId        string `json:"userId"`
+	Video         string `json:"video"`
+}
+```
+
+```Go
+type Weight struct {
+	Percentage string `json:"percentage"`
+	PP         string `json:"pp"`
+}
+```
+
+```Go
+type Covers struct {
+	Cover       string `json:"cover"`
+	Cover2X     string `json:"cover@2x"`
+	Card        string `json:"card"`
+	Card2X      string `json:"card@2x"`
+	List        string `json:"list"`
+	List2X      string `json:"list@2x"`
+	SlimCover   string `json:"slimcover"`
+	SlimCover2X string `json:"slimcover@2x"`
 }
 ```
 
