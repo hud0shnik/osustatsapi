@@ -480,7 +480,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
 
 	// Порядок карточек в профиле
-	result.ProfileColor, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
+	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 
 	// Тайтл
 	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
