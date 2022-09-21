@@ -410,133 +410,50 @@ func getUserInfo(id, mode string) UserInfo {
 
 	//--------------------------- Статистика игрока ------------------------------
 
-	// Ссылка на аватар
 	result.AvatarUrl, left = findWithIndex(pageStr, "avatar_url : ", " ", left)
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
-
-	// Код страны
 	result.CountryCode, left = findWithIndex(pageStr, "country_code : ", " ", left)
-
-	// Группа
 	result.DefaultGroup, left = findWithIndex(pageStr, "default_group : ", " ", left)
-
-	// Айди
 	result.UserID, left = findWithIndex(pageStr, " id :", ",", left)
-
-	// Активность
 	result.IsActive, left = findWithIndex(pageStr, "is_active :", ",", left)
-
-	// Бот
 	result.IsBot, left = findWithIndex(pageStr, "is_bot :", ",", left)
-
-	// Удалённый профиль
 	result.IsDeleted, left = findWithIndex(pageStr, "is_deleted :", ",", left)
-
-	// Статус в сети
 	result.IsOnline, left = findWithIndex(pageStr, "is_online :", ",", left)
-
-	// Подписка
 	result.IsSupporter, left = findWithIndex(pageStr, "is_supporter :", ",", left)
-
-	// В последний раз был в сети
 	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", left)
-
-	// Сообщения только от друзей
 	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left)
-
-	// Цвет профиля
 	result.ProfileColor, left = findWithIndex(pageStr, "profile_colour :", ",", left)
-
-	// Юзернейм
 	result.Username, left = findWithIndex(pageStr, "username : ", " ", left)
-
-	// Шапка профиля
 	result.CoverUrl, left = findWithIndex(pageStr, "cover_url : ", " ", left)
 	result.CoverUrl = strings.ReplaceAll(result.CoverUrl, "\\", "")
-
-	// Дискорд
 	result.Discord, left = findWithIndex(pageStr, "discord :", " ", left)
-
-	// Спонсорка
 	result.HasSupported, left = findWithIndex(pageStr, "has_supported :", ",", left)
-
-	// Интересы
 	result.Interests, left = findWithIndex(pageStr, "interests :", ", join_date", left)
-
-	// Дата регистрации
 	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left)
-
-	// Кудосу
 	result.Kudosu, left = findWithIndex(pageStr, "kudosu :{ total :", ",", left)
-
-	// Локация
 	result.Location, left = findWithIndex(pageStr, "location :", ",", left)
-
-	// Размер черного списка
 	result.MaxBLock, left = findWithIndex(pageStr, "max_blocks :", ",", left)
-
-	// Максимальное количество друзей
 	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left)
-
-	// Род деятельности
 	result.Occupation, left = findWithIndex(pageStr, "occupation :", ",", left)
-
-	// Режим игры
 	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left)
-
-	// Стиль игры
 	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
-
-	// Количество постов
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
-
-	// Порядок карточек в профиле
 	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
-
-	// Тайтл
 	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
-
-	// Адрес тайтла
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url :", ",", left)
-
-	// Твиттер
 	result.Twitter, left = findWithIndex(pageStr, "twitter :", ",", left)
-
-	// Ссылка на сайт
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
-
-	// Название страны
 	result.CountyName, left = findWithIndex(pageStr, "name : ", " }", left)
-
-	// Администрация
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
-
-	// Команда номинации
 	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
-
-	// Вечный бан
 	result.IsFullBan, left = findWithIndex(pageStr, "is_full_bn :", ",", left)
-
-	// Команда глобальной модерации
 	result.IsGmt, left = findWithIndex(pageStr, "is_gmt :", ",", left)
-
-	// Временный бан
 	result.IsLimitedBan, left = findWithIndex(pageStr, "is_limited_bn :", ",", left)
-
-	// Модератор
 	result.IsModerator, left = findWithIndex(pageStr, "is_moderator :", ",", left)
-
-	// Команда оценки номинаций
 	result.IsNat, left = findWithIndex(pageStr, "is_nat :", ",", left)
-
-	// Ограничение
 	result.IsRestricted, left = findWithIndex(pageStr, "is_restricted :", ",", left)
-
-	// Немота
 	result.IsSilenced, left = findWithIndex(pageStr, "is_silenced :", ",", left)
-
-	// Баннер текущего турнира
 	result.ActiveTournamentBanner, left = findWithIndex(pageStr, "active_tournament_banner :", ", badges", left)
 	result.ActiveTournamentBanner = strings.ReplaceAll(result.ActiveTournamentBanner, "\\", "")
 
@@ -551,19 +468,10 @@ func getUserInfo(id, mode string) UserInfo {
 		}
 	}
 
-	// Количество сыгранных карт
 	result.BeatmapPlaycountsCount, left = findWithIndex(pageStr, "beatmap_playcounts_count :", ",", left)
-
-	// Количество комментариев
 	result.CommentsCount, left = findWithIndex(pageStr, "comments_count :", ",", left)
-
-	// Количество любимых карт
 	result.FavoriteBeatmapsetCount, left = findWithIndex(pageStr, "favourite_beatmapset_count :", ",", left)
-
-	// Подписчики
 	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left)
-
-	// Заброшенные карты
 	result.GraveyardBeatmapsetCount, left = findWithIndex(pageStr, "graveyard_beatmapset_count :", ",", left)
 
 	// Принадлежность к группам
@@ -576,7 +484,6 @@ func getUserInfo(id, mode string) UserInfo {
 		result.Groups = result.Groups[:len(result.Groups)-2]
 	}
 
-	// Карты с гостевым участием
 	result.GuestBeatmapsetCount, left = findWithIndex(pageStr, "guest_beatmapset_count :", ",", left)
 
 	// Карты на рассмотрении
