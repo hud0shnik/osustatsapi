@@ -295,12 +295,15 @@ func getUserInfo(id, mode string) UserInfo {
 	// Структура, которую будет возвращать функция
 	result := UserInfo{}
 
+	// Крайняя левая граница поиска
 	left := 0
 
-	//--------------------------- Лучшая мапа ------------------------------
+	//---------------------------- Лучшие рекорды --------------------------------
 
+	// Проверка на существование лучших рекордов
 	if !strings.Contains(pageStr, "scoresBest :[]") {
 
+		// Индекс конца лучших рекордов
 		end := strings.Index(pageStr, "], scoresFirsts") - 10
 
 		for s := 0; left < end; s++ {
@@ -317,7 +320,6 @@ func getUserInfo(id, mode string) UserInfo {
 			for c := 0; pageStr[c] != ']'; c++ {
 				if pageStr[c:c+10] == "acronym : " {
 					result.ScoresBest[s].Mods = append(result.ScoresBest[s].Mods, pageStr[c+10:c+12])
-					// settings :{}
 				}
 			}
 
