@@ -491,83 +491,34 @@ func getUserInfo(id, mode string) UserInfo {
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
 
 
-	// Карты на рассмотрении
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
-
-	// Юзернеймы
 	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
-
-	// Рейтинговые и одобренные карты
 	result.RankedBeatmapsetCount, left = findWithIndex(pageStr, "ranked_beatmapset_count :", ",", left)
 
-	// Лучшие рекорды
+
 	result.ScoresBestCount, left = findWithIndex(pageStr, "scores_best_count :", ",", left)
-
-	// Первые места
 	result.ScoresFirstCount, left = findWithIndex(pageStr, "scores_first_count :", ",", left)
-
-	// Закреплённые рекорды
 	result.ScoresPinnedCount, left = findWithIndex(pageStr, "scores_pinned_count :", ",", left)
-
-	// Недавние рекорды
 	result.ScoresRecentCount, left = findWithIndex(pageStr, "scores_recent_count :", ",", left)
-
-	// Уровень
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left)
-
-	// Глобальный рейтинг
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left)
-
-	// PP-хи
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left)
-
-	// Всего очков
 	result.RankedScore, left = findWithIndex(pageStr, "ranked_score :", ",", left)
-
-	// Точность попаданий
 	result.Accuracy, left = findWithIndex(pageStr, "hit_accuracy :", ",", left)
-
-	// Количество игр
 	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
-
-	// Время в игре в секундах
 	result.PlayTimeSeconds, left = findWithIndex(pageStr, "play_time :", ",", left)
-
-	// Время в игре в часах
 	duration, _ := time.ParseDuration(result.PlayTimeSeconds + "s")
 	result.PlayTime = duration.String()
-
-	// Рейтинговые очки
 	result.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
-
-	// Всего попаданий
 	result.TotalHits, left = findWithIndex(pageStr, "total_hits :", ",", left)
-
-	// Максимальное комбо
 	result.MaximumCombo, left = findWithIndex(pageStr, "maximum_combo :", ",", left)
-
-	// Реплеев просмотрено другими
 	result.Replays, left = findWithIndex(pageStr, "replays_watched_by_others :", ",", left)
-
-	// SS-ки
 	result.SS, left = findWithIndex(pageStr, "grade_counts :{ ss :", ",", left)
-
-	// SSH-ки
 	result.SSH, left = findWithIndex(pageStr, "ssh :", ",", left)
-
-	// S-ки
 	result.S, left = findWithIndex(pageStr, "s :", ",", left)
-
-	// SH-ки
 	result.SH, left = findWithIndex(pageStr, "sh :", ",", left)
-
-	// A-хи
 	result.A, left = findWithIndex(pageStr, "a :", "}", left)
-
-	// Рейтинг в стране
 	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left)
-
-	// Уровень подписки
 	result.SupportLvl, _ = findWithIndex(pageStr, "support_level :", ",", left)
 
 	return result
