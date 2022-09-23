@@ -56,6 +56,7 @@ type UserInfo struct {
 	DefaultGroup             string  `json:"default_group"`
 	Discord                  string  `json:"discord"`
 	Interests                string  `json:"interests"`
+	HasSupported             string  `json:"has_supported"`
 	IsOnline                 string  `json:"is_online"`
 	IsActive                 string  `json:"is_active"`
 	IsAdmin                  string  `json:"is_admin"`
@@ -80,6 +81,8 @@ type UserInfo struct {
 	CommentsCount            string  `json:"comments_count"`
 	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
 	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	LovedBeatmapsetCount     string  `json:"loved_beatmapset_count"`
+	MappingFollowerCount     string  `json:"mapping_follower_count"`
 	ProfileOrder             string  `json:"profile_order"`
 	JoinDate                 string  `json:"join_date"`
 	Website                  string  `json:"website"`
