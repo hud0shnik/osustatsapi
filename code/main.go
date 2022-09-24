@@ -249,7 +249,7 @@ func find(str, subStr, stopChar string) string {
 }
 
 // Функция для парсинга рекорда
-func parseScore(pageStr string, left int) (Score, int) {
+func parseScore(pageStr string, left int, scoreType string) (Score, int) {
 
 	var result Score
 
@@ -346,8 +346,15 @@ func parseScore(pageStr string, left int) (Score, int) {
 	result.BeatMapSet.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
 	result.BeatMapSet.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
 	result.BeatMapSet.Video, left = findWithIndex(pageStr, "video :", "}", left)
-	result.Weight.Percentage, left = findWithIndex(pageStr, "percentage :", ",", left)
-	result.Weight.PP, left = findWithIndex(pageStr, "pp :", "}", left)
+
+	if scoreType == "best" {
+		result.Weight.Percentage, left = findWithIndex(pageStr, "percentage :", ",", left)
+		result.Weight.PP, left = findWithIndex(pageStr, "pp :", "}", left)
+		return result, left
+	}
+
+	// Постановка указателя на конец рекорда
+	_, left = findWithIndex(pageStr, "}", "},", left)
 
 	return result, left
 }
@@ -374,13 +381,6 @@ func getUserInfo(id, mode string) UserInfo {
 
 	// HTML полученной страницы в формате string
 	pageStr := string(body)[90000:]
-
-	// Сохранение html"ки в файл sample.html (для тестов)
-	/*
-		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
-		}
-	*/
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
@@ -411,16 +411,16 @@ func getUserInfo(id, mode string) UserInfo {
 	if !strings.Contains(pageStr, "scoresBest :[]") {
 
 		// Индекс конца лучших рекордов
-		end := strings.Index(pageStr, "], scoresFirsts") - 10
+		end := strings.Index(pageStr, "], scoresFirsts") - 40
 
 		// Пока левая граница не пересечёт конец лучших рекордов
-		for s := 0; left < end && s < 6; s++ {
+		for s := 0; left < end; s++ {
 
 			// Структура для записи рекорда
 			var score Score
 
 			// Получение и запись рекорда
-			score, left = parseScore(pageStr, left)
+			score, left = parseScore(pageStr, left, "best")
 
 			// Добавление рекорда к результату
 			result.ScoresBest = append(result.ScoresBest, score)
@@ -435,16 +435,16 @@ func getUserInfo(id, mode string) UserInfo {
 	if !strings.Contains(pageStr, "scoresFirsts :[]") {
 
 		// Индекс конца первых мест
-		end := strings.Index(pageStr, "], scoresPinned") - 20
+		end := strings.Index(pageStr, "], scoresPinned") - 40
 
 		// Пока левая граница не пересечёт конец первых мест
-		for s := 0; left < end && s < 7; s++ {
+		for s := 0; left < end; s++ {
 
 			// Структура для записи первого места
 			var score Score
 
 			// Получение и запись первого места
-			score, left = parseScore(pageStr, left)
+			score, left = parseScore(pageStr, left, "first")
 
 			// Добавление первого места к результату
 			result.ScoresFirst = append(result.ScoresFirst, score)
