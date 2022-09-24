@@ -308,10 +308,18 @@ func getUserInfo(id, mode string) UserInfo {
 		// Индекс конца лучших рекордов
 		end := strings.Index(pageStr, "], scoresFirsts") - 10
 
+		// Пока левая граница не пересечёт конец лучших рекордов
 		for s := 0; left < end; s++ {
+
+			// Структура для записи рекорда
 			var score Score
+
+			// Получение и запись рекорда
 			score, left = parseScore(pageStr, left)
+
+			// Добавление рекорда к результату
 			result.ScoresBest = append(result.ScoresBest, score)
+
 		}
 
 	}
