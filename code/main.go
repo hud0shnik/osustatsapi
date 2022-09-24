@@ -443,7 +443,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url :", ",", left)
-	result.Twitter, left = findWithIndex(pageStr, "twitter :", ",", left)
+	result.Twitter, left = findWithIndex(pageStr, "twitter : ", " ,", left)
 	result.Website, left = findWithIndex(pageStr, "website :", ",", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 	result.CountyName, left = findWithIndex(pageStr, "name : ", " }", left)
