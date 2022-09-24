@@ -103,6 +103,7 @@ type UserInfo struct {
 	TitleUrl                 string  `json:"title_url"`
 	ScoresBest               []Score `json:"scores_best"`
 	ScoresFirst              []Score `json:"scores_first"`
+	ScoresPinned             []Score `json:"scores_pinned"`
 }
 
 // Рекорд
@@ -448,6 +449,31 @@ func getUserInfo(id, mode string) UserInfo {
 
 			// Добавление первого места к результату
 			result.ScoresFirst = append(result.ScoresFirst, score)
+
+		}
+
+	}
+
+	//---------------------------- Закреплённые рекорды --------------------------------
+
+	// Проверка на существование закреплённых рекордов
+	if !strings.Contains(pageStr, "scoresPinned :[]") {
+
+		// Индекс конца закреплённых рекордов
+		end := strings.Index(pageStr, "scoresRecent :[") - 40
+
+		// Пока левая граница не пересечёт конец закреплённых рекордов
+		for s := 0; left < end; s++ {
+
+			// Структура для записи рекорда
+			var score Score
+
+			// Получение и запись рекорда
+			score, left = parseScore(pageStr, left, "pinned")
+
+			// Добавление закреплённого рекорда к результату
+			result.ScoresPinned = append(result.ScoresPinned, score)
+			fmt.Println(left, " / ", end)
 
 		}
 
