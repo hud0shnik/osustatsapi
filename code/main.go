@@ -379,6 +379,8 @@ func getUserInfo(id, mode string) UserInfo {
 			result.ScoresBest[s].BeatMapSet.Covers.Card = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.Card, "\\", "")
 			result.ScoresBest[s].BeatMapSet.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ,", left)
 			result.ScoresBest[s].BeatMapSet.Covers.Card2X = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.Card2X, "\\", "")
+			result.ScoresBest[s].BeatMapSet.Covers.List, left = findWithIndex(pageStr, "list : ", " ,", left)
+			result.ScoresBest[s].BeatMapSet.Covers.List = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.List, "\\", "")
 			result.ScoresBest[s].BeatMapSet.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ,", left)
 			result.ScoresBest[s].BeatMapSet.Covers.List2X = strings.ReplaceAll(result.ScoresBest[s].BeatMapSet.Covers.List2X, "\\", "")
 			result.ScoresBest[s].BeatMapSet.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
