@@ -101,6 +101,15 @@ scores_first               | []Score  |
 scores_pinned              | []Score  |
 
 
+<h4>Badge</h4>
+
+Field       |    Type    | Description
+------------|------------|------------
+awarded_at  |   string   | 
+description |   string   | 
+image_url   |   string   |
+
+
 <h4>Score</h4>
 
 Field                   |    Type    | Description
@@ -188,7 +197,6 @@ userId         |   string   |
 video          |   string   |
 
 
-
 <h4>Covers</h4>
 
 Field        |    Type    | Description
@@ -220,10 +228,10 @@ pp         |   string   |
    
 <h4>OnlineInfo</h4>
 
-
 Field      |    Type    | Description
 -----------|------------|------------
 error      |   string   |
 is_online  |   string   |
+
 
 [![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
