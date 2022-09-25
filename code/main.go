@@ -13,13 +13,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Структура значка профиля
-type Badge struct {
-	AwardedAt   string `json:"awarded_at"`
-	Description string `json:"description"`
-	ImageUrl    string `json:"image_url"`
-}
-
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
 	Error                    string  `json:"error"`
@@ -104,6 +97,13 @@ type UserInfo struct {
 	ScoresBest               []Score `json:"scores_best"`
 	ScoresFirst              []Score `json:"scores_first"`
 	ScoresPinned             []Score `json:"scores_pinned"`
+}
+
+// Структура значка профиля
+type Badge struct {
+	AwardedAt   string `json:"awarded_at"`
+	Description string `json:"description"`
+	ImageUrl    string `json:"image_url"`
 }
 
 // Рекорд
