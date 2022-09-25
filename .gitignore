@@ -4,5 +4,6 @@ sample.html
 test/test.go
 
 /DEV/
+code/DEV/
 *.html
-.vscode/settings.json
+.vscode/
