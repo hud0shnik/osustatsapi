@@ -642,6 +642,9 @@ func getUserInfo(id, mode string) UserInfo {
 
 	}
 
+	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
+	result.RankHistory.Data, _ = findWithIndex(pageStr, "data :[", "]", left)
+
 
 	return result
 }
