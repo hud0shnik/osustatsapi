@@ -101,6 +101,15 @@ scores_first               | []Score  |
 scores_pinned              | []Score  |
 
 
+<h4>Badge</h4>
+
+Field       |    Type    | Description
+------------|------------|------------
+awarded_at  |   string   | 
+description |   string   | badge title
+image_url   |   string   | badge image
+
+
 <h4>Score</h4>
 
 Field                   |    Type    | Description
@@ -110,9 +119,9 @@ beatmap_id              |   string   |
 build_id                |   string   |
 ended_at                |   string   |
 maximum_combo           |   string   |
-mods                    |  []string  |
+mods                    |  []string  | like "["HD","HR","NC","PF"]"
 passed                  |   string   |
-rank                    |   string   |
+rank                    |   string   | like "XH" (silver ss)
 ruleset_id              |   string   |
 started_at              |   string   |
 statistics              |   string   |
@@ -139,25 +148,25 @@ difficulty_rating |   string   |
 id                |   string   |
 mode              |   string   |
 status            |   string   |
-total_length      |   string   |
+total_length      |   string   | seconds from first note to last note including breaks
 user_id           |   string   |
 version           |   string   |
 accuracy          |   string   |
-ar                |   string   |
+ar                |   string   | approach rate
 bpm               |   string   |
 convert           |   string   |
-count_circles	  |   string   |
+count_circles	    |   string   |
 count_sliders     |   string   |
 count_spinners    |   string   |
-cs                |   string   |
-deleted_at        |   string   |
-drain             |   string   |
+cs                |   string   | circle size
+deleted_at        |   string   | health drain
+drain             |   string   | seconds from first note to last note not including breaks
 hit_length        |   string   |
 is_scoreable      |   string   |
 last_updated      |   string   |
 mode_int          |   string   |
-pass_count        |   string   |
-play_count        |   string   |
+pass_count        |   string   | number of times the beatmap was passed, completed
+play_count        |   string   | number of times the beatmap was played
 ranked            |   string   |
 url               |   string   |
 checksum          |   string   |
@@ -171,7 +180,7 @@ artist         |   string   |
 artist_unicode |   string   |
 covers         |   Covers   |
 creator        |   string   |
-favorite_count |   string   |
+favorite_count |   string   | number of times the beatmap was favourited
 hype           |   string   |
 id             |   string   |
 nsfw           |   string   |
@@ -186,7 +195,6 @@ title_unicode  |   string   |
 track_id       |   string   |
 userId         |   string   |
 video          |   string   |
-
 
 
 <h4>Covers</h4>
@@ -220,10 +228,10 @@ pp         |   string   |
    
 <h4>OnlineInfo</h4>
 
-
 Field      |    Type    | Description
 -----------|------------|------------
 error      |   string   |
 is_online  |   string   |
+
 
 [![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
