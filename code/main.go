@@ -622,7 +622,21 @@ func getUserInfo(id, mode string) UserInfo {
 	result.SH, left = findWithIndex(pageStr, "sh :", ",", left)
 	result.A, left = findWithIndex(pageStr, "a :", "}", left)
 	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left)
-	result.SupportLvl, _ = findWithIndex(pageStr, "support_level :", ",", left)
+	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left)
+
+	end := strings.Index(pageStr, "rankHistory") - 40
+
+	for left < end {
+
+		var achieve Achievement
+
+		achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left)
+		achieve.AchievementId, left = findWithIndex(pageStr, "achievement_id :", "}", left)
+
+		result.Achievements = append(result.Achievements, achieve)
+
+	}
+
 
 	return result
 }
