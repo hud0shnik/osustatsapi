@@ -624,15 +624,20 @@ func getUserInfo(id, mode string) UserInfo {
 	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left)
 	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left)
 
+	// Конец блока достижений
 	end := strings.Index(pageStr, "rankHistory") - 40
 
+	// Цикл обработки достижений
 	for left < end {
 
+		// Инициализация достижения
 		var achieve Achievement
 
+		// Генерация достижения
 		achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left)
 		achieve.AchievementId, left = findWithIndex(pageStr, "achievement_id :", "}", left)
 
+		// Добавление достижения
 		result.Achievements = append(result.Achievements, achieve)
 
 	}
