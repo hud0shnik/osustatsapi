@@ -347,6 +347,7 @@ func parseScore(pageStr string, left int, scoreType string) (Score, int) {
 
 	result.BeatMapSet.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
 	result.BeatMapSet.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " ,", left)
+
 	result.BeatMapSet.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
 	result.BeatMapSet.Covers.Cover = strings.ReplaceAll(result.BeatMapSet.Covers.Cover, "\\", "")
 	result.BeatMapSet.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ,", left)
@@ -507,7 +508,6 @@ func getUserInfo(id, mode string) UserInfo {
 
 			// Добавление закреплённого рекорда к результату
 			result.ScoresPinned = append(result.ScoresPinned, score)
-			fmt.Println(left, " / ", end)
 
 		}
 
