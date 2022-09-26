@@ -16,84 +16,84 @@ import (
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
 	Error                    string  `json:"error"`
-	Username                 string  `json:"username"`
-	Groups                   string  `json:"groups"`
-	ActiveTournamentBanner   string  `json:"active_tournament_banner"`
-	Names                    string  `json:"previous_usernames"`
-	Badges                   []Badge `json:"badges"`
 	AvatarUrl                string  `json:"avatar_url"`
-	CoverUrl                 string  `json:"cover_url"`
-	UserID                   string  `json:"id"`
-	Playmode                 string  `json:"playmode"`
 	CountryCode              string  `json:"country_code"`
+	DefaultGroup             string  `json:"default_group"`
+	UserID                   string  `json:"id"`
+	IsActive                 string  `json:"is_active"`
+	IsBot                    string  `json:"is_bot"`
+	IsDeleted                string  `json:"is_deleted"`
+	IsOnline                 string  `json:"is_online"`
+	IsSupporter              string  `json:"is_supporter"`
+	LastVisit                string  `json:"last_visit"`
+	PmFriendsOnly            string  `json:"pm_friends_only"`
+	ProfileColor             string  `json:"profile_color"`
+	Username                 string  `json:"username"`
+	CoverUrl                 string  `json:"cover_url"`
+	Discord                  string  `json:"discord"`
+	HasSupported             string  `json:"has_supported"`
+	Interests                string  `json:"interests"`
+	JoinDate                 string  `json:"join_date"`
+	Kudosu                   string  `json:"kudosu"`
+	Location                 string  `json:"location"`
+	MaxFriends               string  `json:"max_friends"`
+	MaxBLock                 string  `json:"max_block"`
+	Occupation               string  `json:"occupation"`
+	Playmode                 string  `json:"playmode"`
+	Playstyle                string  `json:"playstyle"`
+	PostCount                string  `json:"post_count"`
+	ProfileOrder             string  `json:"profile_order"`
+	Title                    string  `json:"title"`
+	TitleUrl                 string  `json:"title_url"`
+	Twitter                  string  `json:"twitter"`
+	Website                  string  `json:"website"`
 	CountyName               string  `json:"country_name"`
-	GlobalRank               string  `json:"global_rank"`
-	CountryRank              string  `json:"country_rank"`
-	PP                       string  `json:"pp"`
-	PlayTime                 string  `json:"play_time"`
-	PlayTimeSeconds          string  `json:"play_time_seconds"`
-	SSH                      string  `json:"ssh"`
-	SS                       string  `json:"ss"`
-	SH                       string  `json:"sh"`
-	S                        string  `json:"s"`
-	A                        string  `json:"a"`
-	RankedScore              string  `json:"ranked_score"`
-	Accuracy                 string  `json:"accuracy"`
-	PlayCount                string  `json:"play_count"`
+	IsAdmin                  string  `json:"is_admin"`
+	IsBng                    string  `json:"is_bng"`
+	IsFullBan                string  `json:"is_full_bn"`
+	IsGmt                    string  `json:"is_gmt"`
+	IsLimitedBan             string  `json:"is_limited_bn"`
+	IsModerator              string  `json:"is_moderator"`
+	IsNat                    string  `json:"is_nat"`
+	IsRestricted             string  `json:"is_restricted"`
+	IsSilenced               string  `json:"is_silenced"`
+	ActiveTournamentBanner   string  `json:"active_tournament_banner"`
+	Badges                   []Badge `json:"badges"`
+	CommentsCount            string  `json:"comments_count"`
+	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
+	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
+	FollowerCount            string  `json:"follower_count"`
+	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
+	Groups                   string  `json:"groups"`
+	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
+	LovedBeatmapsetCount     string  `json:"loved_beatmapset_count"`
+	MappingFollowerCount     string  `json:"mapping_follower_count"`
+	PendingBeatmapsetCount   string  `json:"pending_beatmapset_count"`
+	Names                    string  `json:"previous_usernames"`
+	RankedBeatmapsetCount    string  `json:"ranked_beatmapset_count"`
 	ScoresBestCount          string  `json:"scores_best_count"`
 	ScoresFirstCount         string  `json:"scores_first_count"`
 	ScoresPinnedCount        string  `json:"scores_pinned_count"`
 	ScoresRecentCount        string  `json:"scores_recent_count"`
+	Level                    string  `json:"level"`
+	GlobalRank               string  `json:"global_rank"`
+	PP                       string  `json:"pp"`
+	RankedScore              string  `json:"ranked_score"`
+	Accuracy                 string  `json:"accuracy"`
+	PlayCount                string  `json:"play_count"`
+	PlayTime                 string  `json:"play_time"`
+	PlayTimeSeconds          string  `json:"play_time_seconds"`
 	TotalScore               string  `json:"total_score"`
 	TotalHits                string  `json:"total_hits"`
 	MaximumCombo             string  `json:"maximum_combo"`
 	Replays                  string  `json:"replays"`
-	Level                    string  `json:"level"`
-	Kudosu                   string  `json:"kudosu"`
-	Playstyle                string  `json:"playstyle"`
-	Occupation               string  `json:"occupation"`
-	Location                 string  `json:"location"`
-	PostCount                string  `json:"post_count"`
+	SS                       string  `json:"ss"`
+	SSH                      string  `json:"ssh"`
+	S                        string  `json:"s"`
+	SH                       string  `json:"sh"`
+	A                        string  `json:"a"`
+	CountryRank              string  `json:"country_rank"`
 	SupportLvl               string  `json:"support_level"`
-	FollowerCount            string  `json:"follower_count"`
-	DefaultGroup             string  `json:"default_group"`
-	Discord                  string  `json:"discord"`
-	Interests                string  `json:"interests"`
-	HasSupported             string  `json:"has_supported"`
-	IsOnline                 string  `json:"is_online"`
-	IsActive                 string  `json:"is_active"`
-	IsAdmin                  string  `json:"is_admin"`
-	IsModerator              string  `json:"is_moderator"`
-	IsNat                    string  `json:"is_nat"`
-	IsGmt                    string  `json:"is_gmt"`
-	IsBng                    string  `json:"is_bng"`
-	IsBot                    string  `json:"is_bot"`
-	IsSilenced               string  `json:"is_silenced"`
-	IsDeleted                string  `json:"is_deleted"`
-	IsRestricted             string  `json:"is_restricted"`
-	IsLimitedBan             string  `json:"is_limited_bn"`
-	IsFullBan                string  `json:"is_full_bn"`
-	IsSupporter              string  `json:"is_supporter"`
-	LastVisit                string  `json:"last_visit"`
-	ProfileColor             string  `json:"profile_color"`
-	RankedBeatmapsetCount    string  `json:"ranked_beatmapset_count"`
-	PendingBeatmapsetCount   string  `json:"pending_beatmapset_count"`
-	PmFriendsOnly            string  `json:"pm_friends_only"`
-	GraveyardBeatmapsetCount string  `json:"graveyard_beatmapset_count"`
-	BeatmapPlaycountsCount   string  `json:"beatmap_playcounts_count"`
-	CommentsCount            string  `json:"comments_count"`
-	FavoriteBeatmapsetCount  string  `json:"favorite_beatmapset_count"`
-	GuestBeatmapsetCount     string  `json:"guest_beatmapset_count"`
-	LovedBeatmapsetCount     string  `json:"loved_beatmapset_count"`
-	MappingFollowerCount     string  `json:"mapping_follower_count"`
-	ProfileOrder             string  `json:"profile_order"`
-	JoinDate                 string  `json:"join_date"`
-	Website                  string  `json:"website"`
-	Twitter                  string  `json:"twitter"`
-	MaxFriends               string  `json:"max_friends"`
-	MaxBLock                 string  `json:"max_block"`
-	Title                    string  `json:"title"`
-	TitleUrl                 string  `json:"title_url"`
 	ScoresBest               []Score `json:"scores_best"`
 	ScoresFirst              []Score `json:"scores_first"`
 	ScoresPinned             []Score `json:"scores_pinned"`
