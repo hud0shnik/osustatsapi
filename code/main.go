@@ -539,7 +539,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Location, left = findWithIndex(pageStr, "location : ", " ,", left)
 	result.MaxBLock, left = findWithIndex(pageStr, "max_blocks :", ",", left)
 	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left)
-	result.Occupation, left = findWithIndex(pageStr, "occupation :", ",", left)
+	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " ,", left)
 	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left)
 	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
