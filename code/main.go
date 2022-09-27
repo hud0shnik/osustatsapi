@@ -550,6 +550,8 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 	result.CountyName, left = findWithIndex(pageStr, "name : ", " }", left)
+
+	result.UserCover.CustomUrl, left = findWithIndex(pageStr, "custom_url :", ",", left)
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
 	result.IsFullBan, left = findWithIndex(pageStr, "is_full_bn :", ",", left)
