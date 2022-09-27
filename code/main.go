@@ -646,6 +646,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
 
 	result.RankedAndApprovedCount, left = findWithIndex(pageStr, "ranked_and_approved_beatmapset_count :", ",", left)
+	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
 
 	return result
 }
