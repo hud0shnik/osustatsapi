@@ -616,6 +616,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.TotalHits, left = findWithIndex(pageStr, "total_hits :", ",", left)
 	result.MaximumCombo, left = findWithIndex(pageStr, "maximum_combo :", ",", left)
 	result.Replays, left = findWithIndex(pageStr, "replays_watched_by_others :", ",", left)
+	result.IsRanked, left = findWithIndex(pageStr, "is_ranked:", ",", left)
 	result.SS, left = findWithIndex(pageStr, "grade_counts :{ ss :", ",", left)
 	result.SSH, left = findWithIndex(pageStr, "ssh :", ",", left)
 	result.S, left = findWithIndex(pageStr, "s :", ",", left)
