@@ -643,8 +643,9 @@ func getUserInfo(id, mode string) UserInfo {
 	}
 
 	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
-	result.RankHistory.Data, _ = findWithIndex(pageStr, "data :[", "]", left)
+	result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
 
+	result.RankedAndApprovedCount, left = findWithIndex(pageStr, "ranked_and_approved_beatmapset_count :", ",", left)
 
 	return result
 }
