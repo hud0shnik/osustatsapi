@@ -626,7 +626,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left)
 
 	// Конец блока достижений
-	end := strings.Index(pageStr, "rankHistory") - 40
+	end := strings.Index(pageStr, "rank_history :{") - 40
 
 	// Цикл обработки достижений
 	for left < end {
