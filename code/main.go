@@ -651,22 +651,26 @@ func getUserInfo(id, mode string) UserInfo {
 	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left)
 	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left)
 
-	// Конец блока достижений
-	end := strings.Index(pageStr, "rank_history :{") - 40
+	// Проверка на наличие достижений
+	if !strings.Contains(pageStr, "user_achievements :[]") {
 
-	// Цикл обработки достижений
-	for left < end {
+		// Конец блока достижений
+		end := strings.Index(pageStr, "rank_history :{") - 40
 
-		// Инициализация достижения
-		var achieve Achievement
+		// Цикл обработки достижений
+		for left < end {
 
-		// Генерация достижения
-		achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left)
-		achieve.AchievementId, left = findWithIndex(pageStr, "achievement_id :", "}", left)
+			// Инициализация достижения
+			var achieve Achievement
 
-		// Добавление достижения
-		result.Achievements = append(result.Achievements, achieve)
+			// Генерация достижения
+			achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left)
+			achieve.AchievementId, left = findWithIndex(pageStr, "achievement_id :", "}", left)
 
+			// Добавление достижения
+			result.Achievements = append(result.Achievements, achieve)
+
+		}
 	}
 
 	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
