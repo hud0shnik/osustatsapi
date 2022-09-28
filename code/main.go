@@ -598,22 +598,26 @@ func getUserInfo(id, mode string) UserInfo {
 	result.LovedBeatmapsetCount, left = findWithIndex(pageStr, "loved_beatmapset_count :", ",", left)
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
 
-	// Конец части со статистикой
-	end := strings.Index(pageStr, "pending_beatmapset_count")
+	// Проверка на наличие достижений
+	if !strings.Contains(pageStr, "monthly_playcounts :[]") {
 
-	// Цикл обработки статистики
-	for left < end {
+		// Конец части со статистикой
+		end := strings.Index(pageStr, "pending_beatmapset_count") - 32
 
-		// Инициализация структуры подсчета
-		var count Count
+		// Цикл обработки статистики
+		for left < end {
 
-		// Генерация подсчета
-		count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
-		count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+			// Инициализация структуры подсчета
+			var count Count
 
-		// Добавление статистики
-		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
+			// Генерация подсчета
+			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
+			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
 
+			// Добавление статистики
+			result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
+
+		}
 	}
 
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
