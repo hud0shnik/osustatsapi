@@ -624,6 +624,27 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
 	result.RankedBeatmapsetCount, left = findWithIndex(pageStr, "ranked_beatmapset_count :", ",", left)
 
+	// Проверка на наличие статистики
+	if !strings.Contains(pageStr, "replays_watched_counts :[]") {
+
+		// Конец части со статистикой
+		end := strings.Index(pageStr, "scores_best_count :") - 40
+
+		// Цикл обработки статистики
+		for left < end {
+
+			// Инициализация структуры подсчета
+			var count Count
+
+			// Генерация подсчета
+			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
+			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+
+			// Добавление статистики
+			result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, count)
+
+		}
+	}
 
 	result.ScoresBestCount, left = findWithIndex(pageStr, "scores_best_count :", ",", left)
 	result.ScoresFirstCount, left = findWithIndex(pageStr, "scores_first_count :", ",", left)
