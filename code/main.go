@@ -598,6 +598,17 @@ func getUserInfo(id, mode string) UserInfo {
 	result.LovedBeatmapsetCount, left = findWithIndex(pageStr, "loved_beatmapset_count :", ",", left)
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
 
+	end := strings.Index(pageStr, "pending_beatmapset_count")
+
+	for left < end {
+
+		var count Count
+		count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
+		count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+
+		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
+
+	}
 
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
 	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
