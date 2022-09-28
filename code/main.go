@@ -283,6 +283,13 @@ func find(str, subStr, stopChar string) string {
 	return ""
 }
 
+// Функция проверки наличия подстроки
+func contains(str, subStr string, left int) bool {
+
+	return strings.Contains(str[left:], subStr)
+
+}
+
 // Функция для парсинга рекорда
 func parseScore(pageStr string, left int, scoreType string) (Score, int) {
 
