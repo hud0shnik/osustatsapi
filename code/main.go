@@ -451,7 +451,7 @@ func getUserInfo(id, mode string) UserInfo {
 	//---------------------------- Лучшие рекорды --------------------------------
 
 	// Проверка на существование лучших рекордов
-	if !strings.Contains(pageStr, "scoresBest :[]") {
+	if !contains(pageStr, "scoresBest :[]", left) {
 
 		// Индекс конца лучших рекордов
 		end := strings.Index(pageStr, "], scoresFirsts") - 40
@@ -475,7 +475,7 @@ func getUserInfo(id, mode string) UserInfo {
 	//---------------------------- Первые места --------------------------------
 
 	// Проверка на существование Первых мест
-	if !strings.Contains(pageStr, "scoresFirsts :[]") {
+	if !contains(pageStr, "scoresFirsts :[]", left) {
 
 		// Индекс конца первых мест
 		end := strings.Index(pageStr, "], scoresPinned") - 40
@@ -499,7 +499,7 @@ func getUserInfo(id, mode string) UserInfo {
 	//---------------------------- Закреплённые рекорды --------------------------------
 
 	// Проверка на существование закреплённых рекордов
-	if !strings.Contains(pageStr, "scoresPinned :[]") {
+	if !contains(pageStr, "scoresPinned :[]", left) {
 
 		// Индекс конца закреплённых рекордов
 		end := strings.Index(pageStr, "scoresRecent :[") - 40
@@ -606,7 +606,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
 
 	// Проверка на наличие достижений
-	if !strings.Contains(pageStr, "monthly_playcounts :[]") {
+	if !contains(pageStr, "monthly_playcounts :[]", left) {
 
 		// Конец части со статистикой
 		end := strings.Index(pageStr, "pending_beatmapset_count") - 32
@@ -632,7 +632,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.RankedBeatmapsetCount, left = findWithIndex(pageStr, "ranked_beatmapset_count :", ",", left)
 
 	// Проверка на наличие статистики
-	if !strings.Contains(pageStr, "replays_watched_counts :[]") {
+	if !contains(pageStr, "replays_watched_counts :[]", left) {
 
 		// Конец части со статистикой
 		end := strings.Index(pageStr, "scores_best_count :") - 40
@@ -680,7 +680,7 @@ func getUserInfo(id, mode string) UserInfo {
 	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left)
 
 	// Проверка на наличие достижений
-	if !strings.Contains(pageStr, "user_achievements :[]") {
+	if !contains(pageStr, "user_achievements :[]", left) {
 
 		// Конец блока достижений
 		end := strings.Index(pageStr, "rank_history :{") - 40
