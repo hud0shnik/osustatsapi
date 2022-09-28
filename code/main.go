@@ -558,9 +558,12 @@ func getUserInfo(id, mode string) UserInfo {
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
 	result.CountyName, left = findWithIndex(pageStr, "name : ", " }", left)
 
-	result.UserCover.CustomUrl, left = findWithIndex(pageStr, "custom_url :", ",", left)
+	result.UserCover.CustomUrl, left = findWithIndex(pageStr, "custom_url : ", " ,", left)
+	result.UserCover.CustomUrl = strings.ReplaceAll(result.UserCover.CustomUrl, "\\", "")
 	result.UserCover.Url, left = findWithIndex(pageStr, "url : ", " ,", left)
+	result.UserCover.Url = strings.ReplaceAll(result.UserCover.Url, "\\", "")
 	result.UserCover.Id, left = findWithIndex(pageStr, "id : ", "}", left)
+	result.UserCover.Id = strings.ReplaceAll(result.UserCover.Id, "\\", "")
 
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
