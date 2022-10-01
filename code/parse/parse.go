@@ -365,5 +365,12 @@ func GetUserInfo(id, mode string) UserInfo {
 		})
 	}
 
+	result.RankHistory.Mode = resultStr.RankHistory.Mode
+	sliceStr := strings.Split(resultStr.RankHistory.Data, ",")
+
+	for d := range sliceStr {
+		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(sliceStr[d]))
+	}
+
 	return result
 }
