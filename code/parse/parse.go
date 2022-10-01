@@ -358,5 +358,12 @@ func GetUserInfo(id, mode string) UserInfo {
 		})
 	}
 
+	for c := range resultStr.Achievements {
+		result.Achievements = append(result.Achievements, Achievement{
+			AchievedAt:    resultStr.Achievements[c].AchievedAt,
+			AchievementId: ToInt(resultStr.Achievements[c].AchievementId),
+		})
+	}
+
 	return result
 }
