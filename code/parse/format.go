@@ -12,7 +12,7 @@ func ToInt(s string) int {
 
 	if err != nil {
 		fmt.Println("parsing error: \t", s)
-		return -1
+		return 0
 	}
 
 	return i
@@ -23,7 +23,7 @@ func ToInt64(s string) int64 {
 
 	if err != nil {
 		fmt.Println("parsing error: \t", s)
-		return -1
+		return 0
 	}
 
 	return i
@@ -45,7 +45,7 @@ func ToFloat64(s string) float64 {
 
 	if err != nil {
 		fmt.Println("parsing error: \t", s)
-		return -1
+		return 0
 	}
 
 	return i
