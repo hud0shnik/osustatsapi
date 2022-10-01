@@ -315,40 +315,40 @@ func GetUserInfo(id, mode string) UserInfo {
 		GuestBeatmapsetCount:     ToInt(resultStr.GuestBeatmapsetCount),
 		LovedBeatmapsetCount:     ToInt(resultStr.LovedBeatmapsetCount),
 		MappingFollowerCount:     ToInt(resultStr.MappingFollowerCount),
-		// monthly_playcounts
-		PendingBeatmapsetCount: ToInt(resultStr.PendingBeatmapsetCount),
-		Names:                  resultStr.Names,
-		RankedBeatmapsetCount:  ToInt(resultStr.RankedBeatmapsetCount),
-		// replays_watched_counts
-		ScoresBestCount:   ToInt(resultStr.ScoresBestCount),
-		ScoresFirstCount:  ToInt(resultStr.ScoresFirstCount),
-		ScoresPinnedCount: ToInt(resultStr.ScoresPinnedCount),
-		ScoresRecentCount: ToInt(resultStr.ScoresRecentCount),
-		Level:             ToInt(resultStr.Level),
-		GlobalRank:        ToInt64(resultStr.GlobalRank),
-		PP:                ToFloat64(resultStr.PP),
-		RankedScore:       ToInt(resultStr.RankedScore),
-		Accuracy:          ToFloat64(resultStr.Accuracy),
-		PlayCount:         ToInt(resultStr.PlayCount),
-		PlayTime:          resultStr.PlayTime,
-		PlayTimeSeconds:   ToInt64(resultStr.PlayTimeSeconds),
-		TotalScore:        ToInt64(resultStr.TotalScore),
-		TotalHits:         ToInt64(resultStr.TotalHits),
-		MaximumCombo:      ToInt(resultStr.MaximumCombo),
-		Replays:           ToInt(resultStr.Replays),
-		IsRanked:          ToBool(resultStr.IsRanked),
-		SS:                ToInt(resultStr.SS),
-		SSH:               ToInt(resultStr.SSH),
-		S:                 ToInt(resultStr.S),
-		SH:                ToInt(resultStr.SH),
-		A:                 ToInt(resultStr.A),
-		// achievements
-		// rank history
-		RankedAndApprovedCount:  ToInt(resultStr.RankedAndApprovedCount),
-		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
-		// scores_best
-		// scores_first
-		// scores_pinned
+		PendingBeatmapsetCount:   ToInt(resultStr.PendingBeatmapsetCount),
+		Names:                    resultStr.Names,
+		RankedBeatmapsetCount:    ToInt(resultStr.RankedBeatmapsetCount),
+		ScoresBestCount:          ToInt(resultStr.ScoresBestCount),
+		ScoresFirstCount:         ToInt(resultStr.ScoresFirstCount),
+		ScoresPinnedCount:        ToInt(resultStr.ScoresPinnedCount),
+		ScoresRecentCount:        ToInt(resultStr.ScoresRecentCount),
+		Level:                    ToInt(resultStr.Level),
+		GlobalRank:               ToInt64(resultStr.GlobalRank),
+		PP:                       ToFloat64(resultStr.PP),
+		RankedScore:              ToInt(resultStr.RankedScore),
+		Accuracy:                 ToFloat64(resultStr.Accuracy),
+		PlayCount:                ToInt(resultStr.PlayCount),
+		PlayTime:                 resultStr.PlayTime,
+		PlayTimeSeconds:          ToInt64(resultStr.PlayTimeSeconds),
+		TotalScore:               ToInt64(resultStr.TotalScore),
+		TotalHits:                ToInt64(resultStr.TotalHits),
+		MaximumCombo:             ToInt(resultStr.MaximumCombo),
+		Replays:                  ToInt(resultStr.Replays),
+		IsRanked:                 ToBool(resultStr.IsRanked),
+		SS:                       ToInt(resultStr.SS),
+		SSH:                      ToInt(resultStr.SSH),
+		S:                        ToInt(resultStr.S),
+		SH:                       ToInt(resultStr.SH),
+		A:                        ToInt(resultStr.A),
+		RankedAndApprovedCount:   ToInt(resultStr.RankedAndApprovedCount),
+		UnrankedBeatmapsetCount:  ToInt(resultStr.UnrankedBeatmapsetCount),
+	}
+
+	for c := range resultStr.MonthlyPlaycounts {
+		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
+			StartDate: resultStr.MonthlyPlaycounts[c].StartDate,
+			Count:     ToInt(resultStr.MonthlyPlaycounts[c].Count),
+		})
 	}
 
 	return result
