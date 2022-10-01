@@ -505,8 +505,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.UserCover.CustomUrl = strings.ReplaceAll(result.UserCover.CustomUrl, "\\", "")
 	result.UserCover.Url, left = findWithIndex(pageStr, "url : ", " ,", left)
 	result.UserCover.Url = strings.ReplaceAll(result.UserCover.Url, "\\", "")
-	result.UserCover.Id, left = findWithIndex(pageStr, "id : ", "}", left)
-	result.UserCover.Id = strings.ReplaceAll(result.UserCover.Id, "\\", "")
+	result.UserCover.Id, left = findWithIndex(pageStr, " , id : ", " }", left)
 
 	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left)
 	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left)
