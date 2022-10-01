@@ -351,5 +351,12 @@ func GetUserInfo(id, mode string) UserInfo {
 		})
 	}
 
+	for c := range resultStr.ReplaysWatchedCount {
+		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
+			StartDate: resultStr.ReplaysWatchedCount[c].StartDate,
+			Count:     ToInt(resultStr.ReplaysWatchedCount[c].Count),
+		})
+	}
+
 	return result
 }
