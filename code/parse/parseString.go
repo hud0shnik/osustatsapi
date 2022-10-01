@@ -234,7 +234,7 @@ type WeightString struct {
 }
 
 // Функция для парсинга рекорда
-func parseScore(pageStr string, left int, scoreType string) (ScoreString, int) {
+func parseScoreString(pageStr string, left int, scoreType string) (ScoreString, int) {
 
 	var result ScoreString
 
@@ -346,7 +346,7 @@ func parseScore(pageStr string, left int, scoreType string) (ScoreString, int) {
 }
 
 // Функция получения информации о пользователе
-func GetUserInfo(id, mode string) UserInfoString {
+func GetUserInfoString(id, mode string) UserInfoString {
 
 	// Если пользователь не ввёл id, по умолчанию ставит мой id
 	if id == "" {
@@ -406,7 +406,7 @@ func GetUserInfo(id, mode string) UserInfoString {
 			var score ScoreString
 
 			// Получение и запись рекорда
-			score, left = parseScore(pageStr, left, "best")
+			score, left = parseScoreString(pageStr, left, "best")
 
 			// Добавление рекорда к результату
 			result.ScoresBest = append(result.ScoresBest, score)
@@ -430,7 +430,7 @@ func GetUserInfo(id, mode string) UserInfoString {
 			var score ScoreString
 
 			// Получение и запись первого места
-			score, left = parseScore(pageStr, left, "first")
+			score, left = parseScoreString(pageStr, left, "first")
 
 			// Добавление первого места к результату
 			result.ScoresFirst = append(result.ScoresFirst, score)
@@ -454,7 +454,7 @@ func GetUserInfo(id, mode string) UserInfoString {
 			var score ScoreString
 
 			// Получение и запись рекорда
-			score, left = parseScore(pageStr, left, "pinned")
+			score, left = parseScoreString(pageStr, left, "pinned")
 
 			// Добавление закреплённого рекорда к результату
 			result.ScoresPinned = append(result.ScoresPinned, score)
