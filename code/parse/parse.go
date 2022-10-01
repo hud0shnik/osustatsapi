@@ -121,29 +121,29 @@ type History struct {
 
 // Рекорд
 type Score struct {
-	Accuracy              float64          `json:"accuracy"`
-	BeatMapId             int              `json:"beatmap_id"`
-	BuildId               string           `json:"build_id"`
-	EndedAt               string           `json:"ended_at"`
-	MaximumCombo          int              `json:"maximum_combo"`
-	Mods                  []string         `json:"mods"`
-	Passed                bool             `json:"passed"`
-	Rank                  string           `json:"rank"`
-	RulesetId             int              `json:"ruleset_id"`
-	StartedAt             string           `json:"started_at"`
-	Statistics            string           `json:"statistics"`
-	TotalScore            int              `json:"total_score"`
-	UserId                int              `json:"user_id"`
-	BestId                int              `json:"best_id"`
-	Id                    int              `json:"id"`
-	LegacyPerfect         bool             `json:"legacy_perfect"`
-	PP                    float64          `json:"pp"`
-	Replay                bool             `json:"replay"`
-	Type                  string           `json:"type"`
-	CurrentUserAttributes string           `json:"current_user_attributes"`
-	BeatMap               BeatMapString    `json:"beatmap"`
-	BeatMapSet            BeatMapSetString `json:"beatmapset"`
-	Weight                WeightString     `json:"weight"`
+	Accuracy              float64    `json:"accuracy"`
+	BeatMapId             int        `json:"beatmap_id"`
+	BuildId               string     `json:"build_id"`
+	EndedAt               string     `json:"ended_at"`
+	MaximumCombo          int        `json:"maximum_combo"`
+	Mods                  []string   `json:"mods"`
+	Passed                bool       `json:"passed"`
+	Rank                  string     `json:"rank"`
+	RulesetId             int        `json:"ruleset_id"`
+	StartedAt             string     `json:"started_at"`
+	Statistics            string     `json:"statistics"`
+	TotalScore            int        `json:"total_score"`
+	UserId                int        `json:"user_id"`
+	BestId                int        `json:"best_id"`
+	Id                    int        `json:"id"`
+	LegacyPerfect         bool       `json:"legacy_perfect"`
+	PP                    float64    `json:"pp"`
+	Replay                bool       `json:"replay"`
+	Type                  string     `json:"type"`
+	CurrentUserAttributes string     `json:"current_user_attributes"`
+	BeatMap               BeatMap    `json:"beatmap"`
+	BeatMapSet            BeatMapSet `json:"beatmapset"`
+	Weight                Weight     `json:"weight"`
 }
 
 // Мапа
