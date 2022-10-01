@@ -12,6 +12,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Функция отправки информации о пользователе в формате строк
+func sendUserInfoString(writer http.ResponseWriter, request *http.Request) {
+
+	// Заголовок, определяющий тип данных респонса
+	writer.Header().Set("Content-Type", "application/json")
+
+	// Обработка данных и вывод результата
+	json.NewEncoder(writer).Encode(parse.GetUserInfoString(mux.Vars(request)["id"], mux.Vars(request)["mode"]))
+}
+
 // Функция отправки информации о пользователе
 func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 
@@ -50,6 +60,14 @@ func main() {
 	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/{mode}", sendUserInfo).Methods("GET")
 	router.HandleFunc("/user/{id}/{mode}/", sendUserInfo).Methods("GET")
+
+	router.HandleFunc("/userString", sendUserInfoString).Methods("GET")
+	router.HandleFunc("/userString/", sendUserInfoString).Methods("GET")
+
+	router.HandleFunc("/userString/{id}", sendUserInfoString).Methods("GET")
+	router.HandleFunc("/userString/{id}/", sendUserInfoString).Methods("GET")
+	router.HandleFunc("/userString/{id}/{mode}", sendUserInfoString).Methods("GET")
+	router.HandleFunc("/userString/{id}/{mode}/", sendUserInfoString).Methods("GET")
 
 	router.HandleFunc("/online", sendOnlineInfo).Methods("GET")
 	router.HandleFunc("/online/", sendOnlineInfo).Methods("GET")
