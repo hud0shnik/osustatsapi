@@ -372,5 +372,29 @@ func GetUserInfo(id, mode string) UserInfo {
 		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
 	}
 
+	for _, s := range resultStr.ScoresBest {
+		result.ScoresBest = append(result.ScoresBest, Score{
+			Accuracy:              ToFloat64(s.Accuracy),
+			BeatMapId:             ToInt(s.BeatMapId),
+			BuildId:               s.BuildId,
+			EndedAt:               s.EndedAt,
+			MaximumCombo:          ToInt(s.MaximumCombo),
+			Mods:                  s.Mods,
+			Passed:                ToBool(s.Passed),
+			Rank:                  s.Rank,
+			RulesetId:             ToInt(s.RulesetId),
+			StartedAt:             s.StartedAt,
+			Statistics:            s.Statistics,
+			TotalScore:            ToInt(resultStr.TotalScore),
+			UserId:                ToInt(resultStr.UserID),
+			BestId:                ToInt(s.BestId),
+			Id:                    ToInt(s.Id),
+			LegacyPerfect:         ToBool(s.LegacyPerfect),
+			PP:                    ToFloat64(s.PP),
+			Replay:                ToBool(s.Replay),
+			Type:                  s.Type,
+			CurrentUserAttributes: s.CurrentUserAttributes,
+		})
+	}
 	return result
 }
