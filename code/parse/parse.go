@@ -423,6 +423,27 @@ func GetUserInfo(id, mode string) UserInfo {
 				Url:              s.BeatMap.Url,
 				Checksum:         s.BeatMap.Checksum,
 			},
+			BeatMapSet: BeatMapSet{
+				Artist:        s.BeatMapSet.Artist,
+				ArtistUnicode: s.BeatMapSet.ArtistUnicode,
+				Covers:        s.BeatMapSet.Covers,
+				Creator:       s.BeatMapSet.Creator,
+				FavoriteCount: ToInt(s.BeatMapSet.FavoriteCount),
+				Hype:          s.BeatMapSet.Hype,
+				Id:            ToInt(s.BeatMapSet.Id),
+				Nsfw:          ToBool(s.BeatMapSet.Nsfw),
+				Offset:        ToInt(s.BeatMapSet.Offset),
+				PlayCount:     ToInt64(s.BeatMapSet.PlayCount),
+				PreviewUrl:    s.BeatMapSet.PreviewUrl,
+				Source:        s.BeatMapSet.Source,
+				Spotlight:     ToBool(s.BeatMapSet.Spotlight),
+				Status:        s.BeatMapSet.Status,
+				Title:         s.BeatMapSet.Title,
+				TitleUnicode:  s.BeatMapSet.TitleUnicode,
+				TrackId:       s.BeatMapSet.TrackId,
+				UserId:        ToInt(s.BeatMapSet.UserId),
+				Video:         ToBool(s.BeatMapSet.Video),
+			},
 		})
 	}
 	return result
