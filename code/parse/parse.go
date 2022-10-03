@@ -344,32 +344,32 @@ func GetUserInfo(id, mode string) UserInfo {
 		UnrankedBeatmapsetCount:  ToInt(resultStr.UnrankedBeatmapsetCount),
 	}
 
-	for c := range resultStr.MonthlyPlaycounts {
+	for _, c := range resultStr.MonthlyPlaycounts {
 		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
-			StartDate: resultStr.MonthlyPlaycounts[c].StartDate,
-			Count:     ToInt(resultStr.MonthlyPlaycounts[c].Count),
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
 		})
 	}
 
-	for c := range resultStr.ReplaysWatchedCount {
+	for _, c := range resultStr.ReplaysWatchedCount {
 		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
-			StartDate: resultStr.ReplaysWatchedCount[c].StartDate,
-			Count:     ToInt(resultStr.ReplaysWatchedCount[c].Count),
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
 		})
 	}
 
-	for c := range resultStr.Achievements {
+	for _, c := range resultStr.Achievements {
 		result.Achievements = append(result.Achievements, Achievement{
-			AchievedAt:    resultStr.Achievements[c].AchievedAt,
-			AchievementId: ToInt(resultStr.Achievements[c].AchievementId),
+			AchievedAt:    c.AchievedAt,
+			AchievementId: ToInt(c.AchievementId),
 		})
 	}
 
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
 	sliceStr := strings.Split(resultStr.RankHistory.Data, ",")
 
-	for d := range sliceStr {
-		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(sliceStr[d]))
+	for _, d := range sliceStr {
+		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
 	}
 
 	return result
