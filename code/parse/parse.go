@@ -202,7 +202,7 @@ type BeatMapSet struct {
 
 // Статистика
 type Weight struct {
-	Percentage int     `json:"percentage"`
+	Percentage float64 `json:"percentage"`
 	PP         float64 `json:"pp"`
 }
 
@@ -443,6 +443,10 @@ func GetUserInfo(id, mode string) UserInfo {
 				TrackId:       s.BeatMapSet.TrackId,
 				UserId:        ToInt(s.BeatMapSet.UserId),
 				Video:         ToBool(s.BeatMapSet.Video),
+			},
+			Weight: Weight{
+				Percentage: ToFloat64(s.Weight.Percentage),
+				PP:         ToFloat64(s.Weight.PP),
 			},
 		})
 	}
