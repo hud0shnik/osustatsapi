@@ -456,5 +456,10 @@ func GetUserInfo(id, mode string) UserInfo {
 	for _, s := range resultStr.ScoresBest {
 		result.ScoresBest = append(result.ScoresBest, parseScore(s))
 	}
+
+	for _, s := range resultStr.ScoresFirst {
+		result.ScoresFirst = append(result.ScoresFirst, parseScore(s))
+	}
+
 	return result
 }
