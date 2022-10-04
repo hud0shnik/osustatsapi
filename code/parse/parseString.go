@@ -9,97 +9,96 @@ import (
 
 // Структура для хранения полной информации о пользователе
 type UserInfoString struct {
-	Error                    string              `json:"error"`
-	AvatarUrl                string              `json:"avatar_url"`
-	CountryCode              string              `json:"country_code"`
-	DefaultGroup             string              `json:"default_group"`
-	UserID                   string              `json:"id"`
-	IsActive                 string              `json:"is_active"`
-	IsBot                    string              `json:"is_bot"`
-	IsDeleted                string              `json:"is_deleted"`
-	IsOnline                 string              `json:"is_online"`
-	IsSupporter              string              `json:"is_supporter"`
-	LastVisit                string              `json:"last_visit"`
-	PmFriendsOnly            string              `json:"pm_friends_only"`
-	ProfileColor             string              `json:"profile_color"`
-	Username                 string              `json:"username"`
-	CoverUrl                 string              `json:"cover_url"`
-	Discord                  string              `json:"discord"`
-	HasSupported             string              `json:"has_supported"`
-	Interests                string              `json:"interests"`
-	JoinDate                 string              `json:"join_date"`
-	Kudosu                   string              `json:"kudosu"`
-	Location                 string              `json:"location"`
-	MaxFriends               string              `json:"max_friends"`
-	MaxBLock                 string              `json:"max_block"`
-	Occupation               string              `json:"occupation"`
-	Playmode                 string              `json:"playmode"`
-	Playstyle                string              `json:"playstyle"`
-	PostCount                string              `json:"post_count"`
-	ProfileOrder             string              `json:"profile_order"`
-	Title                    string              `json:"title"`
-	TitleUrl                 string              `json:"title_url"`
-	Twitter                  string              `json:"twitter"`
-	Website                  string              `json:"website"`
-	CountyName               string              `json:"country_name"`
-	UserCover                Cover               `json:"cover"`
-	IsAdmin                  string              `json:"is_admin"`
-	IsBng                    string              `json:"is_bng"`
-	IsFullBan                string              `json:"is_full_bn"`
-	IsGmt                    string              `json:"is_gmt"`
-	IsLimitedBan             string              `json:"is_limited_bn"`
-	IsModerator              string              `json:"is_moderator"`
-	IsNat                    string              `json:"is_nat"`
-	IsRestricted             string              `json:"is_restricted"`
-	IsSilenced               string              `json:"is_silenced"`
-	AccountHistory           string              `json:"account_history"`
-	ActiveTournamentBanner   string              `json:"active_tournament_banner"`
-	Badges                   []Badge             `json:"badges"`
-	CommentsCount            string              `json:"comments_count"`
-	BeatmapPlaycountsCount   string              `json:"beatmap_playcounts_count"`
-	FavoriteBeatmapsetCount  string              `json:"favorite_beatmapset_count"`
-	FollowerCount            string              `json:"follower_count"`
-	GraveyardBeatmapsetCount string              `json:"graveyard_beatmapset_count"`
-	Groups                   string              `json:"groups"`
-	GuestBeatmapsetCount     string              `json:"guest_beatmapset_count"`
-	LovedBeatmapsetCount     string              `json:"loved_beatmapset_count"`
-	MappingFollowerCount     string              `json:"mapping_follower_count"`
-	MonthlyPlaycounts        []CountString       `json:"monthly_playcounts"`
-	PendingBeatmapsetCount   string              `json:"pending_beatmapset_count"`
-	Names                    string              `json:"previous_usernames"`
-	RankedBeatmapsetCount    string              `json:"ranked_beatmapset_count"`
-	ReplaysWatchedCount      []CountString       `json:"replays_watched_counts"`
-	ScoresBestCount          string              `json:"scores_best_count"`
-	ScoresFirstCount         string              `json:"scores_first_count"`
-	ScoresPinnedCount        string              `json:"scores_pinned_count"`
-	ScoresRecentCount        string              `json:"scores_recent_count"`
-	Level                    string              `json:"level"`
-	GlobalRank               string              `json:"global_rank"`
-	PP                       string              `json:"pp"`
-	RankedScore              string              `json:"ranked_score"`
-	Accuracy                 string              `json:"accuracy"`
-	PlayCount                string              `json:"play_count"`
-	PlayTime                 string              `json:"play_time"`
-	PlayTimeSeconds          string              `json:"play_time_seconds"`
-	TotalScore               string              `json:"total_score"`
-	TotalHits                string              `json:"total_hits"`
-	MaximumCombo             string              `json:"maximum_combo"`
-	Replays                  string              `json:"replays"`
-	IsRanked                 string              `json:"is_ranked"`
-	SS                       string              `json:"ss"`
-	SSH                      string              `json:"ssh"`
-	S                        string              `json:"s"`
-	SH                       string              `json:"sh"`
-	A                        string              `json:"a"`
-	CountryRank              string              `json:"country_rank"`
-	SupportLvl               string              `json:"support_level"`
-	Achievements             []AchievementString `json:"achievements"`
-	RankHistory              HistoryString       `json:"rank_history"`
-	RankedAndApprovedCount   string              `json:"ranked_and_approved_beatmapset_count"`
-	UnrankedBeatmapsetCount  string              `json:"unranked_beatmapset_count"`
-	ScoresBest               []ScoreString       `json:"scores_best"`
-	ScoresFirst              []ScoreString       `json:"scores_first"`
-	ScoresPinned             []ScoreString       `json:"scores_pinned"`
+	Error                   string              `json:"error"`
+	AvatarUrl               string              `json:"avatar_url"`
+	CountryCode             string              `json:"country_code"`
+	DefaultGroup            string              `json:"default_group"`
+	UserID                  string              `json:"id"`
+	IsActive                string              `json:"is_active"`
+	IsBot                   string              `json:"is_bot"`
+	IsDeleted               string              `json:"is_deleted"`
+	IsOnline                string              `json:"is_online"`
+	IsSupporter             string              `json:"is_supporter"`
+	LastVisit               string              `json:"last_visit"`
+	PmFriendsOnly           string              `json:"pm_friends_only"`
+	ProfileColor            string              `json:"profile_color"`
+	Username                string              `json:"username"`
+	CoverUrl                string              `json:"cover_url"`
+	Discord                 string              `json:"discord"`
+	HasSupported            string              `json:"has_supported"`
+	Interests               string              `json:"interests"`
+	JoinDate                string              `json:"join_date"`
+	Kudosu                  string              `json:"kudosu"`
+	Location                string              `json:"location"`
+	MaxFriends              string              `json:"max_friends"`
+	MaxBLock                string              `json:"max_block"`
+	Occupation              string              `json:"occupation"`
+	Playmode                string              `json:"playmode"`
+	Playstyle               string              `json:"playstyle"`
+	PostCount               string              `json:"post_count"`
+	ProfileOrder            string              `json:"profile_order"`
+	Title                   string              `json:"title"`
+	TitleUrl                string              `json:"title_url"`
+	Twitter                 string              `json:"twitter"`
+	Website                 string              `json:"website"`
+	CountyName              string              `json:"country_name"`
+	UserCover               Cover               `json:"cover"`
+	IsAdmin                 string              `json:"is_admin"`
+	IsBng                   string              `json:"is_bng"`
+	IsFullBan               string              `json:"is_full_bn"`
+	IsGmt                   string              `json:"is_gmt"`
+	IsLimitedBan            string              `json:"is_limited_bn"`
+	IsModerator             string              `json:"is_moderator"`
+	IsNat                   string              `json:"is_nat"`
+	IsRestricted            string              `json:"is_restricted"`
+	IsSilenced              string              `json:"is_silenced"`
+	AccountHistory          string              `json:"account_history"`
+	ActiveTournamentBanner  string              `json:"active_tournament_banner"`
+	Badges                  []Badge             `json:"badges"`
+	CommentsCount           string              `json:"comments_count"`
+	FollowerCount           string              `json:"follower_count"`
+	Groups                  string              `json:"groups"`
+	MappingFollowerCount    string              `json:"mapping_follower_count"`
+	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
+	Names                   string              `json:"previous_usernames"`
+	Level                   string              `json:"level"`
+	GlobalRank              string              `json:"global_rank"`
+	PP                      string              `json:"pp"`
+	RankedScore             string              `json:"ranked_score"`
+	Accuracy                string              `json:"accuracy"`
+	PlayCount               string              `json:"play_count"`
+	PlayTime                string              `json:"play_time"`
+	PlayTimeSeconds         string              `json:"play_time_seconds"`
+	TotalScore              string              `json:"total_score"`
+	TotalHits               string              `json:"total_hits"`
+	MaximumCombo            string              `json:"maximum_combo"`
+	Replays                 string              `json:"replays"`
+	IsRanked                string              `json:"is_ranked"`
+	SS                      string              `json:"ss"`
+	SSH                     string              `json:"ssh"`
+	S                       string              `json:"s"`
+	SH                      string              `json:"sh"`
+	A                       string              `json:"a"`
+	CountryRank             string              `json:"country_rank"`
+	SupportLvl              string              `json:"support_level"`
+	Achievements            []AchievementString `json:"achievements"`
+	RankHistory             HistoryString       `json:"rank_history"`
+	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
+	// favorite
+	// graveyard
+	// guest
+	// loved
+	// ranked
+	// pending
+	// kudosu ?
+	// recent_activity
+	// top_ranks
+	// firsts
+	// pinned
+	// beatmap_playcounts
+	MonthlyPlaycounts []CountString `json:"monthly_playcounts"`
+	// recent
+	ReplaysWatchedCount []CountString `json:"replays_watched_counts"`
 }
 
 // Ковёр пользователя
@@ -146,7 +145,7 @@ type ScoreString struct {
 	Rank                  string           `json:"rank"`
 	RulesetId             string           `json:"ruleset_id"`
 	StartedAt             string           `json:"started_at"`
-	Statistics            string           `json:"statistics"`
+	Statistics            StatisticsString `json:"statistics"`
 	TotalScore            string           `json:"total_score"`
 	UserId                string           `json:"user_id"`
 	BestId                string           `json:"best_id"`
@@ -159,6 +158,14 @@ type ScoreString struct {
 	BeatMap               BeatMapString    `json:"beatmap"`
 	BeatMapSet            BeatMapSetString `json:"beatmapset"`
 	Weight                WeightString     `json:"weight"`
+}
+
+// Статистика рекорда
+type StatisticsString struct {
+	Great string `json:"great"`
+	Meh   string `json:"meh"`
+	Miss  string `json:"miss"`
+	Ok    string `json:"ok"`
 }
 
 // Мапа
@@ -235,7 +242,6 @@ type WeightString struct {
 
 // Функция для парсинга рекорда
 func parseScoreString(pageStr string, left int, scoreType string) (ScoreString, int) {
-
 	var result ScoreString
 
 	result.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
@@ -255,7 +261,18 @@ func parseScoreString(pageStr string, left int, scoreType string) (ScoreString, 
 	result.Rank, left = findWithIndex(pageStr, "rank : ", " ", left)
 	result.RulesetId, left = findWithIndex(pageStr, "ruleset_id :", ",", left)
 	result.StartedAt, left = findWithIndex(pageStr, "started_at :", ",", left)
-	result.Statistics, left = findWithIndex(pageStr, "statistics :{ ", "}", left)
+
+	// Обработка статистики рекорда
+	statisticsString, left := findWithIndex(pageStr, "statistics :{ ", "}", left)
+	statisticsString += ","
+
+	result.Statistics = StatisticsString{
+		Great: find(statisticsString, "great :", ","),
+		Meh:   find(statisticsString, "meh :", ","),
+		Ok:    find(statisticsString, "ok :", ","),
+		Miss:  find(statisticsString, "miss :", ","),
+	}
+
 	result.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
 	result.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
 	result.BestId, left = findWithIndex(pageStr, " best_id :", ",", left)
@@ -391,78 +408,6 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	// Крайняя левая граница поиска
 	left := 0
 
-	//---------------------------- Лучшие рекорды --------------------------------
-
-	// Проверка на существование лучших рекордов
-	if !contains(pageStr, "scoresBest :[]", left) {
-
-		// Индекс конца лучших рекордов
-		end := strings.Index(pageStr, "], scoresFirsts") - 40
-
-		// Пока левая граница не пересечёт конец лучших рекордов
-		for s := 0; left < end; s++ {
-
-			// Структура для записи рекорда
-			var score ScoreString
-
-			// Получение и запись рекорда
-			score, left = parseScoreString(pageStr, left, "best")
-
-			// Добавление рекорда к результату
-			result.ScoresBest = append(result.ScoresBest, score)
-
-		}
-
-	}
-
-	//---------------------------- Первые места --------------------------------
-
-	// Проверка на существование Первых мест
-	if !contains(pageStr, "scoresFirsts :[]", left) {
-
-		// Индекс конца первых мест
-		end := strings.Index(pageStr, "], scoresPinned") - 40
-
-		// Пока левая граница не пересечёт конец первых мест
-		for s := 0; left < end; s++ {
-
-			// Структура для записи первого места
-			var score ScoreString
-
-			// Получение и запись первого места
-			score, left = parseScoreString(pageStr, left, "first")
-
-			// Добавление первого места к результату
-			result.ScoresFirst = append(result.ScoresFirst, score)
-
-		}
-
-	}
-
-	//---------------------------- Закреплённые рекорды --------------------------------
-
-	// Проверка на существование закреплённых рекордов
-	if !contains(pageStr, "scoresPinned :[]", left) {
-
-		// Индекс конца закреплённых рекордов
-		end := strings.Index(pageStr, "scoresRecent :[") - 40
-
-		// Пока левая граница не пересечёт конец закреплённых рекордов
-		for s := 0; left < end; s++ {
-
-			// Структура для записи рекорда
-			var score ScoreString
-
-			// Получение и запись рекорда
-			score, left = parseScoreString(pageStr, left, "pinned")
-
-			// Добавление закреплённого рекорда к результату
-			result.ScoresPinned = append(result.ScoresPinned, score)
-
-		}
-
-	}
-
 	//--------------------------- Статистика игрока ------------------------------
 
 	result.AvatarUrl, left = findWithIndex(pageStr, "avatar_url : ", " ", left)
@@ -530,11 +475,8 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		}
 	}
 
-	result.BeatmapPlaycountsCount, left = findWithIndex(pageStr, "beatmap_playcounts_count :", ",", left)
 	result.CommentsCount, left = findWithIndex(pageStr, "comments_count :", ",", left)
-	result.FavoriteBeatmapsetCount, left = findWithIndex(pageStr, "favourite_beatmapset_count :", ",", left)
 	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left)
-	result.GraveyardBeatmapsetCount, left = findWithIndex(pageStr, "graveyard_beatmapset_count :", ",", left)
 
 	// Принадлежность к группам
 	for c := strings.Index(pageStr, "groups :["); pageStr[c] != ']'; c++ {
@@ -546,62 +488,9 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		result.Groups = result.Groups[:len(result.Groups)-2]
 	}
 
-	result.GuestBeatmapsetCount, left = findWithIndex(pageStr, "guest_beatmapset_count :", ",", left)
-	result.LovedBeatmapsetCount, left = findWithIndex(pageStr, "loved_beatmapset_count :", ",", left)
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
-
-	// Проверка на наличие достижений
-	if !contains(pageStr, "monthly_playcounts :[]", left) {
-
-		// Конец части со статистикой
-		end := strings.Index(pageStr, "pending_beatmapset_count") - 32
-
-		// Цикл обработки статистики
-		for left < end {
-
-			// Инициализация структуры подсчета
-			var count CountString
-
-			// Генерация подсчета
-			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
-			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
-
-			// Добавление статистики
-			result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
-
-		}
-	}
-
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
 	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
-	result.RankedBeatmapsetCount, left = findWithIndex(pageStr, "ranked_beatmapset_count :", ",", left)
-
-	// Проверка на наличие статистики
-	if !contains(pageStr, "replays_watched_counts :[]", left) {
-
-		// Конец части со статистикой
-		end := strings.Index(pageStr, "scores_best_count :") - 40
-
-		// Цикл обработки статистики
-		for left < end {
-
-			// Инициализация структуры подсчета
-			var count CountString
-
-			// Генерация подсчета
-			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
-			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
-
-			// Добавление статистики
-			result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, count)
-
-		}
-	}
-
-	result.ScoresBestCount, left = findWithIndex(pageStr, "scores_best_count :", ",", left)
-	result.ScoresFirstCount, left = findWithIndex(pageStr, "scores_first_count :", ",", left)
-	result.ScoresPinnedCount, left = findWithIndex(pageStr, "scores_pinned_count :", ",", left)
-	result.ScoresRecentCount, left = findWithIndex(pageStr, "scores_recent_count :", ",", left)
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left)
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left)
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left)
@@ -648,9 +537,51 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
 	result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
-
-	result.RankedAndApprovedCount, left = findWithIndex(pageStr, "ranked_and_approved_beatmapset_count :", ",", left)
 	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
+
+	// Проверка на наличие достижений
+	if !contains(pageStr, "monthly_playcounts :[]", left) {
+
+		// Конец части со статистикой
+		end := strings.Index(pageStr, "pending_beatmapset_count") - 32
+
+		// Цикл обработки статистики
+		for left < end {
+
+			// Инициализация структуры подсчета
+			var count CountString
+
+			// Генерация подсчета
+			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
+			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+
+			// Добавление статистики
+			result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
+
+		}
+	}
+
+	// Проверка на наличие статистики
+	if !contains(pageStr, "replays_watched_counts :[]", left) {
+
+		// Конец части со статистикой
+		end := strings.Index(pageStr, "scores_best_count :") - 40
+
+		// Цикл обработки статистики
+		for left < end {
+
+			// Инициализация структуры подсчета
+			var count CountString
+
+			// Генерация подсчета
+			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
+			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+
+			// Добавление статистики
+			result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, count)
+
+		}
+	}
 
 	return result
 }
