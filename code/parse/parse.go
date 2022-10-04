@@ -84,8 +84,8 @@ type UserInfoString struct {
 	Achievements            []AchievementString `json:"achievements"`
 	RankHistory             HistoryString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
-	FavoriteBeatmaps        []ScoreString       `json:"favorite_beatmaps"`
-	GraveyardBeatmaps       []ScoreString       `json:"graveyard_beatmaps"`
+	FavoriteBeatmaps        []BeatMapString2    `json:"favorite_beatmaps"`
+	GraveyardBeatmaps       []BeatMapString2    `json:"graveyard_beatmaps"`
 	// guest
 	// loved
 	// ranked
@@ -131,43 +131,6 @@ type AchievementString struct {
 type HistoryString struct {
 	Mode string `json:"mode"`
 	Data string `json:"data"`
-}
-
-type BeatmapString struct {
-	Artist        string `json:"artist"`
-	ArtistUnicode string `json:"artist_unicode"`
-	Covers        Covers `json:"covers"`
-	Creator       string `json:"creator"`
-	FavoriteCount string `json:"favorite_count"`
-	Hype          string `json:"hype"`
-	Id            string `json:"id"`
-	Nsfw          string `json:"nsfw"`
-	Offset        string `json:"offset"`
-	PlayCount     string `json:"play_count"`
-	PreviewUrl    string `json:"preview_url"`
-	Source        string `json:"source"`
-	Spotlight     string `json:"spotlight"`
-	Status        string `json:"status"`
-	Title         string `json:"title"`
-	TitleUnicode  string `json:"title_unicode"`
-	TrackId       string `json:"track_id"`
-	UserId        string `json:"userId"`
-	Video         string `json:"video"`
-	// Availability
-	Bpm string `json:"bpm"`
-	// can_be_hyped
-	// discussion_enabled
-	// discussion_locked
-	IsScoreable string `json:"is_scoreable"`
-	LastUpdated string `json:"last_updated"`
-	// legacy_thread_url
-	//nominations_summary :{
-	Ranked string `json:"ranked"`
-	// ranked_date
-	// storyboard
-	// submitted_date
-	// tags
-	BeatMap BeatMapString `json:"beatmaps"`
 }
 
 // Рекорд
@@ -278,6 +241,44 @@ type Covers struct {
 type WeightString struct {
 	Percentage string `json:"percentage"`
 	PP         string `json:"pp"`
+}
+
+// Структура карты
+type BeatMapString2 struct {
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_unicode"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount string `json:"favorite_count"`
+	Hype          string `json:"hype"`
+	Id            string `json:"id"`
+	Nsfw          string `json:"nsfw"`
+	Offset        string `json:"offset"`
+	PlayCount     string `json:"play_count"`
+	PreviewUrl    string `json:"preview_url"`
+	Source        string `json:"source"`
+	Spotlight     string `json:"spotlight"`
+	Status        string `json:"status"`
+	Title         string `json:"title"`
+	TitleUnicode  string `json:"title_unicode"`
+	TrackId       string `json:"track_id"`
+	UserId        string `json:"userId"`
+	Video         string `json:"video"`
+	// Availability
+	Bpm string `json:"bpm"`
+	// can_be_hyped
+	// discussion_enabled
+	// discussion_locked
+	IsScoreable string `json:"is_scoreable"`
+	LastUpdated string `json:"last_updated"`
+	// legacy_thread_url
+	//nominations_summary :{
+	Ranked string `json:"ranked"`
+	// ranked_date
+	// storyboard
+	// submitted_date
+	// tags
+	BeatMap BeatMapString `json:"beatmaps"`
 }
 
 // Функция для парсинга рекорда
@@ -401,6 +402,94 @@ func parseScoreString(pageStr string, left int, scoreType string) (ScoreString, 
 
 	// Постановка указателя на конец рекорда
 	// _, left = findWithIndex(pageStr, "}", "},", left)
+
+	return result, left
+}
+
+// Функция для парсинга рекорда
+func parseScoreString2(pageStr string, left int, scoreType string) (BeatMapString2, int) {
+
+	var result BeatMapString2
+
+	result.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
+	result.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " ,", left)
+
+	result.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
+	result.Covers.Cover = strings.ReplaceAll(result.Covers.Cover, "\\", "")
+	result.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ,", left)
+	result.Covers.Cover2X = strings.ReplaceAll(result.Covers.Cover2X, "\\", "")
+	result.Covers.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
+	result.Covers.Card = strings.ReplaceAll(result.Covers.Card, "\\", "")
+	result.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ,", left)
+	result.Covers.Card2X = strings.ReplaceAll(result.Covers.Card2X, "\\", "")
+	result.Covers.List, left = findWithIndex(pageStr, "list : ", " ,", left)
+	result.Covers.List = strings.ReplaceAll(result.Covers.List, "\\", "")
+	result.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ,", left)
+	result.Covers.List2X = strings.ReplaceAll(result.Covers.List2X, "\\", "")
+	result.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
+	result.Covers.SlimCover = strings.ReplaceAll(result.Covers.SlimCover, "\\", "")
+	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "slimcover@2x : ", " }", left)
+	result.Covers.SlimCover2X = strings.ReplaceAll(result.Covers.SlimCover2X, "\\", "")
+
+	result.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
+	result.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
+	result.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
+	result.Id, left = findWithIndex(pageStr, "id :", ",", left)
+	result.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
+	result.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
+	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
+	result.PreviewUrl, left = findWithIndex(pageStr, "preview_url : \\/\\/", " , source", left)
+	result.PreviewUrl = strings.ReplaceAll(result.PreviewUrl, "\\", "")
+	result.Source, left = findWithIndex(pageStr, "source :", " ", left)
+	result.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
+	result.Status, left = findWithIndex(pageStr, "status : ", " ,", left)
+	result.Title, left = findWithIndex(pageStr, "title : ", " , title_unicode", left)
+	result.TitleUnicode, left = findWithIndex(pageStr, "title_unicode : ", " ,", left)
+	result.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
+	result.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
+	result.Video, left = findWithIndex(pageStr, "video :", ",", left)
+	// availability
+
+	result.Bpm, left = findWithIndex(pageStr, "bpm :", ",", left)
+	// can_be_hyped
+	// discussion_locked
+	result.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
+	result.BeatMap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
+	// legacy_thread_url
+	//nominations_summary
+	result.BeatMap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
+	// ranked_date
+	// storyboard
+	// submitted_date
+	// tags
+
+	result.BeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
+	result.BeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
+	result.BeatMap.Id, left = findWithIndex(pageStr, "id :", ",", left)
+	result.BeatMap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
+	result.BeatMap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
+	result.BeatMap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
+	result.BeatMap.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
+	result.BeatMap.Version, left = findWithIndex(pageStr, "version : ", " , accuracy", left)
+	result.BeatMap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
+	result.BeatMap.Ar, left = findWithIndex(pageStr, "ar :", ",", left)
+	result.BeatMap.Convert, left = findWithIndex(pageStr, "convert :", ",", left)
+	result.BeatMap.CountCircles, left = findWithIndex(pageStr, "count_circles :", ",", left)
+	result.BeatMap.CountSliders, left = findWithIndex(pageStr, "count_sliders :", ",", left)
+	result.BeatMap.CountSpinners, left = findWithIndex(pageStr, "count_spinners :", ",", left)
+	result.BeatMap.Cs, left = findWithIndex(pageStr, " cs :", ",", left)
+	result.BeatMap.DeletedAt, left = findWithIndex(pageStr, "deleted_at :", ",", left)
+	result.BeatMap.Drain, left = findWithIndex(pageStr, "drain :", ",", left)
+	result.BeatMap.HitLength, left = findWithIndex(pageStr, "hit_length :", ",", left)
+	result.BeatMap.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
+	result.BeatMap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
+	result.BeatMap.ModeInt, left = findWithIndex(pageStr, "mode_int :", ",", left)
+	result.BeatMap.PassCount, left = findWithIndex(pageStr, "passcount :", ",", left)
+	result.BeatMap.PlayCount, left = findWithIndex(pageStr, "playcount :", ",", left)
+	result.BeatMap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
+	result.BeatMap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+	result.BeatMap.Url = strings.ReplaceAll(result.BeatMap.Url, "\\", "")
+	result.BeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
 
 	return result, left
 }
@@ -592,10 +681,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		for left < end {
 
 			// Инициализация карты
-			var bm ScoreString
+			var bm BeatMapString2
 
 			// Получение и запись карты
-			bm, left = parseScoreString(pageStr, left, "favourite")
+			bm, left = parseScoreString2(pageStr, left, "favourite")
 			result.FavoriteBeatmaps = append(result.FavoriteBeatmaps, bm)
 
 		}
@@ -611,10 +700,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		for left < end {
 
 			// Инициализация карты
-			var bm ScoreString
+			var bm BeatMapString2
 
 			// Получение и запись карты
-			bm, left = parseScoreString(pageStr, left, "graveyard")
+			bm, left = parseScoreString2(pageStr, left, "graveyard")
 			result.GraveyardBeatmaps = append(result.GraveyardBeatmaps, bm)
 
 		}
