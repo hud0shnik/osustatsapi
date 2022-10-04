@@ -133,13 +133,53 @@ type HistoryString struct {
 	Data string `json:"data"`
 }
 
+type BeatmapString struct {
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_unicode"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount string `json:"favorite_count"`
+	Hype          string `json:"hype"`
+	Id            string `json:"id"`
+	Nsfw          string `json:"nsfw"`
+	Offset        string `json:"offset"`
+	PlayCount     string `json:"play_count"`
+	PreviewUrl    string `json:"preview_url"`
+	Source        string `json:"source"`
+	Spotlight     string `json:"spotlight"`
+	Status        string `json:"status"`
+	Title         string `json:"title"`
+	TitleUnicode  string `json:"title_unicode"`
+	TrackId       string `json:"track_id"`
+	UserId        string `json:"userId"`
+	Video         string `json:"video"`
+	// Availability
+	Bpm string `json:"bpm"`
+	// can_be_hyped
+	// discussion_enabled
+	// discussion_locked
+	IsScoreable string `json:"is_scoreable"`
+	LastUpdated string `json:"last_updated"`
+	// legacy_thread_url
+	//nominations_summary :{
+	Ranked string `json:"ranked"`
+	// ranked_date
+	// storyboard
+	// submitted_date
+	// tags
+	BeatMap BeatMapString `json:"beatmaps"`
+}
+
 // Рекорд
 type ScoreString struct {
-	Accuracy              string           `json:"accuracy"`
-	BeatMapId             string           `json:"beatmap_id"`
-	BuildId               string           `json:"build_id"`
-	EndedAt               string           `json:"ended_at"`
-	MaximumCombo          string           `json:"maximum_combo"`
+	Accuracy  string `json:"accuracy"`
+	BeatMapId string `json:"beatmap_id"`
+	BuildId   string `json:"build_id"`
+	EndedAt   string `json:"ended_at"`
+	// legacy_score_id
+	// legacy_total_score
+	MaximumCombo string `json:"maximum_combo"`
+	// maximum_statistics
 	Mods                  []string         `json:"mods"`
 	Passed                string           `json:"passed"`
 	Rank                  string           `json:"rank"`
