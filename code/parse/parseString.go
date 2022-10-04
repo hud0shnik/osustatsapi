@@ -84,7 +84,7 @@ type UserInfoString struct {
 	Achievements            []AchievementString `json:"achievements"`
 	RankHistory             HistoryString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
-	// favorite
+	FavoriteBeatmaps        []ScoreString       `json:"favourite_beatmaps"`
 	// graveyard
 	// guest
 	// loved
@@ -248,7 +248,10 @@ func parseScoreString(pageStr string, left int, scoreType string) (ScoreString, 
 	result.BeatMapId, left = findWithIndex(pageStr, "beatmap_id :", ",", left)
 	result.BuildId, left = findWithIndex(pageStr, "build_id :", ",", left)
 	result.EndedAt, left = findWithIndex(pageStr, "ended_at : ", " ", left)
+	// legacy_score_id
+	//legacy_total_score
 	result.MaximumCombo, left = findWithIndex(pageStr, "max_combo :", ",", left)
+	//maximum_statistics
 
 	// Цикл для обработки модов
 	for c := 0; pageStr[c] != ']'; c++ {
@@ -537,9 +540,28 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
 	result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
-	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
+	result.UnrankedBeatmapsetCount, left = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
 
-	// Проверка на наличие достижений
+	// Проверка на наличие любимых карт
+	if !contains(pageStr, "favourite :{ items :[]", left) {
+
+		// Конец любимых карт
+		end := strings.Index(pageStr, "graveyard :{ ")
+
+		// Цикл обработки
+		for left < end {
+
+			// Инициализация карты
+			var bm ScoreString
+
+			// Получение и запись карты
+			bm, left = parseScoreString(pageStr, left, "favourite")
+			result.FavoriteBeatmaps = append(result.FavoriteBeatmaps, bm)
+
+		}
+	}
+
+	// Проверка на наличие статистики
 	if !contains(pageStr, "monthly_playcounts :[]", left) {
 
 		// Конец части со статистикой
