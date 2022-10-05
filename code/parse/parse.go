@@ -86,10 +86,10 @@ type UserInfoString struct {
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
 	FavoriteBeatmaps        []BeatMapString2    `json:"favorite_beatmaps"`
 	GraveyardBeatmaps       []BeatMapString2    `json:"graveyard_beatmaps"`
-	// loved
 	// ranked
 	// pending
 	GuestBeatmaps           []BeatMapString2    `json:"guest_beatmaps"`
+	LovedBeatmaps           []BeatMapString2    `json:"loved_beatmaps"`
 	// kudosu ?
 	// recent_activity
 	// top_ranks
@@ -688,6 +688,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.FavoriteBeatmaps = append(result.FavoriteBeatmaps, bm)
 
 		}
+
 	}
 
 	// Проверка на наличие карт
@@ -725,6 +726,26 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			// Получение и запись карты
 			bm, left = parseScoreString2(pageStr, left, "guest")
 			result.GuestBeatmaps = append(result.GuestBeatmaps, bm)
+
+		}
+
+	}
+
+	// Проверка на наличие карт
+	if !contains(pageStr, "loved :{ items :[]", left) {
+
+		// Конец карт
+		end := strings.Index(pageStr, "ranked :{")
+
+		// Цикл обработки
+		for left < end {
+
+			// Инициализация карты
+			var bm BeatMapString2
+
+			// Получение и запись карты
+			bm, left = parseScoreString2(pageStr, left, "loved")
+			result.LovedBeatmaps = append(result.LovedBeatmaps, bm)
 
 		}
 
