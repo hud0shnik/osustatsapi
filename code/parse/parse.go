@@ -86,10 +86,11 @@ type UserInfoString struct {
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
 	FavoriteBeatmaps        []BeatMapString2    `json:"favorite_beatmaps"`
 	GraveyardBeatmaps       []BeatMapString2    `json:"graveyard_beatmaps"`
-	// pending
 	GuestBeatmaps           []BeatMapString2    `json:"guest_beatmaps"`
 	LovedBeatmaps           []BeatMapString2    `json:"loved_beatmaps"`
 	RankedBeatmaps          []BeatMapString2    `json:"ranked_beatmaps"`
+	PendingBeatmaps         []BeatMapString2    `json:"pending_beatmaps"`
+
 	// kudosu ?
 	// recent_activity
 	// top_ranks
@@ -278,7 +279,7 @@ type BeatMapString2 struct {
 	// storyboard
 	// submitted_date
 	// tags
-	BeatMap BeatMapString `json:"beatmaps"`
+	BeatMap BeatMapString `json:"beatmap"`
 }
 
 // Функция для парсинга рекорда
@@ -665,6 +666,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.Achievements = append(result.Achievements, achieve)
 
 		}
+
 	}
 
 	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
