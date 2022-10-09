@@ -272,7 +272,7 @@ type BeatMapString2 struct {
 	DiscussionLocked  string `json:"discussion_locked"`
 	IsScoreable       string `json:"is_scoreable"`
 	LastUpdated       string `json:"last_updated"`
-	// legacy_thread_url
+	LegacyThreadUrl   string `json:"legacy_thread_url"`
 	//nominations_summary :{
 	Ranked string `json:"ranked"`
 	// ranked_date
@@ -456,8 +456,10 @@ func parseScoreString2(pageStr string, left int, scoreType string) (BeatMapStrin
 	result.DiscussionEnabled, left = findWithIndex(pageStr, "discussion_enabled :", ",", left)
 	result.DiscussionLocked, left = findWithIndex(pageStr, "discussion_locked :", ",", left)
 	result.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
-	result.BeatMap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
-	// legacy_thread_url
+	result.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
+	result.LegacyThreadUrl, left = findWithIndex(pageStr, "legacy_thread_url : ", " ", left)
+	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
+
 	//nominations_summary
 	result.BeatMap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
 	// ranked_date
