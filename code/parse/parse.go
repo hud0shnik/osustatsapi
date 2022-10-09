@@ -246,27 +246,27 @@ type WeightString struct {
 
 // Структура карты
 type BeatMapString2 struct {
-	Artist        string `json:"artist"`
-	ArtistUnicode string `json:"artist_unicode"`
-	Covers        Covers `json:"covers"`
-	Creator       string `json:"creator"`
-	FavoriteCount string `json:"favorite_count"`
-	Hype          string `json:"hype"`
-	Id            string `json:"id"`
-	Nsfw          string `json:"nsfw"`
-	Offset        string `json:"offset"`
-	PlayCount     string `json:"play_count"`
-	PreviewUrl    string `json:"preview_url"`
-	Source        string `json:"source"`
-	Spotlight     string `json:"spotlight"`
-	Status        string `json:"status"`
-	Title         string `json:"title"`
-	TitleUnicode  string `json:"title_unicode"`
-	TrackId       string `json:"track_id"`
-	UserId        string `json:"userId"`
-	Video         string `json:"video"`
-	// Availability
-	Bpm string `json:"bpm"`
+	Artist           string `json:"artist"`
+	ArtistUnicode    string `json:"artist_unicode"`
+	Covers           Covers `json:"covers"`
+	Creator          string `json:"creator"`
+	FavoriteCount    string `json:"favorite_count"`
+	Hype             string `json:"hype"`
+	Id               string `json:"id"`
+	Nsfw             string `json:"nsfw"`
+	Offset           string `json:"offset"`
+	PlayCount        string `json:"play_count"`
+	PreviewUrl       string `json:"preview_url"`
+	Source           string `json:"source"`
+	Spotlight        string `json:"spotlight"`
+	Status           string `json:"status"`
+	Title            string `json:"title"`
+	TitleUnicode     string `json:"title_unicode"`
+	TrackId          string `json:"track_id"`
+	UserId           string `json:"userId"`
+	Video            string `json:"video"`
+	DownloadDisabled string `json:"download_disabled"`
+	Bpm              string `json:"bpm"`
 	// can_be_hyped
 	// discussion_enabled
 	// discussion_locked
@@ -449,7 +449,7 @@ func parseScoreString2(pageStr string, left int, scoreType string) (BeatMapStrin
 	result.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
 	result.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
 	result.Video, left = findWithIndex(pageStr, "video :", ",", left)
-	// availability
+	result.DownloadDisabled, left = findWithIndex(pageStr, "download_disabled :", ",", left)
 
 	result.Bpm, left = findWithIndex(pageStr, "bpm :", ",", left)
 	// can_be_hyped
