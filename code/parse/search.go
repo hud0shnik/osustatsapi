@@ -26,7 +26,7 @@ func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
 	// Вывод ненайденных значений для тестов
 	// fmt.Println("error foundn't \t", subStr, "-")
 
-	return "", 0
+	return "", start
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
