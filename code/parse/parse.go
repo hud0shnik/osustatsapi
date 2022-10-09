@@ -275,11 +275,11 @@ type BeatMapString2 struct {
 	LegacyThreadUrl   string             `json:"legacy_thread_url"`
 	Nominations       NominationsSummary `json:"nominations_summary"`
 	Ranked            string             `json:"ranked"`
-	// ranked_date
-	// storyboard
-	// submitted_date
-	// tags
-	BeatMap BeatMapString `json:"beatmap"`
+	RankedDate        string             `json:"ranked_date"`
+	Storyboard        string             `json:"storyboard"`
+	SubmittedDate     string             `json:"submitted_date"`
+	Tags              string             `json:"tags"`
+	BeatMap           BeatMapString      `json:"beatmap"`
 }
 
 // Оценка номинаций
@@ -469,11 +469,11 @@ func parseScoreString2(pageStr string, left int, scoreType string) (BeatMapStrin
 	result.Nominations.Current, left = findWithIndex(pageStr, "current :", ",", left)
 	result.Nominations.Required, left = findWithIndex(pageStr, "required :", "}", left)
 
-	result.BeatMap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
-	// ranked_date
-	// storyboard
-	// submitted_date
-	// tags
+	result.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
+	result.RankedDate, left = findWithIndex(pageStr, "ranked_date :", ",", left)
+	result.Storyboard, left = findWithIndex(pageStr, "storyboard :", ",", left)
+	result.SubmittedDate, left = findWithIndex(pageStr, "submitted_date : ", " ", left)
+	result.Tags, left = findWithIndex(pageStr, "tags : ", " ", left)
 
 	result.BeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 	result.BeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
