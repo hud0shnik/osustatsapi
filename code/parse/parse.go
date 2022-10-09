@@ -516,7 +516,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// HTML полученной страницы в формате string
-	pageStr := string(body)[90000:]
+	pageStr := string(body)[80000:]
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
@@ -572,7 +572,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
 	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
-	result.Title, left = findWithIndex(pageStr, "title : ", " ,", left)
+	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url : ", " ,", left)
 	result.Twitter, left = findWithIndex(pageStr, "twitter : ", " ,", left)
 	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
