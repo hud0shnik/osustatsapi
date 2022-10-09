@@ -246,32 +246,32 @@ type WeightString struct {
 
 // Структура карты
 type BeatMapString2 struct {
-	Artist           string `json:"artist"`
-	ArtistUnicode    string `json:"artist_unicode"`
-	Covers           Covers `json:"covers"`
-	Creator          string `json:"creator"`
-	FavoriteCount    string `json:"favorite_count"`
-	Hype             string `json:"hype"`
-	Id               string `json:"id"`
-	Nsfw             string `json:"nsfw"`
-	Offset           string `json:"offset"`
-	PlayCount        string `json:"play_count"`
-	PreviewUrl       string `json:"preview_url"`
-	Source           string `json:"source"`
-	Spotlight        string `json:"spotlight"`
-	Status           string `json:"status"`
-	Title            string `json:"title"`
-	TitleUnicode     string `json:"title_unicode"`
-	TrackId          string `json:"track_id"`
-	UserId           string `json:"userId"`
-	Video            string `json:"video"`
-	DownloadDisabled string `json:"download_disabled"`
-	Bpm              string `json:"bpm"`
-	// can_be_hyped
-	// discussion_enabled
-	// discussion_locked
-	IsScoreable string `json:"is_scoreable"`
-	LastUpdated string `json:"last_updated"`
+	Artist            string `json:"artist"`
+	ArtistUnicode     string `json:"artist_unicode"`
+	Covers            Covers `json:"covers"`
+	Creator           string `json:"creator"`
+	FavoriteCount     string `json:"favorite_count"`
+	Hype              string `json:"hype"`
+	Id                string `json:"id"`
+	Nsfw              string `json:"nsfw"`
+	Offset            string `json:"offset"`
+	PlayCount         string `json:"play_count"`
+	PreviewUrl        string `json:"preview_url"`
+	Source            string `json:"source"`
+	Spotlight         string `json:"spotlight"`
+	Status            string `json:"status"`
+	Title             string `json:"title"`
+	TitleUnicode      string `json:"title_unicode"`
+	TrackId           string `json:"track_id"`
+	UserId            string `json:"userId"`
+	Video             string `json:"video"`
+	DownloadDisabled  string `json:"download_disabled"`
+	Bpm               string `json:"bpm"`
+	CanBeHyped        string `json:"can_be_hyped"`
+	DiscussionEnabled string `json:"discussion_enabled"`
+	DiscussionLocked  string `json:"discussion_locked"`
+	IsScoreable       string `json:"is_scoreable"`
+	LastUpdated       string `json:"last_updated"`
 	// legacy_thread_url
 	//nominations_summary :{
 	Ranked string `json:"ranked"`
@@ -452,8 +452,9 @@ func parseScoreString2(pageStr string, left int, scoreType string) (BeatMapStrin
 	result.DownloadDisabled, left = findWithIndex(pageStr, "download_disabled :", ",", left)
 
 	result.Bpm, left = findWithIndex(pageStr, "bpm :", ",", left)
-	// can_be_hyped
-	// discussion_locked
+	result.CanBeHyped, left = findWithIndex(pageStr, "can_be_hyped :", ",", left)
+	result.DiscussionEnabled, left = findWithIndex(pageStr, "discussion_enabled :", ",", left)
+	result.DiscussionLocked, left = findWithIndex(pageStr, "discussion_locked :", ",", left)
 	result.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
 	result.BeatMap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
 	// legacy_thread_url
