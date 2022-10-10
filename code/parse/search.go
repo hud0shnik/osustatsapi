@@ -1,6 +1,7 @@
 package parse
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -43,6 +44,23 @@ func find(str, subStr, stopChar string) string {
 	}
 
 	return ""
+}
+
+// Функция поиска индекса
+func index(str, subStr string, start int) int {
+
+	res := strings.Index(str[start:], subStr)
+
+	// Проверка на существование нужной строки
+	if res == -1 {
+
+		fmt.Println("index error: \t", subStr)
+
+		return start
+	}
+
+	fmt.Println(res+start, " - ", subStr)
+	return res + start
 }
 
 // Функция проверки наличия подстроки
