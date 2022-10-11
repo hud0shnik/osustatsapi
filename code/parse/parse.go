@@ -1,6 +1,7 @@
 package parse
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -440,7 +441,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.ActiveTournamentBanner = strings.ReplaceAll(result.ActiveTournamentBanner, "\\", "")
 
 	// Значки
-	for c := strings.Index(pageStr, "badges :["); pageStr[c] != ']'; c++ {
+	for c := index(pageStr, "badges :[", left); pageStr[c] != ']'; c++ {
 		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
 				AwardedAt:   find(pageStr[c:], "awarded_at : ", " "),
@@ -454,7 +455,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left)
 
 	// Принадлежность к группам
-	for c := strings.Index(pageStr, "groups :["); pageStr[c] != ']'; c++ {
+	for c := index(pageStr, "groups :[", left); pageStr[c] != ']'; c++ {
 		if pageStr[c] == '{' {
 			result.Groups += find(pageStr[c:], "name : ", " ,") + ", "
 		}
@@ -492,7 +493,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "user_achievements :[]", left) {
 
 		// Конец блока достижений
-		end := strings.Index(pageStr, "rank_history :{") - 40
+		end := index(pageStr, "rank_history :{", left) - 10
 
 		// Цикл обработки достижений
 		for left < end {
@@ -519,7 +520,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "favourite :{ items :[]", left) {
 
 		// Конец любимых карт
-		end := strings.Index(pageStr, "graveyard :{ ")
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -533,13 +534,15 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 		}
 
+		left = end + 11
+
 	}
 
 	// Проверка на наличие карт
 	if !contains(pageStr, "graveyard :{ items :[]", left) {
 
 		// Конец карт
-		end := strings.Index(pageStr, "guest :{") - 40
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -551,7 +554,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			bm, left = parseScoreString2(pageStr, left, "graveyard")
 			result.GraveyardBeatmaps = append(result.GraveyardBeatmaps, bm)
 
+			fmt.Println(left, " / ", end)
+
 		}
+		left = end + 11
 
 	}
 
@@ -559,7 +565,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "guest :{ items :[]", left) {
 
 		// Конец карт
-		end := strings.Index(pageStr, "loved :{")
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -572,6 +578,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.GuestBeatmaps = append(result.GuestBeatmaps, bm)
 
 		}
+		left = end + 11
 
 	}
 
@@ -579,7 +586,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "loved :{ items :[]", left) {
 
 		// Конец карт
-		end := strings.Index(pageStr, "ranked :{")
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -592,6 +599,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.LovedBeatmaps = append(result.LovedBeatmaps, bm)
 
 		}
+		left = end + 11
 
 	}
 
@@ -599,7 +607,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "ranked :{ items :[]", left) {
 
 		// Конец карт
-		end := strings.Index(pageStr, "pending :{")
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -612,6 +620,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.RankedBeatmaps = append(result.RankedBeatmaps, bm)
 
 		}
+		left = end + 11
 
 	}
 
@@ -619,7 +628,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "pending :{ items :[]", left) {
 
 		// Конец карт
-		end := strings.Index(pageStr, "kudosu :{")
+		end := index(pageStr, "pagination :{", left) - 10
 
 		// Цикл обработки
 		for left < end {
@@ -632,6 +641,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.PendingBeatmaps = append(result.PendingBeatmaps, bm)
 
 		}
+		left = end + 11
 
 	}
 
@@ -639,7 +649,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "monthly_playcounts :[]", left) {
 
 		// Конец части со статистикой
-		end := strings.Index(pageStr, "recent :{")
+		end := index(pageStr, "recent :{", left)
 
 		// Цикл обработки статистики
 		for left < end {
@@ -661,7 +671,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "replays_watched_counts :[]", left) {
 
 		// Конец части со статистикой
-		end := strings.Index(pageStr, "]}}") - 10
+		end := index(pageStr, "]}}", left) - 10
 
 		// Цикл обработки статистики
 		for left < end {
