@@ -1,7 +1,6 @@
 package parse
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -554,8 +553,6 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			bm, left = parseScoreString2(pageStr, left, "graveyard")
 			result.GraveyardBeatmaps = append(result.GraveyardBeatmaps, bm)
 
-			fmt.Println(left, " / ", end)
-
 		}
 		left = end + 11
 
@@ -649,7 +646,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "monthly_playcounts :[]", left) {
 
 		// Конец части со статистикой
-		end := index(pageStr, "recent :{", left)
+		end := index(pageStr, "recent :{", left) - 10
 
 		// Цикл обработки статистики
 		for left < end {
