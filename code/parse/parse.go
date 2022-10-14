@@ -92,7 +92,6 @@ type UserInfoString struct {
 	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
 	KudosuItems             []KudosuString      `json:"kudosu_items"`
 
-	// kudosu ?
 	// recent_activity
 	// top_ranks (scores)
 	// firsts
@@ -269,21 +268,28 @@ type CountString struct {
 	Count     string `json:"count"`
 }
 
-// Функция для парсинга рекорда
+// Функция для парсинга карты
 func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 
+	// Получение рабочей части и индекса её конца
 	pageStr, end := findWithIndex(pageStr, "items :[", "], pagination", left)
 
+	// Проверка на наличие карт
 	if len(pageStr) == 0 {
 		return nil, end
 	}
 
+	// Результат и индекс обработанной части
 	var result []BeatMapString
 	left = 0
 
+	// Пока есть необработанные карты
 	for index(pageStr, "{ artist", left) != -1 {
 
+		// Инициализация карты
 		var bm BeatMapString
+
+		// Запись данных
 
 		bm.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
 		bm.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " ,", left)
@@ -369,7 +375,10 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 		bm.BeatMap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
 		bm.BeatMap.Url = strings.ReplaceAll(bm.BeatMap.Url, "\\", "")
 		bm.BeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
+
+		// Добавление карты к результату
 		result = append(result, bm)
+
 	}
 
 	return result, end
@@ -549,6 +558,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	}
 
+	// Проверка на наличие статистики
 	if !contains(pageStr, " rank_history :null", left) {
 		result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
 		result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
@@ -556,6 +566,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	result.UnrankedBeatmapsetCount, left = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
 
+	// Карты
 	result.FavoriteBeatmaps, left = parseBeatmapsString(pageStr, left)
 	result.GraveyardBeatmaps, left = parseBeatmapsString(pageStr, left)
 	result.GuestBeatmaps, left = parseBeatmapsString(pageStr, left)
@@ -563,12 +574,16 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.RankedBeatmaps, left = parseBeatmapsString(pageStr, left)
 	result.PendingBeatmaps, left = parseBeatmapsString(pageStr, left)
 
+	// Проверка на наличие статистики
 	if !contains(pageStr, "kudosu :{ items :[]", left) {
 
+		// Пока есть необработанные данные
 		for index(pageStr, "giver :{", left) != -1 {
 
+			// Инициализация кудосу
 			var kudosu KudosuString
 
+			// Запись данных
 			kudosu.Id, left = findWithIndex(pageStr, "id :", ",", left)
 			kudosu.Action, left = findWithIndex(pageStr, "action :", ",", left)
 			kudosu.Amount, left = findWithIndex(pageStr, "amount :", ",", left)
@@ -580,7 +595,9 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			kudosu.Post.Title, left = findWithIndex(pageStr, "title : ", " },", left)
 			kudosu.Details, left = findWithIndex(pageStr, "details :", "},", left)
 
+			// Добавление данных к результату
 			result.KudosuItems = append(result.KudosuItems, kudosu)
+
 		}
 
 	}
