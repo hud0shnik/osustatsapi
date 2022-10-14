@@ -56,7 +56,7 @@ func index(str, subStr string, start int) int {
 
 		fmt.Println("index error: \t", subStr)
 
-		return start
+		return -1
 	}
 
 	fmt.Println(res+start, " - ", subStr)
