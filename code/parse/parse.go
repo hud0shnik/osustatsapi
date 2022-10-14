@@ -90,6 +90,7 @@ type UserInfoString struct {
 	LovedBeatmaps           []BeatMapString     `json:"loved_beatmaps"`
 	RankedBeatmaps          []BeatMapString     `json:"ranked_beatmaps"`
 	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
+	KudosuItems             []KudosuString      `json:"kudosu_items"`
 
 	// kudosu ?
 	// recent_activity
@@ -130,40 +131,40 @@ type HistoryString struct {
 
 // Структура карты
 type BeatMapString struct {
-	Artist            string             `json:"artist"`
-	ArtistUnicode     string             `json:"artist_unicode"`
-	Covers            Covers             `json:"covers"`
-	Creator           string             `json:"creator"`
-	FavoriteCount     string             `json:"favorite_count"`
-	Hype              string             `json:"hype"`
-	Id                string             `json:"id"`
-	Nsfw              string             `json:"nsfw"`
-	Offset            string             `json:"offset"`
-	PlayCount         string             `json:"play_count"`
-	PreviewUrl        string             `json:"preview_url"`
-	Source            string             `json:"source"`
-	Spotlight         string             `json:"spotlight"`
-	Status            string             `json:"status"`
-	Title             string             `json:"title"`
-	TitleUnicode      string             `json:"title_unicode"`
-	TrackId           string             `json:"track_id"`
-	UserId            string             `json:"userId"`
-	Video             string             `json:"video"`
-	DownloadDisabled  string             `json:"download_disabled"`
-	Bpm               string             `json:"bpm"`
-	CanBeHyped        string             `json:"can_be_hyped"`
-	DiscussionEnabled string             `json:"discussion_enabled"`
-	DiscussionLocked  string             `json:"discussion_locked"`
-	IsScoreable       string             `json:"is_scoreable"`
-	LastUpdated       string             `json:"last_updated"`
-	LegacyThreadUrl   string             `json:"legacy_thread_url"`
-	Nominations       NominationsSummary `json:"nominations_summary"`
-	Ranked            string             `json:"ranked"`
-	RankedDate        string             `json:"ranked_date"`
-	Storyboard        string             `json:"storyboard"`
-	SubmittedDate     string             `json:"submitted_date"`
-	Tags              string             `json:"tags"`
-	BeatMap           BeatMapsString     `json:"beatmap"`
+	Artist            string                   `json:"artist"`
+	ArtistUnicode     string                   `json:"artist_unicode"`
+	Covers            Covers                   `json:"covers"`
+	Creator           string                   `json:"creator"`
+	FavoriteCount     string                   `json:"favorite_count"`
+	Hype              string                   `json:"hype"`
+	Id                string                   `json:"id"`
+	Nsfw              string                   `json:"nsfw"`
+	Offset            string                   `json:"offset"`
+	PlayCount         string                   `json:"play_count"`
+	PreviewUrl        string                   `json:"preview_url"`
+	Source            string                   `json:"source"`
+	Spotlight         string                   `json:"spotlight"`
+	Status            string                   `json:"status"`
+	Title             string                   `json:"title"`
+	TitleUnicode      string                   `json:"title_unicode"`
+	TrackId           string                   `json:"track_id"`
+	UserId            string                   `json:"userId"`
+	Video             string                   `json:"video"`
+	DownloadDisabled  string                   `json:"download_disabled"`
+	Bpm               string                   `json:"bpm"`
+	CanBeHyped        string                   `json:"can_be_hyped"`
+	DiscussionEnabled string                   `json:"discussion_enabled"`
+	DiscussionLocked  string                   `json:"discussion_locked"`
+	IsScoreable       string                   `json:"is_scoreable"`
+	LastUpdated       string                   `json:"last_updated"`
+	LegacyThreadUrl   string                   `json:"legacy_thread_url"`
+	Nominations       NominationsSummaryString `json:"nominations_summary"`
+	Ranked            string                   `json:"ranked"`
+	RankedDate        string                   `json:"ranked_date"`
+	Storyboard        string                   `json:"storyboard"`
+	SubmittedDate     string                   `json:"submitted_date"`
+	Tags              string                   `json:"tags"`
+	BeatMap           BeatMapsString           `json:"beatmap"`
 }
 
 // Картинки
@@ -179,7 +180,7 @@ type Covers struct {
 }
 
 // Оценка номинаций
-type NominationsSummary struct {
+type NominationsSummaryString struct {
 	Current  string `json:"current"`
 	Required string `json:"required"`
 }
@@ -236,6 +237,30 @@ type BeatMapSetString struct {
 	TrackId       string `json:"track_id"`
 	UserId        string `json:"userId"`
 	Video         string `json:"video"`
+}
+
+// Кудосу
+type KudosuString struct {
+	Id        string      `json:"id"`
+	Action    string      `json:"action"`
+	Amount    string      `json:"amount"`
+	Model     string      `json:"model"`
+	CreatedAt string      `json:"created_at"`
+	Giver     KudosuGiver `json:"giver"`
+	Post      KudosuPost  `json:"post"`
+	Details   string      `json:"details"`
+}
+
+// Источник кудосу
+type KudosuGiver struct {
+	Url      string `json:"url"`
+	Username string `json:"username"`
+}
+
+// Пост кудосу
+type KudosuPost struct {
+	Url   string `json:"url"`
+	Title string `json:"title"`
 }
 
 // Структура для подсчёта
@@ -538,22 +563,27 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.RankedBeatmaps, left = parseBeatmapsString(pageStr, left)
 	result.PendingBeatmaps, left = parseBeatmapsString(pageStr, left)
 
+	if !contains(pageStr, "kudosu :{ items :[]", left) {
 
-	// Проверка на наличие статистики
-	if !contains(pageStr, "monthly_playcounts :[]", left) {
+		for index(pageStr, "giver :{", left) != -1 {
 
-		// Конец части со статистикой
-		end := index(pageStr, "recent :{", left) - 10
+			var kudosu KudosuString
 
-		// Цикл обработки статистики
-		for left < end {
+			kudosu.Id, left = findWithIndex(pageStr, "id :", ",", left)
+			kudosu.Action, left = findWithIndex(pageStr, "action :", ",", left)
+			kudosu.Amount, left = findWithIndex(pageStr, "amount :", ",", left)
+			kudosu.Model, left = findWithIndex(pageStr, "model : ", " ", left)
+			kudosu.CreatedAt, left = findWithIndex(pageStr, "created_at : ", " ", left)
+			kudosu.Giver.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+			kudosu.Giver.Username, left = findWithIndex(pageStr, "username : ", " },", left)
+			kudosu.Post.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+			kudosu.Post.Title, left = findWithIndex(pageStr, "title : ", " },", left)
+			kudosu.Details, left = findWithIndex(pageStr, "details :", "},", left)
 
-			// Инициализация структуры подсчета
-			var count CountString
+			result.KudosuItems = append(result.KudosuItems, kudosu)
+		}
 
-			// Генерация подсчета
-			count.StartDate, left = findWithIndex(pageStr, "start_date : ", " ", left)
-			count.Count, left = findWithIndex(pageStr, "count :", "}", left)
+	}
 
 			// Добавление статистики
 			result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
