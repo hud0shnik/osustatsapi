@@ -91,8 +91,8 @@ type UserInfoString struct {
 	RankedBeatmaps          []BeatMapString     `json:"ranked_beatmaps"`
 	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
 	KudosuItems             []KudosuString      `json:"kudosu_items"`
+	RecentActivity          []Activity          `json:"recent_activity"`
 
-	// recent_activity
 	// top_ranks (scores)
 	// firsts
 	// pinned
@@ -260,6 +260,18 @@ type KudosuGiver struct {
 type KudosuPost struct {
 	Url   string `json:"url"`
 	Title string `json:"title"`
+}
+
+// Активность
+type Activity struct {
+	CreatedAt    string `json:"created_at"`
+	Id           string `json:"id"`
+	Type         string `json:"type"`
+	ScoreRank    string `json:"score_rank"`
+	Rank         string `json:"rank"`
+	Mode         string `json:"mode"`
+	BeatmapTitle string `json:"beatmap_title"`
+	BeatmapUrl   string `json:"beatmap_url"`
 }
 
 // Структура для подсчёта
@@ -602,10 +614,26 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	}
 
-			// Добавление статистики
-			result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, count)
+	// Проверка на наличие активности
+	if !contains(pageStr, "recent_activity :{ items :[]", left) {
+
+		for index(pageStr, "scoreRank", left) != -1 {
+
+			var act Activity
+
+			act.CreatedAt, left = findWithIndex(pageStr, "created_at : ", " ", left)
+			act.Id, left = findWithIndex(pageStr, "id :", ",", left)
+			act.Type, left = findWithIndex(pageStr, "type : ", " ", left)
+			act.ScoreRank, left = findWithIndex(pageStr, "scoreRank : ", " ", left)
+			act.Rank, left = findWithIndex(pageStr, "rank :", ",", left)
+			act.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
+			act.BeatmapTitle, left = findWithIndex(pageStr, "title : ", " , url", left)
+			act.BeatmapUrl, left = findWithIndex(pageStr, "url : ", " }", left)
+
+			result.RecentActivity = append(result.RecentActivity, act)
 
 		}
+
 	}
 
 	// Проверка на наличие статистики
