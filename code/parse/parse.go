@@ -604,6 +604,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			kudosu.Giver.Url, left = findWithIndex(pageStr, "url : ", " ", left)
 			kudosu.Giver.Username, left = findWithIndex(pageStr, "username : ", " },", left)
 			kudosu.Post.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+			kudosu.Post.Url = strings.ReplaceAll(kudosu.Giver.Url, "\\", "")
 			kudosu.Post.Title, left = findWithIndex(pageStr, "title : ", " },", left)
 			kudosu.Details, left = findWithIndex(pageStr, "details :", "},", left)
 
@@ -617,10 +618,13 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	// Проверка на наличие активности
 	if !contains(pageStr, "recent_activity :{ items :[]", left) {
 
+		// Пока есть необработанная активность
 		for index(pageStr, "scoreRank", left) != -1 {
 
+			// Инициализация активности
 			var act Activity
 
+			// Запись данных
 			act.CreatedAt, left = findWithIndex(pageStr, "created_at : ", " ", left)
 			act.Id, left = findWithIndex(pageStr, "id :", ",", left)
 			act.Type, left = findWithIndex(pageStr, "type : ", " ", left)
@@ -630,6 +634,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			act.BeatmapTitle, left = findWithIndex(pageStr, "title : ", " , url", left)
 			act.BeatmapUrl, left = findWithIndex(pageStr, "url : ", " }", left)
 
+			// Добавление статистики
 			result.RecentActivity = append(result.RecentActivity, act)
 
 		}
