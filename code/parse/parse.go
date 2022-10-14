@@ -91,7 +91,7 @@ type UserInfoString struct {
 	RankedBeatmaps          []BeatMapString     `json:"ranked_beatmaps"`
 	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
 	KudosuItems             []KudosuString      `json:"kudosu_items"`
-	RecentActivity          []Activity          `json:"recent_activity"`
+	RecentActivity          []ActivityString    `json:"recent_activity"`
 
 	// top_ranks (scores)
 	// firsts
@@ -263,7 +263,7 @@ type KudosuPost struct {
 }
 
 // Активность
-type Activity struct {
+type ActivityString struct {
 	CreatedAt    string `json:"created_at"`
 	Id           string `json:"id"`
 	Type         string `json:"type"`
@@ -578,6 +578,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	result.UnrankedBeatmapsetCount, left = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
 
+	// Обрезка левой части и обнуление левого индекса
+	pageStr = pageStr[left:]
+	left = 0
+
 	// Карты
 	result.FavoriteBeatmaps, left = parseBeatmapsString(pageStr, left)
 	result.GraveyardBeatmaps, left = parseBeatmapsString(pageStr, left)
@@ -622,7 +626,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		for index(pageStr, "scoreRank", left) != -1 {
 
 			// Инициализация активности
-			var act Activity
+			var act ActivityString
 
 			// Запись данных
 			act.CreatedAt, left = findWithIndex(pageStr, "created_at : ", " ", left)
@@ -640,6 +644,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		}
 
 	}
+
+	// Обрезка левой части и обнуление левого индекса
+	pageStr = pageStr[left:]
+	left = 0
 
 	// Проверка на наличие статистики
 	if !contains(pageStr, "replays_watched_counts :[]", left) {
