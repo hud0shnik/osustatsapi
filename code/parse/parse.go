@@ -505,7 +505,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	if !contains(pageStr, "user_achievements :[]", left) {
 
 		// Конец блока достижений
-		end := index(pageStr, "rank_history :{", left) - 10
+		end := index(pageStr, "]", left) - 10
 
 		// Цикл обработки достижений
 		for left < end {
@@ -524,8 +524,11 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	}
 
-	result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
-	result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
+	if !contains(pageStr, " rank_history :null", left) {
+		result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
+		result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
+	}
+
 	result.UnrankedBeatmapsetCount, left = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
 
 	result.FavoriteBeatmaps, left = parseBeatmapsString(pageStr, left)
