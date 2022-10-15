@@ -84,12 +84,12 @@ type UserInfoString struct {
 	Achievements            []AchievementString `json:"achievements"`
 	RankHistory             HistoryString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
-	FavoriteBeatmaps        []BeatMapString     `json:"favorite_beatmaps"`
-	GraveyardBeatmaps       []BeatMapString     `json:"graveyard_beatmaps"`
-	GuestBeatmaps           []BeatMapString     `json:"guest_beatmaps"`
-	LovedBeatmaps           []BeatMapString     `json:"loved_beatmaps"`
-	RankedBeatmaps          []BeatMapString     `json:"ranked_beatmaps"`
-	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
+	FavoriteBeatmaps        []BeatmapString     `json:"favorite_beatmaps"`
+	GraveyardBeatmaps       []BeatmapString     `json:"graveyard_beatmaps"`
+	GuestBeatmaps           []BeatmapString     `json:"guest_beatmaps"`
+	LovedBeatmaps           []BeatmapString     `json:"loved_beatmaps"`
+	RankedBeatmaps          []BeatmapString     `json:"ranked_beatmaps"`
+	PendingBeatmaps         []BeatmapString     `json:"pending_beatmaps"`
 	KudosuItems             []KudosuString      `json:"kudosu_items"`
 	RecentActivity          []ActivityString    `json:"recent_activity"`
 	Best                    []ScoreString       `json:"best"`
@@ -128,7 +128,7 @@ type HistoryString struct {
 }
 
 // Структура карты
-type BeatMapString struct {
+type BeatmapString struct {
 	Artist            string                   `json:"artist"`
 	ArtistUnicode     string                   `json:"artist_unicode"`
 	Covers            Covers                   `json:"covers"`
@@ -162,7 +162,7 @@ type BeatMapString struct {
 	Storyboard        string                   `json:"storyboard"`
 	SubmittedDate     string                   `json:"submitted_date"`
 	Tags              string                   `json:"tags"`
-	BeatMap           BeatMapsString           `json:"beatmap"`
+	Beatmap           BeatmapsString           `json:"beatmap"`
 }
 
 // Картинки
@@ -184,8 +184,8 @@ type NominationsSummaryString struct {
 }
 
 // Мапы
-type BeatMapsString struct {
-	BeatMapSetId     string `json:"beatmapset_id"`
+type BeatmapsString struct {
+	BeatmapSetId     string `json:"beatmapset_id"`
 	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
 	Mode             string `json:"mode"`
@@ -281,8 +281,8 @@ type ScoreString struct {
 	Replay                string           `json:"replay"`
 	Type                  string           `json:"type"`
 	CurrentUserAttributes string           `json:"current_user_attributes"`
-	Beatmap               BeatMapsString   `json:"beatmap"`
-	Beatmapset            BeatMapsetString `json:"beatmapset"`
+	Beatmap               BeatmapsString   `json:"beatmap"`
+	Beatmapset            BeatmapsetString `json:"beatmapset"`
 	Weight                WeightString     `json:"weight"`
 }
 
@@ -295,7 +295,7 @@ type StatisticsString struct {
 }
 
 // Сет мапы рекорда
-type BeatMapsetString struct {
+type BeatmapsetString struct {
 	Artist        string `json:"artist"`
 	ArtistUnicode string `json:"artist_unicode"`
 	Covers        Covers `json:"covers"`
@@ -328,7 +328,7 @@ type PlayCountString struct {
 	BeatmapId  string                 `json:"beatmap_id"`
 	Count      string                 `json:"count"`
 	Beatmap    PlayCountBeatmapString `json:"beatmap"`
-	Beatmapset BeatMapsetString       `json:"beatmapset"`
+	Beatmapset BeatmapsetString       `json:"beatmapset"`
 }
 
 // Сет мапы подсчёта
@@ -343,7 +343,7 @@ type PlayCountBeatmapString struct {
 }
 
 // Функция для парсинга карты
-func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
+func parseBeatmapsString(pageStr string, left int) ([]BeatmapString, int) {
 
 	// Получение рабочей части и индекса её конца
 	pageStr, end := findWithIndex(pageStr, "items :[", "], pagination", left)
@@ -354,14 +354,14 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 	}
 
 	// Результат и индекс обработанной части
-	var result []BeatMapString
+	var result []BeatmapString
 	left = 0
 
 	// Пока есть необработанные карты
 	for index(pageStr, "{ artist", left) != -1 {
 
 		// Инициализация карты
-		var bm BeatMapString
+		var bm BeatmapString
 
 		// Запись данных
 		bm.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
@@ -421,33 +421,33 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 		bm.SubmittedDate, left = findWithIndex(pageStr, "submitted_date : ", " ", left)
 		bm.Tags, left = findWithIndex(pageStr, "tags : ", " ", left)
 
-		bm.BeatMap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
-		bm.BeatMap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
-		bm.BeatMap.Id, left = findWithIndex(pageStr, "id :", ",", left)
-		bm.BeatMap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
-		bm.BeatMap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
-		bm.BeatMap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
-		bm.BeatMap.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
-		bm.BeatMap.Version, left = findWithIndex(pageStr, "version : ", " , accuracy", left)
-		bm.BeatMap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
-		bm.BeatMap.Ar, left = findWithIndex(pageStr, "ar :", ",", left)
-		bm.BeatMap.Convert, left = findWithIndex(pageStr, "convert :", ",", left)
-		bm.BeatMap.CountCircles, left = findWithIndex(pageStr, "count_circles :", ",", left)
-		bm.BeatMap.CountSliders, left = findWithIndex(pageStr, "count_sliders :", ",", left)
-		bm.BeatMap.CountSpinners, left = findWithIndex(pageStr, "count_spinners :", ",", left)
-		bm.BeatMap.Cs, left = findWithIndex(pageStr, " cs :", ",", left)
-		bm.BeatMap.DeletedAt, left = findWithIndex(pageStr, "deleted_at :", ",", left)
-		bm.BeatMap.Drain, left = findWithIndex(pageStr, "drain :", ",", left)
-		bm.BeatMap.HitLength, left = findWithIndex(pageStr, "hit_length :", ",", left)
-		bm.BeatMap.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
-		bm.BeatMap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
-		bm.BeatMap.ModeInt, left = findWithIndex(pageStr, "mode_int :", ",", left)
-		bm.BeatMap.PassCount, left = findWithIndex(pageStr, "passcount :", ",", left)
-		bm.BeatMap.PlayCount, left = findWithIndex(pageStr, "playcount :", ",", left)
-		bm.BeatMap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
-		bm.BeatMap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
-		bm.BeatMap.Url = strings.ReplaceAll(bm.BeatMap.Url, "\\", "")
-		bm.BeatMap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
+		bm.Beatmap.BeatmapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
+		bm.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
+		bm.Beatmap.Id, left = findWithIndex(pageStr, "id :", ",", left)
+		bm.Beatmap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
+		bm.Beatmap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
+		bm.Beatmap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
+		bm.Beatmap.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
+		bm.Beatmap.Version, left = findWithIndex(pageStr, "version : ", " , accuracy", left)
+		bm.Beatmap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
+		bm.Beatmap.Ar, left = findWithIndex(pageStr, "ar :", ",", left)
+		bm.Beatmap.Convert, left = findWithIndex(pageStr, "convert :", ",", left)
+		bm.Beatmap.CountCircles, left = findWithIndex(pageStr, "count_circles :", ",", left)
+		bm.Beatmap.CountSliders, left = findWithIndex(pageStr, "count_sliders :", ",", left)
+		bm.Beatmap.CountSpinners, left = findWithIndex(pageStr, "count_spinners :", ",", left)
+		bm.Beatmap.Cs, left = findWithIndex(pageStr, " cs :", ",", left)
+		bm.Beatmap.DeletedAt, left = findWithIndex(pageStr, "deleted_at :", ",", left)
+		bm.Beatmap.Drain, left = findWithIndex(pageStr, "drain :", ",", left)
+		bm.Beatmap.HitLength, left = findWithIndex(pageStr, "hit_length :", ",", left)
+		bm.Beatmap.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
+		bm.Beatmap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
+		bm.Beatmap.ModeInt, left = findWithIndex(pageStr, "mode_int :", ",", left)
+		bm.Beatmap.PassCount, left = findWithIndex(pageStr, "passcount :", ",", left)
+		bm.Beatmap.PlayCount, left = findWithIndex(pageStr, "playcount :", ",", left)
+		bm.Beatmap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
+		bm.Beatmap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+		bm.Beatmap.Url = strings.ReplaceAll(bm.Beatmap.Url, "\\", "")
+		bm.Beatmap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
 
 		// Добавление карты к результату
 		result = append(result, bm)
@@ -531,7 +531,7 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 		sc.Type, left = findWithIndex(pageStr, "type : ", " ", left)
 		sc.CurrentUserAttributes, left = findWithIndex(pageStr, "current_user_attributes :{ ", "},", left)
 
-		sc.Beatmap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
+		sc.Beatmap.BeatmapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		sc.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
 		sc.Beatmap.Id, left = findWithIndex(pageStr, "id :", ",", left)
 		sc.Beatmap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
