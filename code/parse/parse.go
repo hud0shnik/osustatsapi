@@ -440,6 +440,160 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 	return result, end
 }
 
+// Функция для парсинга рекорда
+func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int) {
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end := findWithIndex(pageStr, "items :[", "], pagination", left)
+
+	// Проверка на наличие рекордов
+	if len(pageStr) == 0 {
+		return nil, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []ScoreString
+	left = 0
+
+	// Пока есть необработанные карты
+	for index(pageStr, "{ accuracy :", left) != -1 {
+
+		// Инициализация карты
+		var sc ScoreString
+
+		// Запись данных
+		sc.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
+		sc.BeatmapId, left = findWithIndex(pageStr, "beatmap_id :", ",", left)
+		sc.BuildId, left = findWithIndex(pageStr, "build_id :", ",", left)
+		sc.EndedAt, left = findWithIndex(pageStr, "ended_at : ", " ,", left)
+		sc.LegacyScoreId, left = findWithIndex(pageStr, "legacy_score_id :", ",", left)
+		sc.LegacyTotalScore, left = findWithIndex(pageStr, "legacy_total_score :", ",", left)
+		sc.MaximumCombo, left = findWithIndex(pageStr, "max_combo :", ",", left)
+
+		// Обработка максимальной статистики рекорда
+		statisticsString, left := findWithIndex(pageStr, "maximum_statistics :{", "}", left)
+		statisticsString += ","
+
+		sc.MaximumStatistics = StatisticsString{
+			Great: find(statisticsString, "great :", ","),
+			Meh:   find(statisticsString, "meh :", ","),
+			Ok:    find(statisticsString, "ok :", ","),
+			Miss:  find(statisticsString, "miss :", ","),
+		}
+
+		// Цикл для обработки модов
+		for c := 0; pageStr[c] != ']'; c++ {
+			if pageStr[c:c+10] == "acronym : " {
+				sc.Mods = append(sc.Mods, pageStr[c+10:c+12])
+			}
+		}
+
+		sc.Passed, left = findWithIndex(pageStr, "passed :", ",", left)
+		sc.Rank, left = findWithIndex(pageStr, "rank : ", " ", left)
+		sc.RulesetId, left = findWithIndex(pageStr, "ruleset_id :", ",", left)
+		sc.StartedAt, left = findWithIndex(pageStr, "started_at :", ",", left)
+
+		// Обработка статистики рекорда
+		statisticsString, left = findWithIndex(pageStr, "statistics :{", "}", left)
+		statisticsString += ","
+
+		sc.Statistics = StatisticsString{
+			Great: find(statisticsString, "great :", ","),
+			Meh:   find(statisticsString, "meh :", ","),
+			Ok:    find(statisticsString, "ok :", ","),
+			Miss:  find(statisticsString, "miss :", ","),
+		}
+
+		sc.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
+		sc.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
+		sc.BestId, left = findWithIndex(pageStr, " best_id :", ",", left)
+		sc.Id, left = findWithIndex(pageStr, " id :", ",", left)
+		sc.LegacyPerfect, left = findWithIndex(pageStr, "legacy_perfect :", ",", left)
+		sc.PP, left = findWithIndex(pageStr, "pp :", ",", left)
+		sc.Replay, left = findWithIndex(pageStr, "replay :", ",", left)
+		sc.Type, left = findWithIndex(pageStr, "type : ", " ", left)
+		sc.CurrentUserAttributes, left = findWithIndex(pageStr, "current_user_attributes :{ ", "},", left)
+
+		sc.Beatmap.BeatMapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
+		sc.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
+		sc.Beatmap.Id, left = findWithIndex(pageStr, "id :", ",", left)
+		sc.Beatmap.Mode, left = findWithIndex(pageStr, "mode : ", " ", left)
+		sc.Beatmap.Status, left = findWithIndex(pageStr, "status : ", " ", left)
+		sc.Beatmap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
+		sc.Beatmap.UserId, left = findWithIndex(pageStr, " user_id :", ",", left)
+		sc.Beatmap.Version, left = findWithIndex(pageStr, "version : ", " , accuracy", left)
+		sc.Beatmap.Accuracy, left = findWithIndex(pageStr, "accuracy :", ",", left)
+		sc.Beatmap.Ar, left = findWithIndex(pageStr, "ar :", ",", left)
+		sc.Beatmap.Bpm, left = findWithIndex(pageStr, "bpm :", ",", left)
+		sc.Beatmap.Convert, left = findWithIndex(pageStr, "convert :", ",", left)
+		sc.Beatmap.CountCircles, left = findWithIndex(pageStr, "count_circles :", ",", left)
+		sc.Beatmap.CountSliders, left = findWithIndex(pageStr, "count_sliders :", ",", left)
+		sc.Beatmap.CountSpinners, left = findWithIndex(pageStr, "count_spinners :", ",", left)
+		sc.Beatmap.Cs, left = findWithIndex(pageStr, " cs :", ",", left)
+		sc.Beatmap.DeletedAt, left = findWithIndex(pageStr, "deleted_at :", ",", left)
+		sc.Beatmap.Drain, left = findWithIndex(pageStr, "drain :", ",", left)
+		sc.Beatmap.HitLength, left = findWithIndex(pageStr, "hit_length :", ",", left)
+		sc.Beatmap.IsScoreable, left = findWithIndex(pageStr, "is_scoreable :", ",", left)
+		sc.Beatmap.LastUpdated, left = findWithIndex(pageStr, "last_updated : ", " ", left)
+		sc.Beatmap.ModeInt, left = findWithIndex(pageStr, "mode_int :", ",", left)
+		sc.Beatmap.PassCount, left = findWithIndex(pageStr, "passcount :", ",", left)
+		sc.Beatmap.PlayCount, left = findWithIndex(pageStr, "playcount :", ",", left)
+		sc.Beatmap.Ranked, left = findWithIndex(pageStr, "ranked :", ",", left)
+		sc.Beatmap.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+		sc.Beatmap.Url = strings.ReplaceAll(sc.Beatmap.Url, "\\", "")
+		sc.Beatmap.Checksum, left = findWithIndex(pageStr, "checksum : ", " ", left)
+
+		sc.Beatmapset.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
+		sc.Beatmapset.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " ,", left)
+
+		sc.Beatmapset.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " , cover", left)
+		sc.Beatmapset.Covers.Cover = strings.ReplaceAll(sc.Beatmapset.Covers.Cover, "\\", "")
+		sc.Beatmapset.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ,", left)
+		sc.Beatmapset.Covers.Cover2X = strings.ReplaceAll(sc.Beatmapset.Covers.Cover2X, "\\", "")
+		sc.Beatmapset.Covers.Card, left = findWithIndex(pageStr, "card : ", " , card@2x", left)
+		sc.Beatmapset.Covers.Card = strings.ReplaceAll(sc.Beatmapset.Covers.Card, "\\", "")
+		sc.Beatmapset.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ,", left)
+		sc.Beatmapset.Covers.Card2X = strings.ReplaceAll(sc.Beatmapset.Covers.Card2X, "\\", "")
+		sc.Beatmapset.Covers.List, left = findWithIndex(pageStr, "list : ", " ,", left)
+		sc.Beatmapset.Covers.List = strings.ReplaceAll(sc.Beatmapset.Covers.List, "\\", "")
+		sc.Beatmapset.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ,", left)
+		sc.Beatmapset.Covers.List2X = strings.ReplaceAll(sc.Beatmapset.Covers.List2X, "\\", "")
+		sc.Beatmapset.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " , slimcover", left)
+		sc.Beatmapset.Covers.SlimCover = strings.ReplaceAll(sc.Beatmapset.Covers.SlimCover, "\\", "")
+		sc.Beatmapset.Covers.SlimCover2X, left = findWithIndex(pageStr, "slimcover@2x : ", " }", left)
+		sc.Beatmapset.Covers.SlimCover2X = strings.ReplaceAll(sc.Beatmapset.Covers.SlimCover2X, "\\", "")
+
+		sc.Beatmapset.Creator, left = findWithIndex(pageStr, "creator : ", " ", left)
+		sc.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
+		sc.Beatmapset.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
+		sc.Beatmapset.Id, left = findWithIndex(pageStr, "id :", ",", left)
+		sc.Beatmapset.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
+		sc.Beatmapset.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
+		sc.Beatmapset.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
+		sc.Beatmapset.PreviewUrl, left = findWithIndex(pageStr, "preview_url : \\/\\/", " , source", left)
+		sc.Beatmapset.PreviewUrl = strings.ReplaceAll(sc.Beatmapset.PreviewUrl, "\\", "")
+		sc.Beatmapset.Source, left = findWithIndex(pageStr, "source :", " ", left)
+		sc.Beatmapset.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
+		sc.Beatmapset.Status, left = findWithIndex(pageStr, "status : ", " ,", left)
+		sc.Beatmapset.Title, left = findWithIndex(pageStr, "title : ", " , title_unicode", left)
+		sc.Beatmapset.TitleUnicode, left = findWithIndex(pageStr, "title_unicode : ", " ,", left)
+		sc.Beatmapset.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
+		sc.Beatmapset.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
+		sc.Beatmapset.Video, left = findWithIndex(pageStr, "video :", "}", left)
+
+		if scoreType == "best" {
+			sc.Weight.Percentage, left = findWithIndex(pageStr, "percentage :", ",", left)
+			sc.Weight.PP, _ = findWithIndex(pageStr, "pp :", "}", left)
+		}
+
+		// Добавление карты к результату
+		result = append(result, sc)
+
+	}
+
+	return result, end
+}
+
 // Функция получения информации о пользователе
 func GetUserInfoString(id, mode string) UserInfoString {
 
