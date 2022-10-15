@@ -95,8 +95,8 @@ type UserInfoString struct {
 	Best                    []ScoreString       `json:"best"`
 	Firsts                  []ScoreString       `json:"firsts"`
 	Pinned                  []ScoreString       `json:"pinned"`
-	// beatmap_playcounts
-	MonthlyPlaycounts []CountString `json:"monthly_playcounts"`
+	BeatmapPlaycounts       []PlayCountString   `json:"beatmap_playcounts"`
+	MonthlyPlaycounts       []CountString       `json:"monthly_playcounts"`
 	// recent
 	ReplaysWatchedCount []CountString `json:"replays_watched_counts"`
 }
@@ -321,6 +321,25 @@ type BeatMapsetString struct {
 type WeightString struct {
 	Percentage string `json:"percentage"`
 	PP         string `json:"pp"`
+}
+
+// Структура для подсчёта количества игр
+type PlayCountString struct {
+	BeatmapId  string                 `json:"beatmap_id"`
+	Count      string                 `json:"count"`
+	Beatmap    PlayCountBeatmapString `json:"beatmap"`
+	Beatmapset BeatMapsetString       `json:"beatmapset"`
+}
+
+// Сет мапы подсчёта
+type PlayCountBeatmapString struct {
+	BeatmapsetId     string `json:"beatmapset_id"`
+	DifficultyRating string `json:"difficulty_rating"`
+	Id               string `json:"id"`
+	Status           string `json:"status"`
+	TotalLength      string `json:"total_length"`
+	UserId           string `json:"user_id"`
+	Version          string `json:"version"`
 }
 
 // Функция для парсинга карты
