@@ -92,10 +92,9 @@ type UserInfoString struct {
 	PendingBeatmaps         []BeatMapString     `json:"pending_beatmaps"`
 	KudosuItems             []KudosuString      `json:"kudosu_items"`
 	RecentActivity          []ActivityString    `json:"recent_activity"`
-
-	// top_ranks (scores)
-	// firsts
-	// pinned
+	Best                    []ScoreString       `json:"best"`
+	Firsts                  []ScoreString       `json:"firsts"`
+	Pinned                  []ScoreString       `json:"pinned"`
 	// beatmap_playcounts
 	MonthlyPlaycounts []CountString `json:"monthly_playcounts"`
 	// recent
@@ -846,6 +845,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	// Обрезка левой части и обнуление левого индекса
 	pageStr = pageStr[left:]
 	left = 0
+
+	result.Best, left = parseScoresString(pageStr, "best", left)
+	result.Firsts, left = parseScoresString(pageStr, "first", left)
+	result.Pinned, left = parseScoresString(pageStr, "pinned", left)
 
 	// Проверка на наличие статистики
 	if !contains(pageStr, "replays_watched_counts :[]", left) {
