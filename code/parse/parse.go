@@ -345,7 +345,6 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatMapString, int) {
 		var bm BeatMapString
 
 		// Запись данных
-
 		bm.Artist, left = findWithIndex(pageStr, "artist : ", " , artist_", left)
 		bm.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " ,", left)
 
@@ -814,6 +813,11 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 		}
 
+	} else {
+
+		// Смещение указателя на конец
+		left = index(pageStr, "items :[]", left) + 1
+
 	}
 
 	// Проверка на наличие активности
@@ -839,6 +843,11 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			result.RecentActivity = append(result.RecentActivity, act)
 
 		}
+
+	} else {
+
+		// Смещение указателя на конец
+		left = index(pageStr, "items :[]", left) + 1
 
 	}
 
