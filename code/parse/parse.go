@@ -215,29 +215,6 @@ type BeatMapsString struct {
 	Checksum         string `json:"checksum"`
 }
 
-// Мап сет
-type BeatMapSetString struct {
-	Artist        string `json:"artist"`
-	ArtistUnicode string `json:"artist_unicode"`
-	Covers        Covers `json:"covers"`
-	Creator       string `json:"creator"`
-	FavoriteCount string `json:"favorite_count"`
-	Hype          string `json:"hype"`
-	Id            string `json:"id"`
-	Nsfw          string `json:"nsfw"`
-	Offset        string `json:"offset"`
-	PlayCount     string `json:"play_count"`
-	PreviewUrl    string `json:"preview_url"`
-	Source        string `json:"source"`
-	Spotlight     string `json:"spotlight"`
-	Status        string `json:"status"`
-	Title         string `json:"title"`
-	TitleUnicode  string `json:"title_unicode"`
-	TrackId       string `json:"track_id"`
-	UserId        string `json:"userId"`
-	Video         string `json:"video"`
-}
-
 // Кудосу
 type KudosuString struct {
 	Id        string      `json:"id"`
@@ -278,6 +255,73 @@ type ActivityString struct {
 type CountString struct {
 	StartDate string `json:"start_date"`
 	Count     string `json:"count"`
+}
+
+// Рекорд
+type ScoreString struct {
+	Accuracy              string           `json:"accuracy"`
+	BeatmapId             string           `json:"beatmap_id"`
+	BuildId               string           `json:"build_id"`
+	EndedAt               string           `json:"ended_at"`
+	LegacyScoreId         string           `json:"legacy_score_id"`
+	LegacyTotalScore      string           `json:"legacy_total_score"`
+	MaximumCombo          string           `json:"max_combo"`
+	MaximumStatistics     StatisticsString `json:"maximum_statistics"`
+	Mods                  []string         `json:"mods"`
+	Passed                string           `json:"passed"`
+	Rank                  string           `json:"rank"`
+	RulesetId             string           `json:"ruleset_id"`
+	StartedAt             string           `json:"started_at"`
+	Statistics            StatisticsString `json:"statistics"`
+	TotalScore            string           `json:"total_score"`
+	UserId                string           `json:"user_id"`
+	BestId                string           `json:"best_id"`
+	Id                    string           `json:"id"`
+	LegacyPerfect         string           `json:"legacy_perfect"`
+	PP                    string           `json:"pp"`
+	Replay                string           `json:"replay"`
+	Type                  string           `json:"type"`
+	CurrentUserAttributes string           `json:"current_user_attributes"`
+	Beatmap               BeatMapsString   `json:"beatmap"`
+	Beatmapset            BeatMapsetString `json:"beatmapset"`
+	Weight                WeightString     `json:"weight"`
+}
+
+// Статистика рекорда
+type StatisticsString struct {
+	Great string `json:"great"`
+	Meh   string `json:"meh"`
+	Miss  string `json:"miss"`
+	Ok    string `json:"ok"`
+}
+
+// Сет мапы рекорда
+type BeatMapsetString struct {
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_unicode"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount string `json:"favorite_count"`
+	Hype          string `json:"hype"`
+	Id            string `json:"id"`
+	Nsfw          string `json:"nsfw"`
+	Offset        string `json:"offset"`
+	PlayCount     string `json:"play_count"`
+	PreviewUrl    string `json:"preview_url"`
+	Source        string `json:"source"`
+	Spotlight     string `json:"spotlight"`
+	Status        string `json:"status"`
+	Title         string `json:"title"`
+	TitleUnicode  string `json:"title_unicode"`
+	TrackId       string `json:"track_id"`
+	UserId        string `json:"userId"`
+	Video         string `json:"video"`
+}
+
+// Статистика рекорда
+type WeightString struct {
+	Percentage string `json:"percentage"`
+	PP         string `json:"pp"`
 }
 
 // Функция для парсинга карты
