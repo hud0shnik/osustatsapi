@@ -879,6 +879,68 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.Pinned, left = parseScoresString(pageStr, "pinned", left)
 
 	// Проверка на наличие статистики
+	if !contains(pageStr, "beatmap_playcounts :{ items :[]", left) {
+
+		// Пока есть необработанная активность
+		for index(pageStr, "{ beatmap_id", left) != -1 {
+
+			// Инициализация активности
+			var pc PlayCountString
+
+			// Запись данных
+			pc.BeatmapId, left = findWithIndex(pageStr, "beatmap_id :", ",", left)
+			pc.Count, left = findWithIndex(pageStr, "count :", ",", left)
+
+			pc.Beatmap.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
+			pc.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
+			pc.Beatmap.Id, left = findWithIndex(pageStr, "id :", ",", left)
+			pc.Beatmap.Status, left = findWithIndex(pageStr, "status :", ",", left)
+			pc.Beatmap.TotalLength, left = findWithIndex(pageStr, "total_length :", ",", left)
+			pc.Beatmap.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
+			pc.Beatmap.Version, left = findWithIndex(pageStr, "version : ", " },", left)
+
+			pc.Beatmapset.Artist, left = findWithIndex(pageStr, "artist :", ",", left)
+			pc.Beatmapset.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", ",", left)
+
+			pc.Beatmapset.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " ", left)
+			pc.Beatmapset.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ", left)
+			pc.Beatmapset.Covers.Card, left = findWithIndex(pageStr, "card : ", " ", left)
+			pc.Beatmapset.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ", left)
+			pc.Beatmapset.Covers.List, left = findWithIndex(pageStr, "list : ", " ", left)
+			pc.Beatmapset.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ", left)
+			pc.Beatmapset.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " ", left)
+			pc.Beatmapset.Covers.SlimCover2X, left = findWithIndex(pageStr, "slimcover@2x : ", " ", left)
+
+			pc.Beatmapset.Creator, left = findWithIndex(pageStr, "creator :", ",", left)
+			pc.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
+			pc.Beatmapset.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
+			pc.Beatmapset.Id, left = findWithIndex(pageStr, "id :", ",", left)
+			pc.Beatmapset.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
+			pc.Beatmapset.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
+			pc.Beatmapset.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
+			pc.Beatmapset.PreviewUrl, left = findWithIndex(pageStr, "preview_url :", ",", left)
+			pc.Beatmapset.Source, left = findWithIndex(pageStr, "source :", ",", left)
+			pc.Beatmapset.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
+			pc.Beatmapset.Status, left = findWithIndex(pageStr, "status :", ",", left)
+			pc.Beatmapset.Title, left = findWithIndex(pageStr, "title :", ",", left)
+			pc.Beatmapset.TitleUnicode, left = findWithIndex(pageStr, "title_unicode :", ",", left)
+			pc.Beatmapset.TrackId, left = findWithIndex(pageStr, "track_id :", ",", left)
+			pc.Beatmapset.UserId, left = findWithIndex(pageStr, "user_id :", ",", left)
+			pc.Beatmapset.Video, left = findWithIndex(pageStr, "video :", ",", left)
+
+			// Добавление статистики
+			result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, pc)
+
+		}
+
+	} else {
+
+		// Смещение указателя на конец
+		left = index(pageStr, "items :[]", left) + 1
+
+	}
+
+	// Проверка на наличие статистики
 	if !contains(pageStr, "replays_watched_counts :[]", left) {
 
 		// Конец части со статистикой
