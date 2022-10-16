@@ -42,7 +42,7 @@ type UserInfoString struct {
 	Twitter                 string              `json:"twitter"`
 	Website                 string              `json:"website"`
 	CountyName              string              `json:"country_name"`
-	UserCover               Cover               `json:"cover"`
+	UserCover               CoverString         `json:"cover"`
 	IsAdmin                 string              `json:"is_admin"`
 	IsBng                   string              `json:"is_bng"`
 	IsFullBan               string              `json:"is_full_bn"`
@@ -101,7 +101,7 @@ type UserInfoString struct {
 }
 
 // Ковёр пользователя
-type Cover struct {
+type CoverString struct {
 	CustomUrl string `json:"custom_url"`
 	Url       string `json:"url"`
 	Id        string `json:"id"`
