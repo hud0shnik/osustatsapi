@@ -97,8 +97,7 @@ type UserInfoString struct {
 	Pinned                  []ScoreString       `json:"pinned"`
 	BeatmapPlaycounts       []PlayCountString   `json:"beatmap_playcounts"`
 	MonthlyPlaycounts       []CountString       `json:"monthly_playcounts"`
-	// recent
-	ReplaysWatchedCount []CountString `json:"replays_watched_counts"`
+	ReplaysWatchedCount     []CountString       `json:"replays_watched_counts"`
 }
 
 // Ковёр пользователя

@@ -1,7 +1,6 @@
 package parse
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -54,12 +53,12 @@ func index(str, subStr string, start int) int {
 	// Проверка на существование нужной строки
 	if res == -1 {
 
-		fmt.Println("index error: \t", subStr)
+		//fmt.Println("index error: \t", subStr)
 
 		return -1
 	}
 
-	fmt.Println(res+start, " - ", subStr)
+	//fmt.Println(res+start, " - ", subStr)
 	return res + start
 }
 
