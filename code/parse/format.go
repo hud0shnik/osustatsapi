@@ -308,39 +308,8 @@ type Statistics struct {
 	Ok    int `json:"ok"`
 }
 
-// Мапа
-type BeatMap struct {
-	BeatMapSetId     int     `json:"beatmapset_id"`
-	DifficultyRating float64 `json:"difficulty_rating"`
-	Id               int     `json:"id"`
-	Mode             string  `json:"mode"`
-	Status           string  `json:"status"`
-	TotalLength      int     `json:"total_length"`
-	UserId           int     `json:"user_id"`
-	Version          string  `json:"version"`
-	Accuracy         float64 `json:"accuracy"`
-	Ar               float64 `json:"ar"`
-	Bpm              float64 `json:"bpm"`
-	Convert          bool    `json:"convert"`
-	CountCircles     int     `json:"count_circles"`
-	CountSliders     int     `json:"count_sliders"`
-	CountSpinners    int     `json:"count_spinners"`
-	Cs               float64 `json:"cs"`
-	DeletedAt        string  `json:"deleted_at"`
-	Drain            float64 `json:"drain"`
-	HitLength        int     `json:"hit_length"`
-	IsScoreable      bool    `json:"is_scoreable"`
-	LastUpdated      string  `json:"last_updated"`
-	ModeInt          int     `json:"mode_int"`
-	PassCount        int     `json:"pass_count"`
-	PlayCount        int     `json:"play_count"`
-	Ranked           int     `json:"ranked"`
-	Url              string  `json:"url"`
-	Checksum         string  `json:"checksum"`
-}
-
-// Мап сет
-type BeatMapSet struct {
+// Сет мапы рекорда
+type Beatmapset struct {
 	Artist        string `json:"artist"`
 	ArtistUnicode string `json:"artist_unicode"`
 	Covers        Covers `json:"covers"`
@@ -350,7 +319,7 @@ type BeatMapSet struct {
 	Id            int    `json:"id"`
 	Nsfw          bool   `json:"nsfw"`
 	Offset        int    `json:"offset"`
-	PlayCount     int64  `json:"play_count"`
+	PlayCount     int    `json:"play_count"`
 	PreviewUrl    string `json:"preview_url"`
 	Source        string `json:"source"`
 	Spotlight     bool   `json:"spotlight"`
@@ -362,10 +331,31 @@ type BeatMapSet struct {
 	Video         bool   `json:"video"`
 }
 
-// Статистика
+// Статистика рекорда
 type Weight struct {
-	Percentage float64 `json:"percentage"`
-	PP         float64 `json:"pp"`
+	Percentage int `json:"percentage"`
+	PP         int `json:"pp"`
+}
+
+// Структура для подсчёта количества игр
+type PlayCount struct {
+	BeatmapId  int              `json:"beatmap_id"`
+	Count      int              `json:"count"`
+	Beatmap    PlayCountBeatmap `json:"beatmap"`
+	Beatmapset Beatmapset       `json:"beatmapset"`
+}
+
+// Сет мапы подсчёта
+type PlayCountBeatmap struct {
+	BeatmapsetId     int    `json:"beatmapset_id"`
+	DifficultyRating int    `json:"difficulty_rating"`
+	Id               int    `json:"id"`
+	Status           string `json:"status"`
+	TotalLength      int    `json:"total_length"`
+	UserId           int    `json:"user_id"`
+	Version          string `json:"version"`
+}
+
 }
 
 // Функция получения информации о пользователе
