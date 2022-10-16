@@ -172,26 +172,25 @@ type Beatmaps struct {
 	TotalLength      int     `json:"total_length"`
 	UserId           int     `json:"user_id"`
 	Version          string  `json:"version"`
-	// float?
-	Accuracy      int     `json:"accuracy"`
-	Ar            float64 `json:"ar"`
-	Bpm           int     `json:"bpm"`
-	Convert       bool    `json:"convert"`
-	CountCircles  int     `json:"count_circles"`
-	CountSliders  int     `json:"count_sliders"`
-	CountSpinners int     `json:"count_spinners"`
-	Cs            int     `json:"cs"`
-	DeletedAt     string  `json:"deleted_at"`
-	Drain         int     `json:"drain"`
-	HitLength     int     `json:"hit_length"`
-	IsScoreable   bool    `json:"is_scoreable"`
-	LastUpdated   string  `json:"last_updated"`
-	ModeInt       int     `json:"mode_int"`
-	PassCount     int     `json:"pass_count"`
-	PlayCount     int     `json:"play_count"`
-	Ranked        int     `json:"ranked"`
-	Url           string  `json:"url"`
-	Checksum      string  `json:"checksum"`
+	Accuracy         float64 `json:"accuracy"`
+	Ar               float64 `json:"ar"`
+	Bpm              int     `json:"bpm"`
+	Convert          bool    `json:"convert"`
+	CountCircles     int     `json:"count_circles"`
+	CountSliders     int     `json:"count_sliders"`
+	CountSpinners    int     `json:"count_spinners"`
+	Cs               float64 `json:"cs"`
+	DeletedAt        string  `json:"deleted_at"`
+	Drain            float64 `json:"drain"`
+	HitLength        int     `json:"hit_length"`
+	IsScoreable      bool    `json:"is_scoreable"`
+	LastUpdated      string  `json:"last_updated"`
+	ModeInt          int     `json:"mode_int"`
+	PassCount        int     `json:"pass_count"`
+	PlayCount        int     `json:"play_count"`
+	Ranked           int     `json:"ranked"`
+	Url              string  `json:"url"`
+	Checksum         string  `json:"checksum"`
 }
 
 // Кудосу
@@ -400,58 +399,47 @@ func GetUserInfo(id, mode string) UserInfo {
 			Url:       resultStr.UserCover.Url,
 			Id:        ToInt(resultStr.UserCover.Id),
 		},
-		IsAdmin:                 ToBool(resultStr.IsAdmin),
-		IsBng:                   ToBool(resultStr.IsBng),
-		IsFullBan:               ToBool(resultStr.IsFullBan),
-		IsGmt:                   ToBool(resultStr.IsGmt),
-		IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
-		IsModerator:             ToBool(resultStr.IsModerator),
-		IsNat:                   ToBool(resultStr.IsNat),
-		IsRestricted:            ToBool(resultStr.IsRestricted),
-		IsSilenced:              ToBool(resultStr.IsSilenced),
-		AccountHistory:          resultStr.AccountHistory,
-		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
-		Badges:                  resultStr.Badges,
-		CommentsCount:           ToInt(resultStr.CommentsCount),
-		FollowerCount:           ToInt(resultStr.FollowerCount),
-		Groups:                  resultStr.Groups,
-		MappingFollowerCount:    ToInt(resultStr.MappingFollowerCount),
-		PendingBeatmapsetCount:  ToInt(resultStr.PendingBeatmapsetCount),
-		Names:                   resultStr.Names,
-		Level:                   ToInt(resultStr.Level),
-		GlobalRank:              ToInt64(resultStr.GlobalRank),
-		PP:                      ToFloat64(resultStr.PP),
-		RankedScore:             ToInt(resultStr.RankedScore),
-		Accuracy:                ToFloat64(resultStr.Accuracy),
-		PlayCount:               ToInt(resultStr.PlayCount),
-		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              ToInt64(resultStr.TotalScore),
-		TotalHits:               ToInt64(resultStr.TotalHits),
-		MaximumCombo:            ToInt(resultStr.MaximumCombo),
-		Replays:                 ToInt(resultStr.Replays),
-		IsRanked:                ToBool(resultStr.IsRanked),
-		SS:                      ToInt(resultStr.SS),
-		SSH:                     ToInt(resultStr.SSH),
-		S:                       ToInt(resultStr.S),
-		SH:                      ToInt(resultStr.SH),
-		A:                       ToInt(resultStr.A),
-		CountryRank:             ToInt(resultStr.CountryRank),
+		IsAdmin:                ToBool(resultStr.IsAdmin),
+		IsBng:                  ToBool(resultStr.IsBng),
+		IsFullBan:              ToBool(resultStr.IsFullBan),
+		IsGmt:                  ToBool(resultStr.IsGmt),
+		IsLimitedBan:           ToBool(resultStr.IsLimitedBan),
+		IsModerator:            ToBool(resultStr.IsModerator),
+		IsNat:                  ToBool(resultStr.IsNat),
+		IsRestricted:           ToBool(resultStr.IsRestricted),
+		IsSilenced:             ToBool(resultStr.IsSilenced),
+		AccountHistory:         resultStr.AccountHistory,
+		ActiveTournamentBanner: resultStr.ActiveTournamentBanner,
+		Badges:                 resultStr.Badges,
+		CommentsCount:          ToInt(resultStr.CommentsCount),
+		FollowerCount:          ToInt(resultStr.FollowerCount),
+		Groups:                 resultStr.Groups,
+		MappingFollowerCount:   ToInt(resultStr.MappingFollowerCount),
+		PendingBeatmapsetCount: ToInt(resultStr.PendingBeatmapsetCount),
+		Names:                  resultStr.Names,
+		Level:                  ToInt(resultStr.Level),
+		GlobalRank:             ToInt64(resultStr.GlobalRank),
+		PP:                     ToFloat64(resultStr.PP),
+		RankedScore:            ToInt(resultStr.RankedScore),
+		Accuracy:               ToFloat64(resultStr.Accuracy),
+		PlayCount:              ToInt(resultStr.PlayCount),
+		PlayTime:               resultStr.PlayTime,
+		PlayTimeSeconds:        ToInt64(resultStr.PlayTimeSeconds),
+		TotalScore:             ToInt64(resultStr.TotalScore),
+		TotalHits:              ToInt64(resultStr.TotalHits),
+		MaximumCombo:           ToInt(resultStr.MaximumCombo),
+		Replays:                ToInt(resultStr.Replays),
+		IsRanked:               ToBool(resultStr.IsRanked),
+		SS:                     ToInt(resultStr.SS),
+		SSH:                    ToInt(resultStr.SSH),
+		S:                      ToInt(resultStr.S),
+		SH:                     ToInt(resultStr.SH),
+		A:                      ToInt(resultStr.A),
+		CountryRank:            ToInt(resultStr.CountryRank),
+		SupportLvl:             ToInt(resultStr.SupportLvl),
+		// Achievements: _,
+		// RankHistory
 		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
-	}
-
-	for _, c := range resultStr.MonthlyPlaycounts {
-		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
-			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
-		})
-	}
-
-	for _, c := range resultStr.ReplaysWatchedCount {
-		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
-			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
-		})
 	}
 
 	for _, c := range resultStr.Achievements {
@@ -466,6 +454,90 @@ func GetUserInfo(id, mode string) UserInfo {
 
 	for _, d := range sliceStr {
 		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
+	}
+
+	for _, bm := range resultStr.FavoriteBeatmaps {
+		result.FavoriteBeatmaps = append(result.FavoriteBeatmaps, Beatmap{
+			Artist:            bm.Artist,
+			ArtistUnicode:     bm.ArtistUnicode,
+			Covers:            bm.Covers,
+			Creator:           bm.Creator,
+			FavoriteCount:     ToInt(bm.FavoriteCount),
+			Hype:              bm.Hype,
+			Id:                ToInt(bm.Id),
+			Nsfw:              ToBool(bm.Nsfw),
+			Offset:            ToInt(bm.Offset),
+			PlayCount:         ToInt(bm.PlayCount),
+			PreviewUrl:        bm.PreviewUrl,
+			Source:            bm.Source,
+			Spotlight:         ToBool(bm.Spotlight),
+			Status:            bm.Status,
+			Title:             bm.Title,
+			TitleUnicode:      bm.TitleUnicode,
+			TrackId:           bm.TrackId,
+			UserId:            ToInt(bm.UserId),
+			Video:             ToBool(bm.Video),
+			DownloadDisabled:  ToBool(bm.DownloadDisabled),
+			Bpm:               ToInt(bm.Bpm),
+			CanBeHyped:        ToBool(bm.CanBeHyped),
+			DiscussionEnabled: ToBool(bm.DiscussionEnabled),
+			DiscussionLocked:  ToBool(bm.DiscussionLocked),
+			IsScoreable:       ToBool(bm.IsScoreable),
+			LastUpdated:       bm.LastUpdated,
+			LegacyThreadUrl:   bm.LegacyThreadUrl,
+			Nominations: NominationsSummary{
+				Current:  ToInt(bm.Nominations.Current),
+				Required: ToInt(bm.Nominations.Required),
+			},
+			Ranked:        ToInt(bm.Ranked),
+			RankedDate:    bm.RankedDate,
+			Storyboard:    ToBool(bm.Storyboard),
+			SubmittedDate: bm.SubmittedDate,
+			Tags:          bm.Tags,
+			Beatmap: Beatmaps{
+				BeatmapSetId:     ToInt(bm.Beatmap.BeatmapSetId),
+				DifficultyRating: ToFloat64(bm.Beatmap.DifficultyRating),
+				Id:               ToInt(bm.Beatmap.Id),
+				Mode:             bm.Beatmap.Mode,
+				Status:           bm.Beatmap.Status,
+				TotalLength:      ToInt(bm.Beatmap.TotalLength),
+				UserId:           ToInt(bm.Beatmap.UserId),
+				Version:          bm.Beatmap.Version,
+				Accuracy:         ToFloat64(bm.Beatmap.Accuracy),
+				Ar:               ToFloat64(bm.Beatmap.Ar),
+				Bpm:              ToInt(bm.Beatmap.Bpm),
+				Convert:          ToBool(bm.Beatmap.Convert),
+				CountCircles:     ToInt(bm.Beatmap.CountCircles),
+				CountSliders:     ToInt(bm.Beatmap.CountSliders),
+				CountSpinners:    ToInt(bm.Beatmap.CountSpinners),
+				Cs:               ToFloat64(bm.Beatmap.Cs),
+				DeletedAt:        bm.Beatmap.DeletedAt,
+				Drain:            ToFloat64(bm.Beatmap.Drain),
+				HitLength:        ToInt(bm.Beatmap.HitLength),
+				IsScoreable:      ToBool(bm.Beatmap.IsScoreable),
+				LastUpdated:      bm.Beatmap.LastUpdated,
+				ModeInt:          ToInt(bm.Beatmap.ModeInt),
+				PassCount:        ToInt(bm.Beatmap.PassCount),
+				PlayCount:        ToInt(bm.Beatmap.PlayCount),
+				Ranked:           ToInt(bm.Beatmap.Ranked),
+				Url:              bm.Beatmap.Url,
+				Checksum:         bm.Beatmap.Checksum,
+			},
+		})
+	}
+
+	for _, c := range resultStr.MonthlyPlaycounts {
+		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
+		})
+	}
+
+	for _, c := range resultStr.ReplaysWatchedCount {
+		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
+		})
 	}
 
 	return result
