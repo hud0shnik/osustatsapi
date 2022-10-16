@@ -103,19 +103,19 @@ type UserInfo struct {
 	CommentsCount           int           `json:"comments_count"`
 	FollowerCount           int           `json:"follower_count"`
 	Groups                  string        `json:"groups"`
-	MonthlyPlaycounts       []Count       `json:"monthly_playcounts"`
+	MappingFollowerCount    int           `json:"mapping_follower_count"`
+	PendingBeatmapsetCount  int           `json:"pending_beatmapset_count"`
 	Names                   string        `json:"previous_usernames"`
-	ReplaysWatchedCount     []Count       `json:"replays_watched_counts"`
 	Level                   int           `json:"level"`
-	GlobalRank              int64         `json:"global_rank"`
+	GlobalRank              int           `json:"global_rank"`
 	PP                      float64       `json:"pp"`
 	RankedScore             int           `json:"ranked_score"`
 	Accuracy                float64       `json:"accuracy"`
 	PlayCount               int           `json:"play_count"`
 	PlayTime                string        `json:"play_time"`
-	PlayTimeSeconds         int64         `json:"play_time_seconds"`
-	TotalScore              int64         `json:"total_score"`
-	TotalHits               int64         `json:"total_hits"`
+	PlayTimeSeconds         int           `json:"play_time_seconds"`
+	TotalScore              int           `json:"total_score"`
+	TotalHits               int           `json:"total_hits"`
 	MaximumCombo            int           `json:"maximum_combo"`
 	Replays                 int           `json:"replays"`
 	IsRanked                bool          `json:"is_ranked"`
@@ -124,20 +124,32 @@ type UserInfo struct {
 	S                       int           `json:"s"`
 	SH                      int           `json:"sh"`
 	A                       int           `json:"a"`
-	CountryRank             int64         `json:"country_rank"`
+	CountryRank             int           `json:"country_rank"`
 	SupportLvl              int           `json:"support_level"`
 	Achievements            []Achievement `json:"achievements"`
 	RankHistory             History       `json:"rank_history"`
 	UnrankedBeatmapsetCount int           `json:"unranked_beatmapset_count"`
-	ScoresBest              []Score       `json:"scores_best"`
-	ScoresFirst             []Score       `json:"scores_first"`
-	ScoresPinned            []Score       `json:"scores_pinned"`
+	FavoriteBeatmaps        []Beatmap     `json:"favorite_beatmaps"`
+	GraveyardBeatmaps       []Beatmap     `json:"graveyard_beatmaps"`
+	GuestBeatmaps           []Beatmap     `json:"guest_beatmaps"`
+	LovedBeatmaps           []Beatmap     `json:"loved_beatmaps"`
+	RankedBeatmaps          []Beatmap     `json:"ranked_beatmaps"`
+	PendingBeatmaps         []Beatmap     `json:"pending_beatmaps"`
+	KudosuItems             []Kudosu      `json:"kudosu_items"`
+	RecentActivity          []Activity    `json:"recent_activity"`
+	Best                    []Score       `json:"best"`
+	Firsts                  []Score       `json:"firsts"`
+	Pinned                  []Score       `json:"pinned"`
+	BeatmapPlaycounts       []PlayCount   `json:"beatmap_playcounts"`
+	MonthlyPlaycounts       []Count       `json:"monthly_playcounts"`
+	ReplaysWatchedCount     []Count       `json:"replays_watched_counts"`
 }
 
-// Структура для подсчёта
-type Count struct {
-	StartDate string `json:"start_date"`
-	Count     int    `json:"count"`
+// Ковёр пользователя
+type Cover struct {
+	CustomUrl string `json:"custom_url"`
+	Url       string `json:"url"`
+	Id        int    `json:"id"`
 }
 
 // Достижение
@@ -152,15 +164,124 @@ type History struct {
 	Data []int  `json:"data"`
 }
 
+// Структура карты
+type Beatmap struct {
+	Artist            string             `json:"artist"`
+	ArtistUnicode     string             `json:"artist_unicode"`
+	Covers            Covers             `json:"covers"`
+	Creator           string             `json:"creator"`
+	FavoriteCount     int                `json:"favorite_count"`
+	Hype              string             `json:"hype"`
+	Id                int                `json:"id"`
+	Nsfw              bool               `json:"nsfw"`
+	Offset            int                `json:"offset"`
+	PlayCount         int                `json:"play_count"`
+	PreviewUrl        string             `json:"preview_url"`
+	Source            string             `json:"source"`
+	Spotlight         bool               `json:"spotlight"`
+	Status            string             `json:"status"`
+	Title             string             `json:"title"`
+	TitleUnicode      string             `json:"title_unicode"`
+	TrackId           string             `json:"track_id"`
+	UserId            int                `json:"userId"`
+	Video             bool               `json:"video"`
+	DownloadDisabled  bool               `json:"download_disabled"`
+	Bpm               int                `json:"bpm"`
+	CanBeHyped        bool               `json:"can_be_hyped"`
+	DiscussionEnabled bool               `json:"discussion_enabled"`
+	DiscussionLocked  bool               `json:"discussion_locked"`
+	IsScoreable       bool               `json:"is_scoreable"`
+	LastUpdated       string             `json:"last_updated"`
+	LegacyThreadUrl   string             `json:"legacy_thread_url"`
+	Nominations       NominationsSummary `json:"nominations_summary"`
+	Ranked            int                `json:"ranked"`
+	RankedDate        string             `json:"ranked_date"`
+	Storyboard        bool               `json:"storyboard"`
+	SubmittedDate     string             `json:"submitted_date"`
+	Tags              string             `json:"tags"`
+	Beatmap           Beatmaps           `json:"beatmap"`
+}
+
+// Оценка номинаций
+type NominationsSummary struct {
+	Current  int `json:"current"`
+	Required int `json:"required"`
+}
+
+// Мапы
+type Beatmaps struct {
+	BeatmapSetId     int     `json:"beatmapset_id"`
+	DifficultyRating float64 `json:"difficulty_rating"`
+	Id               int     `json:"id"`
+	Mode             string  `json:"mode"`
+	Status           string  `json:"status"`
+	TotalLength      int     `json:"total_length"`
+	UserId           int     `json:"user_id"`
+	Version          string  `json:"version"`
+	// float?
+	Accuracy      int     `json:"accuracy"`
+	Ar            float64 `json:"ar"`
+	Bpm           int     `json:"bpm"`
+	Convert       bool    `json:"convert"`
+	CountCircles  int     `json:"count_circles"`
+	CountSliders  int     `json:"count_sliders"`
+	CountSpinners int     `json:"count_spinners"`
+	Cs            int     `json:"cs"`
+	DeletedAt     string  `json:"deleted_at"`
+	Drain         int     `json:"drain"`
+	HitLength     int     `json:"hit_length"`
+	IsScoreable   bool    `json:"is_scoreable"`
+	LastUpdated   string  `json:"last_updated"`
+	ModeInt       int     `json:"mode_int"`
+	PassCount     int     `json:"pass_count"`
+	PlayCount     int     `json:"play_count"`
+	Ranked        int     `json:"ranked"`
+	Url           string  `json:"url"`
+	Checksum      string  `json:"checksum"`
+}
+
+// Кудосу
+type Kudosu struct {
+	Id        int         `json:"id"`
+	Action    string      `json:"action"`
+	Amount    int         `json:"amount"`
+	Model     string      `json:"model"`
+	CreatedAt string      `json:"created_at"`
+	Giver     KudosuGiver `json:"giver"`
+	Post      KudosuPost  `json:"post"`
+	Details   string      `json:"details"`
+}
+
+// Активность
+type Activity struct {
+	CreatedAt    string `json:"created_at"`
+	Id           int    `json:"id"`
+	Type         string `json:"type"`
+	ScoreRank    string `json:"score_rank"`
+	Rank         int    `json:"rank"`
+	Mode         string `json:"mode"`
+	BeatmapTitle string `json:"beatmap_title"`
+	BeatmapUrl   string `json:"beatmap_url"`
+}
+
+// Структура для подсчёта
+type Count struct {
+	StartDate string `json:"start_date"`
+	Count     int    `json:"count"`
+}
+
 // Рекорд
 type Score struct {
 	Accuracy              float64    `json:"accuracy"`
-	BeatMapId             int        `json:"beatmap_id"`
+	BeatmapId             int        `json:"beatmap_id"`
 	BuildId               string     `json:"build_id"`
 	EndedAt               string     `json:"ended_at"`
-	MaximumCombo          int        `json:"maximum_combo"`
+	LegacyScoreId         string     `json:"legacy_score_id"`
+	LegacyTotalScore      string     `json:"legacy_total_score"`
+	MaximumCombo          int        `json:"max_combo"`
+	MaximumStatistics     Statistics `json:"maximum_statistics"`
 	Mods                  []string   `json:"mods"`
-	Passed                bool       `json:"passed"`
+	Passed                string     `json:"passed"`
 	Rank                  string     `json:"rank"`
 	RulesetId             int        `json:"ruleset_id"`
 	StartedAt             string     `json:"started_at"`
@@ -174,8 +295,8 @@ type Score struct {
 	Replay                bool       `json:"replay"`
 	Type                  string     `json:"type"`
 	CurrentUserAttributes string     `json:"current_user_attributes"`
-	BeatMap               BeatMap    `json:"beatmap"`
-	BeatMapSet            BeatMapSet `json:"beatmapset"`
+	Beatmap               Beatmaps   `json:"beatmap"`
+	Beatmapset            Beatmapset `json:"beatmapset"`
 	Weight                Weight     `json:"weight"`
 }
 
