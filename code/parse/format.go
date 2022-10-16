@@ -6,52 +6,6 @@ import (
 	"strings"
 )
 
-//	Функции перевода из строки в другие типы
-
-func ToInt(s string) int {
-	i, err := strconv.Atoi(s)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
-func ToInt64(s string) int64 {
-	i, err := strconv.ParseInt(s, 10, 64)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
-func ToBool(s string) bool {
-	f, err := strconv.ParseBool(s)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return false
-	}
-
-	return f
-}
-
-func ToFloat64(s string) float64 {
-	i, err := strconv.ParseFloat(s, 64)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
 // Структура для хранения полной информации о пользователе
 type UserInfo struct {
 	Error                   string        `json:"error"`
@@ -356,6 +310,50 @@ type PlayCountBeatmap struct {
 	Version          string `json:"version"`
 }
 
+//	Функции перевода из строки в другие типы
+
+func ToInt(s string) int {
+	i, err := strconv.Atoi(s)
+
+	if err != nil {
+		fmt.Println("parsing error: \t", s)
+		return 0
+	}
+
+	return i
+}
+
+func ToInt64(s string) int64 {
+	i, err := strconv.ParseInt(s, 10, 64)
+
+	if err != nil {
+		fmt.Println("parsing error: \t", s)
+		return 0
+	}
+
+	return i
+}
+
+func ToBool(s string) bool {
+	f, err := strconv.ParseBool(s)
+
+	if err != nil {
+		fmt.Println("parsing error: \t", s)
+		return false
+	}
+
+	return f
+}
+
+func ToFloat64(s string) float64 {
+	i, err := strconv.ParseFloat(s, 64)
+
+	if err != nil {
+		fmt.Println("parsing error: \t", s)
+		return 0
+	}
+
+	return i
 }
 
 // Функция получения информации о пользователе
@@ -364,74 +362,76 @@ func GetUserInfo(id, mode string) UserInfo {
 	resultStr := GetUserInfoString(id, mode)
 
 	result := UserInfo{
-		Error:                   resultStr.Error,
-		AvatarUrl:               resultStr.AvatarUrl,
-		CountryCode:             resultStr.CountryCode,
-		DefaultGroup:            resultStr.DefaultGroup,
-		UserID:                  ToInt(resultStr.UserID),
-		IsActive:                ToBool(resultStr.IsActive),
-		IsBot:                   ToBool(resultStr.IsBot),
-		IsDeleted:               ToBool(resultStr.IsDeleted),
-		IsOnline:                ToBool(resultStr.IsOnline),
-		IsSupporter:             ToBool(resultStr.IsSupporter),
-		LastVisit:               resultStr.LastVisit,
-		PmFriendsOnly:           ToBool(resultStr.PmFriendsOnly),
-		ProfileColor:            resultStr.ProfileColor,
-		Username:                resultStr.Username,
-		CoverUrl:                resultStr.CoverUrl,
-		Discord:                 resultStr.Discord,
-		HasSupported:            ToBool(resultStr.HasSupported),
-		Interests:               resultStr.Interests,
-		JoinDate:                resultStr.JoinDate,
-		Kudosu:                  ToInt(resultStr.Kudosu),
-		Location:                resultStr.Location,
-		MaxFriends:              ToInt(resultStr.MaxFriends),
-		MaxBLock:                ToInt(resultStr.MaxBLock),
-		Occupation:              resultStr.Occupation,
-		Playmode:                resultStr.Playmode,
-		Playstyle:               resultStr.Playstyle,
-		PostCount:               ToInt(resultStr.PostCount),
-		ProfileOrder:            resultStr.ProfileOrder,
-		Title:                   resultStr.Title,
-		TitleUrl:                resultStr.TitleUrl,
-		Twitter:                 resultStr.Twitter,
-		Website:                 resultStr.Website,
-		CountyName:              resultStr.CountyName,
-		UserCover:               resultStr.UserCover,
-		IsAdmin:                 ToBool(resultStr.IsAdmin),
-		IsBng:                   ToBool(resultStr.IsBng),
-		IsFullBan:               ToBool(resultStr.IsFullBan),
-		IsGmt:                   ToBool(resultStr.IsGmt),
-		IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
-		IsModerator:             ToBool(resultStr.IsModerator),
-		IsNat:                   ToBool(resultStr.IsNat),
-		IsRestricted:            ToBool(resultStr.IsRestricted),
-		IsSilenced:              ToBool(resultStr.IsSilenced),
-		AccountHistory:          resultStr.AccountHistory,
-		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
-		Badges:                  resultStr.Badges,
-		CommentsCount:           ToInt(resultStr.CommentsCount),
-		Groups:                  resultStr.Groups,
-		Names:                   resultStr.Names,
-		Level:                   ToInt(resultStr.Level),
-		GlobalRank:              ToInt64(resultStr.GlobalRank),
-		PP:                      ToFloat64(resultStr.PP),
-		RankedScore:             ToInt(resultStr.RankedScore),
-		Accuracy:                ToFloat64(resultStr.Accuracy),
-		PlayCount:               ToInt(resultStr.PlayCount),
-		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              ToInt64(resultStr.TotalScore),
-		TotalHits:               ToInt64(resultStr.TotalHits),
-		MaximumCombo:            ToInt(resultStr.MaximumCombo),
-		Replays:                 ToInt(resultStr.Replays),
-		IsRanked:                ToBool(resultStr.IsRanked),
-		SS:                      ToInt(resultStr.SS),
-		SSH:                     ToInt(resultStr.SSH),
-		S:                       ToInt(resultStr.S),
-		SH:                      ToInt(resultStr.SH),
-		A:                       ToInt(resultStr.A),
-		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
+		/*
+			Error:                   resultStr.Error,
+			AvatarUrl:               resultStr.AvatarUrl,
+			CountryCode:             resultStr.CountryCode,
+			DefaultGroup:            resultStr.DefaultGroup,
+			UserID:                  ToInt(resultStr.UserID),
+			IsActive:                ToBool(resultStr.IsActive),
+			IsBot:                   ToBool(resultStr.IsBot),
+			IsDeleted:               ToBool(resultStr.IsDeleted),
+			IsOnline:                ToBool(resultStr.IsOnline),
+			IsSupporter:             ToBool(resultStr.IsSupporter),
+			LastVisit:               resultStr.LastVisit,
+			PmFriendsOnly:           ToBool(resultStr.PmFriendsOnly),
+			ProfileColor:            resultStr.ProfileColor,
+			Username:                resultStr.Username,
+			CoverUrl:                resultStr.CoverUrl,
+			Discord:                 resultStr.Discord,
+			HasSupported:            ToBool(resultStr.HasSupported),
+			Interests:               resultStr.Interests,
+			JoinDate:                resultStr.JoinDate,
+			Kudosu:                  ToInt(resultStr.Kudosu),
+			Location:                resultStr.Location,
+			MaxFriends:              ToInt(resultStr.MaxFriends),
+			MaxBLock:                ToInt(resultStr.MaxBLock),
+			Occupation:              resultStr.Occupation,
+			Playmode:                resultStr.Playmode,
+			Playstyle:               resultStr.Playstyle,
+			PostCount:               ToInt(resultStr.PostCount),
+			ProfileOrder:            resultStr.ProfileOrder,
+			Title:                   resultStr.Title,
+			TitleUrl:                resultStr.TitleUrl,
+			Twitter:                 resultStr.Twitter,
+			Website:                 resultStr.Website,
+			CountyName:              resultStr.CountyName,
+			UserCover:               resultStr.UserCover,
+			IsAdmin:                 ToBool(resultStr.IsAdmin),
+			IsBng:                   ToBool(resultStr.IsBng),
+			IsFullBan:               ToBool(resultStr.IsFullBan),
+			IsGmt:                   ToBool(resultStr.IsGmt),
+			IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
+			IsModerator:             ToBool(resultStr.IsModerator),
+			IsNat:                   ToBool(resultStr.IsNat),
+			IsRestricted:            ToBool(resultStr.IsRestricted),
+			IsSilenced:              ToBool(resultStr.IsSilenced),
+			AccountHistory:          resultStr.AccountHistory,
+			ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
+			Badges:                  resultStr.Badges,
+			CommentsCount:           ToInt(resultStr.CommentsCount),
+			Groups:                  resultStr.Groups,
+			Names:                   resultStr.Names,
+			Level:                   ToInt(resultStr.Level),
+			GlobalRank:              ToInt64(resultStr.GlobalRank),
+			PP:                      ToFloat64(resultStr.PP),
+			RankedScore:             ToInt(resultStr.RankedScore),
+			Accuracy:                ToFloat64(resultStr.Accuracy),
+			PlayCount:               ToInt(resultStr.PlayCount),
+			PlayTime:                resultStr.PlayTime,
+			PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
+			TotalScore:              ToInt64(resultStr.TotalScore),
+			TotalHits:               ToInt64(resultStr.TotalHits),
+			MaximumCombo:            ToInt(resultStr.MaximumCombo),
+			Replays:                 ToInt(resultStr.Replays),
+			IsRanked:                ToBool(resultStr.IsRanked),
+			SS:                      ToInt(resultStr.SS),
+			SSH:                     ToInt(resultStr.SSH),
+			S:                       ToInt(resultStr.S),
+			SH:                      ToInt(resultStr.SH),
+			A:                       ToInt(resultStr.A),
+			UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
+		*/
 	}
 
 	for _, c := range resultStr.MonthlyPlaycounts {
