@@ -553,6 +553,19 @@ func GetUserInfo(id, mode string) UserInfo {
 		})
 	}
 
+	for _, a := range resultStr.RecentActivity {
+		result.RecentActivity = append(result.RecentActivity, Activity{
+			CreatedAt:    a.CreatedAt,
+			Id:           ToInt(a.Id),
+			Type:         a.Type,
+			ScoreRank:    a.ScoreRank,
+			Rank:         ToInt(a.Rank),
+			Mode:         a.Mode,
+			BeatmapTitle: a.BeatmapTitle,
+			BeatmapUrl:   a.BeatmapUrl,
+		})
+	}
+
 	for _, c := range resultStr.MonthlyPlaycounts {
 		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
 			StartDate: c.StartDate,
