@@ -693,7 +693,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
 	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
-	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
+	result.Title, left = findWithIndex(pageStr, "title :", " ,", left)
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url : ", " ,", left)
 	result.Twitter, left = findWithIndex(pageStr, "twitter : ", " ,", left)
 	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
@@ -821,16 +821,20 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 			// Запись данных
 			kudosu.Id, left = findWithIndex(pageStr, "id :", ",", left)
-			kudosu.Action, left = findWithIndex(pageStr, "action :", ",", left)
+			kudosu.Action, left = findWithIndex(pageStr, "action : ", " ,", left)
 			kudosu.Amount, left = findWithIndex(pageStr, "amount :", ",", left)
 			kudosu.Model, left = findWithIndex(pageStr, "model : ", " ", left)
 			kudosu.CreatedAt, left = findWithIndex(pageStr, "created_at : ", " ", left)
+
 			kudosu.Giver.Url, left = findWithIndex(pageStr, "url : ", " ", left)
+			kudosu.Giver.Url = strings.ReplaceAll(kudosu.Giver.Url, "\\", "")
 			kudosu.Giver.Username, left = findWithIndex(pageStr, "username : ", " },", left)
+
 			kudosu.Post.Url, left = findWithIndex(pageStr, "url : ", " ", left)
-			kudosu.Post.Url = strings.ReplaceAll(kudosu.Giver.Url, "\\", "")
+			kudosu.Post.Url = strings.ReplaceAll(kudosu.Post.Url, "\\", "")
 			kudosu.Post.Title, left = findWithIndex(pageStr, "title : ", " },", left)
-			kudosu.Details, left = findWithIndex(pageStr, "details :", "},", left)
+
+			kudosu.Details, left = findWithIndex(pageStr, "details :", "}", left)
 
 			// Добавление данных к результату
 			result.KudosuItems = append(result.KudosuItems, kudosu)
@@ -908,13 +912,21 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			pc.Beatmapset.ArtistUnicode, left = findWithIndex(pageStr, "artist_unicode : ", " , ", left)
 
 			pc.Beatmapset.Covers.Cover, left = findWithIndex(pageStr, "cover : ", " ", left)
+			pc.Beatmapset.Covers.Cover = strings.ReplaceAll(pc.Beatmapset.Covers.Cover, "\\", "")
 			pc.Beatmapset.Covers.Cover2X, left = findWithIndex(pageStr, "cover@2x : ", " ", left)
+			pc.Beatmapset.Covers.Cover2X = strings.ReplaceAll(pc.Beatmapset.Covers.Cover2X, "\\", "")
 			pc.Beatmapset.Covers.Card, left = findWithIndex(pageStr, "card : ", " ", left)
+			pc.Beatmapset.Covers.Card = strings.ReplaceAll(pc.Beatmapset.Covers.Card, "\\", "")
 			pc.Beatmapset.Covers.Card2X, left = findWithIndex(pageStr, "card@2x : ", " ", left)
+			pc.Beatmapset.Covers.Card2X = strings.ReplaceAll(pc.Beatmapset.Covers.Card2X, "\\", "")
 			pc.Beatmapset.Covers.List, left = findWithIndex(pageStr, "list : ", " ", left)
+			pc.Beatmapset.Covers.List = strings.ReplaceAll(pc.Beatmapset.Covers.List, "\\", "")
 			pc.Beatmapset.Covers.List2X, left = findWithIndex(pageStr, "list@2x : ", " ", left)
+			pc.Beatmapset.Covers.List2X = strings.ReplaceAll(pc.Beatmapset.Covers.List2X, "\\", "")
 			pc.Beatmapset.Covers.SlimCover, left = findWithIndex(pageStr, "slimcover : ", " ", left)
+			pc.Beatmapset.Covers.SlimCover = strings.ReplaceAll(pc.Beatmapset.Covers.SlimCover, "\\", "")
 			pc.Beatmapset.Covers.SlimCover2X, left = findWithIndex(pageStr, "slimcover@2x : ", " ", left)
+			pc.Beatmapset.Covers.SlimCover2X = strings.ReplaceAll(pc.Beatmapset.Covers.SlimCover2X, "\\", "")
 
 			pc.Beatmapset.Creator, left = findWithIndex(pageStr, "creator : ", " ,", left)
 			pc.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
@@ -924,6 +936,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 			pc.Beatmapset.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
 			pc.Beatmapset.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left)
 			pc.Beatmapset.PreviewUrl, left = findWithIndex(pageStr, "preview_url : ", " ,", left)
+			pc.Beatmapset.PreviewUrl = strings.ReplaceAll(pc.Beatmapset.PreviewUrl, "\\", "")
 			pc.Beatmapset.Source, left = findWithIndex(pageStr, "source : ", " , spotlight", left)
 			pc.Beatmapset.Spotlight, left = findWithIndex(pageStr, "spotlight :", ",", left)
 			pc.Beatmapset.Status, left = findWithIndex(pageStr, "status : ", " ,", left)
