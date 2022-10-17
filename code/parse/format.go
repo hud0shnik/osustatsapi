@@ -300,13 +300,13 @@ type PlayCount struct {
 
 // Сет мапы подсчёта
 type PlayCountBeatmap struct {
-	BeatmapsetId     int    `json:"beatmapset_id"`
-	DifficultyRating int    `json:"difficulty_rating"`
-	Id               int    `json:"id"`
-	Status           string `json:"status"`
-	TotalLength      int    `json:"total_length"`
-	UserId           int    `json:"user_id"`
-	Version          string `json:"version"`
+	BeatmapsetId     int     `json:"beatmapset_id"`
+	DifficultyRating float64 `json:"difficulty_rating"`
+	Id               int     `json:"id"`
+	Status           string  `json:"status"`
+	TotalLength      int     `json:"total_length"`
+	UserId           int     `json:"user_id"`
+	Version          string  `json:"version"`
 }
 
 //	Функции перевода из строки в другие типы
@@ -671,7 +671,7 @@ func GetUserInfo(id, mode string) UserInfo {
 			Count:     ToInt(pc.Count),
 			Beatmap: PlayCountBeatmap{
 				BeatmapsetId:     ToInt(pc.Beatmap.BeatmapsetId),
-				DifficultyRating: ToInt(pc.Beatmap.DifficultyRating),
+				DifficultyRating: ToFloat64(pc.Beatmap.DifficultyRating),
 				Id:               ToInt(pc.Beatmap.Id),
 				Status:           pc.Beatmap.Status,
 				TotalLength:      ToInt(pc.Beatmap.TotalLength),
