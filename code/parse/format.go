@@ -234,7 +234,7 @@ type Score struct {
 	MaximumCombo          int        `json:"max_combo"`
 	MaximumStatistics     Statistics `json:"maximum_statistics"`
 	Mods                  []string   `json:"mods"`
-	Passed                string     `json:"passed"`
+	Passed                bool       `json:"passed"`
 	Rank                  string     `json:"rank"`
 	RulesetId             int        `json:"ruleset_id"`
 	StartedAt             string     `json:"started_at"`
@@ -286,8 +286,8 @@ type Beatmapset struct {
 
 // Статистика рекорда
 type Weight struct {
-	Percentage int `json:"percentage"`
-	PP         int `json:"pp"`
+	Percentage float64 `json:"percentage"`
+	PP         float64 `json:"pp"`
 }
 
 // Структура для подсчёта количества игр
@@ -660,6 +660,10 @@ func GetUserInfo(id, mode string) UserInfo {
 			BeatmapUrl:   a.BeatmapUrl,
 		})
 	}
+
+	result.Best = FormatScores(resultStr.Best)
+	result.Firsts = FormatScores(resultStr.Firsts)
+	result.Pinned = FormatScores(resultStr.Pinned)
 
 	for _, c := range resultStr.MonthlyPlaycounts {
 		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
