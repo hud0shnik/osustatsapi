@@ -665,6 +665,43 @@ func GetUserInfo(id, mode string) UserInfo {
 	result.Firsts = FormatScores(resultStr.Firsts)
 	result.Pinned = FormatScores(resultStr.Pinned)
 
+	for _, pc := range resultStr.BeatmapPlaycounts {
+		result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, PlayCount{
+			BeatmapId: ToInt(pc.BeatmapId),
+			Count:     ToInt(pc.Count),
+			Beatmap: PlayCountBeatmap{
+				BeatmapsetId:     ToInt(pc.Beatmap.BeatmapsetId),
+				DifficultyRating: ToInt(pc.Beatmap.DifficultyRating),
+				Id:               ToInt(pc.Beatmap.Id),
+				Status:           pc.Beatmap.Status,
+				TotalLength:      ToInt(pc.Beatmap.TotalLength),
+				UserId:           ToInt(pc.Beatmap.UserId),
+				Version:          pc.Beatmap.Version,
+			},
+			Beatmapset: Beatmapset{
+				Artist:        pc.Beatmapset.Artist,
+				ArtistUnicode: pc.Beatmapset.ArtistUnicode,
+				Covers:        pc.Beatmapset.Covers,
+				Creator:       pc.Beatmapset.Creator,
+				FavoriteCount: ToInt(pc.Beatmapset.FavoriteCount),
+				Hype:          pc.Beatmapset.Hype,
+				Id:            ToInt(pc.Beatmapset.Id),
+				Nsfw:          ToBool(pc.Beatmapset.Nsfw),
+				Offset:        ToInt(pc.Beatmapset.Offset),
+				PlayCount:     ToInt(pc.Beatmapset.PlayCount),
+				PreviewUrl:    pc.Beatmapset.PreviewUrl,
+				Source:        pc.Beatmapset.Source,
+				Spotlight:     ToBool(pc.Beatmapset.Spotlight),
+				Status:        pc.Beatmapset.Status,
+				Title:         pc.Beatmapset.Title,
+				TitleUnicode:  pc.Beatmapset.TitleUnicode,
+				TrackId:       pc.Beatmapset.TrackId,
+				UserId:        ToInt(pc.Beatmapset.UserId),
+				Video:         ToBool(pc.Beatmapset.Video),
+			},
+		})
+	}
+
 	for _, c := range resultStr.MonthlyPlaycounts {
 		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
 			StartDate: c.StartDate,
