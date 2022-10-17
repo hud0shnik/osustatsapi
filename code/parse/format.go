@@ -434,6 +434,101 @@ func FormatBeatmaps(bms []BeatmapString) []Beatmap {
 	return result
 }
 
+func FormatScores(scs []ScoreString) []Score {
+
+	var result []Score
+
+	for _, sc := range scs {
+
+		result = append(result, Score{
+			Accuracy:         ToFloat64(sc.Accuracy),
+			BeatmapId:        ToInt(sc.BeatmapId),
+			BuildId:          sc.BuildId,
+			EndedAt:          sc.EndedAt,
+			LegacyScoreId:    sc.LegacyScoreId,
+			LegacyTotalScore: sc.LegacyTotalScore,
+			MaximumCombo:     ToInt(sc.MaximumCombo),
+			MaximumStatistics: Statistics{
+				Great: ToInt(sc.MaximumStatistics.Great),
+				Meh:   ToInt(sc.MaximumStatistics.Meh),
+				Miss:  ToInt(sc.MaximumStatistics.Miss),
+				Ok:    ToInt(sc.MaximumStatistics.Ok),
+			},
+			Mods:                  sc.Mods,
+			Passed:                ToBool(sc.Passed),
+			Rank:                  sc.Rank,
+			RulesetId:             ToInt(sc.RulesetId),
+			StartedAt:             sc.StartedAt,
+			TotalScore:            ToInt(sc.TotalScore),
+			UserId:                ToInt(sc.UserId),
+			BestId:                ToInt(sc.BestId),
+			Id:                    ToInt(sc.Id),
+			LegacyPerfect:         ToBool(sc.LegacyPerfect),
+			PP:                    ToFloat64(sc.PP),
+			Replay:                ToBool(sc.Replay),
+			Type:                  sc.Type,
+			CurrentUserAttributes: sc.CurrentUserAttributes,
+			Beatmap: Beatmaps{
+				BeatmapSetId:     ToInt(sc.Beatmap.BeatmapSetId),
+				DifficultyRating: ToFloat64(sc.Beatmap.DifficultyRating),
+				Id:               ToInt(sc.Beatmap.Id),
+				Mode:             sc.Beatmap.Mode,
+				Status:           sc.Beatmap.Status,
+				TotalLength:      ToInt(sc.Beatmap.TotalLength),
+				UserId:           ToInt(sc.Beatmap.UserId),
+				Version:          sc.Beatmap.Version,
+				Accuracy:         ToFloat64(sc.Beatmap.Accuracy),
+				Ar:               ToFloat64(sc.Beatmap.Ar),
+				Bpm:              ToFloat64(sc.Beatmap.Bpm),
+				Convert:          ToBool(sc.Beatmap.Convert),
+				CountCircles:     ToInt(sc.Beatmap.CountCircles),
+				CountSliders:     ToInt(sc.Beatmap.CountSliders),
+				CountSpinners:    ToInt(sc.Beatmap.CountSpinners),
+				Cs:               ToFloat64(sc.Beatmap.Cs),
+				DeletedAt:        sc.Beatmap.DeletedAt,
+				Drain:            ToFloat64(sc.Beatmap.Drain),
+				HitLength:        ToInt(sc.Beatmap.HitLength),
+				IsScoreable:      ToBool(sc.Beatmap.IsScoreable),
+				LastUpdated:      sc.Beatmap.LastUpdated,
+				ModeInt:          ToInt(sc.Beatmap.ModeInt),
+				PassCount:        ToInt(sc.Beatmap.PassCount),
+				PlayCount:        ToInt(sc.Beatmap.PlayCount),
+				Ranked:           ToInt(sc.Beatmap.Ranked),
+				Url:              sc.Beatmap.Url,
+				Checksum:         sc.Beatmap.Checksum,
+			},
+			Beatmapset: Beatmapset{
+				Artist:        sc.Beatmapset.Artist,
+				ArtistUnicode: sc.Beatmapset.ArtistUnicode,
+				Covers:        sc.Beatmapset.Covers,
+				Creator:       sc.Beatmapset.Creator,
+				FavoriteCount: ToInt(sc.Beatmapset.FavoriteCount),
+				Hype:          sc.Beatmapset.Hype,
+				Id:            ToInt(sc.Beatmapset.Id),
+				Nsfw:          ToBool(sc.Beatmapset.Nsfw),
+				Offset:        ToInt(sc.Beatmapset.Offset),
+				PlayCount:     ToInt(sc.Beatmapset.PlayCount),
+				PreviewUrl:    sc.Beatmapset.PreviewUrl,
+				Source:        sc.Beatmapset.Source,
+				Spotlight:     ToBool(sc.Beatmapset.Spotlight),
+				Status:        sc.Beatmapset.Status,
+				Title:         sc.Beatmapset.Title,
+				TitleUnicode:  sc.Beatmapset.TitleUnicode,
+				TrackId:       sc.Beatmapset.TrackId,
+				UserId:        ToInt(sc.Beatmapset.UserId),
+				Video:         ToBool(sc.Beatmapset.Video),
+			},
+			Weight: Weight{
+				Percentage: ToFloat64(sc.Weight.Percentage),
+				PP:         ToFloat64(sc.Weight.PP),
+			},
+		})
+
+	}
+
+	return result
+}
+
 // Функция получения информации о пользователе
 func GetUserInfo(id, mode string) UserInfo {
 
