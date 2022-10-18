@@ -497,10 +497,10 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 		statisticsString += ","
 
 		sc.MaximumStatistics = StatisticsString{
-			Great: find(statisticsString, "great :", ","),
-			Meh:   find(statisticsString, "meh :", ","),
-			Ok:    find(statisticsString, "ok :", ","),
-			Miss:  find(statisticsString, "miss :", ","),
+			Great: find(statisticsString, "great :", ",", 0),
+			Meh:   find(statisticsString, "meh :", ",", 0),
+			Ok:    find(statisticsString, "ok :", ",", 0),
+			Miss:  find(statisticsString, "miss :", ",", 0),
 		}
 
 		// Цикл для обработки модов
@@ -520,10 +520,10 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 		statisticsString += ","
 
 		sc.Statistics = StatisticsString{
-			Great: find(statisticsString, "great :", ","),
-			Meh:   find(statisticsString, "meh :", ","),
-			Ok:    find(statisticsString, "ok :", ","),
-			Miss:  find(statisticsString, "miss :", ","),
+			Great: find(statisticsString, "great :", ",", 0),
+			Meh:   find(statisticsString, "meh :", ",", 0),
+			Ok:    find(statisticsString, "ok :", ",", 0),
+			Miss:  find(statisticsString, "miss :", ",", 0),
 		}
 
 		sc.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left)
@@ -722,9 +722,9 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	for c := index(pageStr, "badges :[", left); pageStr[c] != ']'; c++ {
 		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
-				AwardedAt:   find(pageStr[c:], "awarded_at : ", " "),
-				Description: find(pageStr[c:], "description : ", " ,"),
-				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " "), "\\", ""),
+				AwardedAt:   find(pageStr[c:], "awarded_at : ", " ", 0),
+				Description: find(pageStr[c:], "description : ", " ,", 0),
+				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " ", 0), "\\", ""),
 			})
 		}
 	}
@@ -735,7 +735,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	// Принадлежность к группам
 	for c := index(pageStr, "groups :[", left); pageStr[c] != ']'; c++ {
 		if pageStr[c] == '{' {
-			result.Groups += find(pageStr[c:], "name : ", " ,") + ", "
+			result.Groups += find(pageStr[c:], "name : ", " ,", 0) + ", "
 		}
 	}
 	if result.Groups != "" {
@@ -1016,7 +1016,7 @@ func GetOnlineInfo(id string) OnlineInfo {
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "js-react--profile") {
 		return OnlineInfo{
-			Status: find(pageStr, "is_online&quot;:", ","),
+			Status: find(pageStr, "is_online&quot;:", ",", 0),
 		}
 	}
 

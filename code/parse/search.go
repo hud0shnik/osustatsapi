@@ -30,13 +30,16 @@ func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
-func find(str, subStr, stopChar string) string {
+func find(str, subStr, stopChar string, start int) string {
+
+	str = str[start:]
+	left := strings.Index(str, subStr)
 
 	// Проверка на существование нужной строки
-	if strings.Contains(str, subStr) {
+	if left != -1 {
 
 		// Обрезка левой части
-		str = str[strings.Index(str, subStr)+len(subStr):]
+		str = str[left+len(subStr):]
 
 		// Обрезка правой части и вывод результата
 		return str[:strings.Index(str, stopChar)]
