@@ -33,7 +33,7 @@ type UserInfo struct {
 	MaxBLock                int           `json:"max_block"`
 	Occupation              string        `json:"occupation"`
 	Playmode                string        `json:"playmode"`
-	Playstyle               string        `json:"playstyle"`
+	Playstyle               []string      `json:"playstyle"`
 	PostCount               int           `json:"post_count"`
 	ProfileOrder            string        `json:"profile_order"`
 	Title                   string        `json:"title"`

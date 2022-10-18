@@ -34,7 +34,7 @@ type UserInfoString struct {
 	MaxBLock                string              `json:"max_block"`
 	Occupation              string              `json:"occupation"`
 	Playmode                string              `json:"playmode"`
-	Playstyle               string              `json:"playstyle"`
+	Playstyle               []string            `json:"playstyle"`
 	PostCount               string              `json:"post_count"`
 	ProfileOrder            string              `json:"profile_order"`
 	Title                   string              `json:"title"`
@@ -690,7 +690,10 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left)
 	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " ,", left)
 	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left)
-	result.Playstyle, left = findWithIndex(pageStr, "playstyle :[ ", " ], ", left)
+	result.Playstyle = strings.Split(find(pageStr, "playstyle :[ ", " ],", left), " , ")
+	if result.Playstyle[0] == "" {
+		result.Playstyle = nil
+	}
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
 	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
 	result.Title, left = findWithIndex(pageStr, "title :", " ,", left)
