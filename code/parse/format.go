@@ -35,7 +35,7 @@ type UserInfo struct {
 	Playmode                string        `json:"playmode"`
 	Playstyle               []string      `json:"playstyle"`
 	PostCount               int           `json:"post_count"`
-	ProfileOrder            string        `json:"profile_order"`
+	ProfileOrder            []string      `json:"profile_order"`
 	Title                   string        `json:"title"`
 	TitleUrl                string        `json:"title_url"`
 	Twitter                 string        `json:"twitter"`

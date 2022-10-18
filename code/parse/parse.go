@@ -36,7 +36,7 @@ type UserInfoString struct {
 	Playmode                string              `json:"playmode"`
 	Playstyle               []string            `json:"playstyle"`
 	PostCount               string              `json:"post_count"`
-	ProfileOrder            string              `json:"profile_order"`
+	ProfileOrder            []string            `json:"profile_order"`
 	Title                   string              `json:"title"`
 	TitleUrl                string              `json:"title_url"`
 	Twitter                 string              `json:"twitter"`
@@ -695,8 +695,11 @@ func GetUserInfoString(id, mode string) UserInfoString {
 		result.Playstyle = nil
 	}
 	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left)
-	result.ProfileOrder, left = findWithIndex(pageStr, "profile_order :[ ", " ],", left)
-	result.Title, left = findWithIndex(pageStr, "title :", " ,", left)
+	result.ProfileOrder = strings.Split(find(pageStr, "profile_order :[ ", " ]", left), " , ")
+	if result.ProfileOrder[0] == "" {
+		result.ProfileOrder = nil
+	}
+	result.Title, left = findWithIndex(pageStr, "title :", ",", left)
 	result.TitleUrl, left = findWithIndex(pageStr, "title_url : ", " ,", left)
 	result.Twitter, left = findWithIndex(pageStr, "twitter : ", " ,", left)
 	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left)
