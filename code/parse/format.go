@@ -152,7 +152,7 @@ type Beatmap struct {
 	RankedDate        string             `json:"ranked_date"`
 	Storyboard        bool               `json:"storyboard"`
 	SubmittedDate     string             `json:"submitted_date"`
-	Tags              string             `json:"tags"`
+	Tags              []string           `json:"tags"`
 	Beatmap           Beatmaps           `json:"beatmap"`
 }
 

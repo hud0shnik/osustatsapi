@@ -160,7 +160,7 @@ type BeatmapString struct {
 	RankedDate        string                   `json:"ranked_date"`
 	Storyboard        string                   `json:"storyboard"`
 	SubmittedDate     string                   `json:"submitted_date"`
-	Tags              string                   `json:"tags"`
+	Tags              []string                 `json:"tags"`
 	Beatmap           BeatmapsString           `json:"beatmap"`
 }
 
@@ -424,7 +424,7 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatmapString, int) {
 		bm.RankedDate, left = findWithIndex(pageStr, "ranked_date : ", " ", left)
 		bm.Storyboard, left = findWithIndex(pageStr, "storyboard :", ",", left)
 		bm.SubmittedDate, left = findWithIndex(pageStr, "submitted_date : ", " ", left)
-		bm.Tags, left = findWithIndex(pageStr, "tags : ", " ", left)
+		bm.Tags = strings.Split(find(pageStr, "tags : ", " ,", left), " ")
 
 		bm.Beatmap.BeatmapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		bm.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
