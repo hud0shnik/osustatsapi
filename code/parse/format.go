@@ -3,7 +3,6 @@ package parse
 import (
 	"fmt"
 	"strconv"
-	"strings"
 )
 
 // Структура для хранения полной информации о пользователе
@@ -622,9 +621,8 @@ func GetUserInfo(id, mode string) UserInfo {
 	}
 
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
-	sliceStr := strings.Split(resultStr.RankHistory.Data, ",")
 
-	for _, d := range sliceStr {
+	for _, d := range resultStr.RankHistory.Data {
 		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
 	}
 

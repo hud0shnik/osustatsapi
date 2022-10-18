@@ -122,8 +122,8 @@ type AchievementString struct {
 
 // Структура для истории рейтинга
 type HistoryString struct {
-	Mode string `json:"mode"`
-	Data string `json:"data"`
+	Mode string   `json:"mode"`
+	Data []string `json:"data"`
 }
 
 // Структура карты
@@ -425,6 +425,9 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatmapString, int) {
 		bm.Storyboard, left = findWithIndex(pageStr, "storyboard :", ",", left)
 		bm.SubmittedDate, left = findWithIndex(pageStr, "submitted_date : ", " ", left)
 		bm.Tags = strings.Split(find(pageStr, "tags : ", " ,", left), " ")
+		if bm.Tags[0] == "" {
+			bm.Tags = nil
+		}
 
 		bm.Beatmap.BeatmapSetId, left = findWithIndex(pageStr, "beatmapset_id :", ",", left)
 		bm.Beatmap.DifficultyRating, left = findWithIndex(pageStr, "difficulty_rating :", ",", left)
@@ -799,7 +802,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	// Проверка на наличие статистики
 	if !contains(pageStr, " rank_history :null", left) {
 		result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left)
-		result.RankHistory.Data, left = findWithIndex(pageStr, "data :[", "]", left)
+		result.RankHistory.Data = strings.Split(find(pageStr, "data :[", "]", left), ",")
 	}
 
 	result.UnrankedBeatmapsetCount, left = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left)
