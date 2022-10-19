@@ -118,6 +118,23 @@ url                         |     string    |
 id                          |       id      |
 
 
+<h4>Badge</h4>
+
+Field                       |     Type      | Description
+----------------------------|---------------|------------
+awarded_at                  |     string    |
+description                 |     string    |
+image_url                   |     string    |
+
+
+<h4>Achievement</h4>
+
+Field                       |     Type      | Description
+----------------------------|---------------|------------
+achieved_at                 |     string    |
+achievement_id              |     string    |
+
+
 
 <h3>/online/</h3>
 <h4>Request sample </h4>
