@@ -12,7 +12,7 @@ including real PP count and real Accuracy percentage
    ``` Elixir
    GET https://osustatsapi.herokuapp.com/user/hud0shnik
    ```
-   
+  
 <h4>UserInfo</h4>
 
 Field                       |       Type         | Description
@@ -237,6 +237,22 @@ post                        |     KudosuPost     |
 details                     |       string       |
 
 
+<h4>KudosuGiver</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+url                         |       string       |
+username                    |       string       |
+
+
+<h4>KudosuPost</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+url                         |       string       |
+title                       |       string       |
+
+
 <h4>Score</h4>
 
 Field                       |       Type         | Description
@@ -277,6 +293,7 @@ Great                       |        int         |
 Meh                         |        int         |
 Miss                        |        int         |
 Ok                          |        int         |
+
 
 
 
