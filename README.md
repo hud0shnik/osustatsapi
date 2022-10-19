@@ -237,6 +237,50 @@ post                        |     KudosuPost     |
 details                     |       string       |
 
 
+<h4>Score</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+accuracy                    |       float        |
+beatmap_id                  |        int         |
+build_id                    |       string       |  
+ended_at                    |       string       |
+legacy_score_id             |       string       |
+legacy_total_score          |       string       |
+max_combo                   |        int         |
+maximum_statistics          |     Statistics     |
+mods                        |      []string      |
+passed                      |        bool        |
+rank                        |       string       |
+ruleset_id                  |        int         |
+started_at                  |       string       |
+statistics                  |     Statistics     |
+total_score                 |        int         |
+user_id                     |        int         |
+best_id                     |        int         |
+id                          |        int         |
+legacy_perfect              |        bool        |
+pp                          |       float        |
+replay                      |        bool        |
+type                        |       string       |
+current_user_attributes     |       string       |
+beatmap                     |      Beatmaps      |
+beatmapset                  |     Beatmapset     |
+weight                      |       Weight       |
+
+
+<h4>Statistics</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+Great                       |        int         |
+Meh                         |        int         |
+Miss                        |        int         |
+Ok                          |        int         |
+
+
+
+
 
 
 
