@@ -13,10 +13,9 @@ including real PP count and real Accuracy percentage
    GET https://osustatsapi.herokuapp.com/user/hud0shnik
    ```
    
-
 <h4>UserInfo</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 error                       |       string       |
 avatar_url                  |       string       |
@@ -111,7 +110,7 @@ replays_watched_counts      |      []Count       |
 
 <h4>Cover</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 custom_url                  |       string       |
 url                         |       string       |
@@ -120,7 +119,7 @@ id                          |       int          |
 
 <h4>Badge</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 awarded_at                  |       string       | like "2022-10-08T03:47:35+00:00"
 description                 |       string       |
@@ -129,7 +128,7 @@ image_url                   |       string       |
 
 <h4>Achievement</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 achieved_at                 |       string       |
 achievement_id              |       string       |
@@ -137,7 +136,7 @@ achievement_id              |       string       |
 
 <h4>History</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 mode                        |       string       |
 data                        |       []int        |
@@ -145,7 +144,7 @@ data                        |       []int        |
 
 <h4>Beatmap</h4>
 
-Field                       |     Type           | Description
+Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 artist                      |       string       |
 artist_unicode              |       string       |
@@ -182,6 +181,46 @@ submitted_date              |       string       |
 tags                        |      []string      |
 beatmap                     |       Beatmaps     |
 
+
+<h4>NominationsSummary</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+current                     |       int          |
+required                    |       int          |
+
+
+<h4>Beatmaps</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |       int          |
+difficulty_rating           |       float        |
+id                          |       int          |
+mode                        |       string       |
+status                      |       string       |
+total_length                |       int          |
+user_id                     |       int          |
+version                     |       string       |
+accuracy                    |       float        |
+ar                          |       float        |
+bpm                         |       float        |
+convert                     |       bool         |
+count_circles               |       int          |
+count_sliders               |       int          |
+count_spinners              |       int          |
+cs                          |       float        |
+deleted_at                  |       string       |
+drain                       |       float        |
+hit_length                  |       int          |
+is_scoreable                |       bool         |
+last_updated                |       string       |
+mode_int                    |       int          |
+pass_count                  |       int          |
+play_count                  |       int          |
+ranked                      |       int          |
+url                         |       string       |
+checksum                    |       string       |
 
 
 
