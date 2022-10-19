@@ -122,7 +122,7 @@ id                          |       id      |
 
 Field                       |     Type      | Description
 ----------------------------|---------------|------------
-awarded_at                  |     string    |
+awarded_at                  |     string    | like "2022-10-08T03:47:35+00:00"
 description                 |     string    |
 image_url                   |     string    |
 
@@ -133,6 +133,14 @@ Field                       |     Type      | Description
 ----------------------------|---------------|------------
 achieved_at                 |     string    |
 achievement_id              |     string    |
+
+
+<h4>History</h4>
+
+Field                       |     Type      | Description
+----------------------------|---------------|------------
+mode                        |     string    |
+data                        |     []int     |
 
 
 
