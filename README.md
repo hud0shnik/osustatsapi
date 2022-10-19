@@ -16,131 +16,175 @@ including real PP count and real Accuracy percentage
 
 <h4>UserInfo</h4>
 
-Field                       |     Type      | Description
-----------------------------|---------------|------------
-error                       |     string    |
-avatar_url                  |     string    |
-country_code                |     string    | like "RU" or "JP"
-default_group               |     string    |
-id                          |     int       |
-is_active                   |     bool      |
-is_bot                      |     bool      |
-is_deleted                  |     bool      |
-is_online                   |     bool      |
-is_supporter                |     bool      |
-last_visit                  |     string    | 
-pm_friends_only             |     bool      | PM allowed only for
-profile_color               |     string    |
-username                    |     string    |
-cover_url                   |     string    |
-discord                     |     string    |
-has_supported               |     bool      |
-interests                   |     string    |
-join_date                   |     string    | like "2022-05-01T19:27:43+00:00"
-kudosu                      |     int       |
-location                    |     string    |
-max_friends                 |     int       |
-max_block                   |     int       |
-occupation                  |     string    |
-playmode                    |     string    |
-playstyle                   |    []string   |
-post_count                  |     int       |
-profile_order               |    []string   |
-title                       |     string    |
-title_url                   |     string    |
-twitter                     |     string    |
-website                     |     string    |
-country_name                |     string    | like "Japan"
-cover                       |     Cover     |
-is_admin                    |     bool      |    
-is_bng                      |     bool      | Beatmap Nominators Group
-is_full_bn                  |     bool      |
-is_gmt                      |     bool      | Global Moderation Team
-is_limited_bn               |     bool      |
-is_moderator                |     bool      |
-is_nat                      |     bool      | Nomination Assessment Team
-is_restricted               |     bool      | timeout from the community
-is_silenced                 |     bool      |
-account_history             |     string    |
-active_tournament_banner    |     string    |
-badges                      |    []Badge    |
-comments_count              |     int       |
-follower_count              |     int       |
-groups                      |     string    | like "Developers"
-mapping_follower_count      |     int       |
-pending_beatmapset_count    |     int       |
-previous_usernames          |     string    |
-level                       |     int       |
-global_rank                 |     int64     |
-pp                          |     float     | float value, 4 decimals
-ranked_score                |     int       |
-accuracy                    |     float     | like "97.132"
-play_count                  |     int       |
-play_time                   |     string    | like "202h24m22s"
-play_time_seconds           |     int64     |
-total_score                 |     int64     |
-total_hits                  |     int64     |
-maximum_combo               |     int       |
-replays                     |     int       | replays watched by others   
-is_ranked                   |     bool      |
-ss                          |     int       | 
-ssh                         |     int       | silver ss 
-s                           |     int       |
-sh                          |     int       | silver s
-a                           |     int       |
-country_rank                |     int       |
-support_level               |     int       |
-achievements                | []Achievement |
-rank_history                |    History    |
-unranked_beatmapset_count   |     int       |
-favorite_beatmaps           |   []Beatmap   |
-graveyard_beatmaps          |   []Beatmap   |
-guest_beatmaps              |   []Beatmap   |
-loved_beatmaps              |   []Beatmap   |
-ranked_beatmaps             |   []Beatmap   |
-pending_beatmaps            |   []Beatmap   |
-kudosu_items                |   []Kudosu    |
-recent_activity             |  []Activity   |
-best                        |    []Score    |
-firsts                      |    []Score    |
-pinned                      |    []Score    |
-beatmap_playcounts          |  []PlayCount  |
-monthly_playcounts          |    []Count    |
-replays_watched_counts      |    []Count    |
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+error                       |       string       |
+avatar_url                  |       string       |
+country_code                |       string       | like "RU" or "JP"
+default_group               |       string       |
+id                          |       int          |
+is_active                   |       bool         |
+is_bot                      |       bool         |
+is_deleted                  |       bool         |
+is_online                   |       bool         |
+is_supporter                |       bool         |
+last_visit                  |       string       | 
+pm_friends_only             |       bool         | PM allowed only for
+profile_color               |       string       |
+username                    |       string       |
+cover_url                   |       string       |
+discord                     |       string       |
+has_supported               |       bool         |
+interests                   |       string       |
+join_date                   |       string       | like "2022-05-01T19:27:43+00:00"
+kudosu                      |       int          |
+location                    |       string       |
+max_friends                 |       int          |
+max_block                   |       int          |
+occupation                  |       string       |
+playmode                    |       string       |
+playstyle                   |      []string      |
+post_count                  |       int          |
+profile_order               |      []string      |
+title                       |       string       |
+title_url                   |       string       |
+twitter                     |       string       |
+website                     |       string       |
+country_name                |       string       | like "Japan"
+cover                       |       Cover        |
+is_admin                    |       bool         |    
+is_bng                      |       bool         | Beatmap Nominators Group
+is_full_bn                  |       bool         |
+is_gmt                      |       bool         | Global Moderation Team
+is_limited_bn               |       bool         |
+is_moderator                |       bool         |
+is_nat                      |       bool         | Nomination Assessment Team
+is_restricted               |       bool         | timeout from the community
+is_silenced                 |       bool         |
+account_history             |       string       |
+active_tournament_banner    |       string       |
+badges                      |      []Badge       |
+comments_count              |       int          |
+follower_count              |       int          |
+groups                      |       string       | like "Developers"
+mapping_follower_count      |       int          |
+pending_beatmapset_count    |       int          |
+previous_usernames          |       string       |
+level                       |       int          |
+global_rank                 |       int64        |
+pp                          |       float        | float value, 4 decimals
+ranked_score                |       int          |
+accuracy                    |       float        | like "97.132"
+play_count                  |       int          |
+play_time                   |       string       | like "202h24m22s"
+play_time_seconds           |       int64        |
+total_score                 |       int64        |
+total_hits                  |       int64        |
+maximum_combo               |       int          |
+replays                     |       int          | replays watched by others   
+is_ranked                   |       bool         |
+ss                          |       int          | 
+ssh                         |       int          | silver ss 
+s                           |       int          |
+sh                          |       int          | silver s
+a                           |       int          |
+country_rank                |       int          |
+support_level               |       int          |
+achievements                |    []Achievement   |
+rank_history                |       History      |
+unranked_beatmapset_count   |       int          |
+favorite_beatmaps           |     []Beatmap      |
+graveyard_beatmaps          |     []Beatmap      |
+guest_beatmaps              |     []Beatmap      |
+loved_beatmaps              |     []Beatmap      |
+ranked_beatmaps             |     []Beatmap      |
+pending_beatmaps            |     []Beatmap      |
+kudosu_items                |     []Kudosu       |
+recent_activity             |    []Activity      |
+best                        |      []Score       |
+firsts                      |      []Score       |
+pinned                      |      []Score       |
+beatmap_playcounts          |    []PlayCount     |
+monthly_playcounts          |      []Count       |
+replays_watched_counts      |      []Count       |
 
 
 <h4>Cover</h4>
 
-Field                       |     Type      | Description
-----------------------------|---------------|------------
-custom_url                  |     string    |
-url                         |     string    |
-id                          |       id      |
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+custom_url                  |       string       |
+url                         |       string       |
+id                          |       int          |
 
 
 <h4>Badge</h4>
 
-Field                       |     Type      | Description
-----------------------------|---------------|------------
-awarded_at                  |     string    | like "2022-10-08T03:47:35+00:00"
-description                 |     string    |
-image_url                   |     string    |
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+awarded_at                  |       string       | like "2022-10-08T03:47:35+00:00"
+description                 |       string       |
+image_url                   |       string       |
 
 
 <h4>Achievement</h4>
 
-Field                       |     Type      | Description
-----------------------------|---------------|------------
-achieved_at                 |     string    |
-achievement_id              |     string    |
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+achieved_at                 |       string       |
+achievement_id              |       string       |
 
 
 <h4>History</h4>
 
-Field                       |     Type      | Description
-----------------------------|---------------|------------
-mode                        |     string    |
-data                        |     []int     |
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+mode                        |       string       |
+data                        |       []int        |
+
+
+<h4>Beatmap</h4>
+
+Field                       |     Type           | Description
+----------------------------|--------------------|------------
+artist                      |       string       |
+artist_unicode              |       string       |
+covers                      |       Cover        |
+creator                     |       string       |
+favorite_count              |       int          |
+hype                        |       string       |
+id                          |       int          |
+nsfw                        |       bool         |
+offset                      |       int          |
+play_count                  |       int          |
+preview_url                 |       string       | 
+source                      |       string       |
+spotlight                   |       bool         |
+status                      |       string       |
+title                       |       string       |
+title_unicode               |       string       |
+track_id                    |       string       |
+userId                      |       int          |
+video                       |       bool         |
+download_disabled           |       bool         |
+bpm                         |       float        |
+can_be_hyped                |       bool         |
+discussion_enabled          |       bool         |
+discussion_locked           |       bool         |
+is_scoreable                |       bool         |
+last_updated                |       string       |
+legacy_thread_url           |       string       |
+nominations_summary         | NominationsSummary |
+ranked                      |       int          |
+ranked_date                 |       string       |
+storyboard                  |       bool         |
+submitted_date              |       string       |
+tags                        |      []string      |
+beatmap                     |       Beatmaps     |
+
+
+
+
 
 
 
