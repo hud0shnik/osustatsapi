@@ -17,7 +17,7 @@ including real PP count and real Accuracy percentage
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-error                       |       string       |
+error                       |       string       | api error response (default value= "")
 avatar_url                  |       string       |
 country_code                |       string       | like "RU" or "JP"
 default_group               |       string       |
@@ -153,7 +153,7 @@ creator                     |       string       |
 favorite_count              |        int         |
 hype                        |       string       |
 id                          |        int         |
-nsfw                        |        bool        |
+nsfw                        |        bool        | Not Safe For Work
 offset                      |        int         |
 play_count                  |        int         |
 preview_url                 |       string       | 
@@ -209,7 +209,7 @@ convert                     |        bool        |
 count_circles               |        int         |
 count_sliders               |        int         |
 count_spinners              |        int         |
-cs                          |       float        |
+cs                          |       float        | Circle Size
 deleted_at                  |       string       |
 drain                       |       float        |
 hit_length                  |        int         |
