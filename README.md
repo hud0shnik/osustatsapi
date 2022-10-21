@@ -197,13 +197,13 @@ Field                       |       Type         | Description
 beatmapset_id               |        int         |
 difficulty_rating           |       float        |
 id                          |        int         |
-mode                        |       string       |
-status                      |       string       |
+mode                        |       string       | like "osu"
+status                      |       string       | like "ranked"
 total_length                |        int         |
 user_id                     |        int         |
 version                     |       string       |
 accuracy                    |       float        |
-ar                          |       float        |
+ar                          |       float        | Approach Rate
 bpm                         |       float        |
 convert                     |        bool        |
 count_circles               |        int         |
