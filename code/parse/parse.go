@@ -943,7 +943,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 			pc.Beatmapset.Creator, left = findWithIndex(pageStr, "creator : ", " ,", left)
 			pc.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "favourite_count :", ",", left)
-			pc.Beatmapset.Hype, left = findWithIndex(pageStr, "hype :", ",", left)
+			pc.Beatmapset.Hype, left = findWithIndex(pageStr, "hype :", ", id", left)
 			pc.Beatmapset.Id, left = findWithIndex(pageStr, "id :", ",", left)
 			pc.Beatmapset.Nsfw, left = findWithIndex(pageStr, "nsfw :", ",", left)
 			pc.Beatmapset.Offset, left = findWithIndex(pageStr, "offset :", ",", left)
