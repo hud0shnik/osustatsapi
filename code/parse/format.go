@@ -254,10 +254,12 @@ type Score struct {
 
 // Статистика рекорда
 type Statistics struct {
-	Great int `json:"great"`
-	Meh   int `json:"meh"`
-	Miss  int `json:"miss"`
-	Ok    int `json:"ok"`
+	Good    int `json:"good"`
+	Great   int `json:"great"`
+	Meh     int `json:"meh"`
+	Miss    int `json:"miss"`
+	Ok      int `json:"ok"`
+	Perfect int `json:"perfect"`
 }
 
 // Сет мапы рекорда
@@ -448,10 +450,12 @@ func FormatScores(scs []ScoreString) []Score {
 			LegacyTotalScore: sc.LegacyTotalScore,
 			MaximumCombo:     ToInt(sc.MaximumCombo),
 			MaximumStatistics: Statistics{
-				Great: ToInt(sc.MaximumStatistics.Great),
-				Meh:   ToInt(sc.MaximumStatistics.Meh),
-				Miss:  ToInt(sc.MaximumStatistics.Miss),
-				Ok:    ToInt(sc.MaximumStatistics.Ok),
+				Good:    ToInt(sc.MaximumStatistics.Good),
+				Great:   ToInt(sc.MaximumStatistics.Great),
+				Meh:     ToInt(sc.MaximumStatistics.Meh),
+				Miss:    ToInt(sc.MaximumStatistics.Miss),
+				Ok:      ToInt(sc.MaximumStatistics.Ok),
+				Perfect: ToInt(sc.MaximumStatistics.Perfect),
 			},
 			Mods:                  sc.Mods,
 			Passed:                ToBool(sc.Passed),
