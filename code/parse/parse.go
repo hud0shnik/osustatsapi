@@ -60,7 +60,7 @@ type UserInfoString struct {
 	Groups                  string              `json:"groups"`
 	MappingFollowerCount    string              `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
-	Names                   string              `json:"previous_usernames"`
+	Names                   []string            `json:"previous_usernames"`
 	Level                   string              `json:"level"`
 	GlobalRank              string              `json:"global_rank"`
 	PP                      string              `json:"pp"`
@@ -753,7 +753,7 @@ func GetUserInfoString(id, mode string) UserInfoString {
 
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left)
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left)
-	result.Names, left = findWithIndex(pageStr, "previous_usernames :[ ", " ],", left)
+	result.Names = strings.Split(find(pageStr, "previous_usernames :[ ", " ],", left), " , ")
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left)
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left)
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left)

@@ -58,7 +58,7 @@ type UserInfo struct {
 	Groups                  string        `json:"groups"`
 	MappingFollowerCount    int           `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  int           `json:"pending_beatmapset_count"`
-	Names                   string        `json:"previous_usernames"`
+	Names                   []string      `json:"previous_usernames"`
 	Level                   int           `json:"level"`
 	GlobalRank              int64         `json:"global_rank"`
 	PP                      float64       `json:"pp"`
