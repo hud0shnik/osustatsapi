@@ -287,10 +287,12 @@ type ScoreString struct {
 
 // Статистика рекорда
 type StatisticsString struct {
-	Great string `json:"great"`
-	Meh   string `json:"meh"`
-	Miss  string `json:"miss"`
-	Ok    string `json:"ok"`
+	Good    string `json:"good"`
+	Great   string `json:"great"`
+	Meh     string `json:"meh"`
+	Miss    string `json:"miss"`
+	Ok      string `json:"ok"`
+	Perfect string `json:"perfect"`
 }
 
 // Сет мапы рекорда
@@ -500,10 +502,12 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 		statisticsString += ","
 
 		sc.MaximumStatistics = StatisticsString{
-			Great: find(statisticsString, "great :", ",", 0),
-			Meh:   find(statisticsString, "meh :", ",", 0),
-			Ok:    find(statisticsString, "ok :", ",", 0),
-			Miss:  find(statisticsString, "miss :", ",", 0),
+			Good:    find(statisticsString, "good :", ",", 0),
+			Great:   find(statisticsString, "great :", ",", 0),
+			Meh:     find(statisticsString, "meh :", ",", 0),
+			Ok:      find(statisticsString, "ok :", ",", 0),
+			Miss:    find(statisticsString, "miss :", ",", 0),
+			Perfect: find(statisticsString, "perfect :", ",", 0),
 		}
 
 		// Цикл для обработки модов
