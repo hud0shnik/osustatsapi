@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"osustatsapi/parse"
+	"osustatsapi/api/parse"
 	"time"
 
 	"github.com/gorilla/mux"
