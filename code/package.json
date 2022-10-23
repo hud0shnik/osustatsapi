@@ -9,7 +9,6 @@
       "vercel": "^28.4.12"
     },
     "scripts": {
-      "setup": "yarn vercel login && yarn vercel link",
       "start": "yarn vercel dev",
       "dev": "yarn start"
     }
