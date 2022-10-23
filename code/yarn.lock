@@ -1,0 +1,5 @@
+
+"@vercel/go@2.2.13":
+  version "2.2.13"
+  resolved "https://registry.yarnpkg.com/@vercel/go/-/go-2.2.13.tgz#147f85df4a56a972323da3ef6461b8bbdc65bc36"
+  integrity sha512-nfeGtp10KnqWDSQlIGyyzHbF02xIPymMHWA6oZ+0G6ygSVR7TwcDcwLbC9Rbre1ayh/RUa4tysOaMx7N3MPFqQ==
