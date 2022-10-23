@@ -1,0 +1,16 @@
+{
+    "name": "osustatsapi",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/hud0shnik/OsuStatsApi",
+    "author": "hud0shnik <github.com/hud0shnik>",
+    "license": "MIT",
+    "dependencies": {
+      "vercel": "^28.4.12"
+    },
+    "scripts": {
+      "setup": "yarn vercel login && yarn vercel link",
+      "start": "yarn vercel dev",
+      "dev": "yarn start"
+    }
+}
