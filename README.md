@@ -68,7 +68,7 @@ follower_count              |        int         |
 groups                      |       string       | like "Developers"
 mapping_follower_count      |        int         |
 pending_beatmapset_count    |        int         |
-previous_usernames          |       string       |
+previous_usernames          |      []string      |
 level                       |        int         |
 global_rank                 |        int         |
 pp                          |       float        | float value, 4 decimals
@@ -289,10 +289,12 @@ weight                      |       Weight       |
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
+Good                        |        int         |
 Great                       |        int         |
 Meh                         |        int         |
 Miss                        |        int         |
 Ok                          |        int         |
+Perfect                     |        int         |
 
 
 
