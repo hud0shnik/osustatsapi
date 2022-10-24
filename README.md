@@ -10,7 +10,7 @@ including real PP count and real Accuracy percentage
 <h4>Request sample </h4>
   
    ``` Elixir
-   GET https://osustatsapi.herokuapp.com/user/hud0shnik
+   https://osustatsapi.vercel.app/api/user?id=hud0shnik
    ```
   
 <h4>UserInfo</h4>
@@ -308,7 +308,7 @@ Perfect                     |        int         |
 <h4>Request sample </h4>
   
    ``` Elixir
-   GET https://osustatsapi.herokuapp.com/online/hud0shnik
+   https://osustatsapi.vercel.app/api/online?id=hud0shnik
    ```
   
 [![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
