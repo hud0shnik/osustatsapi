@@ -1,11 +1,14 @@
-package parse
+package handler
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"strconv"
+	"strings"
 )
 
-// Структура для хранения полной информации о пользователе
+// Информация о пользователе
 type UserInfo struct {
 	Error                   string        `json:"error"`
 	AvatarUrl               string        `json:"avatar_url"`
@@ -111,7 +114,7 @@ type Achievement struct {
 	AchievementId int    `json:"achievement_id"`
 }
 
-// Структура для истории рейтинга
+// История рейтинга
 type History struct {
 	Mode string `json:"mode"`
 	Data []int  `json:"data"`
@@ -310,7 +313,7 @@ type PlayCountBeatmap struct {
 	Version          string  `json:"version"`
 }
 
-//	Функции перевода из строки в другие типы
+// ---------------------- Функции перевода ------------------------
 
 func ToInt(s string) int {
 	i, err := strconv.Atoi(s)
@@ -356,6 +359,76 @@ func ToFloat64(s string) float64 {
 	return i
 }
 
+// ---------------------- Функции поиска ------------------------
+
+// Функция поиска. Возвращает искомое значение и индекс последнего символа
+func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
+
+	// Обрезка левой границы поиска
+	str = str[start:]
+
+	// Проверка на существование нужной строки
+	if strings.Contains(str, subStr) {
+
+		// Поиск индекса начала нужной строки
+		left := strings.Index(str, subStr) + len(subStr)
+
+		// Поиск правой границы
+		right := left + strings.Index(str[left:], stopChar)
+
+		// Обрезка и вывод результата
+		return str[left:right], right + start
+	}
+
+	// Вывод ненайденных значений для тестов
+	// fmt.Println("error foundn't \t", subStr, "-")
+
+	return "", start
+}
+
+// Облегчённая функция поиска. Возвращает только искомое значение
+func find(str, subStr, stopChar string, start int) string {
+
+	str = str[start:]
+	left := strings.Index(str, subStr)
+
+	// Проверка на существование нужной строки
+	if left != -1 {
+
+		// Обрезка левой части
+		str = str[left+len(subStr):]
+
+		// Обрезка правой части и вывод результата
+		return str[:strings.Index(str, stopChar)]
+	}
+
+	return ""
+}
+
+// Функция поиска индекса
+func index(str, subStr string, start int) int {
+
+	res := strings.Index(str[start:], subStr)
+
+	// Проверка на существование нужной строки
+	if res == -1 {
+
+		//fmt.Println("index error: \t", subStr)
+
+		return -1
+	}
+
+	//fmt.Println(res+start, " - ", subStr)
+	return res + start
+}
+
+// Функция проверки наличия подстроки
+func contains(str, subStr string, left int) bool {
+
+	return strings.Contains(str[left:], subStr)
+}
+
+// Функция перевода карты
 func FormatBeatmaps(bms []BeatmapString) []Beatmap {
 
 	var result []Beatmap
@@ -435,6 +508,7 @@ func FormatBeatmaps(bms []BeatmapString) []Beatmap {
 	return result
 }
 
+// Функция перевода рекорда
 func FormatScores(scs []ScoreString) []Score {
 
 	var result []Score
@@ -533,9 +607,9 @@ func FormatScores(scs []ScoreString) []Score {
 }
 
 // Функция получения информации о пользователе
-func GetUserInfo(id, mode string) UserInfo {
+func GetUserInfo(id string) UserInfo {
 
-	resultStr := GetUserInfoString(id, mode)
+	resultStr := GetUserInfoString(id)
 
 	result := UserInfo{
 		Error:         resultStr.Error,
@@ -719,4 +793,25 @@ func GetUserInfo(id, mode string) UserInfo {
 	}
 
 	return result
+}
+
+// Роут "/user"
+func User(w http.ResponseWriter, r *http.Request) {
+
+	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("Content-Type", "application/json")
+
+	id := r.URL.Query().Get("id")
+	if id == "" {
+		http.NotFound(w, r)
+		return
+	}
+	resp := GetUserInfo(id)
+
+	jsonResp, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Print("Error: ", err)
+	} else {
+		w.Write(jsonResp)
+	}
 }

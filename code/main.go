@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"osustatsapi/parse"
+	api "osustatsapi/api"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -19,7 +19,7 @@ func sendUserInfoString(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(parse.GetUserInfoString(mux.Vars(request)["id"], mux.Vars(request)["mode"]))
+	json.NewEncoder(writer).Encode(api.GetUserInfoString(request.URL.Query().Get("id")))
 }
 
 // Функция отправки информации о пользователе
@@ -29,7 +29,7 @@ func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(parse.GetUserInfo(mux.Vars(request)["id"], mux.Vars(request)["mode"]))
+	json.NewEncoder(writer).Encode(api.GetUserInfo(request.URL.Query().Get("id")))
 }
 
 // Функция отправки информации о статусе пользователя
@@ -39,7 +39,7 @@ func sendOnlineInfo(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 
 	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(parse.GetOnlineInfo(mux.Vars(request)["id"]))
+	json.NewEncoder(writer).Encode(api.GetOnlineInfo(request.URL.Query().Get("id")))
 }
 
 func main() {
@@ -53,27 +53,11 @@ func main() {
 
 	// Маршруты
 
-	router.HandleFunc("/user", sendUserInfo).Methods("GET")
-	router.HandleFunc("/user/", sendUserInfo).Methods("GET")
+	router.HandleFunc("/api/user", sendUserInfo).Methods("GET")
 
-	router.HandleFunc("/user/{id}", sendUserInfo).Methods("GET")
-	router.HandleFunc("/user/{id}/", sendUserInfo).Methods("GET")
-	router.HandleFunc("/user/{id}/{mode}", sendUserInfo).Methods("GET")
-	router.HandleFunc("/user/{id}/{mode}/", sendUserInfo).Methods("GET")
+	router.HandleFunc("/api/userstring", sendUserInfoString).Methods("GET")
 
-	router.HandleFunc("/userString", sendUserInfoString).Methods("GET")
-	router.HandleFunc("/userString/", sendUserInfoString).Methods("GET")
-
-	router.HandleFunc("/userString/{id}", sendUserInfoString).Methods("GET")
-	router.HandleFunc("/userString/{id}/", sendUserInfoString).Methods("GET")
-	router.HandleFunc("/userString/{id}/{mode}", sendUserInfoString).Methods("GET")
-	router.HandleFunc("/userString/{id}/{mode}/", sendUserInfoString).Methods("GET")
-
-	router.HandleFunc("/online", sendOnlineInfo).Methods("GET")
-	router.HandleFunc("/online/", sendOnlineInfo).Methods("GET")
-
-	router.HandleFunc("/online/{id}", sendOnlineInfo).Methods("GET")
-	router.HandleFunc("/online/{id}/", sendOnlineInfo).Methods("GET")
+	router.HandleFunc("/api/online", sendOnlineInfo).Methods("GET")
 
 	// Запуск API
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))

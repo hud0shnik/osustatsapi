@@ -1,13 +1,17 @@
-package parse
+package handler
 
 import (
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
 )
 
-// Структура для хранения полной информации о пользователе
+// ---------------------- Структуры для парсинга ------------------------
+
+// Информация о пользователе
 type UserInfoString struct {
 	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
@@ -107,7 +111,7 @@ type CoverString struct {
 	Id        string `json:"id"`
 }
 
-// Структура значка профиля
+// Значок профиля
 type Badge struct {
 	AwardedAt   string `json:"awarded_at"`
 	Description string `json:"description"`
@@ -120,7 +124,7 @@ type AchievementString struct {
 	AchievementId string `json:"achievement_id"`
 }
 
-// Структура для истории рейтинга
+// История рейтинга
 type HistoryString struct {
 	Mode string   `json:"mode"`
 	Data []string `json:"data"`
@@ -343,13 +347,7 @@ type PlayCountBeatmapString struct {
 	Version          string `json:"version"`
 }
 
-// Статуса пользователя
-type OnlineInfo struct {
-	Error  string `json:"error"`
-	Status string `json:"is_online"`
-}
-
-// Функция для парсинга карты
+// Функция парсинга карты
 func parseBeatmapsString(pageStr string, left int) ([]BeatmapString, int) {
 
 	// Получение рабочей части и индекса её конца
@@ -467,7 +465,7 @@ func parseBeatmapsString(pageStr string, left int) ([]BeatmapString, int) {
 	return result, end
 }
 
-// Функция для парсинга рекорда
+// Функция парсинга рекорда
 func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int) {
 
 	// Получение рабочей части и индекса её конца
@@ -624,15 +622,10 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 }
 
 // Функция получения информации о пользователе
-func GetUserInfoString(id, mode string) UserInfoString {
-
-	// Если пользователь не ввёл id, по умолчанию ставит мой id
-	if id == "" {
-		id = "29829158"
-	}
+func GetUserInfoString(id string) UserInfoString {
 
 	// Формирование и исполнение запроса
-	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/" + mode)
+	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return UserInfoString{
 			Error: "http.Get error",
@@ -996,45 +989,23 @@ func GetUserInfoString(id, mode string) UserInfoString {
 	return result
 }
 
-// Функция получения информации о пользователе
-func GetOnlineInfo(id string) OnlineInfo {
+// Роут "/userString"
+func UserString(w http.ResponseWriter, r *http.Request) {
 
-	// Если пользователь не ввёл id, по умолчанию ставит мой id
+	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("Content-Type", "application/json")
+
+	id := r.URL.Query().Get("id")
 	if id == "" {
-		id = "29829158"
+		http.NotFound(w, r)
+		return
 	}
+	resp := GetUserInfoString(id)
 
-	// Формирование и исполнение запроса
-	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
+	jsonResp, err := json.Marshal(resp)
 	if err != nil {
-		return OnlineInfo{
-			Error: "http.Get error",
-		}
+		fmt.Print("Error: ", err)
+	} else {
+		w.Write(jsonResp)
 	}
-
-	// Запись респонса
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	// HTML полученной страницы в формате string
-	pageStr := string(body)[80000:]
-
-	// Сохранение html"ки в файл sample.html (для тестов)
-	/*
-		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
-		}
-	*/
-
-	// Проверка на страницу пользователя
-	if strings.Contains(pageStr, "js-react--profile") {
-		return OnlineInfo{
-			Status: find(pageStr, "is_online&quot;:", ",", 0),
-		}
-	}
-
-	return OnlineInfo{
-		Error: "User not found",
-	}
-
 }
