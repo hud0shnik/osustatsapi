@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -86,6 +87,7 @@ type UserInfoString struct {
 	CountryRank             string              `json:"country_rank"`
 	SupportLvl              string              `json:"support_level"`
 	Achievements            []AchievementString `json:"achievements"`
+	Medals                  string              `json:"medals"`
 	RankHistory             HistoryString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
 	FavoriteBeatmaps        []BeatmapString     `json:"favorite_beatmaps"`
@@ -778,9 +780,10 @@ func GetUserInfoString(id string) UserInfoString {
 
 		// Конец блока достижений
 		end := index(pageStr, "]", left) - 10
+		medals := 0
 
 		// Цикл обработки достижений
-		for left < end {
+		for ; left < end; medals++ {
 
 			// Инициализация достижения
 			var achieve AchievementString
@@ -793,6 +796,9 @@ func GetUserInfoString(id string) UserInfoString {
 			result.Achievements = append(result.Achievements, achieve)
 
 		}
+
+		// Запись количества медалей
+		result.Medals = strconv.Itoa(medals)
 
 	}
 
