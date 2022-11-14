@@ -90,6 +90,7 @@ a                           |        int         |
 country_rank                |        int         |
 support_level               |        int         |
 achievements                |    []Achievement   |
+medals                      |        int         |
 rank_history                |       History      |
 unranked_beatmapset_count   |        int         |
 favorite_beatmaps           |     []Beatmap      |
