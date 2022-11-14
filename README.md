@@ -298,6 +298,30 @@ ok                          |        int         |
 perfect                     |        int         |
 
 
+<h4>Beatmapset</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+artist                      |       string       |
+artist_unicode              |       string       |
+covers                      |       Covers       |
+creator                     |       string       |
+favorite_count              |        int         |
+hype                        |       string       |
+id                          |        int         |
+nsfw                        |        bool        |
+offset                      |        int         |
+play_count                  |        int         |
+preview_url                 |       string       |
+source                      |       string       |
+spotlight                   |        bool        |
+status                      |       string       |
+title                       |       string       |
+title_unicode               |       string       |
+track_id                    |       string       |
+userId                      |        int         |
+video                       |        bool        |
+
 
 
 
