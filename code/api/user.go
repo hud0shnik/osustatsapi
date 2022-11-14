@@ -83,6 +83,7 @@ type UserInfo struct {
 	CountryRank             int           `json:"country_rank"`
 	SupportLvl              int           `json:"support_level"`
 	Achievements            []Achievement `json:"achievements"`
+	Medals                  int           `json:"medals"`
 	RankHistory             History       `json:"rank_history"`
 	UnrankedBeatmapsetCount int           `json:"unranked_beatmapset_count"`
 	FavoriteBeatmaps        []Beatmap     `json:"favorite_beatmaps"`
@@ -698,6 +699,7 @@ func GetUserInfo(id string) UserInfo {
 		})
 	}
 
+	result.Medals = ToInt(resultStr.Medals)
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
 
 	for _, d := range resultStr.RankHistory.Data {
