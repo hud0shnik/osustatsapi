@@ -266,7 +266,7 @@ legacy_score_id             |       string       |
 legacy_total_score          |       string       |
 max_combo                   |        int         |
 maximum_statistics          |     Statistics     |
-mods                        |      []string      |
+mods                        |      []string      | 
 passed                      |        bool        |
 rank                        |       string       |
 ruleset_id                  |        int         |
@@ -290,15 +290,12 @@ weight                      |       Weight       |
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-Good                        |        int         |
-Great                       |        int         |
-Meh                         |        int         |
-Miss                        |        int         |
-Ok                          |        int         |
-Perfect                     |        int         |
-
-
-
+good                        |        int         |
+great                       |        int         |
+meh                         |        int         |
+miss                        |        int         |
+ok                          |        int         |
+perfect                     |        int         |
 
 
 
