@@ -131,7 +131,7 @@ image_url                   |       string       |
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-achieved_at                 |       string       |
+achieved_at                 |       string       | UTC format date (yyyy-mm-ddThh:ss:ssZ)
 achievement_id              |       string       |
 
 
@@ -139,7 +139,7 @@ achievement_id              |       string       |
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-mode                        |       string       |
+mode                        |       string       | like "osu"
 data                        |       []int        |
 
 
@@ -157,7 +157,7 @@ id                          |        int         |
 nsfw                        |        bool        | Not Safe For Work
 offset                      |        int         |
 play_count                  |        int         |
-preview_url                 |       string       | 
+preview_url                 |       string       | like "b.ppy.sh/preview/1730467.mp3"
 source                      |       string       |
 spotlight                   |        bool        |
 status                      |       string       |
@@ -172,13 +172,13 @@ can_be_hyped                |        bool        |
 discussion_enabled          |        bool        |
 discussion_locked           |        bool        |
 is_scoreable                |        bool        |
-last_updated                |       string       |
+last_updated                |       string       | UTC date
 legacy_thread_url           |       string       |
 nominations_summary         | NominationsSummary |
 ranked                      |        int         |
 ranked_date                 |       string       |
 storyboard                  |        bool        |
-submitted_date              |       string       |
+submitted_date              |       string       | UTC date
 tags                        |      []string      |
 beatmap                     |       Beatmaps     |
 
@@ -211,11 +211,11 @@ count_circles               |        int         |
 count_sliders               |        int         |
 count_spinners              |        int         |
 cs                          |       float        | Circle Size
-deleted_at                  |       string       |
+deleted_at                  |       string       | "null" or UTC date
 drain                       |       float        |
 hit_length                  |        int         |
 is_scoreable                |        bool        |
-last_updated                |       string       |
+last_updated                |       string       | UTC date
 mode_int                    |        int         |
 pass_count                  |        int         |
 play_count                  |        int         |
@@ -343,9 +343,18 @@ user_id                     |        int         |
 version                     |       string       |
 
 
+<h4>PlayCountBeatmap</h4>
 
-
-
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |        int         |
+difficulty_rating           |       float        |
+id                          |        int         |
+status                      |       string       |
+total_length                |        int         |
+user_id                     |        int         |
+version                     |       string       |
+ 
 
 <h3>/online/</h3>
 <h4>Request sample </h4>
