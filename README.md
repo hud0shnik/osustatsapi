@@ -322,6 +322,27 @@ track_id                    |       string       |
 userId                      |        int         |
 video                       |        bool        |
 
+<h4>Weight</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+percentage                  |       float        |
+pp                          |       float        |
+
+
+<h4>PlayCount</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |        int         |
+difficulty_rating           |       float        |
+id                          |        int         |
+status                      |       string       |
+total_length                |        int         |
+user_id                     |        int         |
+version                     |       string       |
+
+
 
 
 
