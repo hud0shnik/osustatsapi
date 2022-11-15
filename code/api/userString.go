@@ -630,7 +630,7 @@ func GetUserInfoString(id string) UserInfoString {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return UserInfoString{
-			Error: "http.Get error",
+			Error: "http get error",
 		}
 	}
 
@@ -644,7 +644,7 @@ func GetUserInfoString(id string) UserInfoString {
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
 		return UserInfoString{
-			Error: "User not found",
+			Error: "user not found",
 		}
 	}
 
@@ -998,17 +998,23 @@ func GetUserInfoString(id string) UserInfoString {
 // Роут "/userString"
 func UserString(w http.ResponseWriter, r *http.Request) {
 
+	// Формирование заголовка респонса по статускоду
 	w.WriteHeader(http.StatusCreated)
+
+	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
 
+	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
+
+	// Если параметра нет, отправка ошибки
 	if id == "" {
 		http.NotFound(w, r)
 		return
 	}
-	resp := GetUserInfoString(id)
 
-	jsonResp, err := json.Marshal(resp)
+	// Получение статистики, форматирование и отправка
+	jsonResp, err := json.Marshal(GetUserInfoString(id))
 	if err != nil {
 		fmt.Print("Error: ", err)
 	} else {

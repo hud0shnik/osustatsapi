@@ -800,17 +800,23 @@ func GetUserInfo(id string) UserInfo {
 // Роут "/user"
 func User(w http.ResponseWriter, r *http.Request) {
 
+	// Формирование заголовка респонса по статускоду
 	w.WriteHeader(http.StatusCreated)
+
+	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
 
+	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
+
+	// Если параметра нет, отправка ошибки
 	if id == "" {
 		http.NotFound(w, r)
 		return
 	}
-	resp := GetUserInfo(id)
 
-	jsonResp, err := json.Marshal(resp)
+	// Получение статистики, форматирование и отправка
+	jsonResp, err := json.Marshal(GetUserInfo(id))
 	if err != nil {
 		fmt.Print("Error: ", err)
 	} else {

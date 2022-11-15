@@ -21,7 +21,7 @@ func GetOnlineInfo(id string) OnlineInfo {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return OnlineInfo{
-			Error: "http.Get error",
+			Error: "http get error",
 		}
 	}
 
@@ -47,7 +47,7 @@ func GetOnlineInfo(id string) OnlineInfo {
 	}
 
 	return OnlineInfo{
-		Error: "User not found",
+		Error: "user not found",
 	}
 
 }
@@ -55,17 +55,23 @@ func GetOnlineInfo(id string) OnlineInfo {
 // Роут "/online"
 func Online(w http.ResponseWriter, r *http.Request) {
 
+	// Формирование заголовка респонса по статускоду
 	w.WriteHeader(http.StatusCreated)
+
+	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
 
+	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
+
+	// Если параметра нет, отправка ошибки
 	if id == "" {
 		http.NotFound(w, r)
 		return
 	}
-	resp := GetOnlineInfo(id)
 
-	jsonResp, err := json.Marshal(resp)
+	// Получение статистики, форматирование и отправка
+	jsonResp, err := json.Marshal(GetOnlineInfo(id))
 	if err != nil {
 		fmt.Print("Error: ", err)
 	} else {
