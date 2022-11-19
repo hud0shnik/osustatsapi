@@ -995,7 +995,7 @@ func GetUserInfoString(id string) UserInfoString {
 	return result
 }
 
-// Роут "/userString"
+// Роут "/userString" для vercel
 func UserString(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
