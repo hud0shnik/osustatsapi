@@ -7,11 +7,12 @@ import (
 	"net/http"
 )
 
-type MapResponse struct {
+type MapStringResponse struct {
 	Error string `json:"error"`
 }
 
-func Map(w http.ResponseWriter, r *http.Request) {
+// Роут "/mapstring" для vercel
+func MapString(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
 	w.WriteHeader(http.StatusCreated)
@@ -30,7 +31,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Получение статистики, форматирование и отправка
-	jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
+	jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
 	if err != nil {
 		fmt.Print("Error: ", err)
 	} else {
@@ -39,12 +40,12 @@ func Map(w http.ResponseWriter, r *http.Request) {
 }
 
 // Функция получения статистики карты
-func GetMapInfo(beatmapset, id string) MapResponse {
+func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
 	if err != nil {
-		return MapResponse{
+		return MapStringResponse{
 			Error: "http get error",
 		}
 	}
@@ -63,5 +64,5 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		log.Fatal(err)
 	}*/
 
-	return MapResponse{}
+	return MapStringResponse{}
 }
