@@ -41,18 +41,21 @@ func GetOnlineInfo(id string) OnlineInfo {
 
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "js-react--profile") {
+
+		// Поиск статуса пользователя и вывод результата
 		return OnlineInfo{
 			Status: find(pageStr, "is_online&quot;:", ",", 0),
 		}
 	}
 
+	// Вывод ошибки поиска
 	return OnlineInfo{
 		Error: "user not found",
 	}
 
 }
 
-// Роут "/online"
+// Роут "/online"  для vercel
 func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
