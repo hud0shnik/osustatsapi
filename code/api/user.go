@@ -434,8 +434,10 @@ func FormatBeatmaps(bms []BeatmapString) []Beatmap {
 
 	var result []Beatmap
 
+	// Обработка текстовых карт
 	for _, bm := range bms {
 
+		// Форматирование и добавление карты
 		result = append(result, Beatmap{
 			Artist:            bm.Artist,
 			ArtistUnicode:     bm.ArtistUnicode,
@@ -514,8 +516,10 @@ func FormatScores(scs []ScoreString) []Score {
 
 	var result []Score
 
+	// Обработка текстовых рекордов
 	for _, sc := range scs {
 
+		// Форматирование и добавление рекорда
 		result = append(result, Score{
 			Accuracy:         ToFloat64(sc.Accuracy),
 			BeatmapId:        ToInt(sc.BeatmapId),
@@ -610,8 +614,10 @@ func FormatScores(scs []ScoreString) []Score {
 // Функция получения информации о пользователе
 func GetUserInfo(id string) UserInfo {
 
+	// Получение текстовой версии статистики
 	resultStr := GetUserInfoString(id)
 
+	// Перевод в классическую версию
 	result := UserInfo{
 		Error:         resultStr.Error,
 		AvatarUrl:     resultStr.AvatarUrl,
@@ -692,6 +698,7 @@ func GetUserInfo(id string) UserInfo {
 		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
 	}
 
+	// Перевод достижений
 	for _, c := range resultStr.Achievements {
 		result.Achievements = append(result.Achievements, Achievement{
 			AchievedAt:    c.AchievedAt,
@@ -699,6 +706,7 @@ func GetUserInfo(id string) UserInfo {
 		})
 	}
 
+	// Перевод количества медалей и истории рейтинга
 	result.Medals = ToInt(resultStr.Medals)
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
 
@@ -706,6 +714,7 @@ func GetUserInfo(id string) UserInfo {
 		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
 	}
 
+	// Перевод карт
 	result.FavoriteBeatmaps = FormatBeatmaps(resultStr.FavoriteBeatmaps)
 	result.GraveyardBeatmaps = FormatBeatmaps(resultStr.GraveyardBeatmaps)
 	result.GuestBeatmaps = FormatBeatmaps(resultStr.GuestBeatmaps)
@@ -713,6 +722,7 @@ func GetUserInfo(id string) UserInfo {
 	result.RankedBeatmaps = FormatBeatmaps(resultStr.RankedBeatmaps)
 	result.PendingBeatmaps = FormatBeatmaps(resultStr.PendingBeatmaps)
 
+	// Перевод кудосу
 	for _, k := range resultStr.KudosuItems {
 		result.KudosuItems = append(result.KudosuItems, Kudosu{
 			Id:        ToInt(k.Id),
@@ -726,6 +736,7 @@ func GetUserInfo(id string) UserInfo {
 		})
 	}
 
+	// Перевод последней активности
 	for _, a := range resultStr.RecentActivity {
 		result.RecentActivity = append(result.RecentActivity, Activity{
 			CreatedAt:    a.CreatedAt,
@@ -739,10 +750,12 @@ func GetUserInfo(id string) UserInfo {
 		})
 	}
 
+	// Перевод рекордов
 	result.Best = FormatScores(resultStr.Best)
 	result.Firsts = FormatScores(resultStr.Firsts)
 	result.Pinned = FormatScores(resultStr.Pinned)
 
+	// Перевод карт с количеством игр
 	for _, pc := range resultStr.BeatmapPlaycounts {
 		result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, PlayCount{
 			BeatmapId: ToInt(pc.BeatmapId),
@@ -787,6 +800,7 @@ func GetUserInfo(id string) UserInfo {
 		})
 	}
 
+	// Перевод статистики просмотров повторов
 	for _, c := range resultStr.ReplaysWatchedCount {
 		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
 			StartDate: c.StartDate,
@@ -797,7 +811,7 @@ func GetUserInfo(id string) UserInfo {
 	return result
 }
 
-// Роут "/user"
+// Роут "/user"  для vercel
 func User(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
