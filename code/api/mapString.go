@@ -41,7 +41,39 @@ type MapStringResponse struct {
 	Storyboard         string                   `json:"storyboard"`
 	SubmittedDate      string                   `json:"submitted_date"`
 	Tags               []string                 `json:"tags"`
-	Beatmaps           string
+	Beatmaps           MapsString               `json:"beatmaps"`
+}
+
+type MapsString struct {
+	BeatmapSetId     string `json:"beatmapset_id"`
+	DifficultyRating string `json:"difficulty_rating"`
+	Id               string `json:"id"`
+	Mode             string `json:"mode"`
+	Status           string `json:"status"`
+	TotalLength      string `json:"total_length"`
+	UserId           string `json:"user_id"`
+	Version          string `json:"version"`
+	Accuracy         string `json:"accuracy"`
+	Ar               string `json:"ar"`
+	Bpm              string `json:"bpm"`
+	Convert          string `json:"convert"`
+	CountCircles     string `json:"count_circles"`
+	CountSliders     string `json:"count_sliders"`
+	CountSpinners    string `json:"count_spinners"`
+	Cs               string `json:"cs"`
+	DeletedAt        string `json:"deleted_at"`
+	Drain            string `json:"drain"`
+	HitLength        string `json:"hit_length"`
+	IsScoreable      string `json:"is_scoreable"`
+	LastUpdated      string `json:"last_updated"`
+	ModeInt          string `json:"mode_int"`
+	PassCount        string `json:"pass_count"`
+	PlayCount        string `json:"play_count"`
+	Ranked           string `json:"ranked"`
+	Url              string `json:"url"`
+	Checksum         string `json:"checksum"`
+	Failtimes        string `json:"failtimes"`
+	MaxCombo         string `json:"max_combo"`
 }
 
 // Роут "/mapstring" для vercel
