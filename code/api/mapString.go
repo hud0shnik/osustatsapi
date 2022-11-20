@@ -7,11 +7,13 @@ import (
 	"net/http"
 )
 
+// ---------------------- Структуры для парсинга ------------------------
+
 type MapStringResponse struct {
 	Error              string                   `json:"error"`
 	Artist             string                   `json:"artist"`
 	ArtistUnicode      string                   `json:"artist_unicode"`
-	Covers             CoverString              `json:"covers"`
+	Covers             Covers                   `json:"covers"`
 	Creator            string                   `json:"creator"`
 	FavoriteCount      string                   `json:"favorite_count"`
 	Hype               string                   `json:"hype"`
@@ -129,10 +131,16 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
-
 	/*if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
 	}*/
 
-	return MapStringResponse{}
+	result := MapStringResponse{}
+	left := 0
+
+	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left)
+	result.ArtistUnicode, left = findWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left)
+
+
+	return result
 }
