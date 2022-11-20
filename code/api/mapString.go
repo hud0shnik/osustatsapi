@@ -141,6 +141,14 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left)
 	result.ArtistUnicode, left = findWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left)
 
+	result.Covers.Cover, left = findWithIndex(pageStr, "\"cover\":\"", "\"", left)
+	result.Covers.Cover2X, left = findWithIndex(pageStr, "\"cover@2x\":\"", "\"", left)
+	result.Covers.Card, left = findWithIndex(pageStr, "\"card\"", "\"", left)
+	result.Covers.Card2X, left = findWithIndex(pageStr, "\"card@2x\"", "\"", left)
+	result.Covers.List, left = findWithIndex(pageStr, "\"list\"", "\"", left)
+	result.Covers.List2X, left = findWithIndex(pageStr, "\"list@2x\"", "\"", left)
+	result.Covers.SlimCover, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
+	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
 
 	return result
 }
