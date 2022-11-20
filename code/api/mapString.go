@@ -8,33 +8,40 @@ import (
 )
 
 type MapStringResponse struct {
-	Error             string `json:"error"`
-	Artist            string `json:"artist"`
-	ArtistUnicode     string `json:"artist_unicode"`
-	Covers            string `json:"covers"`
-	Creator           string `json:"creator"`
-	FavoriteCount     string `json:"favorite_count"`
-	Hype              string `json:"hype"`
-	Id                string `json:"id"`
-	Nsfw              string `json:"nsfw"`
-	Offset            string `json:"offset"`
-	PlayCount         string `json:"play_count"`
-	PreviewUrl        string `json:"preview_url"`
-	Source            string `json:"source"`
-	Spotlight         string `json:"spotlight"`
-	Status            string `json:"status"`
-	Title             string `json:"title"`
-	TitleUnicode      string `json:"title_unicode"`
-	TrackId           string `json:"track_id"`
-	Video             string `json:"video"`
-	DownloadDisabled  string `json:"download_disabled"`
-	Bpm               string `json:"bpm"`
-	CanBeHyped        string `json:"can_be_hyped"`
-	DiscussionEnabled string `json:"discussion_enabled"`
-	DiscussionLocked  string `json:"discussion_locked"`
-	IsScoreable       string `json:"is_scoreable"`
-	LastUpdated       string `json:"last_updated"`
-	LegacyThreadUrl   string `json:"legacy_thread_url"`
+	Error              string                   `json:"error"`
+	Artist             string                   `json:"artist"`
+	ArtistUnicode      string                   `json:"artist_unicode"`
+	Covers             CoverString              `json:"covers"`
+	Creator            string                   `json:"creator"`
+	FavoriteCount      string                   `json:"favorite_count"`
+	Hype               string                   `json:"hype"`
+	Id                 string                   `json:"id"`
+	Nsfw               string                   `json:"nsfw"`
+	Offset             string                   `json:"offset"`
+	PlayCount          string                   `json:"play_count"`
+	PreviewUrl         string                   `json:"preview_url"`
+	Source             string                   `json:"source"`
+	Spotlight          string                   `json:"spotlight"`
+	Status             string                   `json:"status"`
+	Title              string                   `json:"title"`
+	TitleUnicode       string                   `json:"title_unicode"`
+	TrackId            string                   `json:"track_id"`
+	Video              string                   `json:"video"`
+	DownloadDisabled   string                   `json:"download_disabled"`
+	Bpm                string                   `json:"bpm"`
+	CanBeHyped         string                   `json:"can_be_hyped"`
+	DiscussionEnabled  string                   `json:"discussion_enabled"`
+	DiscussionLocked   string                   `json:"discussion_locked"`
+	IsScoreable        string                   `json:"is_scoreable"`
+	LastUpdated        string                   `json:"last_updated"`
+	LegacyThreadUrl    string                   `json:"legacy_thread_url"`
+	NominationsSummary NominationsSummaryString `json:"nominations_summary"`
+	Ranked             string                   `json:"ranked"`
+	RankedDate         string                   `json:"ranked_date"`
+	Storyboard         string                   `json:"storyboard"`
+	SubmittedDate      string                   `json:"submitted_date"`
+	Tags               []string                 `json:"tags"`
+	Beatmaps           string
 }
 
 // Роут "/mapstring" для vercel
