@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 // ---------------------- Структуры для парсинга ------------------------
@@ -142,13 +143,21 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.ArtistUnicode, left = findWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left)
 
 	result.Covers.Cover, left = findWithIndex(pageStr, "\"cover\":\"", "\"", left)
+	result.Covers.Cover = strings.ReplaceAll(result.Covers.Cover, "\\", "")
 	result.Covers.Cover2X, left = findWithIndex(pageStr, "\"cover@2x\":\"", "\"", left)
-	result.Covers.Card, left = findWithIndex(pageStr, "\"card\"", "\"", left)
-	result.Covers.Card2X, left = findWithIndex(pageStr, "\"card@2x\"", "\"", left)
-	result.Covers.List, left = findWithIndex(pageStr, "\"list\"", "\"", left)
-	result.Covers.List2X, left = findWithIndex(pageStr, "\"list@2x\"", "\"", left)
-	result.Covers.SlimCover, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
+	result.Covers.Cover2X = strings.ReplaceAll(result.Covers.Cover2X, "\\", "")
+	result.Covers.Card, left = findWithIndex(pageStr, "\"card\":\"", "\"", left)
+	result.Covers.Card = strings.ReplaceAll(result.Covers.Card, "\\", "")
+	result.Covers.Card2X, left = findWithIndex(pageStr, "\"card@2x\":\"", "\"", left)
+	result.Covers.Card2X = strings.ReplaceAll(result.Covers.Card2X, "\\", "")
+	result.Covers.List, left = findWithIndex(pageStr, "\"list\":\"", "\"", left)
+	result.Covers.List = strings.ReplaceAll(result.Covers.List, "\\", "")
+	result.Covers.List2X, left = findWithIndex(pageStr, "\"list@2x\":\"", "\"", left)
+	result.Covers.List2X = strings.ReplaceAll(result.Covers.List2X, "\\", "")
+	result.Covers.SlimCover, left = findWithIndex(pageStr, "\"slimcover\":\"", "\"", left)
+	result.Covers.SlimCover = strings.ReplaceAll(result.Covers.SlimCover, "\\", "")
 	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
+	result.Covers.SlimCover2X = strings.ReplaceAll(result.Covers.SlimCover2X, "\\", "")
 
 	return result
 }
