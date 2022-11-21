@@ -190,5 +190,15 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left)
 	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left)
 
+	result.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
+	result.RankedDate, left = findWithIndex(pageStr, "\"ranked_date\":\"", "\",", left)
+	result.Storyboard, left = findWithIndex(pageStr, "\"storyboard\":", ",", left)
+	result.SubmittedDate, left = findWithIndex(pageStr, "\"submitted_date\":\"", "\",", left)
+
+	result.Tags = strings.Split(find(pageStr, "\"tags\":\"", "\",", left), " ")
+	if result.Tags[0] == "" {
+		result.Tags = nil
+	}
+
 	return result
 }
