@@ -187,5 +187,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.LegacyThreadUrl, left = findWithIndex(pageStr, "\"legacy_thread_url\":\"", "\",", left)
 	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
 
+	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left)
+	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left)
+
 	return result
 }
