@@ -29,6 +29,7 @@ type MapStringResponse struct {
 	Title              string                   `json:"title"`
 	TitleUnicode       string                   `json:"title_unicode"`
 	TrackId            string                   `json:"track_id"`
+	UserId             string                   `json:"user_id"`
 	Video              string                   `json:"video"`
 	DownloadDisabled   string                   `json:"download_disabled"`
 	Bpm                string                   `json:"bpm"`
@@ -166,8 +167,18 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
 	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
 	result.PlayCount, left = findWithIndex(pageStr, "\"play_count\":", ",", left)
-	result.PreviewUrl, left = findWithIndex(pageStr, "\"preview_url\":\"", "\",", left)
+	result.PreviewUrl, left = findWithIndex(pageStr, "\"preview_url\":\"\\/\\/", "\",", left)
 	result.PreviewUrl = strings.ReplaceAll(result.PreviewUrl, "\\", "")
+	result.Source, left = findWithIndex(pageStr, "\"source\":\"", "\",", left)
+	result.Spotlight, left = findWithIndex(pageStr, "\"spotlight\":", ",", left)
+	result.Status, left = findWithIndex(pageStr, "\"status\":\"", "\",", left)
+	result.Title, left = findWithIndex(pageStr, "\"title\":\"", "\",", left)
+	result.TitleUnicode, left = findWithIndex(pageStr, "\"title_unicode\":\"", "\",", left)
+	result.TrackId, left = findWithIndex(pageStr, "\"track_id\":", ",", left)
+	result.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+	result.Video, left = findWithIndex(pageStr, "\"video\":", ",", left)
+	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left)
+	result.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
 
 	return result
 }
