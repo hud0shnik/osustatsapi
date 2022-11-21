@@ -124,6 +124,14 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		}
 	}
 
+	// Проверка на ошибки
+	if resp.StatusCode != 200 {
+		return MapStringResponse{
+			Error: resp.Status,
+		}
+
+	}
+
 	// Запись респонса
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
