@@ -159,5 +159,15 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
 	result.Covers.SlimCover2X = strings.ReplaceAll(result.Covers.SlimCover2X, "\\", "")
 
+	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left)
+	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
+	result.Hype, left = findWithIndex(pageStr, "\"hype\":", ",", left)
+	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
+	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
+	result.PlayCount, left = findWithIndex(pageStr, "\"play_count\":", ",", left)
+	result.PreviewUrl, left = findWithIndex(pageStr, "\"preview_url\":\"", "\",", left)
+	result.PreviewUrl = strings.ReplaceAll(result.PreviewUrl, "\\", "")
+
 	return result
 }
