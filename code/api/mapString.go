@@ -179,6 +179,13 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Video, left = findWithIndex(pageStr, "\"video\":", ",", left)
 	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left)
 	result.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
+	result.CanBeHyped, left = findWithIndex(pageStr, "\"can_be_hyped\":", ",", left)
+	result.DiscussionEnabled, left = findWithIndex(pageStr, "\"discussion_enabled\":", ",", left)
+	result.DiscussionLocked, left = findWithIndex(pageStr, "\"discussion_locked\":", ",", left)
+	result.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
+	result.LastUpdated, left = findWithIndex(pageStr, "\"last_updated\":\"", "\",", left)
+	result.LegacyThreadUrl, left = findWithIndex(pageStr, "\"legacy_thread_url\":\"", "\",", left)
+	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
 
 	return result
 }
