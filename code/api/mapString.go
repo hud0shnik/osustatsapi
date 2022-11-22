@@ -46,6 +46,7 @@ type MapStringResponse struct {
 	SubmittedDate      string                   `json:"submitted_date"`
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
+	Converts           []MapsString             `json:"converts"`
 }
 
 type MapsString struct {
@@ -208,15 +209,24 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		result.Tags = nil
 	}
 
-	result.Beatmaps, left = parseMapsString(pageStr, left)
+	result.Beatmaps, left = parseMapsString(pageStr, left, "beatmaps")
+	result.Converts, left = parseMapsString(pageStr, left, "convert")
 
 	return result
 }
 
-func parseMapsString(pageStr string, left int) ([]MapsString, int) {
+// функция парсинга карт
+func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, int) {
+
+	var end int
+
+	if mapType == "beatmaps" {
+		pageStr, end = findWithIndex(pageStr, "\"beatmaps\":[", "\"converts\":[", left)
+	} else {
+		pageStr, end = findWithIndex(pageStr, "\"converts\":[", "\"current_nominations\"", left)
+	}
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end := findWithIndex(pageStr, "\"beatmaps\":[", "\"converts\":[", left)
 
 	// Проверка на наличие карт
 	if len(pageStr) == 0 {
@@ -230,6 +240,7 @@ func parseMapsString(pageStr string, left int) ([]MapsString, int) {
 	// Пока есть необработанные карты
 	for index(pageStr, "\"beatmapset_id\"", left) != -1 {
 
+		// Структура карты
 		var bm MapsString
 
 		bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
