@@ -81,8 +81,8 @@ type MapsString struct {
 }
 
 type Failtimes struct {
-	Fail []string `json:"fail"`
-	Exit []string `json:"exit"`
+	Fail string `json:"fail"`
+	Exit string `json:"exit"`
 }
 
 // Роут "/mapstring" для vercel
@@ -260,6 +260,9 @@ func parseMapsString(pageStr string, left int) ([]MapsString, int) {
 		bm.Url, left = findWithIndex(pageStr, "\"url\":\"", "\"", left)
 		bm.Url = strings.ReplaceAll(bm.Url, "\\", "")
 		bm.Checksum, left = findWithIndex(pageStr, "\"checksum\":\"", "\"", left)
+
+		bm.Failtimes.Fail, left = findWithIndex(pageStr, "\"fail\":[", "]", left)
+		bm.Failtimes.Exit, left = findWithIndex(pageStr, "\"exit\":[", "]", left)
 
 		// Добавление карты к результату
 		result = append(result, bm)
