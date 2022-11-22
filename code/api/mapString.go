@@ -208,5 +208,63 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		result.Tags = nil
 	}
 
+	result.Beatmaps, left = parseMapsString(pageStr, left)
+
 	return result
+}
+
+func parseMapsString(pageStr string, left int) ([]MapsString, int) {
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end := findWithIndex(pageStr, "\"beatmaps\":[", "\"converts\":[", left)
+
+	// Проверка на наличие карт
+	if len(pageStr) == 0 {
+		return []MapsString{}, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []MapsString
+	left = 0
+
+	// Пока есть необработанные карты
+	for index(pageStr, "\"beatmapset_id\"", left) != -1 {
+
+		var bm MapsString
+
+		bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
+		bm.DifficultyRating, left = findWithIndex(pageStr, "\"difficulty_rating\":", ",", left)
+		bm.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+		bm.Mode, left = findWithIndex(pageStr, "\"mode\":\"", "\"", left)
+		bm.Status, left = findWithIndex(pageStr, "\"status\":\"", "\"", left)
+		bm.TotalLength, left = findWithIndex(pageStr, "total_length\":", ",", left)
+		bm.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+		bm.Version, left = findWithIndex(pageStr, "\"version\":\"", "\"", left)
+		bm.Accuracy, left = findWithIndex(pageStr, "\"accuracy\":", ",", left)
+		bm.Ar, left = findWithIndex(pageStr, "\"ar\":", ",", left)
+		bm.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
+		bm.Convert, left = findWithIndex(pageStr, "\"convert\":", ",", left)
+		bm.CountCircles, left = findWithIndex(pageStr, "\"count_circles\":", ",", left)
+		bm.CountSliders, left = findWithIndex(pageStr, "\"count_sliders\":", ",", left)
+		bm.CountSpinners, left = findWithIndex(pageStr, "\"count_spinners\":", ",", left)
+		bm.Cs, left = findWithIndex(pageStr, "\"cs\":", ",", left)
+		bm.DeletedAt, left = findWithIndex(pageStr, "\"deleted_at\":", ",", left)
+		bm.Drain, left = findWithIndex(pageStr, "\"drain\":", ",", left)
+		bm.HitLength, left = findWithIndex(pageStr, "\"hit_length\":", ",", left)
+		bm.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
+		bm.LastUpdated, left = findWithIndex(pageStr, "\"last_updated\":\"", "\"", left)
+		bm.ModeInt, left = findWithIndex(pageStr, "\"mode_int\":", ",", left)
+		bm.PassCount, left = findWithIndex(pageStr, "\"passcount\":", ",", left)
+		bm.PlayCount, left = findWithIndex(pageStr, "\"playcount\":", ",", left)
+		bm.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
+		bm.Url, left = findWithIndex(pageStr, "\"url\":\"", "\"", left)
+		bm.Url = strings.ReplaceAll(bm.Url, "\\", "")
+		bm.Checksum, left = findWithIndex(pageStr, "\"checksum\":\"", "\"", left)
+
+		// Добавление карты к результату
+		result = append(result, bm)
+	}
+
+	return result, end
+
 }
