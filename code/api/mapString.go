@@ -275,6 +275,8 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 		bm.Failtimes.Fail, left = findWithIndex(pageStr, "\"fail\":[", "]", left)
 		bm.Failtimes.Exit, left = findWithIndex(pageStr, "\"exit\":[", "]", left)
 
+		bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left)
+
 		// Добавление карты к результату
 		result = append(result, bm)
 	}
