@@ -47,7 +47,8 @@ type MapStringResponse struct {
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
 	Converts           []MapsString             `json:"converts"`
-	Genre              string                   `json:"genre"`
+	GenreId            string                   `json:"genre_id"`
+	GenreName          string                   `json:"genre_name"`
 }
 
 type MapsString struct {
@@ -212,7 +213,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Beatmaps, left = parseMapsString(pageStr, left, "beatmaps")
 	result.Converts, left = parseMapsString(pageStr, left, "convert")
 
-	result.Genre, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
+	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
+	result.GenreName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
 
 	return result
 }
