@@ -47,6 +47,7 @@ type MapStringResponse struct {
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
 	Converts           []MapsString             `json:"converts"`
+	Genre              string                   `json:"genre"`
 }
 
 type MapsString struct {
@@ -130,7 +131,6 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		return MapStringResponse{
 			Error: resp.Status,
 		}
-
 	}
 
 	// Запись респонса
@@ -211,6 +211,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.Beatmaps, left = parseMapsString(pageStr, left, "beatmaps")
 	result.Converts, left = parseMapsString(pageStr, left, "convert")
+
+	result.Genre, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
 
 	return result
 }
