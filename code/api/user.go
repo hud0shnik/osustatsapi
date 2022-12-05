@@ -617,6 +617,13 @@ func GetUserInfo(id string) UserInfo {
 	// Получение текстовой версии статистики
 	resultStr := GetUserInfoString(id)
 
+	// Проверка на ошибки при парсинге
+	if resultStr.Error != "" {
+		return UserInfo{
+			Error: resultStr.Error,
+		}
+	}
+
 	// Перевод в классическую версию
 	result := UserInfo{
 		Error:         resultStr.Error,
