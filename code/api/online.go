@@ -40,17 +40,18 @@ func GetOnlineInfo(id string) OnlineInfo {
 	*/
 
 	// Проверка на страницу пользователя
-	if strings.Contains(pageStr, "js-react--profile") {
+	if !strings.Contains(pageStr, "js-react--profile") {
 
-		// Поиск статуса пользователя и вывод результата
+		// Вывод ошибки поиска
 		return OnlineInfo{
-			Status: find(pageStr, "is_online&quot;:", ",", 0),
+			Error: "user not found",
 		}
+
 	}
 
-	// Вывод ошибки поиска
+	// Поиск статуса пользователя и вывод результата
 	return OnlineInfo{
-		Error: "user not found",
+		Status: find(pageStr, "is_online&quot;:", ",", 0),
 	}
 
 }
