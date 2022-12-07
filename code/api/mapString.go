@@ -90,6 +90,22 @@ type Failtimes struct {
 	Exit string `json:"exit"`
 }
 
+type BmFavorite struct {
+	AvatarUrl     string `json:"avatar_url"`
+	CountryCode   string `json:"country_code"`
+	DefaultGroup  string `json:"default_group"`
+	Id            string `json:"id "`
+	IsActive      string `json:"is_active"`
+	IsBot         string `json:"is_bot"`
+	IsDeleted     string `json:"is_deleted"`
+	IsOnline      string `json:"is_online"`
+	IsSupporter   string `json:"is_supporter"`
+	LastVisit     string `json:"last_visit"`
+	PmFriendsOnly string `json:"pm_friends_only"`
+	ProfileColor  string `json:"profile_color"`
+	Username      string `json:"username"`
+}
+
 // Роут "/mapstring" для vercel
 func MapString(w http.ResponseWriter, r *http.Request) {
 
