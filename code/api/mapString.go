@@ -51,6 +51,7 @@ type MapStringResponse struct {
 	GenreName          string                   `json:"genre_name"`
 	LanguageId         string                   `json:"language_id"`
 	LanguageName       string                   `json:"language_name"`
+	Ratings            string                   `json:"ratings"`
 }
 
 type MapsString struct {
@@ -235,6 +236,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.GenreName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
 	result.LanguageId, left = findWithIndex(pageStr, "\"language\":{\"id\":", ",", left)
 	result.LanguageName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
+	result.Ratings, _ = findWithIndex(pageStr, "ratings\":[", "]", left)
 
 	return result
 }
