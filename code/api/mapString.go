@@ -310,3 +310,35 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 	return result, end
 
 }
+
+// функция парсинга пользователей
+func parseFavorites(pageStr string, left int, mapType string) ([]BmFavorite, int) {
+
+	// Индекс конца пользователей
+	var end int
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, "recent_favourites\":[", "]", left)
+
+	// Проверка на наличие пользователей
+	if len(pageStr) == 0 {
+		return []BmFavorite{}, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []BmFavorite
+	left = 0
+
+	// Пока есть необработанные пользователи
+	for index(pageStr, "avatar_url", left) != -1 {
+
+		// Структура карты
+		var fv BmFavorite
+
+		// Добавление пользователя к результату
+		result = append(result, fv)
+	}
+
+	return result, end
+
+}
