@@ -334,6 +334,19 @@ func parseFavorites(pageStr string, left int, mapType string) ([]BmFavorite, int
 
 		// Структура карты
 		var fv BmFavorite
+		fv.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
+		fv.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
+		fv.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
+		fv.Id, left = findWithIndex(pageStr, "id\":", ",", left)
+		fv.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
+		fv.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
+		fv.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
+		fv.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
+		fv.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
+		fv.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
+		fv.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
+		fv.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":", ",", left)
+		fv.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
 
 		// Добавление пользователя к результату
 		result = append(result, fv)
