@@ -315,13 +315,13 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 }
 
 // функция парсинга пользователей
-func parseFavorites(pageStr string, left int, mapType string) ([]BmFavorite, int) {
+func parseFavorites(pageStr string, left int) ([]BmFavorite, int) {
 
 	// Индекс конца пользователей
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, "recent_favourites\":[", "]", left)
+	pageStr, end = findWithIndex(pageStr, "recent_favourites\":[", "related_users\":[", left)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
