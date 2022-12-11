@@ -109,11 +109,20 @@ type BmFavorite struct {
 }
 
 type Comment struct {
-	Id           string `json:"id"`
-	ParendId     string `json:"parent_id"`
-	UserId       string `json:"user_id"`
-	Pinned       string `json:"pinned"`
-	RepliesCount string `json:"replies_count"`
+	Id              string `json:"id"`
+	ParentId        string `json:"parent_id"`
+	UserId          string `json:"user_id"`
+	Pinned          string `json:"pinned"`
+	RepliesCount    string `json:"replies_count"`
+	VotesCount      string `json:"votes_count"`
+	CommentableType string `json:"commentable_type"`
+	CommentableId   string `json:"commentable_id"`
+	LegacyName      string `json:"legacy_name"`
+	CreatedAt       string `json:"created_at"`
+	UpdatedAt       string `json:"updated_at"`
+	DeletedAt       string `json:"deleted_at"`
+	EditedAt        string `json:"edited_at"`
+	EditedById      string `json:"edited_by_id"`
 }
 
 // Роут "/mapstring" для vercel
