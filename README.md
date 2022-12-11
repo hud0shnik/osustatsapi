@@ -53,9 +53,9 @@ country_name                |       string       | like "Japan"
 cover                       |       Cover        |
 is_admin                    |        bool        |    
 is_bng                      |        bool        | Beatmap Nominators Group
-is_full_bn                  |        bool        |
+is_full_bn                  |        bool        | full ban
 is_gmt                      |        bool        | Global Moderation Team
-is_limited_bn               |        bool        |
+is_limited_bn               |        bool        | limited ban
 is_moderator                |        bool        |
 is_nat                      |        bool        | Nomination Assessment Team
 is_restricted               |        bool        | timeout from the community
@@ -102,8 +102,8 @@ pending_beatmaps            |     []Beatmap      |
 kudosu_items                |     []Kudosu       |
 recent_activity             |    []Activity      |
 best                        |      []Score       |
-firsts                      |      []Score       |
-pinned                      |      []Score       |
+firsts                      |      []Score       | first places
+pinned                      |      []Score       | pinned beatmaps
 beatmap_playcounts          |    []PlayCount     |
 monthly_playcounts          |      []Count       |
 replays_watched_counts      |      []Count       |
