@@ -108,6 +108,14 @@ type BmFavorite struct {
 	Username      string `json:"username"`
 }
 
+type Comment struct {
+	Id           string `json:"id"`
+	ParendId     string `json:"parent_id"`
+	UserId       string `json:"user_id"`
+	Pinned       string `json:"pinned"`
+	RepliesCount string `json:"replies_count"`
+}
+
 // Роут "/mapstring" для vercel
 func MapString(w http.ResponseWriter, r *http.Request) {
 
