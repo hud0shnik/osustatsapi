@@ -343,8 +343,25 @@ func parseComments(pageStr string) []Comment {
 
 	// Пока есть необработанные пользователи
 	for index(pageStr, "id\":", left) != -1 {
-		var cm Comment
 
+		// Структура комментария
+		var cm Comment
+		cm.Id, left = findWithIndex(pageStr, "id\":", ",", left)
+		cm.ParentId, left = findWithIndex(pageStr, "parent_id\":", ",", left)
+		cm.UserId, left = findWithIndex(pageStr, "user_id\":", ",", left)
+		cm.Pinned, left = findWithIndex(pageStr, "pinned\":", ",", left)
+		cm.RepliesCount, left = findWithIndex(pageStr, "replies_count\":", ",", left)
+		cm.VotesCount, left = findWithIndex(pageStr, "votes_count\":", ",", left)
+		cm.CommentableType, left = findWithIndex(pageStr, "commentable_type\":\"", "\"", left)
+		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left)
+		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left)
+		cm.CreatedAt, left = findWithIndex(pageStr, "created_at\":", ",", left)
+		cm.UpdatedAt, left = findWithIndex(pageStr, "updated_at\":", ",", left)
+		cm.DeletedAt, left = findWithIndex(pageStr, "deleted_at\":", ",", left)
+		cm.EditedAt, left = findWithIndex(pageStr, "edited_at\":", ",", left)
+		cm.EditedById, left = findWithIndex(pageStr, "edited_by_id\":", ",", left)
+
+		// Добавление комментария к результату
 		result = append(result, cm)
 	}
 
