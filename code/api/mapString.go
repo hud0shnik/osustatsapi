@@ -331,6 +331,26 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 
 }
 
+// Функция парсинга комментов
+func parseComments(pageStr string) []Comment {
+
+	// Проверка на наличие пользователей
+	if len(pageStr) == 0 {
+		return []Comment{}
+	}
+	result := []Comment{}
+	left := 0
+
+	// Пока есть необработанные пользователи
+	for index(pageStr, "id\":", left) != -1 {
+		var cm Comment
+
+		result = append(result, cm)
+	}
+
+	return result
+}
+
 // функция парсинга пользователей
 func parseFavorites(pageStr string, left int) ([]BmFavorite, int) {
 
