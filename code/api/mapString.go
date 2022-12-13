@@ -53,6 +53,9 @@ type MapStringResponse struct {
 	LanguageName       string                   `json:"language_name"`
 	Ratings            string                   `json:"ratings"`
 	RecentFavourites   []BmFavorite             `json:"recent_favourites"`
+	// related_users
+	// user
+	Comments []Comment `json:"comments"`
 }
 
 type MapsString struct {
@@ -257,6 +260,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Ratings, left = findWithIndex(pageStr, "ratings\":[", "]", left)
 
 	result.RecentFavourites, _ = parseFavorites(pageStr, left)
+	result.Comments, _ = parseComments(pageStr, left)
 
 	return result
 }
@@ -332,14 +336,22 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 }
 
 // Функция парсинга комментов
-func parseComments(pageStr string) []Comment {
+func parseComments(pageStr string, left int) ([]Comment, int) {
+
+	// Индекс конца комментариев
+	var end int
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, "comments\":[", "has_more\":", left)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []Comment{}
+		return []Comment{}, end
 	}
+
+	// Результат и индекс обработанной части
 	result := []Comment{}
-	left := 0
+	left = 0
 
 	// Пока есть необработанные пользователи
 	for index(pageStr, "id\":", left) != -1 {
@@ -365,7 +377,7 @@ func parseComments(pageStr string) []Comment {
 		result = append(result, cm)
 	}
 
-	return result
+	return result, end
 }
 
 // функция парсинга пользователей
