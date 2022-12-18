@@ -54,8 +54,8 @@ type MapStringResponse struct {
 	Ratings            string                   `json:"ratings"`
 	RecentFavourites   []BmUser                 `json:"recent_favourites"`
 	RelatedUsers       []BmUser                 `json:"related_users"`
-	// user
-	Comments []Comment `json:"comments"`
+	User               BmUser                   `json:"user"`
+	Comments           []Comment                `json:"comments"`
 }
 
 type MapsString struct {
@@ -337,6 +337,40 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 }
 
 // функция парсинга пользователей
+func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
+
+	// Индекс конца пользователей
+	var end int
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+
+	// Проверка на наличие пользователей
+	if len(pageStr) == 0 {
+		return []BmUser{}, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []BmUser
+	left = 0
+
+	// Пока есть необработанные пользователи
+	for index(pageStr, "avatar_url", left) != -1 {
+
+		// Структура карты
+		var user BmUser
+
+		user, left = parseBmUser(pageStr, left)
+
+		// Добавление пользователя к результату
+		result = append(result, user)
+	}
+
+	return result, end
+
+}
+
+// функция парсинга пользователей
 func parseBmUser(pageStr string, left int) (BmUser, int) {
 
 	// Структура пользователя
@@ -404,49 +438,4 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 	}
 
 	return result, end
-}
-
-// функция парсинга пользователей
-func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
-
-	// Индекс конца пользователей
-	var end int
-
-	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
-
-	// Проверка на наличие пользователей
-	if len(pageStr) == 0 {
-		return []BmUser{}, end
-	}
-
-	// Результат и индекс обработанной части
-	var result []BmUser
-	left = 0
-
-	// Пока есть необработанные пользователи
-	for index(pageStr, "avatar_url", left) != -1 {
-
-		// Структура карты
-		var user BmUser
-		user.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
-		user.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
-		user.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
-		user.Id, left = findWithIndex(pageStr, "id\":", ",", left)
-		user.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
-		user.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
-		user.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
-		user.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
-		user.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
-		user.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
-		user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
-		user.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":\"", "\",", left)
-		user.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
-
-		// Добавление пользователя к результату
-		result = append(result, user)
-	}
-
-	return result, end
-
 }
