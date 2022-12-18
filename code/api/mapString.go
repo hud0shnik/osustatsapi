@@ -52,7 +52,7 @@ type MapStringResponse struct {
 	LanguageId         string                   `json:"language_id"`
 	LanguageName       string                   `json:"language_name"`
 	Ratings            string                   `json:"ratings"`
-	RecentFavourites   []BmFavorite             `json:"recent_favourites"`
+	RecentFavourites   []BmUser                 `json:"recent_favourites"`
 	// related_users
 	// user
 	Comments []Comment `json:"comments"`
@@ -95,7 +95,7 @@ type Failtimes struct {
 	Exit string `json:"exit"`
 }
 
-type BmFavorite struct {
+type BmUser struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
 	DefaultGroup  string `json:"default_group"`
@@ -391,18 +391,18 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []BmFavorite{}, end
+		return []BmUser{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []BmFavorite
+	var result []BmUser
 	left = 0
 
 	// Пока есть необработанные пользователи
 	for index(pageStr, "avatar_url", left) != -1 {
 
 		// Структура карты
-		var fv BmFavorite
+		var fv BmUser
 		fv.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
 		fv.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
 		fv.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
