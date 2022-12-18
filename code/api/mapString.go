@@ -403,23 +403,23 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 	for index(pageStr, "avatar_url", left) != -1 {
 
 		// Структура карты
-		var fv BmUser
-		fv.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
-		fv.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
-		fv.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
-		fv.Id, left = findWithIndex(pageStr, "id\":", ",", left)
-		fv.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
-		fv.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
-		fv.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
-		fv.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
-		fv.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
-		fv.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
-		fv.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
-		fv.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":\"", "\",", left)
-		fv.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
+		var user BmUser
+		user.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
+		user.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
+		user.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
+		user.Id, left = findWithIndex(pageStr, "id\":", ",", left)
+		user.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
+		user.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
+		user.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
+		user.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
+		user.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
+		user.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
+		user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
+		user.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":\"", "\",", left)
+		user.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
 
 		// Добавление пользователя к результату
-		result = append(result, fv)
+		result = append(result, user)
 	}
 
 	return result, end
