@@ -261,12 +261,14 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.RecentFavourites, left = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
+	result.User, left = parseBmUser(pageStr, left)
+
 	result.Comments, _ = parseComments(pageStr, left)
 
 	return result
 }
 
-// функция парсинга карт
+// Функция парсинга карт
 func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, int) {
 
 	// Индекс конца карт
@@ -336,7 +338,7 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 
 }
 
-// функция парсинга пользователей
+// Функция парсинга пользователей
 func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 
 	// Индекс конца пользователей
@@ -357,7 +359,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 	// Пока есть необработанные пользователи
 	for index(pageStr, "avatar_url", left) != -1 {
 
-		// Структура карты
+		// Структура пользователя
 		var user BmUser
 
 		user, left = parseBmUser(pageStr, left)
