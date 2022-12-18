@@ -415,7 +415,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 		fv.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
 		fv.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
 		fv.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
-		fv.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":", ",", left)
+		fv.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":\"", "\",", left)
 		fv.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
 
 		// Добавление пользователя к результату
