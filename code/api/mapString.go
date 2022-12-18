@@ -53,7 +53,7 @@ type MapStringResponse struct {
 	LanguageName       string                   `json:"language_name"`
 	Ratings            string                   `json:"ratings"`
 	RecentFavourites   []BmUser                 `json:"recent_favourites"`
-	// related_users
+	RelatedUsers       []BmUser                 `json:"related_users"`
 	// user
 	Comments []Comment `json:"comments"`
 }
@@ -259,7 +259,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.LanguageName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
 	result.Ratings, left = findWithIndex(pageStr, "ratings\":[", "]", left)
 
-	result.RecentFavourites, _ = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
+	result.RecentFavourites, left = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
+	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
 	result.Comments, _ = parseComments(pageStr, left)
 
 	return result
