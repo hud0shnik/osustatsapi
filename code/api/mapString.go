@@ -259,7 +259,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.LanguageName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
 	result.Ratings, left = findWithIndex(pageStr, "ratings\":[", "]", left)
 
-	result.RecentFavourites, _ = parseFavorites(pageStr, left)
+	result.RecentFavourites, _ = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
 	result.Comments, _ = parseComments(pageStr, left)
 
 	return result
@@ -381,13 +381,13 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 }
 
 // функция парсинга пользователей
-func parseFavorites(pageStr string, left int) ([]BmFavorite, int) {
+func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 
 	// Индекс конца пользователей
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, "recent_favourites\":[", "related_users\":[", left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
