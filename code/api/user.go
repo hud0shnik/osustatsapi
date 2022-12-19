@@ -368,11 +368,11 @@ func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
 	// Обрезка левой границы поиска
 	str = str[start:]
 
-	// Проверка на существование нужной строки
-	if strings.Contains(str, subStr) {
+	// Поиск индекса начала нужной строки
+	left := strings.Index(str, subStr) + len(subStr)
 
-		// Поиск индекса начала нужной строки
-		left := strings.Index(str, subStr) + len(subStr)
+	// Проверка на существование нужной строки
+	if left != len(subStr)-1 {
 
 		// Поиск правой границы
 		right := left + strings.Index(str[left:], stopChar)
