@@ -126,6 +126,7 @@ type Comment struct {
 	DeletedAt       string `json:"deleted_at"`
 	EditedAt        string `json:"edited_at"`
 	EditedById      string `json:"edited_by_id"`
+	Message         string `json:"message"`
 }
 
 // Роут "/mapstring" для vercel
@@ -416,7 +417,7 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 	left = 0
 
 	// Пока есть необработанные пользователи
-	for index(pageStr, "id\":", left) != -1 {
+	for i := 0; index(pageStr, "id\":", left) != -1; i++ {
 
 		// Структура комментария
 		var cm Comment
@@ -428,12 +429,16 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 		cm.VotesCount, left = findWithIndex(pageStr, "votes_count\":", ",", left)
 		cm.CommentableType, left = findWithIndex(pageStr, "commentable_type\":\"", "\"", left)
 		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left)
-		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":\"", "\",", left)
+		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left)
 		cm.CreatedAt, left = findWithIndex(pageStr, "created_at\":\"", "\",", left)
 		cm.UpdatedAt, left = findWithIndex(pageStr, "updated_at\":\"", "\",", left)
 		cm.DeletedAt, left = findWithIndex(pageStr, "deleted_at\":\"", "\",", left)
 		cm.EditedAt, left = findWithIndex(pageStr, "edited_at\":\"", "\",", left)
 		cm.EditedById, left = findWithIndex(pageStr, "edited_by_id\":\"", "\",", left)
+
+		if i != 0 {
+			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
+		}
 
 		// Добавление комментария к результату
 		result = append(result, cm)
