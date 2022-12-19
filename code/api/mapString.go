@@ -127,6 +127,7 @@ type Comment struct {
 	EditedAt        string `json:"edited_at"`
 	EditedById      string `json:"edited_by_id"`
 	Message         string `json:"message"`
+	MessageHtml     string `json:"message_html"`
 }
 
 // Роут "/mapstring" для vercel
@@ -438,6 +439,7 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 
 		if i != 0 {
 			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
+			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left)
 		}
 
 		// Добавление комментария к результату
