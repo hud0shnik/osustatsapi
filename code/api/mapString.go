@@ -265,7 +265,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
 	result.User, left = parseBmUser(pageStr, left)
 
-	result.Comments, _ = parseComments(pageStr, left)
+	result.Comments, _ = parseComments(pageStr, "comments\":[", "has_more\":", left)
 
 	return result
 }
@@ -393,20 +393,20 @@ func parseBmUser(pageStr string, left int) (BmUser, int) {
 	user.LastVisit, left = findStringWithIndex(pageStr, "last_visit\":", ",", left)
 	user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
 	user.ProfileColor, left = findStringWithIndex(pageStr, "profile_colour\":", ",", left)
-	user.Username, left = findStringWithIndex(pageStr, "username\":", "", left)
+	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left)
 
 	return user, left
 
 }
 
 // Функция парсинга комментов
-func parseComments(pageStr string, left int) ([]Comment, int) {
+func parseComments(pageStr, subStr, stopChar string, left int) ([]Comment, int) {
 
 	// Индекс конца комментариев
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, "comments\":[", "has_more\":", left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
