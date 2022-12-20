@@ -381,19 +381,19 @@ func parseBmUser(pageStr string, left int) (BmUser, int) {
 	var user BmUser
 
 	// Запись данных
-	user.AvatarUrl, left = findWithIndex(pageStr, "avatar_url\":\"", "\"", left)
-	user.CountryCode, left = findWithIndex(pageStr, "country_code\":\"", "\"", left)
-	user.DefaultGroup, left = findWithIndex(pageStr, "default_group\":\"", "\"", left)
+	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left)
+	user.CountryCode, left = findStringWithIndex(pageStr, "country_code\":", ",", left)
+	user.DefaultGroup, left = findStringWithIndex(pageStr, "default_group\":", ",", left)
 	user.Id, left = findWithIndex(pageStr, "id\":", ",", left)
 	user.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
 	user.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
 	user.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
 	user.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
 	user.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
-	user.LastVisit, left = findWithIndex(pageStr, "last_visit\":\"", "\"", left)
+	user.LastVisit, left = findStringWithIndex(pageStr, "last_visit\":", ",", left)
 	user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
-	user.ProfileColor, left = findWithIndex(pageStr, "profile_colour\":\"", "\",", left)
-	user.Username, left = findWithIndex(pageStr, "username\":\"", "\"", left)
+	user.ProfileColor, left = findStringWithIndex(pageStr, "profile_colour\":", ",", left)
+	user.Username, left = findStringWithIndex(pageStr, "username\":", "", left)
 
 	return user, left
 
@@ -431,11 +431,15 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 		cm.CommentableType, left = findStringWithIndex(pageStr, "commentable_type:", ",", left)
 		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left)
 		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left)
+		cm.CreatedAt, left = findStringWithIndex(pageStr, "created_at\":", ",", left)
+		cm.UpdatedAt, left = findStringWithIndex(pageStr, "updated_at\":", ",", left)
+		cm.DeletedAt, left = findStringWithIndex(pageStr, "deleted_at\":", ",", left)
+		cm.EditedAt, left = findStringWithIndex(pageStr, "edited_at\":", ",", left)
 
 		if i != 0 {
 			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
 			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
-			cm.MessageHtml, left = findStringWithIndex(pageStr, "message_html\":\"", "\"}", left)
+			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left)
 		} else {
 			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", "},", left)
 		}
