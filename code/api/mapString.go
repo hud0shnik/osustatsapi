@@ -56,6 +56,7 @@ type MapStringResponse struct {
 	RelatedUsers       []BmUser                 `json:"related_users"`
 	User               BmUser                   `json:"user"`
 	Comments           []Comment                `json:"comments"`
+	PinnedComments     []Comment                `json:"pinned_comments"`
 }
 
 type MapsString struct {
@@ -265,7 +266,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
 	result.User, left = parseBmUser(pageStr, left)
 
-	result.Comments, _ = parseComments(pageStr, "comments\":[", "has_more\":", left)
+	result.Comments, left = parseComments(pageStr, "comments\":[", "has_more\":", left)
+	result.PinnedComments, _ = parseComments(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
 
 	return result
 }
