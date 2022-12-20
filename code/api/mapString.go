@@ -438,8 +438,11 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 		cm.EditedById, left = findWithIndex(pageStr, "edited_by_id\":\"", "\",", left)
 
 		if i != 0 {
+			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
 			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
-			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left)
+			cm.MessageHtml, left = findStringWithIndex(pageStr, "message_html\":\"", "\"}", left)
+		} else {
+			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", "},", left)
 		}
 
 		// Добавление комментария к результату
