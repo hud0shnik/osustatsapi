@@ -428,14 +428,9 @@ func parseComments(pageStr string, left int) ([]Comment, int) {
 		cm.Pinned, left = findWithIndex(pageStr, "pinned\":", ",", left)
 		cm.RepliesCount, left = findWithIndex(pageStr, "replies_count\":", ",", left)
 		cm.VotesCount, left = findWithIndex(pageStr, "votes_count\":", ",", left)
-		cm.CommentableType, left = findWithIndex(pageStr, "commentable_type\":\"", "\"", left)
+		cm.CommentableType, left = findStringWithIndex(pageStr, "commentable_type:", ",", left)
 		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left)
 		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left)
-		cm.CreatedAt, left = findWithIndex(pageStr, "created_at\":\"", "\",", left)
-		cm.UpdatedAt, left = findWithIndex(pageStr, "updated_at\":\"", "\",", left)
-		cm.DeletedAt, left = findWithIndex(pageStr, "deleted_at\":\"", "\",", left)
-		cm.EditedAt, left = findWithIndex(pageStr, "edited_at\":\"", "\",", left)
-		cm.EditedById, left = findWithIndex(pageStr, "edited_by_id\":\"", "\",", left)
 
 		if i != 0 {
 			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
