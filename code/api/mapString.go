@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -17,7 +19,7 @@ type MapStringResponse struct {
 	Covers             Covers                   `json:"covers"`
 	Creator            string                   `json:"creator"`
 	FavoriteCount      string                   `json:"favorite_count"`
-	Hype               string                   `json:"hype"`
+	HypeCurrent        string                   `json:"hype_current"`
 	Id                 string                   `json:"id"`
 	Nsfw               string                   `json:"nsfw"`
 	Offset             string                   `json:"offset"`
@@ -187,9 +189,9 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
-	/*if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
+	if err := os.WriteFile("sampleVotes.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}*/
+	}
 
 	result := MapStringResponse{}
 	left := 0
@@ -216,7 +218,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left)
 	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
-	result.Hype, left = findWithIndex(pageStr, "\"hype\":", ",", left)
+	result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left)
 	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
 	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
 	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
