@@ -444,13 +444,12 @@ func parseComments(pageStr, subStr, stopChar string, left int) ([]Comment, int) 
 		cm.UpdatedAt, left = findStringWithIndex(pageStr, "updated_at\":", ",", left)
 		cm.DeletedAt, left = findStringWithIndex(pageStr, "deleted_at\":", ",", left)
 		cm.EditedAt, left = findStringWithIndex(pageStr, "edited_at\":", ",", left)
+		cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
+		strings.Replace(cm.EditedById, "}", "", 1)
 
 		if i != 0 {
-			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
 			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
 			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left)
-		} else {
-			cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", "},", left)
 		}
 
 		// Добавление комментария к результату
