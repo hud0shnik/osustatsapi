@@ -20,6 +20,7 @@ type MapStringResponse struct {
 	Creator            string                   `json:"creator"`
 	FavoriteCount      string                   `json:"favorite_count"`
 	HypeCurrent        string                   `json:"hype_current"`
+	HypeRequired       string                   `json:"hype_required"`
 	Id                 string                   `json:"id"`
 	Nsfw               string                   `json:"nsfw"`
 	Offset             string                   `json:"offset"`
@@ -219,6 +220,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left)
 	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
 	result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left)
+	result.HypeRequired, left = findWithIndex(pageStr, "required\":", "}", left)
 	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
 	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
 	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
