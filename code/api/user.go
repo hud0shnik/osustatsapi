@@ -387,31 +387,6 @@ func findWithIndex(str, subStr, stopChar string, start int) (string, int) {
 	return "", start
 }
 
-// Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
-func findStringWithIndex(str, subStr, stopChar string, start int) (string, int) {
-
-	// Обрезка левой границы поиска
-	str = str[start:]
-
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
-
-	// Проверка на существование нужной строки
-	if left != len(subStr)-1 {
-
-		// Поиск правой границы
-		right := left + strings.Index(str[left:], stopChar)
-
-		// Обрезка и вывод результата
-		return strings.ReplaceAll(str[left:right], "\"", ""), right + start
-	}
-
-	// Вывод ненайденных значений для тестов
-	// fmt.Println("error foundn't \t", subStr, "-")
-
-	return "", start
-}
-
 // Облегчённая функция поиска. Возвращает только искомое значение
 func find(str, subStr, stopChar string, start int) string {
 
