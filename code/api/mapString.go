@@ -241,17 +241,17 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.DiscussionEnabled, left = findWithIndex(pageStr, "\"discussion_enabled\":", ",", left)
 	result.DiscussionLocked, left = findWithIndex(pageStr, "\"discussion_locked\":", ",", left)
 	result.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
-	result.LastUpdated, left = findWithIndex(pageStr, "\"last_updated\":\"", "\",", left)
-	result.LegacyThreadUrl, left = findWithIndex(pageStr, "\"legacy_thread_url\":\"", "\",", left)
+	result.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left)
+	result.LegacyThreadUrl, left = findStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left)
 	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
 
 	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left)
 	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left)
 
 	result.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
-	result.RankedDate, left = findWithIndex(pageStr, "\"ranked_date\":\"", "\",", left)
+	result.RankedDate, left = findStringWithIndex(pageStr, "\"ranked_date\":", ",", left)
 	result.Storyboard, left = findWithIndex(pageStr, "\"storyboard\":", ",", left)
-	result.SubmittedDate, left = findWithIndex(pageStr, "\"submitted_date\":\"", "\",", left)
+	result.SubmittedDate, left = findStringWithIndex(pageStr, "\"submitted_date\":", ",", left)
 
 	result.Tags = strings.Split(find(pageStr, "\"tags\":\"", "\",", left), " ")
 	if result.Tags[0] == "" {
