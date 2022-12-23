@@ -50,17 +50,18 @@ type MapStringResponse struct {
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
 	Converts           []MapsString             `json:"converts"`
-	GenreId            string                   `json:"genre_id"`
-	GenreName          string                   `json:"genre_name"`
-	LanguageId         string                   `json:"language_id"`
-	LanguageName       string                   `json:"language_name"`
-	Ratings            string                   `json:"ratings"`
-	RecentFavourites   []BmUser                 `json:"recent_favourites"`
-	RelatedUsers       []BmUser                 `json:"related_users"`
-	User               BmUser                   `json:"user"`
-	Comments           []Comment                `json:"comments"`
-	PinnedComments     []Comment                `json:"pinned_comments"`
-	UserFollow         string                   `json:"user_follow"`
+	Description      string    `json:"description"`
+	GenreId          string    `json:"genre_id"`
+	GenreName        string    `json:"genre_name"`
+	LanguageId       string    `json:"language_id"`
+	LanguageName     string    `json:"language_name"`
+	Ratings          string    `json:"ratings"`
+	RecentFavourites []BmUser  `json:"recent_favourites"`
+	RelatedUsers     []BmUser  `json:"related_users"`
+	User             BmUser    `json:"user"`
+	Comments         []Comment `json:"comments"`
+	PinnedComments   []Comment `json:"pinned_comments"`
+	UserFollow       string    `json:"user_follow"`
 }
 
 type MapsString struct {
@@ -261,6 +262,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Beatmaps, left = parseMapsString(pageStr, left, "beatmaps")
 	result.Converts, left = parseMapsString(pageStr, left, "convert")
 
+	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left)
 	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
 	result.GenreName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
 	result.LanguageId, left = findWithIndex(pageStr, "\"language\":{\"id\":", ",", left)
