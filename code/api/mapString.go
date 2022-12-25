@@ -351,6 +351,48 @@ func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, in
 
 }
 
+func parseMapString(pageStr string, left int) (MapsString, int) {
+
+	// Структура карты
+	var bm MapsString
+
+	bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
+	bm.DifficultyRating, left = findWithIndex(pageStr, "\"difficulty_rating\":", ",", left)
+	bm.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+	bm.Mode, left = findStringWithIndex(pageStr, "\"mode\":", ",", left)
+	bm.Status, left = findStringWithIndex(pageStr, "\"status\":", ",", left)
+	bm.TotalLength, left = findWithIndex(pageStr, "total_length\":", ",", left)
+	bm.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+	bm.Version, left = findWithIndex(pageStr, "\"version\":\"", "\"", left)
+	bm.Accuracy, left = findWithIndex(pageStr, "\"accuracy\":", ",", left)
+	bm.Ar, left = findWithIndex(pageStr, "\"ar\":", ",", left)
+	bm.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
+	bm.Convert, left = findWithIndex(pageStr, "\"convert\":", ",", left)
+	bm.CountCircles, left = findWithIndex(pageStr, "\"count_circles\":", ",", left)
+	bm.CountSliders, left = findWithIndex(pageStr, "\"count_sliders\":", ",", left)
+	bm.CountSpinners, left = findWithIndex(pageStr, "\"count_spinners\":", ",", left)
+	bm.Cs, left = findWithIndex(pageStr, "\"cs\":", ",", left)
+	bm.DeletedAt, left = findStringWithIndex(pageStr, "\"deleted_at\":", ",", left)
+	bm.Drain, left = findWithIndex(pageStr, "\"drain\":", ",", left)
+	bm.HitLength, left = findWithIndex(pageStr, "\"hit_length\":", ",", left)
+	bm.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
+	bm.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left)
+	bm.ModeInt, left = findWithIndex(pageStr, "\"mode_int\":", ",", left)
+	bm.PassCount, left = findWithIndex(pageStr, "\"passcount\":", ",", left)
+	bm.PlayCount, left = findWithIndex(pageStr, "\"playcount\":", ",", left)
+	bm.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
+	bm.Url, left = findStringWithIndex(pageStr, "\"url\":", ",", left)
+	bm.Url = strings.ReplaceAll(bm.Url, "\\", "")
+	bm.Checksum, left = findStringWithIndex(pageStr, "\"checksum\":", ",", left)
+
+	bm.Failtimes.Fail, left = findWithIndex(pageStr, "\"fail\":[", "]", left)
+	bm.Failtimes.Exit, left = findWithIndex(pageStr, "\"exit\":[", "]", left)
+
+	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left)
+
+	return bm, left
+}
+
 // Функция парсинга пользователей
 func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 
