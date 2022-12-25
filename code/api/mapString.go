@@ -320,11 +320,13 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 
 }
 
+// Функция парсинга карты
 func parseMapString(pageStr string, left int) (MapsString, int) {
 
 	// Структура карты
 	var bm MapsString
 
+	// Запись данных
 	bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
 	bm.DifficultyRating, left = findWithIndex(pageStr, "\"difficulty_rating\":", ",", left)
 	bm.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
