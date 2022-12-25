@@ -50,6 +50,7 @@ type MapStringResponse struct {
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
 	Converts           []MapsString             `json:"converts"`
+	// current_nominations
 	Description      string    `json:"description"`
 	GenreId          string    `json:"genre_id"`
 	GenreName        string    `json:"genre_name"`
@@ -220,8 +221,12 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left)
 	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
-	result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left)
-	result.HypeRequired, left = findWithIndex(pageStr, "required\":", "}", left)
+
+	if !contains(pageStr, "\"hype\":null", left) {
+		result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left)
+		result.HypeRequired, left = findWithIndex(pageStr, "required\":", "}", left)
+	}
+
 	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
 	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
 	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
@@ -261,7 +266,6 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.Beatmaps, left = parseMapsString(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
 	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
-
 
 	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left)
 	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
