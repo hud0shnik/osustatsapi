@@ -282,17 +282,13 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 }
 
 // Функция парсинга карт
-func parseMapsString(pageStr string, left int, mapType string) ([]MapsString, int) {
+func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, int) {
 
 	// Индекс конца карт
 	var end int
 
-	// Получение рабочей части и индекса её конца в зависимости от типа карт
-	if mapType == "beatmaps" {
-		pageStr, end = findWithIndex(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
-	} else {
-		pageStr, end = findWithIndex(pageStr, "\"converts\":[", "],\"current_nominations\"", left)
-	}
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
 
 	// Проверка на наличие карт
 	if len(pageStr) == 0 {
