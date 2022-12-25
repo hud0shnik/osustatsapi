@@ -259,8 +259,9 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		result.Tags = nil
 	}
 
-	result.Beatmaps, left = parseMapsString(pageStr, left, "beatmaps")
-	result.Converts, left = parseMapsString(pageStr, left, "convert")
+	result.Beatmaps, left = parseMapsString(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
+	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
+
 
 	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left)
 	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
