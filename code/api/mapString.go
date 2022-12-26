@@ -294,6 +294,39 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	return result
 }
 
+func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]CurrentNomination, int) {
+
+	// Индекс конца карт
+	var end int
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+
+	// Проверка на наличие карт
+	if len(pageStr) == 0 {
+		return []CurrentNomination{}, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []CurrentNomination
+	left = 0
+
+	// Пока есть необработанные карты
+	for index(pageStr, "beatmapset_id", left) != -1 {
+
+		// Структура карты
+		var cn CurrentNomination
+
+		cn, left = parseCurrentNomination(pageStr, left)
+
+		// Добавление карты к результату
+		result = append(result, cn)
+	}
+
+	return result, end
+
+}
+
 // Функция парсинга карты
 func parseCurrentNomination(pageStr string, left int) (CurrentNomination, int) {
 
