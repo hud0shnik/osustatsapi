@@ -318,7 +318,11 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 		// Структура карты
 		var cn CurrentNomination
 
-		cn, left = parseCurrentNomination(pageStr, left)
+		// Запись данных
+		cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left)
+		cn.Rulesets, left = findWithIndex(pageStr, "rulesets\":[", "]", left)
+		cn.Reset, left = findWithIndex(pageStr, "reset\":", ",", left)
+		cn.UserId, left = findWithIndex(pageStr, "user_id\":", "}", left)
 
 		// Добавление карты к результату
 		result = append(result, cn)
@@ -326,21 +330,6 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 
 	return result, end
 
-}
-
-// Функция парсинга карты
-func parseCurrentNomination(pageStr string, left int) (CurrentNomination, int) {
-
-	// Структура карты
-	var cn CurrentNomination
-
-	// Запись данных
-	cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left)
-	cn.Rulesets, left = findWithIndex(pageStr, "rulesets\":[", "]", left)
-	cn.Reset, left = findWithIndex(pageStr, "reset\":", ",", left)
-	cn.UserId, left = findWithIndex(pageStr, "user_id\":", "}", left)
-
-	return cn, left
 }
 
 // Функция парсинга карт
