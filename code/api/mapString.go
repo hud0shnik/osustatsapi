@@ -137,6 +137,14 @@ type Comment struct {
 	MessageHtml     string `json:"message_html"`
 }
 
+// Структура номинации
+type CurrentNomination struct {
+	BeatmapsetId string `json:"beatmapset_id"`
+	Rulesets     string `json:"rulesets"`
+	Reset        string `json:"reset"`
+	UserId       string `json:"user_id"`
+}
+
 // Роут "/mapstring" для vercel
 func MapString(w http.ResponseWriter, r *http.Request) {
 
