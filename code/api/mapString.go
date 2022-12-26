@@ -50,19 +50,19 @@ type MapStringResponse struct {
 	Tags               []string                 `json:"tags"`
 	Beatmaps           []MapsString             `json:"beatmaps"`
 	Converts           []MapsString             `json:"converts"`
-	// current_nominations
-	Description      string    `json:"description"`
-	GenreId          string    `json:"genre_id"`
-	GenreName        string    `json:"genre_name"`
-	LanguageId       string    `json:"language_id"`
-	LanguageName     string    `json:"language_name"`
-	Ratings          string    `json:"ratings"`
-	RecentFavourites []BmUser  `json:"recent_favourites"`
-	RelatedUsers     []BmUser  `json:"related_users"`
-	User             BmUser    `json:"user"`
-	Comments         []Comment `json:"comments"`
-	PinnedComments   []Comment `json:"pinned_comments"`
-	UserFollow       string    `json:"user_follow"`
+	CurrentNominations []CurrentNomination      `json:"current_nominations"`
+	Description        string                   `json:"description"`
+	GenreId            string                   `json:"genre_id"`
+	GenreName          string                   `json:"genre_name"`
+	LanguageId         string                   `json:"language_id"`
+	LanguageName       string                   `json:"language_name"`
+	Ratings            string                   `json:"ratings"`
+	RecentFavourites   []BmUser                 `json:"recent_favourites"`
+	RelatedUsers       []BmUser                 `json:"related_users"`
+	User               BmUser                   `json:"user"`
+	Comments           []Comment                `json:"comments"`
+	PinnedComments     []Comment                `json:"pinned_comments"`
+	UserFollow         string                   `json:"user_follow"`
 }
 
 type MapsString struct {
@@ -274,6 +274,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.Beatmaps, left = parseMapsString(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
 	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
+	result.CurrentNominations, left = parseCurrentNominations(pageStr, "current_nominations\":[", "\"description\":{\"description\":", left)
 
 	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left)
 	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
