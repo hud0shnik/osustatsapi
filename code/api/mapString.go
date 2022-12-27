@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -200,9 +198,9 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
-	if err := os.WriteFile("sampleVotes.html", []byte(pageStr), 0666); err != nil {
+	/*if err := os.WriteFile("sampleVotes.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}
+	}*/
 
 	result := MapStringResponse{}
 	left := 0
@@ -295,15 +293,16 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	return result
 }
 
+// Функция парсинга текущих номинаций
 func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]CurrentNomination, int) {
 
-	// Индекс конца карт
+	// Индекс конца номинаций
 	var end int
 
 	// Получение рабочей части и индекса её конца
 	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
 
-	// Проверка на наличие карт
+	// Проверка на наличие номинаций
 	if len(pageStr) == 0 {
 		return []CurrentNomination{}, end
 	}
@@ -315,7 +314,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 	// Пока есть необработанные карты
 	for index(pageStr, "beatmapset_id", left) != -1 {
 
-		// Структура карты
+		// Структура номинации
 		var cn CurrentNomination
 
 		// Запись данных
