@@ -6,8 +6,19 @@ import (
 	"net/http"
 )
 
+// Структура респонса
 type MapResponse struct {
-	Error string `json:"error"`
+	Error         string `json:"error"`
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_string"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount int    `json:"favorite_count"`
+	HypeCurrent   string `json:"hype_current"`
+	HypeRequired  string `json:"hype_required"`
+	Id            int    `json:"id"`
+	Nsfw          bool   `json:"nsfw"`
+	Offset        int    `json:"offset"`
 }
 
 // Роут "/map" для vercel
