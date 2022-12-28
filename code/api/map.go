@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+type MapResponse struct {
+	Error string `json:"error"`
+}
+
 // Роут "/map" для vercel
 func Map(w http.ResponseWriter, r *http.Request) {
 
@@ -31,5 +35,12 @@ func Map(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("Error: ", err)
 	} else {
 		w.Write(jsonResp)
+	}
+}
+
+// Функция получения статистики карты
+func GetMapInfo(beatmapset, id string) MapResponse {
+	return MapResponse{
+		Error: "",
 	}
 }
