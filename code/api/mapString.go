@@ -10,6 +10,7 @@ import (
 
 // ---------------------- Структуры для парсинга ------------------------
 
+// Структура респонса
 type MapStringResponse struct {
 	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
@@ -63,6 +64,7 @@ type MapStringResponse struct {
 	UserFollow         string                    `json:"user_follow"`
 }
 
+// Структура карты
 type MapsString struct {
 	BeatmapSetId     string          `json:"beatmapset_id"`
 	DifficultyRating string          `json:"difficulty_rating"`
@@ -95,11 +97,13 @@ type MapsString struct {
 	MaxCombo         string          `json:"max_combo"`
 }
 
+// Структура проигрышей
 type FailtimesString struct {
 	Fail string `json:"fail"`
 	Exit string `json:"exit"`
 }
 
+// Структура пользователя
 type BmUserString struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
@@ -116,6 +120,7 @@ type BmUserString struct {
 	Username      string `json:"username"`
 }
 
+// Структура комментария
 type CommentString struct {
 	Id              string `json:"id"`
 	ParentId        string `json:"parent_id"`
