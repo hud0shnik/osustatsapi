@@ -11,96 +11,96 @@ import (
 // ---------------------- Структуры для парсинга ------------------------
 
 type MapStringResponse struct {
-	Error              string                   `json:"error"`
-	Artist             string                   `json:"artist"`
-	ArtistUnicode      string                   `json:"artist_unicode"`
-	Covers             Covers                   `json:"covers"`
-	Creator            string                   `json:"creator"`
-	FavoriteCount      string                   `json:"favorite_count"`
-	HypeCurrent        string                   `json:"hype_current"`
-	HypeRequired       string                   `json:"hype_required"`
-	Id                 string                   `json:"id"`
-	Nsfw               string                   `json:"nsfw"`
-	Offset             string                   `json:"offset"`
-	PlayCount          string                   `json:"play_count"`
-	PreviewUrl         string                   `json:"preview_url"`
-	Source             string                   `json:"source"`
-	Spotlight          string                   `json:"spotlight"`
-	Status             string                   `json:"status"`
-	Title              string                   `json:"title"`
-	TitleUnicode       string                   `json:"title_unicode"`
-	TrackId            string                   `json:"track_id"`
-	UserId             string                   `json:"user_id"`
-	Video              string                   `json:"video"`
-	DownloadDisabled   string                   `json:"download_disabled"`
-	Bpm                string                   `json:"bpm"`
-	CanBeHyped         string                   `json:"can_be_hyped"`
-	DiscussionEnabled  string                   `json:"discussion_enabled"`
-	DiscussionLocked   string                   `json:"discussion_locked"`
-	IsScoreable        string                   `json:"is_scoreable"`
-	LastUpdated        string                   `json:"last_updated"`
-	LegacyThreadUrl    string                   `json:"legacy_thread_url"`
-	NominationsSummary NominationsSummaryString `json:"nominations_summary"`
-	Ranked             string                   `json:"ranked"`
-	RankedDate         string                   `json:"ranked_date"`
-	Storyboard         string                   `json:"storyboard"`
-	SubmittedDate      string                   `json:"submitted_date"`
-	Tags               []string                 `json:"tags"`
-	Beatmaps           []MapsString             `json:"beatmaps"`
-	Converts           []MapsString             `json:"converts"`
-	CurrentNominations []CurrentNomination      `json:"current_nominations"`
-	Description        string                   `json:"description"`
-	GenreId            string                   `json:"genre_id"`
-	GenreName          string                   `json:"genre_name"`
-	LanguageId         string                   `json:"language_id"`
-	LanguageName       string                   `json:"language_name"`
-	Ratings            string                   `json:"ratings"`
-	RecentFavourites   []BmUser                 `json:"recent_favourites"`
-	RelatedUsers       []BmUser                 `json:"related_users"`
-	User               BmUser                   `json:"user"`
-	Comments           []Comment                `json:"comments"`
-	PinnedComments     []Comment                `json:"pinned_comments"`
-	UserFollow         string                   `json:"user_follow"`
+	Error              string                    `json:"error"`
+	Artist             string                    `json:"artist"`
+	ArtistUnicode      string                    `json:"artist_unicode"`
+	Covers             Covers                    `json:"covers"`
+	Creator            string                    `json:"creator"`
+	FavoriteCount      string                    `json:"favorite_count"`
+	HypeCurrent        string                    `json:"hype_current"`
+	HypeRequired       string                    `json:"hype_required"`
+	Id                 string                    `json:"id"`
+	Nsfw               string                    `json:"nsfw"`
+	Offset             string                    `json:"offset"`
+	PlayCount          string                    `json:"play_count"`
+	PreviewUrl         string                    `json:"preview_url"`
+	Source             string                    `json:"source"`
+	Spotlight          string                    `json:"spotlight"`
+	Status             string                    `json:"status"`
+	Title              string                    `json:"title"`
+	TitleUnicode       string                    `json:"title_unicode"`
+	TrackId            string                    `json:"track_id"`
+	UserId             string                    `json:"user_id"`
+	Video              string                    `json:"video"`
+	DownloadDisabled   string                    `json:"download_disabled"`
+	Bpm                string                    `json:"bpm"`
+	CanBeHyped         string                    `json:"can_be_hyped"`
+	DiscussionEnabled  string                    `json:"discussion_enabled"`
+	DiscussionLocked   string                    `json:"discussion_locked"`
+	IsScoreable        string                    `json:"is_scoreable"`
+	LastUpdated        string                    `json:"last_updated"`
+	LegacyThreadUrl    string                    `json:"legacy_thread_url"`
+	NominationsSummary NominationsSummaryString  `json:"nominations_summary"`
+	Ranked             string                    `json:"ranked"`
+	RankedDate         string                    `json:"ranked_date"`
+	Storyboard         string                    `json:"storyboard"`
+	SubmittedDate      string                    `json:"submitted_date"`
+	Tags               []string                  `json:"tags"`
+	Beatmaps           []MapsString              `json:"beatmaps"`
+	Converts           []MapsString              `json:"converts"`
+	CurrentNominations []CurrentNominationString `json:"current_nominations"`
+	Description        string                    `json:"description"`
+	GenreId            string                    `json:"genre_id"`
+	GenreName          string                    `json:"genre_name"`
+	LanguageId         string                    `json:"language_id"`
+	LanguageName       string                    `json:"language_name"`
+	Ratings            string                    `json:"ratings"`
+	RecentFavourites   []BmUserString            `json:"recent_favourites"`
+	RelatedUsers       []BmUserString            `json:"related_users"`
+	User               BmUserString              `json:"user"`
+	Comments           []CommentString           `json:"comments"`
+	PinnedComments     []CommentString           `json:"pinned_comments"`
+	UserFollow         string                    `json:"user_follow"`
 }
 
 type MapsString struct {
-	BeatmapSetId     string    `json:"beatmapset_id"`
-	DifficultyRating string    `json:"difficulty_rating"`
-	Id               string    `json:"id"`
-	Mode             string    `json:"mode"`
-	Status           string    `json:"status"`
-	TotalLength      string    `json:"total_length"`
-	UserId           string    `json:"user_id"`
-	Version          string    `json:"version"`
-	Accuracy         string    `json:"accuracy"`
-	Ar               string    `json:"ar"`
-	Bpm              string    `json:"bpm"`
-	Convert          string    `json:"convert"`
-	CountCircles     string    `json:"count_circles"`
-	CountSliders     string    `json:"count_sliders"`
-	CountSpinners    string    `json:"count_spinners"`
-	Cs               string    `json:"cs"`
-	DeletedAt        string    `json:"deleted_at"`
-	Drain            string    `json:"drain"`
-	HitLength        string    `json:"hit_length"`
-	IsScoreable      string    `json:"is_scoreable"`
-	LastUpdated      string    `json:"last_updated"`
-	ModeInt          string    `json:"mode_int"`
-	PassCount        string    `json:"pass_count"`
-	PlayCount        string    `json:"play_count"`
-	Ranked           string    `json:"ranked"`
-	Url              string    `json:"url"`
-	Checksum         string    `json:"checksum"`
-	Failtimes        Failtimes `json:"failtimes"`
-	MaxCombo         string    `json:"max_combo"`
+	BeatmapSetId     string          `json:"beatmapset_id"`
+	DifficultyRating string          `json:"difficulty_rating"`
+	Id               string          `json:"id"`
+	Mode             string          `json:"mode"`
+	Status           string          `json:"status"`
+	TotalLength      string          `json:"total_length"`
+	UserId           string          `json:"user_id"`
+	Version          string          `json:"version"`
+	Accuracy         string          `json:"accuracy"`
+	Ar               string          `json:"ar"`
+	Bpm              string          `json:"bpm"`
+	Convert          string          `json:"convert"`
+	CountCircles     string          `json:"count_circles"`
+	CountSliders     string          `json:"count_sliders"`
+	CountSpinners    string          `json:"count_spinners"`
+	Cs               string          `json:"cs"`
+	DeletedAt        string          `json:"deleted_at"`
+	Drain            string          `json:"drain"`
+	HitLength        string          `json:"hit_length"`
+	IsScoreable      string          `json:"is_scoreable"`
+	LastUpdated      string          `json:"last_updated"`
+	ModeInt          string          `json:"mode_int"`
+	PassCount        string          `json:"pass_count"`
+	PlayCount        string          `json:"play_count"`
+	Ranked           string          `json:"ranked"`
+	Url              string          `json:"url"`
+	Checksum         string          `json:"checksum"`
+	Failtimes        FailtimesString `json:"failtimes"`
+	MaxCombo         string          `json:"max_combo"`
 }
 
-type Failtimes struct {
+type FailtimesString struct {
 	Fail string `json:"fail"`
 	Exit string `json:"exit"`
 }
 
-type BmUser struct {
+type BmUserString struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
 	DefaultGroup  string `json:"default_group"`
@@ -116,7 +116,7 @@ type BmUser struct {
 	Username      string `json:"username"`
 }
 
-type Comment struct {
+type CommentString struct {
 	Id              string `json:"id"`
 	ParentId        string `json:"parent_id"`
 	UserId          string `json:"user_id"`
@@ -136,7 +136,7 @@ type Comment struct {
 }
 
 // Структура номинации
-type CurrentNomination struct {
+type CurrentNominationString struct {
 	BeatmapsetId string `json:"beatmapset_id"`
 	Rulesets     string `json:"rulesets"`
 	Reset        string `json:"reset"`
@@ -294,7 +294,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 }
 
 // Функция парсинга текущих номинаций
-func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]CurrentNomination, int) {
+func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]CurrentNominationString, int) {
 
 	// Индекс конца номинаций
 	var end int
@@ -304,18 +304,18 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 
 	// Проверка на наличие номинаций
 	if len(pageStr) == 0 {
-		return []CurrentNomination{}, end
+		return []CurrentNominationString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []CurrentNomination
+	var result []CurrentNominationString
 	left = 0
 
 	// Пока есть необработанные карты
 	for index(pageStr, "beatmapset_id", left) != -1 {
 
 		// Структура номинации
-		var cn CurrentNomination
+		var cn CurrentNominationString
 
 		// Запись данных
 		cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left)
@@ -410,7 +410,7 @@ func parseMapString(pageStr string, left int) (MapsString, int) {
 }
 
 // Функция парсинга пользователей
-func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
+func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, int) {
 
 	// Индекс конца пользователей
 	var end int
@@ -420,18 +420,18 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []BmUser{}, end
+		return []BmUserString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []BmUser
+	var result []BmUserString
 	left = 0
 
 	// Пока есть необработанные пользователи
 	for index(pageStr, "avatar_url", left) != -1 {
 
 		// Структура пользователя
-		var user BmUser
+		var user BmUserString
 
 		user, left = parseBmUser(pageStr, left)
 
@@ -444,10 +444,10 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUser, int) {
 }
 
 // функция парсинга пользователей
-func parseBmUser(pageStr string, left int) (BmUser, int) {
+func parseBmUser(pageStr string, left int) (BmUserString, int) {
 
 	// Структура пользователя
-	var user BmUser
+	var user BmUserString
 
 	// Запись данных
 	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left)
@@ -469,7 +469,7 @@ func parseBmUser(pageStr string, left int) (BmUser, int) {
 }
 
 // Функция парсинга комментов
-func parseComments(pageStr, subStr, stopChar string, left int) ([]Comment, int) {
+func parseComments(pageStr, subStr, stopChar string, left int) ([]CommentString, int) {
 
 	// Индекс конца комментариев
 	var end int
@@ -479,18 +479,18 @@ func parseComments(pageStr, subStr, stopChar string, left int) ([]Comment, int) 
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []Comment{}, end
+		return []CommentString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	result := []Comment{}
+	result := []CommentString{}
 	left = 0
 
 	// Пока есть необработанные пользователи
 	for i := 0; index(pageStr, "id\":", left) != -1; i++ {
 
 		// Структура комментария
-		var cm Comment
+		var cm CommentString
 		cm.Id, left = findWithIndex(pageStr, "id\":", ",", left)
 		cm.ParentId, left = findWithIndex(pageStr, "parent_id\":", ",", left)
 		cm.UserId, left = findWithIndex(pageStr, "user_id\":", ",", left)
