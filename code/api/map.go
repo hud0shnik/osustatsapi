@@ -45,6 +45,16 @@ type MapResponse struct {
 	Tags               []string           `json:"tags"`
 }
 
+// Структура карты
+type Maps struct {
+	BeatmapSetId     int     `json:"beatmapset_id"`
+	DifficultyRating float32 `json:"difficulty_rating"`
+	Id               int     `json:"id"`
+	Mode             string  `json:"mode"`
+	Status           string  `json:"status"`
+	TotalLength      int     `json:"total_length"`
+}
+
 // Роут "/map" для vercel
 func Map(w http.ResponseWriter, r *http.Request) {
 
