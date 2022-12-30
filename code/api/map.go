@@ -53,6 +53,15 @@ type Maps struct {
 	Mode             string  `json:"mode"`
 	Status           string  `json:"status"`
 	TotalLength      int     `json:"total_length"`
+	UserId           int     `json:"user_id"`
+	Version          string  `json:"version"`
+	Accuracy         float32 `json:"accuracy"`
+	Ar               float32 `json:"ar"`
+	Bpm              float32 `json:"bpm"`
+	Convert          bool    `json:"convert"`
+	CountCircles     int     `json:"count_circles"`
+	CountSliders     int     `json:"count_sliders"`
+	CountSpinners    int     `json:"count_spinners"`
 }
 
 // Роут "/map" для vercel
