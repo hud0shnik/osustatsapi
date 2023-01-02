@@ -14,8 +14,8 @@ type MapResponse struct {
 	Covers             Covers              `json:"covers"`
 	Creator            string              `json:"creator"`
 	FavoriteCount      int                 `json:"favorite_count"`
-	HypeCurrent        string              `json:"hype_current"`
-	HypeRequired       string              `json:"hype_required"`
+	HypeCurrent        int                 `json:"hype_current"`
+	HypeRequired       int                 `json:"hype_required"`
 	Id                 int                 `json:"id"`
 	Nsfw               bool                `json:"nsfw"`
 	Offset             int                 `json:"offset"`
@@ -193,6 +193,20 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		Covers:        resultStr.Covers,
 		Creator:       resultStr.Creator,
 		FavoriteCount: ToInt(resultStr.FavoriteCount),
+		HypeCurrent:   ToInt(resultStr.HypeCurrent),
+		HypeRequired:  ToInt(resultStr.HypeRequired),
+		Id:            ToInt(resultStr.Id),
+		Nsfw:          ToBool(resultStr.Nsfw),
+		Offset:        ToInt(resultStr.Offset),
+		PlayCount:     ToInt(resultStr.PlayCount),
+		PreviewUrl:    resultStr.PreviewUrl,
+		Source:        resultStr.Source,
+		Spotlight:     ToBool(resultStr.Spotlight),
+		Status:        resultStr.Status,
+		Title:         resultStr.Title,
+		TitleUnicode:  resultStr.TitleUnicode,
+		TrackId:       ToInt(resultStr.TrackId),
+		UserId:        ToInt(resultStr.UserId),
 	}
 
 	return result
