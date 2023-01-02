@@ -174,7 +174,26 @@ func Map(w http.ResponseWriter, r *http.Request) {
 
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
-	return MapResponse{
-		Error: "",
+
+	// Получение текстовой версии статистики
+	resultStr := GetMapInfoString(beatmapset, id)
+
+	// Проверка на ошибки при парсинге
+	if resultStr.Error != "" {
+		return MapResponse{
+			Error: "",
+		}
 	}
+
+	// Перевод в классическую версию
+	result := MapResponse{
+		Error:         resultStr.Error,
+		Artist:        resultStr.Artist,
+		ArtistUnicode: resultStr.ArtistUnicode,
+		Covers:        resultStr.Covers,
+		Creator:       resultStr.Creator,
+		FavoriteCount: ToInt(resultStr.FavoriteCount),
+	}
+
+	return result
 }
