@@ -84,6 +84,14 @@ type Failtimes struct {
 	Exit []int `json:"exit"`
 }
 
+// Структура номинации
+type CurrentNomination struct {
+	BeatmapsetId int    `json:"beatmapset_id"`
+	Rulesets     string `json:"rulesets"`
+	Reset        bool   `json:"reset"`
+	UserId       int    `json:"user_id"`
+}
+
 // Роут "/map" для vercel
 func Map(w http.ResponseWriter, r *http.Request) {
 
