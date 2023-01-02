@@ -52,6 +52,12 @@ type MapResponse struct {
 	LanguageId         int                 `json:"language_id"`
 	LanguageName       string              `json:"language_name"`
 	Ratings            []int               `json:"ratings"`
+	RecentFavourites   []BmUser            `json:"recent_favourites"`
+	RelatedUsers       []BmUser            `json:"related_users"`
+	User               BmUser              `json:"user"`
+	Comments           []Comment           `json:"comments"`
+	PinnedComments     []Comment           `json:"pinned_comments"`
+	UserFollow         string              `json:"user_follow"`
 }
 
 // Структура карты
@@ -116,6 +122,26 @@ type BmUser struct {
 	PmFriendsOnly bool   `json:"pm_friends_only"`
 	ProfileColor  string `json:"profile_color"`
 	Username      string `json:"username"`
+}
+
+// Структура комментария
+type Comment struct {
+	Id              int    `json:"id"`
+	ParentId        int    `json:"parent_id"`
+	UserId          int    `json:"user_id"`
+	Pinned          bool   `json:"pinned"`
+	RepliesCount    int    `json:"replies_count"`
+	VotesCount      int    `json:"votes_count"`
+	CommentableType string `json:"commentable_type"`
+	CommentableId   int    `json:"commentable_id"`
+	LegacyName      string `json:"legacy_name"`
+	CreatedAt       string `json:"created_at"`
+	UpdatedAt       string `json:"updated_at"`
+	DeletedAt       string `json:"deleted_at"`
+	EditedAt        string `json:"edited_at"`
+	EditedById      string `json:"edited_by_id"`
+	Message         string `json:"message"`
+	MessageHtml     string `json:"message_html"`
 }
 
 // Роут "/map" для vercel
