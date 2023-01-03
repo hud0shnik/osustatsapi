@@ -172,6 +172,34 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Функция перевода карты
+func FormatBeatmap(mps []MapsString) []Maps {
+
+	var result []Maps
+
+	// Обработка текстовых рекордов
+	for _, mp := range mps {
+
+		// Форматирование и добавление рекорда
+		result = append(result, Maps{
+			BeatmapSetId:     ToInt(mp.BeatmapSetId),
+			DifficultyRating: ToFloat64(mp.DifficultyRating),
+			Id:               ToInt(mp.Id),
+			Mode:             mp.Mode,
+			Status:           mp.Status,
+			TotalLength:      ToInt(mp.TotalLength),
+			UserId:           ToInt(mp.UserId),
+			Version:          mp.Version,
+			Accuracy:         ToFloat64(mp.Version),
+			Ar:               ToFloat64(mp.Ar),
+			Bpm:              ToFloat64(mp.Bpm),
+			Convert:          ToBool(mp.Convert),
+		})
+	}
+
+	return result
+}
+
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
 
