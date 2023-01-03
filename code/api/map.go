@@ -194,6 +194,21 @@ func FormatBeatmap(mps []MapsString) []Maps {
 			Ar:               ToFloat64(mp.Ar),
 			Bpm:              ToFloat64(mp.Bpm),
 			Convert:          ToBool(mp.Convert),
+			CountCircles:     ToInt(mp.CountCircles),
+			CountSliders:     ToInt(mp.CountSliders),
+			CountSpinners:    ToInt(mp.CountSpinners),
+			Cs:               ToFloat64(mp.Cs),
+			DeletedAt:        mp.DeletedAt,
+			Drain:            ToFloat64(mp.Drain),
+			HitLength:        ToInt(mp.HitLength),
+			IsScoreable:      ToBool(mp.IsScoreable),
+			LastUpdated:      mp.LastUpdated,
+			ModeInt:          ToInt(mp.ModeInt),
+			PassCount:        ToInt(mp.PassCount),
+			PlayCount:        ToInt(mp.PlayCount),
+			Ranked:           ToInt(mp.Ranked),
+			Url:              mp.Url,
+			Checksum:         mp.Checksum,
 		})
 	}
 
