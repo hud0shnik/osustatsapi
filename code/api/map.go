@@ -178,7 +178,7 @@ func FormatBeatmap(mpss []MapsString) []Maps {
 
 	var result []Maps
 
-	// Обработка текстовых рекордов
+	// Обработка текстовых карт
 	for _, mps := range mpss {
 
 		mp := Maps{
@@ -275,7 +275,12 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 			Current:  ToInt(resultStr.NominationsSummary.Current),
 			Required: ToInt(resultStr.NominationsSummary.Required),
 		},
-		Ranked: ToInt(resultStr.Ranked),
+		Ranked:        ToInt(resultStr.Ranked),
+		RankedDate:    resultStr.RankedDate,
+		Storyboard:    ToBool(resultStr.Storyboard),
+		SubmittedDate: resultStr.SubmittedDate,
+		Tags:          resultStr.Tags,
+		Beatmaps:      FormatBeatmap(resultStr.Beatmaps),
 	}
 
 	return result
