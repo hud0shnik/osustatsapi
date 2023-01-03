@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 // Структура респонса
@@ -173,43 +174,54 @@ func Map(w http.ResponseWriter, r *http.Request) {
 }
 
 // Функция перевода карты
-func FormatBeatmap(mps []MapsString) []Maps {
+func FormatBeatmap(mpss []MapsString) []Maps {
 
 	var result []Maps
 
 	// Обработка текстовых рекордов
-	for _, mp := range mps {
+	for _, mps := range mpss {
+
+		mp := Maps{
+			BeatmapSetId:     ToInt(mps.BeatmapSetId),
+			DifficultyRating: ToFloat64(mps.DifficultyRating),
+			Id:               ToInt(mps.Id),
+			Mode:             mps.Mode,
+			Status:           mps.Status,
+			TotalLength:      ToInt(mps.TotalLength),
+			UserId:           ToInt(mps.UserId),
+			Version:          mps.Version,
+			Accuracy:         ToFloat64(mps.Version),
+			Ar:               ToFloat64(mps.Ar),
+			Bpm:              ToFloat64(mps.Bpm),
+			Convert:          ToBool(mps.Convert),
+			CountCircles:     ToInt(mps.CountCircles),
+			CountSliders:     ToInt(mps.CountSliders),
+			CountSpinners:    ToInt(mps.CountSpinners),
+			Cs:               ToFloat64(mps.Cs),
+			DeletedAt:        mps.DeletedAt,
+			Drain:            ToFloat64(mps.Drain),
+			HitLength:        ToInt(mps.HitLength),
+			IsScoreable:      ToBool(mps.IsScoreable),
+			LastUpdated:      mps.LastUpdated,
+			ModeInt:          ToInt(mps.ModeInt),
+			PassCount:        ToInt(mps.PassCount),
+			PlayCount:        ToInt(mps.PlayCount),
+			Ranked:           ToInt(mps.Ranked),
+			Url:              mps.Url,
+			Checksum:         mps.Checksum,
+			MaxCombo:         ToInt(mps.MaxCombo),
+		}
+
+		for _, f := range strings.Split(mps.Failtimes.Fail, ",") {
+			mp.Failtimes.Fail = append(mp.Failtimes.Fail, ToInt(f))
+		}
+
+		for _, e := range strings.Split(mps.Failtimes.Exit, ",") {
+			mp.Failtimes.Exit = append(mp.Failtimes.Exit, ToInt(e))
+		}
 
 		// Форматирование и добавление рекорда
-		result = append(result, Maps{
-			BeatmapSetId:     ToInt(mp.BeatmapSetId),
-			DifficultyRating: ToFloat64(mp.DifficultyRating),
-			Id:               ToInt(mp.Id),
-			Mode:             mp.Mode,
-			Status:           mp.Status,
-			TotalLength:      ToInt(mp.TotalLength),
-			UserId:           ToInt(mp.UserId),
-			Version:          mp.Version,
-			Accuracy:         ToFloat64(mp.Version),
-			Ar:               ToFloat64(mp.Ar),
-			Bpm:              ToFloat64(mp.Bpm),
-			Convert:          ToBool(mp.Convert),
-			CountCircles:     ToInt(mp.CountCircles),
-			CountSliders:     ToInt(mp.CountSliders),
-			CountSpinners:    ToInt(mp.CountSpinners),
-			Cs:               ToFloat64(mp.Cs),
-			DeletedAt:        mp.DeletedAt,
-			Drain:            ToFloat64(mp.Drain),
-			HitLength:        ToInt(mp.HitLength),
-			IsScoreable:      ToBool(mp.IsScoreable),
-			LastUpdated:      mp.LastUpdated,
-			ModeInt:          ToInt(mp.ModeInt),
-			PassCount:        ToInt(mp.PassCount),
-			PlayCount:        ToInt(mp.PlayCount),
-			Ranked:           ToInt(mp.Ranked),
-			Url:              mp.Url,
-			Checksum:         mp.Checksum,
-		})
+		result = append(result, mp)
 	}
 
 	return result
