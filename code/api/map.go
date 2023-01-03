@@ -227,6 +227,24 @@ func FormatBeatmap(mpss []MapsString) []Maps {
 	return result
 }
 
+// Функция перевода номинаций
+func ParseCurrentNominations(cns []CurrentNominationString) []CurrentNomination {
+
+	var result []CurrentNomination
+
+	// Обработка текстовых номинаций
+	for _, cn := range cns {
+		result = append(result, CurrentNomination{
+			BeatmapsetId: ToInt(cn.BeatmapsetId),
+			Rulesets:     cn.Rulesets,
+			Reset:        ToBool(cn.Reset),
+			UserId:       ToInt(cn.UserId),
+		})
+	}
+
+	return result
+}
+
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
 
