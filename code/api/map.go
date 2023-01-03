@@ -190,7 +190,7 @@ func FormatBeatmap(mpss []MapsString) []Maps {
 			TotalLength:      ToInt(mps.TotalLength),
 			UserId:           ToInt(mps.UserId),
 			Version:          mps.Version,
-			Accuracy:         ToFloat64(mps.Version),
+			Accuracy:         ToFloat64(mps.Accuracy),
 			Ar:               ToFloat64(mps.Ar),
 			Bpm:              ToFloat64(mps.Bpm),
 			Convert:          ToBool(mps.Convert),
@@ -281,6 +281,7 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		SubmittedDate: resultStr.SubmittedDate,
 		Tags:          resultStr.Tags,
 		Beatmaps:      FormatBeatmap(resultStr.Beatmaps),
+		Converts:      FormatBeatmap(resultStr.Converts),
 	}
 
 	return result
