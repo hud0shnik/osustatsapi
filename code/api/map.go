@@ -293,13 +293,14 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 			Current:  ToInt(resultStr.NominationsSummary.Current),
 			Required: ToInt(resultStr.NominationsSummary.Required),
 		},
-		Ranked:        ToInt(resultStr.Ranked),
-		RankedDate:    resultStr.RankedDate,
-		Storyboard:    ToBool(resultStr.Storyboard),
-		SubmittedDate: resultStr.SubmittedDate,
-		Tags:          resultStr.Tags,
-		Beatmaps:      FormatBeatmap(resultStr.Beatmaps),
-		Converts:      FormatBeatmap(resultStr.Converts),
+		Ranked:             ToInt(resultStr.Ranked),
+		RankedDate:         resultStr.RankedDate,
+		Storyboard:         ToBool(resultStr.Storyboard),
+		SubmittedDate:      resultStr.SubmittedDate,
+		Tags:               resultStr.Tags,
+		Beatmaps:           FormatBeatmap(resultStr.Beatmaps),
+		Converts:           FormatBeatmap(resultStr.Converts),
+		CurrentNominations: ParseCurrentNominations(resultStr.CurrentNominations),
 	}
 
 	return result
