@@ -446,7 +446,7 @@ func contains(str, subStr string, left int) bool {
 }
 
 // Функция перевода карты
-func FormatBeatmaps(bms []BeatmapString) []Beatmap {
+func formatBeatmaps(bms []BeatmapString) []Beatmap {
 
 	var result []Beatmap
 
@@ -528,7 +528,7 @@ func FormatBeatmaps(bms []BeatmapString) []Beatmap {
 }
 
 // Функция перевода рекорда
-func FormatScores(scs []ScoreString) []Score {
+func formatScores(scs []ScoreString) []Score {
 
 	var result []Score
 
@@ -738,12 +738,12 @@ func GetUserInfo(id string) UserInfo {
 	}
 
 	// Перевод карт
-	result.FavoriteBeatmaps = FormatBeatmaps(resultStr.FavoriteBeatmaps)
-	result.GraveyardBeatmaps = FormatBeatmaps(resultStr.GraveyardBeatmaps)
-	result.GuestBeatmaps = FormatBeatmaps(resultStr.GuestBeatmaps)
-	result.LovedBeatmaps = FormatBeatmaps(resultStr.LovedBeatmaps)
-	result.RankedBeatmaps = FormatBeatmaps(resultStr.RankedBeatmaps)
-	result.PendingBeatmaps = FormatBeatmaps(resultStr.PendingBeatmaps)
+	result.FavoriteBeatmaps = formatBeatmaps(resultStr.FavoriteBeatmaps)
+	result.GraveyardBeatmaps = formatBeatmaps(resultStr.GraveyardBeatmaps)
+	result.GuestBeatmaps = formatBeatmaps(resultStr.GuestBeatmaps)
+	result.LovedBeatmaps = formatBeatmaps(resultStr.LovedBeatmaps)
+	result.RankedBeatmaps = formatBeatmaps(resultStr.RankedBeatmaps)
+	result.PendingBeatmaps = formatBeatmaps(resultStr.PendingBeatmaps)
 
 	// Перевод кудосу
 	for _, k := range resultStr.KudosuItems {
@@ -774,9 +774,9 @@ func GetUserInfo(id string) UserInfo {
 	}
 
 	// Перевод рекордов
-	result.Best = FormatScores(resultStr.Best)
-	result.Firsts = FormatScores(resultStr.Firsts)
-	result.Pinned = FormatScores(resultStr.Pinned)
+	result.Best = formatScores(resultStr.Best)
+	result.Firsts = formatScores(resultStr.Firsts)
+	result.Pinned = formatScores(resultStr.Pinned)
 
 	// Перевод карт с количеством игр
 	for _, pc := range resultStr.BeatmapPlaycounts {
