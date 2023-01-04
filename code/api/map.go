@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
 )
 
 // Структура респонса
@@ -209,15 +208,11 @@ func FormatBeatmap(mpss []MapsString) []Maps {
 			Ranked:           ToInt(mps.Ranked),
 			Url:              mps.Url,
 			Checksum:         mps.Checksum,
-			MaxCombo:         ToInt(mps.MaxCombo),
-		}
-
-		for _, f := range strings.Split(mps.Failtimes.Fail, ",") {
-			mp.Failtimes.Fail = append(mp.Failtimes.Fail, ToInt(f))
-		}
-
-		for _, e := range strings.Split(mps.Failtimes.Exit, ",") {
-			mp.Failtimes.Exit = append(mp.Failtimes.Exit, ToInt(e))
+			Failtimes: Failtimes{
+				Fail: ToSlice(mps.Failtimes.Fail),
+				Exit: ToSlice(mps.Failtimes.Exit),
+			},
+			MaxCombo: ToInt(mps.MaxCombo),
 		}
 
 		// Форматирование и добавление рекорда
