@@ -288,7 +288,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	result.RecentFavourites, left = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
-	result.User, left = parseBmUser(pageStr, left)
+	result.User, left = parseBmUserString(pageStr, left)
 
 	result.Comments, left = parseComments(pageStr, "comments\":[", "has_more\":", left)
 	result.PinnedComments, left = parseComments(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
@@ -438,7 +438,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 		// Структура пользователя
 		var user BmUserString
 
-		user, left = parseBmUser(pageStr, left)
+		user, left = parseBmUserString(pageStr, left)
 
 		// Добавление пользователя к результату
 		result = append(result, user)
@@ -449,7 +449,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 }
 
 // функция парсинга пользователей
-func parseBmUser(pageStr string, left int) (BmUserString, int) {
+func parseBmUserString(pageStr string, left int) (BmUserString, int) {
 
 	// Структура пользователя
 	var user BmUserString

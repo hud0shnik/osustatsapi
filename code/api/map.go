@@ -240,6 +240,25 @@ func ParseCurrentNominations(cns []CurrentNominationString) []CurrentNomination 
 	return result
 }
 
+// Функция перевода пользователя
+func ParseBmUser(usr BmUserString) BmUser {
+	return BmUser{
+		AvatarUrl:     usr.AvatarUrl,
+		CountryCode:   usr.CountryCode,
+		DefaultGroup:  usr.DefaultGroup,
+		Id:            ToInt(usr.Id),
+		IsActive:      ToBool(usr.IsActive),
+		IsBot:         ToBool(usr.IsActive),
+		IsDeleted:     ToBool(usr.IsDeleted),
+		IsOnline:      ToBool(usr.IsOnline),
+		IsSupporter:   ToBool(usr.IsSupporter),
+		LastVisit:     usr.LastVisit,
+		PmFriendsOnly: ToBool(usr.PmFriendsOnly),
+		ProfileColor:  usr.ProfileColor,
+		Username:      usr.Username,
+	}
+}
+
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
 
@@ -296,6 +315,12 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		Beatmaps:           FormatBeatmap(resultStr.Beatmaps),
 		Converts:           FormatBeatmap(resultStr.Converts),
 		CurrentNominations: ParseCurrentNominations(resultStr.CurrentNominations),
+		Description:        resultStr.Description,
+		GenreId:            ToInt(resultStr.GenreId),
+		GenreName:          resultStr.GenreName,
+		LanguageId:         ToInt(resultStr.LanguageId),
+		LanguageName:       resultStr.LanguageName,
+		Ratings:            ToSlice(resultStr.Ratings),
 	}
 
 	return result
