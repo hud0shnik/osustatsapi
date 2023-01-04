@@ -259,6 +259,18 @@ func ParseBmUser(usr BmUserString) BmUser {
 	}
 }
 
+// Функция перевода пользователей
+func ParseBmUsers(usrs []BmUserString) []BmUser {
+	var result []BmUser
+
+	for _, usr := range usrs {
+		result = append(result, ParseBmUser(usr))
+	}
+
+	return result
+
+}
+
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
 
@@ -321,6 +333,9 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		LanguageId:         ToInt(resultStr.LanguageId),
 		LanguageName:       resultStr.LanguageName,
 		Ratings:            ToSlice(resultStr.Ratings),
+		RecentFavourites:   ParseBmUsers(resultStr.RecentFavourites),
+		RelatedUsers:       ParseBmUsers(resultStr.RelatedUsers),
+		User:               ParseBmUser(resultStr.User),
 	}
 
 	return result
