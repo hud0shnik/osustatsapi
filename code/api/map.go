@@ -57,7 +57,7 @@ type MapResponse struct {
 	User               BmUser              `json:"user"`
 	Comments           []Comment           `json:"comments"`
 	PinnedComments     []Comment           `json:"pinned_comments"`
-	UserFollow         string              `json:"user_follow"`
+	UserFollow         bool                `json:"user_follow"`
 }
 
 // Структура карты
@@ -271,6 +271,34 @@ func ParseBmUsers(usrs []BmUserString) []BmUser {
 
 }
 
+// Функция перевода комментариев
+func parseComments(cms []CommentString) []Comment {
+	var result []Comment
+
+	for _, cm := range cms {
+		result = append(result, Comment{
+			Id:              ToInt(cm.Id),
+			ParentId:        ToInt(cm.ParentId),
+			UserId:          ToInt(cm.UserId),
+			Pinned:          ToBool(cm.Pinned),
+			RepliesCount:    ToInt(cm.RepliesCount),
+			VotesCount:      ToInt(cm.VotesCount),
+			CommentableType: cm.CommentableType,
+			CommentableId:   ToInt(cm.CommentableId),
+			LegacyName:      cm.LegacyName,
+			CreatedAt:       cm.CreatedAt,
+			UpdatedAt:       cm.UpdatedAt,
+			DeletedAt:       cm.DeletedAt,
+			EditedAt:        cm.EditedAt,
+			EditedById:      cm.EditedById,
+			Message:         cm.Message,
+			MessageHtml:     cm.MessageHtml,
+		})
+	}
+
+	return result
+}
+
 // Функция получения статистики карты
 func GetMapInfo(beatmapset, id string) MapResponse {
 
@@ -336,6 +364,9 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		RecentFavourites:   ParseBmUsers(resultStr.RecentFavourites),
 		RelatedUsers:       ParseBmUsers(resultStr.RelatedUsers),
 		User:               ParseBmUser(resultStr.User),
+		Comments:           parseComments(resultStr.Comments),
+		PinnedComments:     parseComments(resultStr.PinnedComments),
+		UserFollow:         ToBool(resultStr.UserFollow),
 	}
 
 	return result
