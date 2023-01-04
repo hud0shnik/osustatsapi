@@ -173,7 +173,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 }
 
 // Функция перевода карты
-func FormatBeatmap(mpss []MapsString) []Maps {
+func formatBeatmap(mpss []MapsString) []Maps {
 
 	var result []Maps
 
@@ -223,7 +223,7 @@ func FormatBeatmap(mpss []MapsString) []Maps {
 }
 
 // Функция перевода номинаций
-func ParseCurrentNominations(cns []CurrentNominationString) []CurrentNomination {
+func formatCurrentNominations(cns []CurrentNominationString) []CurrentNomination {
 
 	var result []CurrentNomination
 
@@ -241,7 +241,7 @@ func ParseCurrentNominations(cns []CurrentNominationString) []CurrentNomination 
 }
 
 // Функция перевода пользователя
-func ParseBmUser(usr BmUserString) BmUser {
+func formatBmUser(usr BmUserString) BmUser {
 	return BmUser{
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
@@ -260,11 +260,11 @@ func ParseBmUser(usr BmUserString) BmUser {
 }
 
 // Функция перевода пользователей
-func ParseBmUsers(usrs []BmUserString) []BmUser {
+func formatBmUsers(usrs []BmUserString) []BmUser {
 	var result []BmUser
 
 	for _, usr := range usrs {
-		result = append(result, ParseBmUser(usr))
+		result = append(result, formatBmUser(usr))
 	}
 
 	return result
@@ -272,7 +272,7 @@ func ParseBmUsers(usrs []BmUserString) []BmUser {
 }
 
 // Функция перевода комментариев
-func parseComments(cms []CommentString) []Comment {
+func formatComments(cms []CommentString) []Comment {
 	var result []Comment
 
 	for _, cm := range cms {
@@ -352,20 +352,20 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		Storyboard:         ToBool(resultStr.Storyboard),
 		SubmittedDate:      resultStr.SubmittedDate,
 		Tags:               resultStr.Tags,
-		Beatmaps:           FormatBeatmap(resultStr.Beatmaps),
-		Converts:           FormatBeatmap(resultStr.Converts),
-		CurrentNominations: ParseCurrentNominations(resultStr.CurrentNominations),
+		Beatmaps:           formatBeatmap(resultStr.Beatmaps),
+		Converts:           formatBeatmap(resultStr.Converts),
+		CurrentNominations: formatCurrentNominations(resultStr.CurrentNominations),
 		Description:        resultStr.Description,
 		GenreId:            ToInt(resultStr.GenreId),
 		GenreName:          resultStr.GenreName,
 		LanguageId:         ToInt(resultStr.LanguageId),
 		LanguageName:       resultStr.LanguageName,
 		Ratings:            ToSlice(resultStr.Ratings),
-		RecentFavourites:   ParseBmUsers(resultStr.RecentFavourites),
-		RelatedUsers:       ParseBmUsers(resultStr.RelatedUsers),
-		User:               ParseBmUser(resultStr.User),
-		Comments:           parseComments(resultStr.Comments),
-		PinnedComments:     parseComments(resultStr.PinnedComments),
+		RecentFavourites:   formatBmUsers(resultStr.RecentFavourites),
+		RelatedUsers:       formatBmUsers(resultStr.RelatedUsers),
+		User:               formatBmUser(resultStr.User),
+		Comments:           formatComments(resultStr.Comments),
+		PinnedComments:     formatComments(resultStr.PinnedComments),
 		UserFollow:         ToBool(resultStr.UserFollow),
 	}
 
