@@ -360,6 +360,22 @@ func ToFloat64(s string) float64 {
 	return i
 }
 
+func ToSlice(s string) []int {
+
+	var result []int
+	sliceStr := strings.Split(s, ",")
+
+	if len(sliceStr) == 1 && sliceStr[0] == "" {
+		return nil
+	}
+
+	for _, digit := range sliceStr {
+		result = append(result, ToInt(digit))
+	}
+
+	return result
+}
+
 // ---------------------- Функции поиска ------------------------
 
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
