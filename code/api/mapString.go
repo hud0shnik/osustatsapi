@@ -290,8 +290,8 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
 	result.User, left = parseBmUserString(pageStr, left)
 
-	result.Comments, left = parseComments(pageStr, "comments\":[", "has_more\":", left)
-	result.PinnedComments, left = parseComments(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
+	result.Comments, left = parseCommentsString(pageStr, "comments\":[", "has_more\":", left)
+	result.PinnedComments, left = parseCommentsString(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
 
 	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left)
 
@@ -474,7 +474,7 @@ func parseBmUserString(pageStr string, left int) (BmUserString, int) {
 }
 
 // Функция парсинга комментов
-func parseComments(pageStr, subStr, stopChar string, left int) ([]CommentString, int) {
+func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentString, int) {
 
 	// Индекс конца комментариев
 	var end int
