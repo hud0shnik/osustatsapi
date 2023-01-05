@@ -1273,6 +1273,213 @@ func formatScores(scs []ScoreString) []Score {
 
 // ----------------- Функции получения статистики ----------------
 
+// Функция получения информации о пользователе
+func GetUserInfo(id string) UserInfo {
+
+	// Получение текстовой версии статистики
+	resultStr := GetUserInfoString(id)
+
+	// Проверка на ошибки при парсинге
+	if resultStr.Error != "" {
+		return UserInfo{
+			Error: resultStr.Error,
+		}
+	}
+
+	// Перевод в классическую версию
+	result := UserInfo{
+		Error:         resultStr.Error,
+		AvatarUrl:     resultStr.AvatarUrl,
+		CountryCode:   resultStr.CountryCode,
+		DefaultGroup:  resultStr.DefaultGroup,
+		UserID:        ToInt(resultStr.UserID),
+		IsActive:      ToBool(resultStr.IsActive),
+		IsBot:         ToBool(resultStr.IsBot),
+		IsDeleted:     ToBool(resultStr.IsDeleted),
+		IsOnline:      ToBool(resultStr.IsOnline),
+		IsSupporter:   ToBool(resultStr.IsSupporter),
+		LastVisit:     resultStr.LastVisit,
+		PmFriendsOnly: ToBool(resultStr.PmFriendsOnly),
+		ProfileColor:  resultStr.ProfileColor,
+		Username:      resultStr.Username,
+		CoverUrl:      resultStr.CoverUrl,
+		Discord:       resultStr.Discord,
+		HasSupported:  ToBool(resultStr.HasSupported),
+		Interests:     resultStr.Interests,
+		JoinDate:      resultStr.JoinDate,
+		Kudosu:        ToInt(resultStr.Kudosu),
+		Location:      resultStr.Location,
+		MaxFriends:    ToInt(resultStr.MaxFriends),
+		MaxBLock:      ToInt(resultStr.MaxBLock),
+		Occupation:    resultStr.Occupation,
+		Playmode:      resultStr.Playmode,
+		Playstyle:     resultStr.Playstyle,
+		PostCount:     ToInt(resultStr.PostCount),
+		ProfileOrder:  resultStr.ProfileOrder,
+		Title:         resultStr.Title,
+		TitleUrl:      resultStr.TitleUrl,
+		Twitter:       resultStr.Twitter,
+		Website:       resultStr.Website,
+		CountyName:    resultStr.CountyName,
+		UserCover: Cover{
+			CustomUrl: resultStr.UserCover.CustomUrl,
+			Url:       resultStr.UserCover.Url,
+			Id:        ToInt(resultStr.UserCover.Id),
+		},
+		IsAdmin:                 ToBool(resultStr.IsAdmin),
+		IsBng:                   ToBool(resultStr.IsBng),
+		IsFullBan:               ToBool(resultStr.IsFullBan),
+		IsGmt:                   ToBool(resultStr.IsGmt),
+		IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
+		IsModerator:             ToBool(resultStr.IsModerator),
+		IsNat:                   ToBool(resultStr.IsNat),
+		IsRestricted:            ToBool(resultStr.IsRestricted),
+		IsSilenced:              ToBool(resultStr.IsSilenced),
+		AccountHistory:          resultStr.AccountHistory,
+		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
+		Badges:                  resultStr.Badges,
+		CommentsCount:           ToInt(resultStr.CommentsCount),
+		FollowerCount:           ToInt(resultStr.FollowerCount),
+		Groups:                  resultStr.Groups,
+		MappingFollowerCount:    ToInt(resultStr.MappingFollowerCount),
+		PendingBeatmapsetCount:  ToInt(resultStr.PendingBeatmapsetCount),
+		Names:                   resultStr.Names,
+		Level:                   ToInt(resultStr.Level),
+		GlobalRank:              ToInt64(resultStr.GlobalRank),
+		PP:                      ToFloat64(resultStr.PP),
+		RankedScore:             ToInt(resultStr.RankedScore),
+		Accuracy:                ToFloat64(resultStr.Accuracy),
+		PlayCount:               ToInt(resultStr.PlayCount),
+		PlayTime:                resultStr.PlayTime,
+		PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
+		TotalScore:              ToInt64(resultStr.TotalScore),
+		TotalHits:               ToInt64(resultStr.TotalHits),
+		MaximumCombo:            ToInt(resultStr.MaximumCombo),
+		Replays:                 ToInt(resultStr.Replays),
+		IsRanked:                ToBool(resultStr.IsRanked),
+		SS:                      ToInt(resultStr.SS),
+		SSH:                     ToInt(resultStr.SSH),
+		S:                       ToInt(resultStr.S),
+		SH:                      ToInt(resultStr.SH),
+		A:                       ToInt(resultStr.A),
+		CountryRank:             ToInt(resultStr.CountryRank),
+		SupportLvl:              ToInt(resultStr.SupportLvl),
+		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
+	}
+
+	// Перевод достижений
+	for _, c := range resultStr.Achievements {
+		result.Achievements = append(result.Achievements, Achievement{
+			AchievedAt:    c.AchievedAt,
+			AchievementId: ToInt(c.AchievementId),
+		})
+	}
+
+	// Перевод количества медалей и истории рейтинга
+	result.Medals = ToInt(resultStr.Medals)
+	result.RankHistory.Mode = resultStr.RankHistory.Mode
+
+	for _, d := range resultStr.RankHistory.Data {
+		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
+	}
+
+	// Перевод карт
+	result.FavoriteBeatmaps = formatBeatmaps(resultStr.FavoriteBeatmaps)
+	result.GraveyardBeatmaps = formatBeatmaps(resultStr.GraveyardBeatmaps)
+	result.GuestBeatmaps = formatBeatmaps(resultStr.GuestBeatmaps)
+	result.LovedBeatmaps = formatBeatmaps(resultStr.LovedBeatmaps)
+	result.RankedBeatmaps = formatBeatmaps(resultStr.RankedBeatmaps)
+	result.PendingBeatmaps = formatBeatmaps(resultStr.PendingBeatmaps)
+
+	// Перевод кудосу
+	for _, k := range resultStr.KudosuItems {
+		result.KudosuItems = append(result.KudosuItems, Kudosu{
+			Id:        ToInt(k.Id),
+			Action:    k.Action,
+			Amount:    ToInt(k.Amount),
+			Model:     k.Model,
+			CreatedAt: k.CreatedAt,
+			Giver:     k.Giver,
+			Post:      k.Post,
+			Details:   k.Details,
+		})
+	}
+
+	// Перевод последней активности
+	for _, a := range resultStr.RecentActivity {
+		result.RecentActivity = append(result.RecentActivity, Activity{
+			CreatedAt:    a.CreatedAt,
+			Id:           ToInt(a.Id),
+			Type:         a.Type,
+			ScoreRank:    a.ScoreRank,
+			Rank:         ToInt(a.Rank),
+			Mode:         a.Mode,
+			BeatmapTitle: a.BeatmapTitle,
+			BeatmapUrl:   a.BeatmapUrl,
+		})
+	}
+
+	// Перевод рекордов
+	result.Best = formatScores(resultStr.Best)
+	result.Firsts = formatScores(resultStr.Firsts)
+	result.Pinned = formatScores(resultStr.Pinned)
+
+	// Перевод карт с количеством игр
+	for _, pc := range resultStr.BeatmapPlaycounts {
+		result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, PlayCount{
+			BeatmapId: ToInt(pc.BeatmapId),
+			Count:     ToInt(pc.Count),
+			Beatmap: PlayCountBeatmap{
+				BeatmapsetId:     ToInt(pc.Beatmap.BeatmapsetId),
+				DifficultyRating: ToFloat64(pc.Beatmap.DifficultyRating),
+				Id:               ToInt(pc.Beatmap.Id),
+				Status:           pc.Beatmap.Status,
+				TotalLength:      ToInt(pc.Beatmap.TotalLength),
+				UserId:           ToInt(pc.Beatmap.UserId),
+				Version:          pc.Beatmap.Version,
+			},
+			Beatmapset: Beatmapset{
+				Artist:        pc.Beatmapset.Artist,
+				ArtistUnicode: pc.Beatmapset.ArtistUnicode,
+				Covers:        pc.Beatmapset.Covers,
+				Creator:       pc.Beatmapset.Creator,
+				FavoriteCount: ToInt(pc.Beatmapset.FavoriteCount),
+				Hype:          pc.Beatmapset.Hype,
+				Id:            ToInt(pc.Beatmapset.Id),
+				Nsfw:          ToBool(pc.Beatmapset.Nsfw),
+				Offset:        ToInt(pc.Beatmapset.Offset),
+				PlayCount:     ToInt(pc.Beatmapset.PlayCount),
+				PreviewUrl:    pc.Beatmapset.PreviewUrl,
+				Source:        pc.Beatmapset.Source,
+				Spotlight:     ToBool(pc.Beatmapset.Spotlight),
+				Status:        pc.Beatmapset.Status,
+				Title:         pc.Beatmapset.Title,
+				TitleUnicode:  pc.Beatmapset.TitleUnicode,
+				TrackId:       pc.Beatmapset.TrackId,
+				UserId:        ToInt(pc.Beatmapset.UserId),
+				Video:         ToBool(pc.Beatmapset.Video),
+			},
+		})
+	}
+
+	for _, c := range resultStr.MonthlyPlaycounts {
+		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
+		})
+	}
+
+	// Перевод статистики просмотров повторов
+	for _, c := range resultStr.ReplaysWatchedCount {
+		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
+			StartDate: c.StartDate,
+			Count:     ToInt(c.Count),
+		})
+	}
+
+	return result
+}
+
 // Функция получения текстовой информации о пользователе
 func GetUserInfoString(id string) UserInfoString {
 
@@ -1640,213 +1847,6 @@ func GetUserInfoString(id string) UserInfoString {
 			result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, count)
 
 		}
-	}
-
-	return result
-}
-
-// Функция получения информации о пользователе
-func GetUserInfo(id string) UserInfo {
-
-	// Получение текстовой версии статистики
-	resultStr := GetUserInfoString(id)
-
-	// Проверка на ошибки при парсинге
-	if resultStr.Error != "" {
-		return UserInfo{
-			Error: resultStr.Error,
-		}
-	}
-
-	// Перевод в классическую версию
-	result := UserInfo{
-		Error:         resultStr.Error,
-		AvatarUrl:     resultStr.AvatarUrl,
-		CountryCode:   resultStr.CountryCode,
-		DefaultGroup:  resultStr.DefaultGroup,
-		UserID:        ToInt(resultStr.UserID),
-		IsActive:      ToBool(resultStr.IsActive),
-		IsBot:         ToBool(resultStr.IsBot),
-		IsDeleted:     ToBool(resultStr.IsDeleted),
-		IsOnline:      ToBool(resultStr.IsOnline),
-		IsSupporter:   ToBool(resultStr.IsSupporter),
-		LastVisit:     resultStr.LastVisit,
-		PmFriendsOnly: ToBool(resultStr.PmFriendsOnly),
-		ProfileColor:  resultStr.ProfileColor,
-		Username:      resultStr.Username,
-		CoverUrl:      resultStr.CoverUrl,
-		Discord:       resultStr.Discord,
-		HasSupported:  ToBool(resultStr.HasSupported),
-		Interests:     resultStr.Interests,
-		JoinDate:      resultStr.JoinDate,
-		Kudosu:        ToInt(resultStr.Kudosu),
-		Location:      resultStr.Location,
-		MaxFriends:    ToInt(resultStr.MaxFriends),
-		MaxBLock:      ToInt(resultStr.MaxBLock),
-		Occupation:    resultStr.Occupation,
-		Playmode:      resultStr.Playmode,
-		Playstyle:     resultStr.Playstyle,
-		PostCount:     ToInt(resultStr.PostCount),
-		ProfileOrder:  resultStr.ProfileOrder,
-		Title:         resultStr.Title,
-		TitleUrl:      resultStr.TitleUrl,
-		Twitter:       resultStr.Twitter,
-		Website:       resultStr.Website,
-		CountyName:    resultStr.CountyName,
-		UserCover: Cover{
-			CustomUrl: resultStr.UserCover.CustomUrl,
-			Url:       resultStr.UserCover.Url,
-			Id:        ToInt(resultStr.UserCover.Id),
-		},
-		IsAdmin:                 ToBool(resultStr.IsAdmin),
-		IsBng:                   ToBool(resultStr.IsBng),
-		IsFullBan:               ToBool(resultStr.IsFullBan),
-		IsGmt:                   ToBool(resultStr.IsGmt),
-		IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
-		IsModerator:             ToBool(resultStr.IsModerator),
-		IsNat:                   ToBool(resultStr.IsNat),
-		IsRestricted:            ToBool(resultStr.IsRestricted),
-		IsSilenced:              ToBool(resultStr.IsSilenced),
-		AccountHistory:          resultStr.AccountHistory,
-		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
-		Badges:                  resultStr.Badges,
-		CommentsCount:           ToInt(resultStr.CommentsCount),
-		FollowerCount:           ToInt(resultStr.FollowerCount),
-		Groups:                  resultStr.Groups,
-		MappingFollowerCount:    ToInt(resultStr.MappingFollowerCount),
-		PendingBeatmapsetCount:  ToInt(resultStr.PendingBeatmapsetCount),
-		Names:                   resultStr.Names,
-		Level:                   ToInt(resultStr.Level),
-		GlobalRank:              ToInt64(resultStr.GlobalRank),
-		PP:                      ToFloat64(resultStr.PP),
-		RankedScore:             ToInt(resultStr.RankedScore),
-		Accuracy:                ToFloat64(resultStr.Accuracy),
-		PlayCount:               ToInt(resultStr.PlayCount),
-		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              ToInt64(resultStr.TotalScore),
-		TotalHits:               ToInt64(resultStr.TotalHits),
-		MaximumCombo:            ToInt(resultStr.MaximumCombo),
-		Replays:                 ToInt(resultStr.Replays),
-		IsRanked:                ToBool(resultStr.IsRanked),
-		SS:                      ToInt(resultStr.SS),
-		SSH:                     ToInt(resultStr.SSH),
-		S:                       ToInt(resultStr.S),
-		SH:                      ToInt(resultStr.SH),
-		A:                       ToInt(resultStr.A),
-		CountryRank:             ToInt(resultStr.CountryRank),
-		SupportLvl:              ToInt(resultStr.SupportLvl),
-		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
-	}
-
-	// Перевод достижений
-	for _, c := range resultStr.Achievements {
-		result.Achievements = append(result.Achievements, Achievement{
-			AchievedAt:    c.AchievedAt,
-			AchievementId: ToInt(c.AchievementId),
-		})
-	}
-
-	// Перевод количества медалей и истории рейтинга
-	result.Medals = ToInt(resultStr.Medals)
-	result.RankHistory.Mode = resultStr.RankHistory.Mode
-
-	for _, d := range resultStr.RankHistory.Data {
-		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
-	}
-
-	// Перевод карт
-	result.FavoriteBeatmaps = formatBeatmaps(resultStr.FavoriteBeatmaps)
-	result.GraveyardBeatmaps = formatBeatmaps(resultStr.GraveyardBeatmaps)
-	result.GuestBeatmaps = formatBeatmaps(resultStr.GuestBeatmaps)
-	result.LovedBeatmaps = formatBeatmaps(resultStr.LovedBeatmaps)
-	result.RankedBeatmaps = formatBeatmaps(resultStr.RankedBeatmaps)
-	result.PendingBeatmaps = formatBeatmaps(resultStr.PendingBeatmaps)
-
-	// Перевод кудосу
-	for _, k := range resultStr.KudosuItems {
-		result.KudosuItems = append(result.KudosuItems, Kudosu{
-			Id:        ToInt(k.Id),
-			Action:    k.Action,
-			Amount:    ToInt(k.Amount),
-			Model:     k.Model,
-			CreatedAt: k.CreatedAt,
-			Giver:     k.Giver,
-			Post:      k.Post,
-			Details:   k.Details,
-		})
-	}
-
-	// Перевод последней активности
-	for _, a := range resultStr.RecentActivity {
-		result.RecentActivity = append(result.RecentActivity, Activity{
-			CreatedAt:    a.CreatedAt,
-			Id:           ToInt(a.Id),
-			Type:         a.Type,
-			ScoreRank:    a.ScoreRank,
-			Rank:         ToInt(a.Rank),
-			Mode:         a.Mode,
-			BeatmapTitle: a.BeatmapTitle,
-			BeatmapUrl:   a.BeatmapUrl,
-		})
-	}
-
-	// Перевод рекордов
-	result.Best = formatScores(resultStr.Best)
-	result.Firsts = formatScores(resultStr.Firsts)
-	result.Pinned = formatScores(resultStr.Pinned)
-
-	// Перевод карт с количеством игр
-	for _, pc := range resultStr.BeatmapPlaycounts {
-		result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, PlayCount{
-			BeatmapId: ToInt(pc.BeatmapId),
-			Count:     ToInt(pc.Count),
-			Beatmap: PlayCountBeatmap{
-				BeatmapsetId:     ToInt(pc.Beatmap.BeatmapsetId),
-				DifficultyRating: ToFloat64(pc.Beatmap.DifficultyRating),
-				Id:               ToInt(pc.Beatmap.Id),
-				Status:           pc.Beatmap.Status,
-				TotalLength:      ToInt(pc.Beatmap.TotalLength),
-				UserId:           ToInt(pc.Beatmap.UserId),
-				Version:          pc.Beatmap.Version,
-			},
-			Beatmapset: Beatmapset{
-				Artist:        pc.Beatmapset.Artist,
-				ArtistUnicode: pc.Beatmapset.ArtistUnicode,
-				Covers:        pc.Beatmapset.Covers,
-				Creator:       pc.Beatmapset.Creator,
-				FavoriteCount: ToInt(pc.Beatmapset.FavoriteCount),
-				Hype:          pc.Beatmapset.Hype,
-				Id:            ToInt(pc.Beatmapset.Id),
-				Nsfw:          ToBool(pc.Beatmapset.Nsfw),
-				Offset:        ToInt(pc.Beatmapset.Offset),
-				PlayCount:     ToInt(pc.Beatmapset.PlayCount),
-				PreviewUrl:    pc.Beatmapset.PreviewUrl,
-				Source:        pc.Beatmapset.Source,
-				Spotlight:     ToBool(pc.Beatmapset.Spotlight),
-				Status:        pc.Beatmapset.Status,
-				Title:         pc.Beatmapset.Title,
-				TitleUnicode:  pc.Beatmapset.TitleUnicode,
-				TrackId:       pc.Beatmapset.TrackId,
-				UserId:        ToInt(pc.Beatmapset.UserId),
-				Video:         ToBool(pc.Beatmapset.Video),
-			},
-		})
-	}
-
-	for _, c := range resultStr.MonthlyPlaycounts {
-		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
-			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
-		})
-	}
-
-	// Перевод статистики просмотров повторов
-	for _, c := range resultStr.ReplaysWatchedCount {
-		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
-			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
-		})
 	}
 
 	return result
