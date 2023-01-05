@@ -12,24 +12,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Функция отправки информации о пользователе в формате строк
-func sendUserInfoString(writer http.ResponseWriter, request *http.Request) {
-
-	// Заголовок, определяющий тип данных респонса
-	writer.Header().Set("Content-Type", "application/json")
-
-	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(api.GetUserInfoString(request.URL.Query().Get("id")))
-}
-
 // Функция отправки информации о пользователе
 func sendUserInfo(writer http.ResponseWriter, request *http.Request) {
 
 	// Заголовок, определяющий тип данных респонса
 	writer.Header().Set("Content-Type", "application/json")
 
-	// Обработка данных и вывод результата
-	json.NewEncoder(writer).Encode(api.GetUserInfo(request.URL.Query().Get("id")))
+	// Проверка на тип, обработка и вывод результата
+	if request.URL.Query().Get("type") == "string" {
+		json.NewEncoder(writer).Encode(api.GetUserInfoString(request.URL.Query().Get("id")))
+	} else {
+		json.NewEncoder(writer).Encode(api.GetUserInfo(request.URL.Query().Get("id")))
+	}
 }
 
 // Функция отправки информации о статусе пользователя
@@ -74,8 +68,6 @@ func main() {
 	// Маршруты
 
 	router.HandleFunc("/api/user", sendUserInfo).Methods("GET")
-
-	router.HandleFunc("/api/userstring", sendUserInfoString).Methods("GET")
 
 	router.HandleFunc("/api/online", sendOnlineInfo).Methods("GET")
 

@@ -852,11 +852,21 @@ func User(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Получение статистики, форматирование и отправка
-	jsonResp, err := json.Marshal(GetUserInfo(id))
-	if err != nil {
-		fmt.Print("Error: ", err)
+	// Проверка на тип, получение статистики, форматирование и отправка
+	if r.URL.Query().Get("type") == "string" {
+		jsonResp, err := json.Marshal(GetUserInfoString(id))
+		if err != nil {
+			fmt.Print("Error: ", err)
+		} else {
+			w.Write(jsonResp)
+		}
 	} else {
-		w.Write(jsonResp)
+		jsonResp, err := json.Marshal(GetUserInfo(id))
+		if err != nil {
+			fmt.Print("Error: ", err)
+		} else {
+			w.Write(jsonResp)
+		}
 	}
+
 }
