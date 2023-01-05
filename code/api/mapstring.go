@@ -152,7 +152,7 @@ type CurrentNominationString struct {
 func MapString(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 
 	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
