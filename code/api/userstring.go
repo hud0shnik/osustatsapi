@@ -1020,11 +1020,11 @@ func GetUserInfoString(id string) UserInfoString {
 	return result
 }
 
-// Роут "/userString" для vercel
+// Роут "/userstring" для vercel
 func UserString(w http.ResponseWriter, r *http.Request) {
 
 	// Формирование заголовка респонса по статускоду
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 
 	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
