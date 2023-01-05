@@ -163,13 +163,23 @@ func Map(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Получение статистики, форматирование и отправка
-	jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
-	if err != nil {
-		fmt.Print("Error: ", err)
+	// Проверка на тип, получение статистики, форматирование и отправка
+	if r.URL.Query().Get("type") == "string" {
+		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
+		if err != nil {
+			fmt.Print("Error: ", err)
+		} else {
+			w.Write(jsonResp)
+		}
 	} else {
-		w.Write(jsonResp)
+		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
+		if err != nil {
+			fmt.Print("Error: ", err)
+		} else {
+			w.Write(jsonResp)
+		}
 	}
+
 }
 
 // Функция перевода карты
