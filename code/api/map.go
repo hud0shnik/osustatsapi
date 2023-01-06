@@ -857,8 +857,8 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Print("Error: ", err)
+			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
@@ -866,8 +866,8 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	} else {
 		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Print("Error: ", err)
+			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
