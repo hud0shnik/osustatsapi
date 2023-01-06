@@ -41,29 +41,19 @@ func GetOnlineInfo(id string) OnlineInfo {
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
-
-		// Вывод ошибки поиска
 		return OnlineInfo{
 			Error: "user not found",
 		}
-
 	}
 
 	// Поиск статуса пользователя и вывод результата
 	return OnlineInfo{
 		Status: find(pageStr, "is_online&quot;:", ",", 0),
 	}
-
 }
 
 // Роут "/online"  для vercel
 func Online(w http.ResponseWriter, r *http.Request) {
-
-	// Формирование заголовка респонса по статускоду
-	w.WriteHeader(http.StatusOK)
-
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
 
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
@@ -74,11 +64,16 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Передача в заголовок респонса типа данных
+	w.Header().Set("Content-Type", "application/json")
+
 	// Получение статистики, форматирование и отправка
 	jsonResp, err := json.Marshal(GetOnlineInfo(id))
 	if err != nil {
 		fmt.Print("Error: ", err)
+		w.WriteHeader(http.StatusInternalServerError)
 	} else {
+		w.WriteHeader(http.StatusOK)
 		w.Write(jsonResp)
 	}
 }
