@@ -1029,7 +1029,7 @@ func parseScoresString(pageStr, scoreType string, left int) ([]ScoreString, int)
 
 // ---------------------- Функции перевода ----------------------
 
-func ToInt(s string) int {
+func toInt(s string) int {
 	i, err := strconv.Atoi(s)
 
 	if err != nil {
@@ -1040,7 +1040,7 @@ func ToInt(s string) int {
 	return i
 }
 
-func ToInt64(s string) int64 {
+func toInt64(s string) int64 {
 	i, err := strconv.ParseInt(s, 10, 64)
 
 	if err != nil {
@@ -1051,7 +1051,7 @@ func ToInt64(s string) int64 {
 	return i
 }
 
-func ToBool(s string) bool {
+func toBool(s string) bool {
 	f, err := strconv.ParseBool(s)
 
 	if err != nil {
@@ -1062,7 +1062,7 @@ func ToBool(s string) bool {
 	return f
 }
 
-func ToFloat64(s string) float64 {
+func toFloat64(s string) float64 {
 	i, err := strconv.ParseFloat(s, 64)
 
 	if err != nil {
@@ -1073,7 +1073,7 @@ func ToFloat64(s string) float64 {
 	return i
 }
 
-func ToSlice(s string) []int {
+func toSlice(s string) []int {
 
 	var result []int
 	sliceStr := strings.Split(s, ",")
@@ -1083,7 +1083,7 @@ func ToSlice(s string) []int {
 	}
 
 	for _, digit := range sliceStr {
-		result = append(result, ToInt(digit))
+		result = append(result, toInt(digit))
 	}
 
 	return result
@@ -1103,64 +1103,64 @@ func formatBeatmaps(bms []BeatmapString) []Beatmap {
 			ArtistUnicode:     bm.ArtistUnicode,
 			Covers:            bm.Covers,
 			Creator:           bm.Creator,
-			FavoriteCount:     ToInt(bm.FavoriteCount),
+			FavoriteCount:     toInt(bm.FavoriteCount),
 			Hype:              bm.Hype,
-			Id:                ToInt(bm.Id),
-			Nsfw:              ToBool(bm.Nsfw),
-			Offset:            ToInt(bm.Offset),
-			PlayCount:         ToInt(bm.PlayCount),
+			Id:                toInt(bm.Id),
+			Nsfw:              toBool(bm.Nsfw),
+			Offset:            toInt(bm.Offset),
+			PlayCount:         toInt(bm.PlayCount),
 			PreviewUrl:        bm.PreviewUrl,
 			Source:            bm.Source,
-			Spotlight:         ToBool(bm.Spotlight),
+			Spotlight:         toBool(bm.Spotlight),
 			Status:            bm.Status,
 			Title:             bm.Title,
 			TitleUnicode:      bm.TitleUnicode,
 			TrackId:           bm.TrackId,
-			UserId:            ToInt(bm.UserId),
-			Video:             ToBool(bm.Video),
-			DownloadDisabled:  ToBool(bm.DownloadDisabled),
-			Bpm:               ToFloat64(bm.Bpm),
-			CanBeHyped:        ToBool(bm.CanBeHyped),
-			DiscussionEnabled: ToBool(bm.DiscussionEnabled),
-			DiscussionLocked:  ToBool(bm.DiscussionLocked),
-			IsScoreable:       ToBool(bm.IsScoreable),
+			UserId:            toInt(bm.UserId),
+			Video:             toBool(bm.Video),
+			DownloadDisabled:  toBool(bm.DownloadDisabled),
+			Bpm:               toFloat64(bm.Bpm),
+			CanBeHyped:        toBool(bm.CanBeHyped),
+			DiscussionEnabled: toBool(bm.DiscussionEnabled),
+			DiscussionLocked:  toBool(bm.DiscussionLocked),
+			IsScoreable:       toBool(bm.IsScoreable),
 			LastUpdated:       bm.LastUpdated,
 			LegacyThreadUrl:   bm.LegacyThreadUrl,
 			Nominations: NominationsSummary{
-				Current:  ToInt(bm.Nominations.Current),
-				Required: ToInt(bm.Nominations.Required),
+				Current:  toInt(bm.Nominations.Current),
+				Required: toInt(bm.Nominations.Required),
 			},
-			Ranked:        ToInt(bm.Ranked),
+			Ranked:        toInt(bm.Ranked),
 			RankedDate:    bm.RankedDate,
-			Storyboard:    ToBool(bm.Storyboard),
+			Storyboard:    toBool(bm.Storyboard),
 			SubmittedDate: bm.SubmittedDate,
 			Tags:          bm.Tags,
 			Beatmap: Beatmaps{
-				BeatmapSetId:     ToInt(bm.Beatmap.BeatmapSetId),
-				DifficultyRating: ToFloat64(bm.Beatmap.DifficultyRating),
-				Id:               ToInt(bm.Beatmap.Id),
+				BeatmapSetId:     toInt(bm.Beatmap.BeatmapSetId),
+				DifficultyRating: toFloat64(bm.Beatmap.DifficultyRating),
+				Id:               toInt(bm.Beatmap.Id),
 				Mode:             bm.Beatmap.Mode,
 				Status:           bm.Beatmap.Status,
-				TotalLength:      ToInt(bm.Beatmap.TotalLength),
-				UserId:           ToInt(bm.Beatmap.UserId),
+				TotalLength:      toInt(bm.Beatmap.TotalLength),
+				UserId:           toInt(bm.Beatmap.UserId),
 				Version:          bm.Beatmap.Version,
-				Accuracy:         ToFloat64(bm.Beatmap.Accuracy),
-				Ar:               ToFloat64(bm.Beatmap.Ar),
-				Bpm:              ToFloat64(bm.Beatmap.Bpm),
-				Convert:          ToBool(bm.Beatmap.Convert),
-				CountCircles:     ToInt(bm.Beatmap.CountCircles),
-				CountSliders:     ToInt(bm.Beatmap.CountSliders),
-				CountSpinners:    ToInt(bm.Beatmap.CountSpinners),
-				Cs:               ToFloat64(bm.Beatmap.Cs),
+				Accuracy:         toFloat64(bm.Beatmap.Accuracy),
+				Ar:               toFloat64(bm.Beatmap.Ar),
+				Bpm:              toFloat64(bm.Beatmap.Bpm),
+				Convert:          toBool(bm.Beatmap.Convert),
+				CountCircles:     toInt(bm.Beatmap.CountCircles),
+				CountSliders:     toInt(bm.Beatmap.CountSliders),
+				CountSpinners:    toInt(bm.Beatmap.CountSpinners),
+				Cs:               toFloat64(bm.Beatmap.Cs),
 				DeletedAt:        bm.Beatmap.DeletedAt,
-				Drain:            ToFloat64(bm.Beatmap.Drain),
-				HitLength:        ToInt(bm.Beatmap.HitLength),
-				IsScoreable:      ToBool(bm.Beatmap.IsScoreable),
+				Drain:            toFloat64(bm.Beatmap.Drain),
+				HitLength:        toInt(bm.Beatmap.HitLength),
+				IsScoreable:      toBool(bm.Beatmap.IsScoreable),
 				LastUpdated:      bm.Beatmap.LastUpdated,
-				ModeInt:          ToInt(bm.Beatmap.ModeInt),
-				PassCount:        ToInt(bm.Beatmap.PassCount),
-				PlayCount:        ToInt(bm.Beatmap.PlayCount),
-				Ranked:           ToInt(bm.Beatmap.Ranked),
+				ModeInt:          toInt(bm.Beatmap.ModeInt),
+				PassCount:        toInt(bm.Beatmap.PassCount),
+				PlayCount:        toInt(bm.Beatmap.PlayCount),
+				Ranked:           toInt(bm.Beatmap.Ranked),
 				Url:              bm.Beatmap.Url,
 				Checksum:         bm.Beatmap.Checksum,
 			},
@@ -1181,61 +1181,61 @@ func formatScores(scs []ScoreString) []Score {
 
 		// Форматирование и добавление рекорда
 		result = append(result, Score{
-			Accuracy:         ToFloat64(sc.Accuracy),
-			BeatmapId:        ToInt(sc.BeatmapId),
+			Accuracy:         toFloat64(sc.Accuracy),
+			BeatmapId:        toInt(sc.BeatmapId),
 			BuildId:          sc.BuildId,
 			EndedAt:          sc.EndedAt,
 			LegacyScoreId:    sc.LegacyScoreId,
 			LegacyTotalScore: sc.LegacyTotalScore,
-			MaximumCombo:     ToInt(sc.MaximumCombo),
+			MaximumCombo:     toInt(sc.MaximumCombo),
 			MaximumStatistics: Statistics{
-				Good:    ToInt(sc.MaximumStatistics.Good),
-				Great:   ToInt(sc.MaximumStatistics.Great),
-				Meh:     ToInt(sc.MaximumStatistics.Meh),
-				Miss:    ToInt(sc.MaximumStatistics.Miss),
-				Ok:      ToInt(sc.MaximumStatistics.Ok),
-				Perfect: ToInt(sc.MaximumStatistics.Perfect),
+				Good:    toInt(sc.MaximumStatistics.Good),
+				Great:   toInt(sc.MaximumStatistics.Great),
+				Meh:     toInt(sc.MaximumStatistics.Meh),
+				Miss:    toInt(sc.MaximumStatistics.Miss),
+				Ok:      toInt(sc.MaximumStatistics.Ok),
+				Perfect: toInt(sc.MaximumStatistics.Perfect),
 			},
 			Mods:                  sc.Mods,
-			Passed:                ToBool(sc.Passed),
+			Passed:                toBool(sc.Passed),
 			Rank:                  sc.Rank,
-			RulesetId:             ToInt(sc.RulesetId),
+			RulesetId:             toInt(sc.RulesetId),
 			StartedAt:             sc.StartedAt,
-			TotalScore:            ToInt(sc.TotalScore),
-			UserId:                ToInt(sc.UserId),
-			BestId:                ToInt(sc.BestId),
-			Id:                    ToInt(sc.Id),
-			LegacyPerfect:         ToBool(sc.LegacyPerfect),
-			PP:                    ToFloat64(sc.PP),
-			Replay:                ToBool(sc.Replay),
+			TotalScore:            toInt(sc.TotalScore),
+			UserId:                toInt(sc.UserId),
+			BestId:                toInt(sc.BestId),
+			Id:                    toInt(sc.Id),
+			LegacyPerfect:         toBool(sc.LegacyPerfect),
+			PP:                    toFloat64(sc.PP),
+			Replay:                toBool(sc.Replay),
 			Type:                  sc.Type,
 			CurrentUserAttributes: sc.CurrentUserAttributes,
 			Beatmap: Beatmaps{
-				BeatmapSetId:     ToInt(sc.Beatmap.BeatmapSetId),
-				DifficultyRating: ToFloat64(sc.Beatmap.DifficultyRating),
-				Id:               ToInt(sc.Beatmap.Id),
+				BeatmapSetId:     toInt(sc.Beatmap.BeatmapSetId),
+				DifficultyRating: toFloat64(sc.Beatmap.DifficultyRating),
+				Id:               toInt(sc.Beatmap.Id),
 				Mode:             sc.Beatmap.Mode,
 				Status:           sc.Beatmap.Status,
-				TotalLength:      ToInt(sc.Beatmap.TotalLength),
-				UserId:           ToInt(sc.Beatmap.UserId),
+				TotalLength:      toInt(sc.Beatmap.TotalLength),
+				UserId:           toInt(sc.Beatmap.UserId),
 				Version:          sc.Beatmap.Version,
-				Accuracy:         ToFloat64(sc.Beatmap.Accuracy),
-				Ar:               ToFloat64(sc.Beatmap.Ar),
-				Bpm:              ToFloat64(sc.Beatmap.Bpm),
-				Convert:          ToBool(sc.Beatmap.Convert),
-				CountCircles:     ToInt(sc.Beatmap.CountCircles),
-				CountSliders:     ToInt(sc.Beatmap.CountSliders),
-				CountSpinners:    ToInt(sc.Beatmap.CountSpinners),
-				Cs:               ToFloat64(sc.Beatmap.Cs),
+				Accuracy:         toFloat64(sc.Beatmap.Accuracy),
+				Ar:               toFloat64(sc.Beatmap.Ar),
+				Bpm:              toFloat64(sc.Beatmap.Bpm),
+				Convert:          toBool(sc.Beatmap.Convert),
+				CountCircles:     toInt(sc.Beatmap.CountCircles),
+				CountSliders:     toInt(sc.Beatmap.CountSliders),
+				CountSpinners:    toInt(sc.Beatmap.CountSpinners),
+				Cs:               toFloat64(sc.Beatmap.Cs),
 				DeletedAt:        sc.Beatmap.DeletedAt,
-				Drain:            ToFloat64(sc.Beatmap.Drain),
-				HitLength:        ToInt(sc.Beatmap.HitLength),
-				IsScoreable:      ToBool(sc.Beatmap.IsScoreable),
+				Drain:            toFloat64(sc.Beatmap.Drain),
+				HitLength:        toInt(sc.Beatmap.HitLength),
+				IsScoreable:      toBool(sc.Beatmap.IsScoreable),
 				LastUpdated:      sc.Beatmap.LastUpdated,
-				ModeInt:          ToInt(sc.Beatmap.ModeInt),
-				PassCount:        ToInt(sc.Beatmap.PassCount),
-				PlayCount:        ToInt(sc.Beatmap.PlayCount),
-				Ranked:           ToInt(sc.Beatmap.Ranked),
+				ModeInt:          toInt(sc.Beatmap.ModeInt),
+				PassCount:        toInt(sc.Beatmap.PassCount),
+				PlayCount:        toInt(sc.Beatmap.PlayCount),
+				Ranked:           toInt(sc.Beatmap.Ranked),
 				Url:              sc.Beatmap.Url,
 				Checksum:         sc.Beatmap.Checksum,
 			},
@@ -1244,25 +1244,25 @@ func formatScores(scs []ScoreString) []Score {
 				ArtistUnicode: sc.Beatmapset.ArtistUnicode,
 				Covers:        sc.Beatmapset.Covers,
 				Creator:       sc.Beatmapset.Creator,
-				FavoriteCount: ToInt(sc.Beatmapset.FavoriteCount),
+				FavoriteCount: toInt(sc.Beatmapset.FavoriteCount),
 				Hype:          sc.Beatmapset.Hype,
-				Id:            ToInt(sc.Beatmapset.Id),
-				Nsfw:          ToBool(sc.Beatmapset.Nsfw),
-				Offset:        ToInt(sc.Beatmapset.Offset),
-				PlayCount:     ToInt(sc.Beatmapset.PlayCount),
+				Id:            toInt(sc.Beatmapset.Id),
+				Nsfw:          toBool(sc.Beatmapset.Nsfw),
+				Offset:        toInt(sc.Beatmapset.Offset),
+				PlayCount:     toInt(sc.Beatmapset.PlayCount),
 				PreviewUrl:    sc.Beatmapset.PreviewUrl,
 				Source:        sc.Beatmapset.Source,
-				Spotlight:     ToBool(sc.Beatmapset.Spotlight),
+				Spotlight:     toBool(sc.Beatmapset.Spotlight),
 				Status:        sc.Beatmapset.Status,
 				Title:         sc.Beatmapset.Title,
 				TitleUnicode:  sc.Beatmapset.TitleUnicode,
 				TrackId:       sc.Beatmapset.TrackId,
-				UserId:        ToInt(sc.Beatmapset.UserId),
-				Video:         ToBool(sc.Beatmapset.Video),
+				UserId:        toInt(sc.Beatmapset.UserId),
+				Video:         toBool(sc.Beatmapset.Video),
 			},
 			Weight: Weight{
-				Percentage: ToFloat64(sc.Weight.Percentage),
-				PP:         ToFloat64(sc.Weight.PP),
+				Percentage: toFloat64(sc.Weight.Percentage),
+				PP:         toFloat64(sc.Weight.PP),
 			},
 		})
 
@@ -1292,29 +1292,29 @@ func GetUserInfo(id string) UserInfo {
 		AvatarUrl:     resultStr.AvatarUrl,
 		CountryCode:   resultStr.CountryCode,
 		DefaultGroup:  resultStr.DefaultGroup,
-		UserID:        ToInt(resultStr.UserID),
-		IsActive:      ToBool(resultStr.IsActive),
-		IsBot:         ToBool(resultStr.IsBot),
-		IsDeleted:     ToBool(resultStr.IsDeleted),
-		IsOnline:      ToBool(resultStr.IsOnline),
-		IsSupporter:   ToBool(resultStr.IsSupporter),
+		UserID:        toInt(resultStr.UserID),
+		IsActive:      toBool(resultStr.IsActive),
+		IsBot:         toBool(resultStr.IsBot),
+		IsDeleted:     toBool(resultStr.IsDeleted),
+		IsOnline:      toBool(resultStr.IsOnline),
+		IsSupporter:   toBool(resultStr.IsSupporter),
 		LastVisit:     resultStr.LastVisit,
-		PmFriendsOnly: ToBool(resultStr.PmFriendsOnly),
+		PmFriendsOnly: toBool(resultStr.PmFriendsOnly),
 		ProfileColor:  resultStr.ProfileColor,
 		Username:      resultStr.Username,
 		CoverUrl:      resultStr.CoverUrl,
 		Discord:       resultStr.Discord,
-		HasSupported:  ToBool(resultStr.HasSupported),
+		HasSupported:  toBool(resultStr.HasSupported),
 		Interests:     resultStr.Interests,
 		JoinDate:      resultStr.JoinDate,
-		Kudosu:        ToInt(resultStr.Kudosu),
+		Kudosu:        toInt(resultStr.Kudosu),
 		Location:      resultStr.Location,
-		MaxFriends:    ToInt(resultStr.MaxFriends),
-		MaxBLock:      ToInt(resultStr.MaxBLock),
+		MaxFriends:    toInt(resultStr.MaxFriends),
+		MaxBLock:      toInt(resultStr.MaxBLock),
 		Occupation:    resultStr.Occupation,
 		Playmode:      resultStr.Playmode,
 		Playstyle:     resultStr.Playstyle,
-		PostCount:     ToInt(resultStr.PostCount),
+		PostCount:     toInt(resultStr.PostCount),
 		ProfileOrder:  resultStr.ProfileOrder,
 		Title:         resultStr.Title,
 		TitleUrl:      resultStr.TitleUrl,
@@ -1324,63 +1324,63 @@ func GetUserInfo(id string) UserInfo {
 		UserCover: Cover{
 			CustomUrl: resultStr.UserCover.CustomUrl,
 			Url:       resultStr.UserCover.Url,
-			Id:        ToInt(resultStr.UserCover.Id),
+			Id:        toInt(resultStr.UserCover.Id),
 		},
-		IsAdmin:                 ToBool(resultStr.IsAdmin),
-		IsBng:                   ToBool(resultStr.IsBng),
-		IsFullBan:               ToBool(resultStr.IsFullBan),
-		IsGmt:                   ToBool(resultStr.IsGmt),
-		IsLimitedBan:            ToBool(resultStr.IsLimitedBan),
-		IsModerator:             ToBool(resultStr.IsModerator),
-		IsNat:                   ToBool(resultStr.IsNat),
-		IsRestricted:            ToBool(resultStr.IsRestricted),
-		IsSilenced:              ToBool(resultStr.IsSilenced),
+		IsAdmin:                 toBool(resultStr.IsAdmin),
+		IsBng:                   toBool(resultStr.IsBng),
+		IsFullBan:               toBool(resultStr.IsFullBan),
+		IsGmt:                   toBool(resultStr.IsGmt),
+		IsLimitedBan:            toBool(resultStr.IsLimitedBan),
+		IsModerator:             toBool(resultStr.IsModerator),
+		IsNat:                   toBool(resultStr.IsNat),
+		IsRestricted:            toBool(resultStr.IsRestricted),
+		IsSilenced:              toBool(resultStr.IsSilenced),
 		AccountHistory:          resultStr.AccountHistory,
 		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
 		Badges:                  resultStr.Badges,
-		CommentsCount:           ToInt(resultStr.CommentsCount),
-		FollowerCount:           ToInt(resultStr.FollowerCount),
+		CommentsCount:           toInt(resultStr.CommentsCount),
+		FollowerCount:           toInt(resultStr.FollowerCount),
 		Groups:                  resultStr.Groups,
-		MappingFollowerCount:    ToInt(resultStr.MappingFollowerCount),
-		PendingBeatmapsetCount:  ToInt(resultStr.PendingBeatmapsetCount),
+		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
+		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
 		Names:                   resultStr.Names,
-		Level:                   ToInt(resultStr.Level),
-		GlobalRank:              ToInt64(resultStr.GlobalRank),
-		PP:                      ToFloat64(resultStr.PP),
-		RankedScore:             ToInt(resultStr.RankedScore),
-		Accuracy:                ToFloat64(resultStr.Accuracy),
-		PlayCount:               ToInt(resultStr.PlayCount),
+		Level:                   toInt(resultStr.Level),
+		GlobalRank:              toInt64(resultStr.GlobalRank),
+		PP:                      toFloat64(resultStr.PP),
+		RankedScore:             toInt(resultStr.RankedScore),
+		Accuracy:                toFloat64(resultStr.Accuracy),
+		PlayCount:               toInt(resultStr.PlayCount),
 		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         ToInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              ToInt64(resultStr.TotalScore),
-		TotalHits:               ToInt64(resultStr.TotalHits),
-		MaximumCombo:            ToInt(resultStr.MaximumCombo),
-		Replays:                 ToInt(resultStr.Replays),
-		IsRanked:                ToBool(resultStr.IsRanked),
-		SS:                      ToInt(resultStr.SS),
-		SSH:                     ToInt(resultStr.SSH),
-		S:                       ToInt(resultStr.S),
-		SH:                      ToInt(resultStr.SH),
-		A:                       ToInt(resultStr.A),
-		CountryRank:             ToInt(resultStr.CountryRank),
-		SupportLvl:              ToInt(resultStr.SupportLvl),
-		UnrankedBeatmapsetCount: ToInt(resultStr.UnrankedBeatmapsetCount),
+		PlayTimeSeconds:         toInt64(resultStr.PlayTimeSeconds),
+		TotalScore:              toInt64(resultStr.TotalScore),
+		TotalHits:               toInt64(resultStr.TotalHits),
+		MaximumCombo:            toInt(resultStr.MaximumCombo),
+		Replays:                 toInt(resultStr.Replays),
+		IsRanked:                toBool(resultStr.IsRanked),
+		SS:                      toInt(resultStr.SS),
+		SSH:                     toInt(resultStr.SSH),
+		S:                       toInt(resultStr.S),
+		SH:                      toInt(resultStr.SH),
+		A:                       toInt(resultStr.A),
+		CountryRank:             toInt(resultStr.CountryRank),
+		SupportLvl:              toInt(resultStr.SupportLvl),
+		UnrankedBeatmapsetCount: toInt(resultStr.UnrankedBeatmapsetCount),
 	}
 
 	// Перевод достижений
 	for _, c := range resultStr.Achievements {
 		result.Achievements = append(result.Achievements, Achievement{
 			AchievedAt:    c.AchievedAt,
-			AchievementId: ToInt(c.AchievementId),
+			AchievementId: toInt(c.AchievementId),
 		})
 	}
 
 	// Перевод количества медалей и истории рейтинга
-	result.Medals = ToInt(resultStr.Medals)
+	result.Medals = toInt(resultStr.Medals)
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
 
 	for _, d := range resultStr.RankHistory.Data {
-		result.RankHistory.Data = append(result.RankHistory.Data, ToInt(d))
+		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
 	}
 
 	// Перевод карт
@@ -1394,9 +1394,9 @@ func GetUserInfo(id string) UserInfo {
 	// Перевод кудосу
 	for _, k := range resultStr.KudosuItems {
 		result.KudosuItems = append(result.KudosuItems, Kudosu{
-			Id:        ToInt(k.Id),
+			Id:        toInt(k.Id),
 			Action:    k.Action,
-			Amount:    ToInt(k.Amount),
+			Amount:    toInt(k.Amount),
 			Model:     k.Model,
 			CreatedAt: k.CreatedAt,
 			Giver:     k.Giver,
@@ -1409,10 +1409,10 @@ func GetUserInfo(id string) UserInfo {
 	for _, a := range resultStr.RecentActivity {
 		result.RecentActivity = append(result.RecentActivity, Activity{
 			CreatedAt:    a.CreatedAt,
-			Id:           ToInt(a.Id),
+			Id:           toInt(a.Id),
 			Type:         a.Type,
 			ScoreRank:    a.ScoreRank,
-			Rank:         ToInt(a.Rank),
+			Rank:         toInt(a.Rank),
 			Mode:         a.Mode,
 			BeatmapTitle: a.BeatmapTitle,
 			BeatmapUrl:   a.BeatmapUrl,
@@ -1427,15 +1427,15 @@ func GetUserInfo(id string) UserInfo {
 	// Перевод карт с количеством игр
 	for _, pc := range resultStr.BeatmapPlaycounts {
 		result.BeatmapPlaycounts = append(result.BeatmapPlaycounts, PlayCount{
-			BeatmapId: ToInt(pc.BeatmapId),
-			Count:     ToInt(pc.Count),
+			BeatmapId: toInt(pc.BeatmapId),
+			Count:     toInt(pc.Count),
 			Beatmap: PlayCountBeatmap{
-				BeatmapsetId:     ToInt(pc.Beatmap.BeatmapsetId),
-				DifficultyRating: ToFloat64(pc.Beatmap.DifficultyRating),
-				Id:               ToInt(pc.Beatmap.Id),
+				BeatmapsetId:     toInt(pc.Beatmap.BeatmapsetId),
+				DifficultyRating: toFloat64(pc.Beatmap.DifficultyRating),
+				Id:               toInt(pc.Beatmap.Id),
 				Status:           pc.Beatmap.Status,
-				TotalLength:      ToInt(pc.Beatmap.TotalLength),
-				UserId:           ToInt(pc.Beatmap.UserId),
+				TotalLength:      toInt(pc.Beatmap.TotalLength),
+				UserId:           toInt(pc.Beatmap.UserId),
 				Version:          pc.Beatmap.Version,
 			},
 			Beatmapset: Beatmapset{
@@ -1443,21 +1443,21 @@ func GetUserInfo(id string) UserInfo {
 				ArtistUnicode: pc.Beatmapset.ArtistUnicode,
 				Covers:        pc.Beatmapset.Covers,
 				Creator:       pc.Beatmapset.Creator,
-				FavoriteCount: ToInt(pc.Beatmapset.FavoriteCount),
+				FavoriteCount: toInt(pc.Beatmapset.FavoriteCount),
 				Hype:          pc.Beatmapset.Hype,
-				Id:            ToInt(pc.Beatmapset.Id),
-				Nsfw:          ToBool(pc.Beatmapset.Nsfw),
-				Offset:        ToInt(pc.Beatmapset.Offset),
-				PlayCount:     ToInt(pc.Beatmapset.PlayCount),
+				Id:            toInt(pc.Beatmapset.Id),
+				Nsfw:          toBool(pc.Beatmapset.Nsfw),
+				Offset:        toInt(pc.Beatmapset.Offset),
+				PlayCount:     toInt(pc.Beatmapset.PlayCount),
 				PreviewUrl:    pc.Beatmapset.PreviewUrl,
 				Source:        pc.Beatmapset.Source,
-				Spotlight:     ToBool(pc.Beatmapset.Spotlight),
+				Spotlight:     toBool(pc.Beatmapset.Spotlight),
 				Status:        pc.Beatmapset.Status,
 				Title:         pc.Beatmapset.Title,
 				TitleUnicode:  pc.Beatmapset.TitleUnicode,
 				TrackId:       pc.Beatmapset.TrackId,
-				UserId:        ToInt(pc.Beatmapset.UserId),
-				Video:         ToBool(pc.Beatmapset.Video),
+				UserId:        toInt(pc.Beatmapset.UserId),
+				Video:         toBool(pc.Beatmapset.Video),
 			},
 		})
 	}
@@ -1465,7 +1465,7 @@ func GetUserInfo(id string) UserInfo {
 	for _, c := range resultStr.MonthlyPlaycounts {
 		result.MonthlyPlaycounts = append(result.MonthlyPlaycounts, Count{
 			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
+			Count:     toInt(c.Count),
 		})
 	}
 
@@ -1473,7 +1473,7 @@ func GetUserInfo(id string) UserInfo {
 	for _, c := range resultStr.ReplaysWatchedCount {
 		result.ReplaysWatchedCount = append(result.ReplaysWatchedCount, Count{
 			StartDate: c.StartDate,
-			Count:     ToInt(c.Count),
+			Count:     toInt(c.Count),
 		})
 	}
 
@@ -1886,5 +1886,4 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.Write(jsonResp)
 		}
 	}
-
 }
