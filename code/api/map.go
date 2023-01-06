@@ -840,12 +840,6 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 // Роут "/map" для vercel
 func Map(w http.ResponseWriter, r *http.Request) {
 
-	// Формирование заголовка респонса по статускоду
-	w.WriteHeader(http.StatusOK)
-
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
-
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 	beatmapset := r.URL.Query().Get("beatmapset")
@@ -856,19 +850,26 @@ func Map(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Передача в заголовок респонса типа данных
+	w.Header().Set("Content-Type", "application/json")
+
 	// Проверка на тип, получение статистики, форматирование и отправка
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Print("Error: ", err)
 		} else {
+			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
 		}
 	} else {
 		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
 		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
 			fmt.Print("Error: ", err)
 		} else {
+			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
 		}
 	}
