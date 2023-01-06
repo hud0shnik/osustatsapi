@@ -1855,12 +1855,6 @@ func GetUserInfoString(id string) UserInfoString {
 // Роут "/user"  для vercel
 func User(w http.ResponseWriter, r *http.Request) {
 
-	// Формирование заголовка респонса по статускоду
-	w.WriteHeader(http.StatusOK)
-
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
-
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 
@@ -1870,19 +1864,26 @@ func User(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Передача в заголовок респонса типа данных
+	w.Header().Set("Content-Type", "application/json")
+
 	// Проверка на тип, получение статистики, форматирование и отправка
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetUserInfoString(id))
 		if err != nil {
 			fmt.Print("Error: ", err)
+			w.WriteHeader(http.StatusInternalServerError)
 		} else {
+			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
 		}
 	} else {
 		jsonResp, err := json.Marshal(GetUserInfo(id))
 		if err != nil {
 			fmt.Print("Error: ", err)
+			w.WriteHeader(http.StatusInternalServerError)
 		} else {
+			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
 		}
 	}
