@@ -325,7 +325,6 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 	}
 
 	return result, end
-
 }
 
 // Функция парсинга карт
@@ -359,7 +358,6 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 	}
 
 	return result, end
-
 }
 
 // Функция парсинга карты
@@ -437,7 +435,6 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 	}
 
 	return result, end
-
 }
 
 // функция парсинга пользователей
@@ -462,7 +459,6 @@ func parseBmUserString(pageStr string, left int) (BmUserString, int) {
 	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left)
 
 	return user, left
-
 }
 
 // Функция парсинга комментов
@@ -527,38 +523,38 @@ func formatBeatmap(mpss []MapsString) []Maps {
 	for _, mps := range mpss {
 
 		mp := Maps{
-			BeatmapSetId:     ToInt(mps.BeatmapSetId),
-			DifficultyRating: ToFloat64(mps.DifficultyRating),
-			Id:               ToInt(mps.Id),
+			BeatmapSetId:     toInt(mps.BeatmapSetId),
+			DifficultyRating: toFloat64(mps.DifficultyRating),
+			Id:               toInt(mps.Id),
 			Mode:             mps.Mode,
 			Status:           mps.Status,
-			TotalLength:      ToInt(mps.TotalLength),
-			UserId:           ToInt(mps.UserId),
+			TotalLength:      toInt(mps.TotalLength),
+			UserId:           toInt(mps.UserId),
 			Version:          mps.Version,
-			Accuracy:         ToFloat64(mps.Accuracy),
-			Ar:               ToFloat64(mps.Ar),
-			Bpm:              ToFloat64(mps.Bpm),
-			Convert:          ToBool(mps.Convert),
-			CountCircles:     ToInt(mps.CountCircles),
-			CountSliders:     ToInt(mps.CountSliders),
-			CountSpinners:    ToInt(mps.CountSpinners),
-			Cs:               ToFloat64(mps.Cs),
+			Accuracy:         toFloat64(mps.Accuracy),
+			Ar:               toFloat64(mps.Ar),
+			Bpm:              toFloat64(mps.Bpm),
+			Convert:          toBool(mps.Convert),
+			CountCircles:     toInt(mps.CountCircles),
+			CountSliders:     toInt(mps.CountSliders),
+			CountSpinners:    toInt(mps.CountSpinners),
+			Cs:               toFloat64(mps.Cs),
 			DeletedAt:        mps.DeletedAt,
-			Drain:            ToFloat64(mps.Drain),
-			HitLength:        ToInt(mps.HitLength),
-			IsScoreable:      ToBool(mps.IsScoreable),
+			Drain:            toFloat64(mps.Drain),
+			HitLength:        toInt(mps.HitLength),
+			IsScoreable:      toBool(mps.IsScoreable),
 			LastUpdated:      mps.LastUpdated,
-			ModeInt:          ToInt(mps.ModeInt),
-			PassCount:        ToInt(mps.PassCount),
-			PlayCount:        ToInt(mps.PlayCount),
-			Ranked:           ToInt(mps.Ranked),
+			ModeInt:          toInt(mps.ModeInt),
+			PassCount:        toInt(mps.PassCount),
+			PlayCount:        toInt(mps.PlayCount),
+			Ranked:           toInt(mps.Ranked),
 			Url:              mps.Url,
 			Checksum:         mps.Checksum,
 			Failtimes: Failtimes{
-				Fail: ToSlice(mps.Failtimes.Fail),
-				Exit: ToSlice(mps.Failtimes.Exit),
+				Fail: toSlice(mps.Failtimes.Fail),
+				Exit: toSlice(mps.Failtimes.Exit),
 			},
-			MaxCombo: ToInt(mps.MaxCombo),
+			MaxCombo: toInt(mps.MaxCombo),
 		}
 
 		// Форматирование и добавление рекорда
@@ -576,10 +572,10 @@ func formatCurrentNominations(cns []CurrentNominationString) []CurrentNomination
 	// Обработка текстовых номинаций
 	for _, cn := range cns {
 		result = append(result, CurrentNomination{
-			BeatmapsetId: ToInt(cn.BeatmapsetId),
+			BeatmapsetId: toInt(cn.BeatmapsetId),
 			Rulesets:     cn.Rulesets,
-			Reset:        ToBool(cn.Reset),
-			UserId:       ToInt(cn.UserId),
+			Reset:        toBool(cn.Reset),
+			UserId:       toInt(cn.UserId),
 		})
 	}
 
@@ -592,14 +588,14 @@ func formatBmUser(usr BmUserString) BmUser {
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
 		DefaultGroup:  usr.DefaultGroup,
-		Id:            ToInt(usr.Id),
-		IsActive:      ToBool(usr.IsActive),
-		IsBot:         ToBool(usr.IsActive),
-		IsDeleted:     ToBool(usr.IsDeleted),
-		IsOnline:      ToBool(usr.IsOnline),
-		IsSupporter:   ToBool(usr.IsSupporter),
+		Id:            toInt(usr.Id),
+		IsActive:      toBool(usr.IsActive),
+		IsBot:         toBool(usr.IsActive),
+		IsDeleted:     toBool(usr.IsDeleted),
+		IsOnline:      toBool(usr.IsOnline),
+		IsSupporter:   toBool(usr.IsSupporter),
 		LastVisit:     usr.LastVisit,
-		PmFriendsOnly: ToBool(usr.PmFriendsOnly),
+		PmFriendsOnly: toBool(usr.PmFriendsOnly),
 		ProfileColor:  usr.ProfileColor,
 		Username:      usr.Username,
 	}
@@ -614,7 +610,6 @@ func formatBmUsers(usrs []BmUserString) []BmUser {
 	}
 
 	return result
-
 }
 
 // Функция перевода комментариев
@@ -623,14 +618,14 @@ func formatComments(cms []CommentString) []Comment {
 
 	for _, cm := range cms {
 		result = append(result, Comment{
-			Id:              ToInt(cm.Id),
-			ParentId:        ToInt(cm.ParentId),
-			UserId:          ToInt(cm.UserId),
-			Pinned:          ToBool(cm.Pinned),
-			RepliesCount:    ToInt(cm.RepliesCount),
-			VotesCount:      ToInt(cm.VotesCount),
+			Id:              toInt(cm.Id),
+			ParentId:        toInt(cm.ParentId),
+			UserId:          toInt(cm.UserId),
+			Pinned:          toBool(cm.Pinned),
+			RepliesCount:    toInt(cm.RepliesCount),
+			VotesCount:      toInt(cm.VotesCount),
 			CommentableType: cm.CommentableType,
-			CommentableId:   ToInt(cm.CommentableId),
+			CommentableId:   toInt(cm.CommentableId),
 			LegacyName:      cm.LegacyName,
 			CreatedAt:       cm.CreatedAt,
 			UpdatedAt:       cm.UpdatedAt,
@@ -667,54 +662,54 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		ArtistUnicode:     resultStr.ArtistUnicode,
 		Covers:            resultStr.Covers,
 		Creator:           resultStr.Creator,
-		FavoriteCount:     ToInt(resultStr.FavoriteCount),
-		HypeCurrent:       ToInt(resultStr.HypeCurrent),
-		HypeRequired:      ToInt(resultStr.HypeRequired),
-		Id:                ToInt(resultStr.Id),
-		Nsfw:              ToBool(resultStr.Nsfw),
-		Offset:            ToInt(resultStr.Offset),
-		PlayCount:         ToInt(resultStr.PlayCount),
+		FavoriteCount:     toInt(resultStr.FavoriteCount),
+		HypeCurrent:       toInt(resultStr.HypeCurrent),
+		HypeRequired:      toInt(resultStr.HypeRequired),
+		Id:                toInt(resultStr.Id),
+		Nsfw:              toBool(resultStr.Nsfw),
+		Offset:            toInt(resultStr.Offset),
+		PlayCount:         toInt(resultStr.PlayCount),
 		PreviewUrl:        resultStr.PreviewUrl,
 		Source:            resultStr.Source,
-		Spotlight:         ToBool(resultStr.Spotlight),
+		Spotlight:         toBool(resultStr.Spotlight),
 		Status:            resultStr.Status,
 		Title:             resultStr.Title,
 		TitleUnicode:      resultStr.TitleUnicode,
-		TrackId:           ToInt(resultStr.TrackId),
-		UserId:            ToInt(resultStr.UserId),
-		Video:             ToBool(resultStr.Video),
-		DownloadDisabled:  ToBool(resultStr.DownloadDisabled),
-		Bpm:               ToFloat64(resultStr.Bpm),
-		CanBeHyped:        ToBool(resultStr.CanBeHyped),
-		DiscussionEnabled: ToBool(resultStr.DiscussionEnabled),
-		DiscussionLocked:  ToBool(resultStr.DiscussionLocked),
-		IsScoreable:       ToBool(resultStr.IsScoreable),
+		TrackId:           toInt(resultStr.TrackId),
+		UserId:            toInt(resultStr.UserId),
+		Video:             toBool(resultStr.Video),
+		DownloadDisabled:  toBool(resultStr.DownloadDisabled),
+		Bpm:               toFloat64(resultStr.Bpm),
+		CanBeHyped:        toBool(resultStr.CanBeHyped),
+		DiscussionEnabled: toBool(resultStr.DiscussionEnabled),
+		DiscussionLocked:  toBool(resultStr.DiscussionLocked),
+		IsScoreable:       toBool(resultStr.IsScoreable),
 		LastUpdated:       resultStr.LastUpdated,
 		LegacyThreadUrl:   resultStr.LegacyThreadUrl,
 		NominationsSummary: NominationsSummary{
-			Current:  ToInt(resultStr.NominationsSummary.Current),
-			Required: ToInt(resultStr.NominationsSummary.Required),
+			Current:  toInt(resultStr.NominationsSummary.Current),
+			Required: toInt(resultStr.NominationsSummary.Required),
 		},
-		Ranked:             ToInt(resultStr.Ranked),
+		Ranked:             toInt(resultStr.Ranked),
 		RankedDate:         resultStr.RankedDate,
-		Storyboard:         ToBool(resultStr.Storyboard),
+		Storyboard:         toBool(resultStr.Storyboard),
 		SubmittedDate:      resultStr.SubmittedDate,
 		Tags:               resultStr.Tags,
 		Beatmaps:           formatBeatmap(resultStr.Beatmaps),
 		Converts:           formatBeatmap(resultStr.Converts),
 		CurrentNominations: formatCurrentNominations(resultStr.CurrentNominations),
 		Description:        resultStr.Description,
-		GenreId:            ToInt(resultStr.GenreId),
+		GenreId:            toInt(resultStr.GenreId),
 		GenreName:          resultStr.GenreName,
-		LanguageId:         ToInt(resultStr.LanguageId),
+		LanguageId:         toInt(resultStr.LanguageId),
 		LanguageName:       resultStr.LanguageName,
-		Ratings:            ToSlice(resultStr.Ratings),
+		Ratings:            toSlice(resultStr.Ratings),
 		RecentFavourites:   formatBmUsers(resultStr.RecentFavourites),
 		RelatedUsers:       formatBmUsers(resultStr.RelatedUsers),
 		User:               formatBmUser(resultStr.User),
 		Comments:           formatComments(resultStr.Comments),
 		PinnedComments:     formatComments(resultStr.PinnedComments),
-		UserFollow:         ToBool(resultStr.UserFollow),
+		UserFollow:         toBool(resultStr.UserFollow),
 	}
 
 	return result
