@@ -14,6 +14,7 @@ import (
 
 // Информация о пользователе
 type UserInfoString struct {
+	Success                 string              `json:"success"`
 	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
 	CountryCode             string              `json:"country_code"`
@@ -353,6 +354,7 @@ type PlayCountBeatmapString struct {
 
 // Информация о пользователе
 type UserInfo struct {
+	Success                 bool          `json:"success"`
 	Error                   string        `json:"error"`
 	AvatarUrl               string        `json:"avatar_url"`
 	CountryCode             string        `json:"country_code"`
@@ -1282,12 +1284,14 @@ func GetUserInfo(id string) UserInfo {
 	// Проверка на ошибки при парсинге
 	if resultStr.Error != "" {
 		return UserInfo{
-			Error: resultStr.Error,
+			Success: false,
+			Error:   resultStr.Error,
 		}
 	}
 
 	// Перевод в классическую версию
 	result := UserInfo{
+		Success:       true,
 		Error:         resultStr.Error,
 		AvatarUrl:     resultStr.AvatarUrl,
 		CountryCode:   resultStr.CountryCode,
@@ -1487,7 +1491,8 @@ func GetUserInfoString(id string) UserInfoString {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return UserInfoString{
-			Error: "http get error",
+			Success: "false",
+			Error:   "http get error",
 		}
 	}
 
@@ -1501,7 +1506,8 @@ func GetUserInfoString(id string) UserInfoString {
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
 		return UserInfoString{
-			Error: "user not found",
+			Success: "false",
+			Error:   "user not found",
 		}
 	}
 
