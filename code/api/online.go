@@ -10,8 +10,9 @@ import (
 
 // Статуса пользователя
 type OnlineInfo struct {
-	Error  string `json:"error"`
-	Status string `json:"is_online"`
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
+	Status  string `json:"is_online"`
 }
 
 // Функция получения информации о пользователе
@@ -21,7 +22,8 @@ func GetOnlineInfo(id string) OnlineInfo {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return OnlineInfo{
-			Error: "http get error",
+			Success: false,
+			Error:   "http get error",
 		}
 	}
 
@@ -42,13 +44,15 @@ func GetOnlineInfo(id string) OnlineInfo {
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
 		return OnlineInfo{
-			Error: "user not found",
+			Success: false,
+			Error:   "user not found",
 		}
 	}
 
 	// Поиск статуса пользователя и вывод результата
 	return OnlineInfo{
-		Status: find(pageStr, "is_online&quot;:", ",", 0),
+		Success: true,
+		Status:  find(pageStr, "is_online&quot;:", ",", 0),
 	}
 }
 
