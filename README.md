@@ -17,6 +17,7 @@ including real PP count and real Accuracy percentage
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
+success                     |        bool        | "true" or "false" 
 error                       |       string       | api error response (default value= "")
 avatar_url                  |       string       |
 country_code                |       string       | like "RU" or "JP"
@@ -362,7 +363,16 @@ version                     |       string       |
    ``` Elixir
    https://osustatsapi.vercel.app/api/online?id=hud0shnik
    ```
-  
+   
+<h4>OnlineResponse</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+success                     |        bool        | 
+error                       |       string       | api error response (default value= "")
+status                      |       string       |
+
+   
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
 
 [![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
