@@ -12,8 +12,27 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success string `json:"success"`
-	Error   string `json:"error"`
+	Success   string               `json:"success"`
+	Error     string               `json:"error"`
+	Id        string               `json:"id"`
+	Type      string               `json:"type"`
+	Comment   ModdingCommentString `json:"comment"`
+	CreatedAt string               `json:"created_at"`
+	UserId    string               `json:"user_id"`
+}
+
+// Структура комментария
+type ModdingCommentString struct {
+	BeatmapDiscussionId     string       `json:"beatmap_discussion_id"`
+	BeatmapDiscussionPostId string       `json:"beatmap_discussion_post_id"`
+	NewVote                 VoteString   `json:"new_vote"`
+	Votes                   []VoteString `json:"votes"`
+}
+
+// Структура голоса
+type VoteString struct {
+	UserId string `json:"user_id"`
+	Score  string `json:"score"`
 }
 
 // Функция получения текстовой информации
