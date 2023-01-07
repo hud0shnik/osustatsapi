@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
+// ---------------------- Структуры для парсинга ------------------------
+
+// Структура респонса
 type ModdingResponseString struct {
 	Success string `json:"success"`
 	Error   string `json:"error"`
@@ -31,7 +32,7 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	// HTML полученной страницы в формате string
+	// Полученная страница в формате string
 	pageStr := string(body)[80000:]
 
 	// Проверка на страницу пользователя
@@ -47,9 +48,9 @@ func GetModdingInfoString(id string) ModdingResponseString {
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 
-	if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
+	/*if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
-	}
+	}*/
 
 	// Структура, которую будет возвращать функция
 	result := ModdingResponseString{}

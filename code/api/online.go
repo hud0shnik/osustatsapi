@@ -31,7 +31,7 @@ func GetOnlineInfo(id string) OnlineInfo {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	// HTML полученной страницы в формате string
+	// Полученная страница в формате string
 	pageStr := string(body)[80000:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)

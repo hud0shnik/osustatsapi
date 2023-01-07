@@ -743,7 +743,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	// HTML полученной страницы в формате string
+	// Полученная страница в формате string
 	pageStr := string(body)
 	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000)+61:]
 
