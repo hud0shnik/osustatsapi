@@ -1504,7 +1504,7 @@ func GetUserInfoString(id string) UserInfoString {
 	pageStr := string(body)[80000:]
 
 	// Проверка на страницу пользователя
-	if !strings.Contains(pageStr, "js-react--profile") {
+	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
 		return UserInfoString{
 			Success: "false",
 			Error:   "user not found",
