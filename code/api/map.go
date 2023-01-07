@@ -12,6 +12,7 @@ import (
 
 // Структура респонса
 type MapStringResponse struct {
+	Success            string                    `json:"success"`
 	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
@@ -152,6 +153,7 @@ type CurrentNominationString struct {
 
 // Структура респонса
 type MapResponse struct {
+	Success            bool                `json:"success"`
 	Error              string              `json:"error"`
 	Artist             string              `json:"artist"`
 	ArtistUnicode      string              `json:"artist_string"`
@@ -651,12 +653,14 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 	// Проверка на ошибки при парсинге
 	if resultStr.Error != "" {
 		return MapResponse{
-			Error: "",
+			Success: false,
+			Error:   resultStr.Error,
 		}
 	}
 
 	// Перевод в классическую версию
 	result := MapResponse{
+		Success:           true,
 		Error:             resultStr.Error,
 		Artist:            resultStr.Artist,
 		ArtistUnicode:     resultStr.ArtistUnicode,
@@ -722,14 +726,16 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
 	if err != nil {
 		return MapStringResponse{
-			Error: "http get error",
+			Success: "false",
+			Error:   "http get error",
 		}
 	}
 
 	// Проверка на ошибки
 	if resp.StatusCode != 200 {
 		return MapStringResponse{
-			Error: resp.Status,
+			Success: "false",
+			Error:   resp.Status,
 		}
 	}
 
