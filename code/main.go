@@ -51,6 +51,17 @@ func sendMapInfo(writer http.ResponseWriter, request *http.Request) {
 
 }
 
+// Функция отправки информации о карте
+func sendModdingInfo(writer http.ResponseWriter, request *http.Request) {
+
+	// Заголовок, определяющий тип данных респонса
+	writer.Header().Set("Content-Type", "application/json")
+
+	// Обработка и вывод результата
+	json.NewEncoder(writer).Encode(api.GetModdingInfoString(request.URL.Query().Get("id")))
+
+}
+
 func main() {
 
 	// Вывод времени начала работы
@@ -67,6 +78,8 @@ func main() {
 	router.HandleFunc("/api/online", sendOnlineInfo).Methods("GET")
 
 	router.HandleFunc("/api/map", sendMapInfo).Methods("GET")
+
+	router.HandleFunc("/api/modding", sendModdingInfo).Methods("GET")
 
 	// Запуск API
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
