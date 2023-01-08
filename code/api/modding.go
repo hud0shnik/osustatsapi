@@ -12,13 +12,15 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success string  `json:"success"`
-	Error   string  `json:"error"`
-	Events  []Event `json:"events"`
+	Success  string              `json:"success"`
+	Error    string              `json:"error"`
+	Events   []EventString       `json:"events"`
+	Users    []ModdingUserString `json:"users"`
+	Beatmaps []BeatmapsString    `json:"beatmaps"`
 }
 
 // Структура события
-type Event struct {
+type EventString struct {
 	Id         string                  `json:"id"`
 	Type       string                  `json:"type"`
 	Comment    ModdingCommentString    `json:"comment"`
@@ -101,25 +103,25 @@ type StartingPost struct {
 }
 
 // Структура пользователя
-type ModdingUser struct {
-	AvatarUrl     string  `json:"avatar_url"`
-	CountryCode   string  `json:"country_code"`
-	DefaultGroup  string  `json:"default_group"`
-	Id            int     `json:"id "`
-	IsActive      bool    `json:"is_active"`
-	IsBot         bool    `json:"is_bot"`
-	IsDeleted     bool    `json:"is_deleted"`
-	IsOnline      bool    `json:"is_online"`
-	IsSupporter   bool    `json:"is_supporter"`
-	LastVisit     string  `json:"last_visit"`
-	PmFriendsOnly bool    `json:"pm_friends_only"`
-	ProfileColor  string  `json:"profile_color"`
-	Username      string  `json:"username"`
-	Groups        []Group `json:"groups"`
+type ModdingUserString struct {
+	AvatarUrl     string        `json:"avatar_url"`
+	CountryCode   string        `json:"country_code"`
+	DefaultGroup  string        `json:"default_group"`
+	Id            int           `json:"id "`
+	IsActive      bool          `json:"is_active"`
+	IsBot         bool          `json:"is_bot"`
+	IsDeleted     bool          `json:"is_deleted"`
+	IsOnline      bool          `json:"is_online"`
+	IsSupporter   bool          `json:"is_supporter"`
+	LastVisit     string        `json:"last_visit"`
+	PmFriendsOnly bool          `json:"pm_friends_only"`
+	ProfileColor  string        `json:"profile_color"`
+	Username      string        `json:"username"`
+	Groups        []GroupString `json:"groups"`
 }
 
 // Структура группы
-type Group struct {
+type GroupString struct {
 	Colour         string   `json:"colour"`
 	HasListing     string   `json:"has_listing"`
 	HasPlaymodes   string   `json:"has_playmodes"`
