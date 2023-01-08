@@ -62,22 +62,37 @@ type ModdingBeatmapsetString struct {
 
 // Структура дискуссии
 type DiscussionString struct {
-	Id             string `json:"id"`
-	BeatmapsetId   string `json:"beatmapset_id"`
-	BeatmapId      string `json:"beatmap_id"`
-	UserId         string `json:"user_id"`
-	DeletedById    string `json:"deleted_by_id"`
-	MessageType    string `json:"message_type"`
-	ParentId       string `json:"parent_id"`
-	Timestamp      string `json:"timestamp"`
-	Resolved       string `json:"resolved"`
-	CanBeResolved  string `json:"can_be_resolved"`
-	CanGrantKudosu string `json:"can_grant_kudosu"`
-	CreatedAt      string `json:"created_at"`
-	UpdatedAt      string `json:"updated_at"`
-	DeletedAt      string `json:"deleted_at"`
-	LastPostAt     string `json:"last_post_at"`
-	KudosuDenied   string `json:"kudosu_denied"`
+	Id             string       `json:"id"`
+	BeatmapsetId   string       `json:"beatmapset_id"`
+	BeatmapId      string       `json:"beatmap_id"`
+	UserId         string       `json:"user_id"`
+	DeletedById    string       `json:"deleted_by_id"`
+	MessageType    string       `json:"message_type"`
+	ParentId       string       `json:"parent_id"`
+	Timestamp      string       `json:"timestamp"`
+	Resolved       string       `json:"resolved"`
+	CanBeResolved  string       `json:"can_be_resolved"`
+	CanGrantKudosu string       `json:"can_grant_kudosu"`
+	CreatedAt      string       `json:"created_at"`
+	UpdatedAt      string       `json:"updated_at"`
+	DeletedAt      string       `json:"deleted_at"`
+	LastPostAt     string       `json:"last_post_at"`
+	KudosuDenied   string       `json:"kudosu_denied"`
+	StartingPost   StartingPost `json:"starting_post"`
+}
+
+// Структура первого поста
+type StartingPost struct {
+	BeatmapsetDiscussionId string `json:"beatmapset_discussion_id"`
+	CreatedAt              string `json:"created_at"`
+	DeletedAt              string `json:"deleted_at"`
+	DeletedById            string `json:"deleted_by_id"`
+	Id                     string `json:"id"`
+	LastEditorId           string `json:"last_editor_id"`
+	Message                string `json:"message"`
+	System                 string `json:"system"`
+	UpdatedAt              string `json:"updated_at"`
+	UserId                 string `json:"user_id"`
 }
 
 // Функция получения текстовой информации
