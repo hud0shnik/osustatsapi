@@ -12,11 +12,12 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success  string              `json:"success"`
-	Error    string              `json:"error"`
-	Events   []EventString       `json:"events"`
-	Users    []ModdingUserString `json:"users"`
-	Beatmaps []BeatmapsString    `json:"beatmaps"`
+	Success     string                     `json:"success"`
+	Error       string                     `json:"error"`
+	Events      []EventString              `json:"events"`
+	Users       []ModdingUserString        `json:"users"`
+	Beatmaps    []BeatmapsString           `json:"beatmaps"`
+	Beatmapsets []ModdingBeatmapsetsString `json:"beatmapsets"`
 }
 
 // Структура события
@@ -131,6 +132,43 @@ type GroupString struct {
 	Name           string   `json:"name"`
 	ShortName      string   `json:"short_name"`
 	Playmodes      []string `json:"playmodes"`
+}
+
+// Структура сета
+type ModdingBeatmapsetsString struct {
+	Artist            string                   `json:"artist"`
+	ArtistUnicode     string                   `json:"artist_unicode"`
+	Covers            Covers                   `json:"covers"`
+	Creator           string                   `json:"creator"`
+	FavoriteCount     string                   `json:"favorite_count"`
+	Hype              string                   `json:"hype"`
+	Id                string                   `json:"id"`
+	Nsfw              string                   `json:"nsfw"`
+	Offset            string                   `json:"offset"`
+	PlayCount         string                   `json:"play_count"`
+	PreviewUrl        string                   `json:"preview_url"`
+	Source            string                   `json:"source"`
+	Spotlight         string                   `json:"spotlight"`
+	Status            string                   `json:"status"`
+	Title             string                   `json:"title"`
+	TitleUnicode      string                   `json:"title_unicode"`
+	TrackId           string                   `json:"track_id"`
+	UserId            string                   `json:"userId"`
+	Video             string                   `json:"video"`
+	DownloadDisabled  string                   `json:"download_disabled"`
+	Bpm               string                   `json:"bpm"`
+	CanBeHyped        string                   `json:"can_be_hyped"`
+	DiscussionEnabled string                   `json:"discussion_enabled"`
+	DiscussionLocked  string                   `json:"discussion_locked"`
+	IsScoreable       string                   `json:"is_scoreable"`
+	LastUpdated       string                   `json:"last_updated"`
+	LegacyThreadUrl   string                   `json:"legacy_thread_url"`
+	Nominations       NominationsSummaryString `json:"nominations_summary"`
+	Ranked            string                   `json:"ranked"`
+	RankedDate        string                   `json:"ranked_date"`
+	Storyboard        string                   `json:"storyboard"`
+	SubmittedDate     string                   `json:"submitted_date"`
+	Tags              []string                 `json:"tags"`
 }
 
 // Функция получения текстовой информации
