@@ -12,8 +12,13 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success    string                  `json:"success"`
-	Error      string                  `json:"error"`
+	Success string  `json:"success"`
+	Error   string  `json:"error"`
+	Events  []Event `json:"events"`
+}
+
+// Структура события
+type Event struct {
 	Id         string                  `json:"id"`
 	Type       string                  `json:"type"`
 	Comment    ModdingCommentString    `json:"comment"`
