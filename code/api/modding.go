@@ -60,6 +60,26 @@ type ModdingBeatmapsetString struct {
 	User          BmUserString `json:"user"`
 }
 
+// Структура дискуссии
+type DiscussionString struct {
+	Id             string `json:"id"`
+	BeatmapsetId   string `json:"beatmapset_id"`
+	BeatmapId      string `json:"beatmap_id"`
+	UserId         string `json:"user_id"`
+	DeletedById    string `json:"deleted_by_id"`
+	MessageType    string `json:"message_type"`
+	ParentId       string `json:"parent_id"`
+	Timestamp      string `json:"timestamp"`
+	Resolved       string `json:"resolved"`
+	CanBeResolved  string `json:"can_be_resolved"`
+	CanGrantKudosu string `json:"can_grant_kudosu"`
+	CreatedAt      string `json:"created_at"`
+	UpdatedAt      string `json:"updated_at"`
+	DeletedAt      string `json:"deleted_at"`
+	LastPostAt     string `json:"last_post_at"`
+	KudosuDenied   string `json:"kudosu_denied"`
+}
+
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
