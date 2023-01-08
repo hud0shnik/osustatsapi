@@ -12,13 +12,14 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success   string               `json:"success"`
-	Error     string               `json:"error"`
-	Id        string               `json:"id"`
-	Type      string               `json:"type"`
-	Comment   ModdingCommentString `json:"comment"`
-	CreatedAt string               `json:"created_at"`
-	UserId    string               `json:"user_id"`
+	Success    string                  `json:"success"`
+	Error      string                  `json:"error"`
+	Id         string                  `json:"id"`
+	Type       string                  `json:"type"`
+	Comment    ModdingCommentString    `json:"comment"`
+	CreatedAt  string                  `json:"created_at"`
+	UserId     string                  `json:"user_id"`
+	Beatmapset ModdingBeatmapsetString `json:"beatmapset"`
 }
 
 // Структура комментария
@@ -33,6 +34,30 @@ type ModdingCommentString struct {
 type VoteString struct {
 	UserId string `json:"user_id"`
 	Score  string `json:"score"`
+}
+
+// Структура карты
+type ModdingBeatmapsetString struct {
+	Artist        string       `json:"artist"`
+	ArtistUnicode string       `json:"artist_unicode"`
+	Covers        Covers       `json:"covers"`
+	Creator       string       `json:"creator"`
+	FavoriteCount string       `json:"favorite_count"`
+	Hype          string       `json:"hype"`
+	Id            string       `json:"id"`
+	Nsfw          string       `json:"nsfw"`
+	Offset        string       `json:"offset"`
+	PlayCount     string       `json:"play_count"`
+	PreviewUrl    string       `json:"preview_url"`
+	Source        string       `json:"source"`
+	Spotlight     string       `json:"spotlight"`
+	Status        string       `json:"status"`
+	Title         string       `json:"title"`
+	TitleUnicode  string       `json:"title_unicode"`
+	TrackId       string       `json:"track_id"`
+	UserId        string       `json:"userId"`
+	Video         string       `json:"video"`
+	User          BmUserString `json:"user"`
 }
 
 // Функция получения текстовой информации
