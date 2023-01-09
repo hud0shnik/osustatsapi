@@ -19,6 +19,7 @@ type ModdingResponseString struct {
 	Beatmaps    []BeatmapsString           `json:"beatmaps"`
 	Beatmapsets []ModdingBeatmapsetsString `json:"beatmapsets"`
 	Discussions []DiscussionString         `json:"discussions"`
+	Posts       []PostString               `json:"posts"`
 }
 
 // Структура события
@@ -172,6 +173,7 @@ type ModdingBeatmapsetsString struct {
 	Tags              []string                 `json:"tags"`
 }
 
+// Структура поста
 type PostString struct {
 	BeatmapsetDiscussionId string `json:"beatmapset_discussion_id"`
 	CreatedAt              string `json:"created_at"`
@@ -183,6 +185,27 @@ type PostString struct {
 	System                 string `json:"system"`
 	UpdatedAt              string `json:"updated_at"`
 	UserId                 string `json:"user_id"`
+}
+
+type DiscussionPostString struct {
+	Id             string           `json:"id"`
+	BeatmapsetId   string           `json:"beatmapset_id"`
+	BeatmapId      string           `json:"beatmap_id"`
+	UserId         string           `json:"user_id"`
+	DeletedById    string           `json:"deleted_by_id"`
+	MessageType    string           `json:"message_type"`
+	ParentId       string           `json:"parent_id"`
+	Timestamp      string           `json:"timestamp"`
+	Resolved       string           `json:"resolved"`
+	CanBeResolved  string           `json:"can_be_resolved"`
+	CanGrantKudosu string           `json:"can_grant_kudosu"`
+	CreatedAt      string           `json:"created_at"`
+	UpdatedAt      string           `json:"updated_at"`
+	DeletedAt      string           `json:"deleted_at"`
+	LastPostAt     string           `json:"last_post_at"`
+	KudosuDenied   string           `json:"kudosu_denied"`
+	StartingPost   StartingPost     `json:"starting_post"`
+	Beatmapset     BeatmapsetString `json:"beatmapset"`
 }
 
 // Функция получения текстовой информации
