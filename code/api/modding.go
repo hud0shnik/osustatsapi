@@ -187,6 +187,7 @@ type PostString struct {
 	UserId                 string `json:"user_id"`
 }
 
+// Структура дискуссии поста
 type DiscussionPostString struct {
 	Id             string           `json:"id"`
 	BeatmapsetId   string           `json:"beatmapset_id"`
@@ -206,6 +207,12 @@ type DiscussionPostString struct {
 	KudosuDenied   string           `json:"kudosu_denied"`
 	StartingPost   StartingPost     `json:"starting_post"`
 	Beatmapset     BeatmapsetString `json:"beatmapset"`
+}
+
+// Структура голосов
+type VotesString struct {
+	Given    []VoteString `json:"given"`
+	Received []VoteString `json:"received"`
 }
 
 // Функция получения текстовой информации
