@@ -18,6 +18,7 @@ type ModdingResponseString struct {
 	Users       []ModdingUserString        `json:"users"`
 	Beatmaps    []BeatmapsString           `json:"beatmaps"`
 	Beatmapsets []ModdingBeatmapsetsString `json:"beatmapsets"`
+	Discussions []DiscussionString         `json:"discussions"`
 }
 
 // Структура события
@@ -169,6 +170,19 @@ type ModdingBeatmapsetsString struct {
 	Storyboard        string                   `json:"storyboard"`
 	SubmittedDate     string                   `json:"submitted_date"`
 	Tags              []string                 `json:"tags"`
+}
+
+type PostString struct {
+	BeatmapsetDiscussionId string `json:"beatmapset_discussion_id"`
+	CreatedAt              string `json:"created_at"`
+	DeletedAt              string `json:"deleted_at"`
+	DeletedById            string `json:"deleted_by_id"`
+	Id                     string `json:"id"`
+	LastEditorId           string `json:"last_editor_id"`
+	Message                string `json:"message"`
+	System                 string `json:"system"`
+	UpdatedAt              string `json:"updated_at"`
+	UserId                 string `json:"user_id"`
 }
 
 // Функция получения текстовой информации
