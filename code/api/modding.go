@@ -12,14 +12,15 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success     string                     `json:"success"`
-	Error       string                     `json:"error"`
-	Events      []EventString              `json:"events"`
-	Users       []ModdingUserString        `json:"users"`
-	Beatmaps    []BeatmapsString           `json:"beatmaps"`
-	Beatmapsets []ModdingBeatmapsetsString `json:"beatmapsets"`
-	Discussions []DiscussionString         `json:"discussions"`
-	Posts       []PostString               `json:"posts"`
+	Success        string                     `json:"success"`
+	Error          string                     `json:"error"`
+	Events         []EventString              `json:"events"`
+	Users          []ModdingUserString        `json:"users"`
+	Beatmaps       []BeatmapsString           `json:"beatmaps"`
+	Beatmapsets    []ModdingBeatmapsetsString `json:"beatmapsets"`
+	Discussions    []DiscussionString         `json:"discussions"`
+	Posts          []PostString               `json:"posts"`
+	ReceivedKudosu ReceivedKudosuString       `json:"recently_received_kudosu"`
 }
 
 // Структура события
@@ -213,6 +214,19 @@ type DiscussionPostString struct {
 type VotesString struct {
 	Given    []VoteString `json:"given"`
 	Received []VoteString `json:"received"`
+}
+
+// Структура кудосу
+type ReceivedKudosuString struct {
+	Id        string `json:"id"`
+	Action    string `json:"action"`
+	Amount    string `json:"amount"`
+	Model     string `json:"model"`
+	CreatedAt string `json:"created_at"`
+	Giver     string `json:"giver"`
+	PostUrl   string `json:"post_url"`
+	PostTitle string `json:"post_title"`
+	Details   string `json:"details"`
 }
 
 // Функция получения текстовой информации
