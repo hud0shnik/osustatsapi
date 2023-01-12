@@ -306,6 +306,17 @@ type UserString struct {
 	SupportLvl             string      `json:"support_level"`
 }
 
+// ---------------------- Функции парсинга ----------------------
+
+// Функция парсинга ивента
+func parseEvent(pageStr string, left int) EventString {
+
+	// Структура ивента
+	var ev EventString
+
+	return ev
+}
+
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
