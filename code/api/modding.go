@@ -314,6 +314,14 @@ func parseEvent(pageStr string, left int) EventString {
 	// Структура ивента
 	var ev EventString
 
+	// Запись данных
+	ev.Id, left = findWithIndex(pageStr, "\"id\": ", ",", left)
+	ev.Type, left = findStringWithIndex(pageStr, "\"type\": ", ",", left)
+	ev.Comment.BeatmapDiscussionId, left = findWithIndex(pageStr, "\"beatmap_discussion_id\": ", ",", left)
+	ev.Comment.BeatmapDiscussionPostId, left = findWithIndex(pageStr, "\"beatmap_discussion_post_id\": ", ",", left)
+	ev.Comment.NewVote.UserId, left = findWithIndex(pageStr, "\"user_id\": ", ",", left)
+	ev.Comment.NewVote.Score, left = findWithIndex(pageStr, "\"score\": ", "}", left)
+
 	return ev
 }
 
