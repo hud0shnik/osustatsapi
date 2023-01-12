@@ -322,19 +322,21 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Comment.NewVote.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
 	ev.Comment.NewVote.Score, left = findWithIndex(pageStr, "\"score\":", "}", left)
 
-	//votesString, left := findWithIndex(pageStr, "\"votes\": [", "created_at", left)
+	votesString, left := findWithIndex(pageStr, "\"votes\":[", "created_at", left)
 
-	/*for i := 0; index(votesString, "user_id", i) != -1; {
+	for i := 0; index(votesString, "user_id", i) != -1; {
 
 		var vt VoteString
 
-		vt.UserId, left = findWithIndex(votesString, "\"user_id\": ", ",", i)
-		vt.Score, left = findWithIndex(votesString, "\"score\": ", "}", i)
+		vt.UserId, i = findWithIndex(votesString, "\"user_id\":", ",", i)
+		vt.Score, i = findWithIndex(votesString, "\"score\":", "}", i)
 
 		ev.Comment.Votes = append(ev.Comment.Votes, vt)
-	}*/
+	}
 
-	fmt.Println(left)
+	ev.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left)
+	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+
 	return ev, left
 }
 
