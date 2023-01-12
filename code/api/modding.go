@@ -309,22 +309,22 @@ type UserString struct {
 // ---------------------- Функции парсинга ----------------------
 
 // Функция парсинга ивента
-func parseEvent(pageStr string, left int) EventString {
+func parseEvent(pageStr string, left int) (EventString, int) {
 
 	// Структура ивента
 	var ev EventString
 
 	// Запись данных
-	ev.Id, left = findWithIndex(pageStr, "\"id\": ", ",", left)
-	ev.Type, left = findStringWithIndex(pageStr, "\"type\": ", ",", left)
-	ev.Comment.BeatmapDiscussionId, left = findWithIndex(pageStr, "\"beatmap_discussion_id\": ", ",", left)
-	ev.Comment.BeatmapDiscussionPostId, left = findWithIndex(pageStr, "\"beatmap_discussion_post_id\": ", ",", left)
-	ev.Comment.NewVote.UserId, left = findWithIndex(pageStr, "\"user_id\": ", ",", left)
-	ev.Comment.NewVote.Score, left = findWithIndex(pageStr, "\"score\": ", "}", left)
+	ev.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+	ev.Type, left = findStringWithIndex(pageStr, "\"type\":", ",", left)
+	ev.Comment.BeatmapDiscussionId, left = findWithIndex(pageStr, "\"beatmap_discussion_id\":", ",", left)
+	ev.Comment.BeatmapDiscussionPostId, left = findWithIndex(pageStr, "\"beatmap_discussion_post_id\":", ",", left)
+	ev.Comment.NewVote.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+	ev.Comment.NewVote.Score, left = findWithIndex(pageStr, "\"score\":", "}", left)
 
-	votesString, _ := findWithIndex(pageStr, "\"votes\": [", "created_at", left)
+	//votesString, left := findWithIndex(pageStr, "\"votes\": [", "created_at", left)
 
-	for i := 0; index(votesString, "user_id", i) != -1; {
+	/*for i := 0; index(votesString, "user_id", i) != -1; {
 
 		var vt VoteString
 
@@ -332,9 +332,29 @@ func parseEvent(pageStr string, left int) EventString {
 		vt.Score, left = findWithIndex(votesString, "\"score\": ", "}", i)
 
 		ev.Comment.Votes = append(ev.Comment.Votes, vt)
+	}*/
+
+	fmt.Println(left)
+	return ev, left
+}
+
+// Функция парсинга ивентов
+func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int) {
+
+	var result []EventString
+	pageStr, end := findWithIndex(pageStr, subStr, stopChar, 0)
+
+	for index(pageStr, "{\"id\":", left) != -1 {
+
+		var ev EventString
+
+		ev, left = parseEvent(pageStr, left)
+
+		result = append(result, ev)
+
 	}
 
-	return ev
+	return result, end
 }
 
 // Функция получения текстовой информации
@@ -378,6 +398,8 @@ func GetModdingInfoString(id string) ModdingResponseString {
 
 	// Крайняя левая граница поиска
 	//left := 0
+
+	//result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", left)
 
 	return result
 }
