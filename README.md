@@ -372,11 +372,11 @@ success                     |        bool        |
 error                       |       string       | api error response (default value= "")
 status                      |       string       |
 
- <h3>/map/</h3>
+<h3>/map/</h3>
 <h4>Request sample </h4>
   
    ``` Elixir
-   https://osustatsapi.vercel.app/api/map?id={id}&beatmapset={beatmapset}
+   https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
    ```
 
 
