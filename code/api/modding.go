@@ -374,6 +374,19 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
 	ev.Beatmapset.Video, left = findWithIndex(pageStr, "\"video\":", ",", left)
 
+	ev.Beatmapset.User.AvatarUrl, left = findStringWithIndex(pageStr, "\"avatar_url\":", ",", left)
+	ev.Beatmapset.User.CountryCode, left = findStringWithIndex(pageStr, "\"country_code\":", ",", left)
+	ev.Beatmapset.User.DefaultGroup, left = findStringWithIndex(pageStr, "\"default_group\":", ",", left)
+	ev.Beatmapset.User.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+	ev.Beatmapset.User.IsActive, left = findWithIndex(pageStr, "\"is_active\":", ",", left)
+	ev.Beatmapset.User.IsBot, left = findWithIndex(pageStr, "\"is_bot\":", ",", left)
+	ev.Beatmapset.User.IsDeleted, left = findWithIndex(pageStr, "\"is_deleted\":", ",", left)
+	ev.Beatmapset.User.IsOnline, left = findWithIndex(pageStr, "\"is_online\":", ",", left)
+	ev.Beatmapset.User.IsSupporter, left = findWithIndex(pageStr, "\"is_supporter\":", ",", left)
+	ev.Beatmapset.User.LastVisit, left = findStringWithIndex(pageStr, "\"last_visit\":", ",", left)
+	ev.Beatmapset.User.PmFriendsOnly, left = findWithIndex(pageStr, "\"pm_friends_only\":", ",", left)
+	ev.Beatmapset.User.ProfileColor, left = findWithIndex(pageStr, "\"profile_colour\":", ",", left)
+	ev.Beatmapset.User.Username, left = findStringWithIndex(pageStr, "\"username\":", "}", left)
 
 	left = index(pageStr, "}}}", left)
 
