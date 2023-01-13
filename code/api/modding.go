@@ -324,7 +324,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	votesString, left := findWithIndex(pageStr, "\"votes\":[", "created_at", left)
 
-	for i := 0; index(votesString, "user_id", i) != -1; {
+	for i := 0; index(votesString, "user_id\":", i) != -1; {
 
 		var vt VoteString
 
@@ -347,6 +347,8 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.Covers.List2X, left = findStringWithIndex(pageStr, "\"list@2x\":", ",", left)
 	ev.Beatmapset.Covers.SlimCover, left = findStringWithIndex(pageStr, "\"slimcover\":", ",", left)
 	ev.Beatmapset.Covers.SlimCover2X, left = findStringWithIndex(pageStr, "\"slimcover@2x\":", ",", left)
+
+	left = index(pageStr, "}}}", left)
 
 	return ev, left
 }
