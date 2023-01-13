@@ -340,13 +340,24 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.ArtistUnicode, left = findStringWithIndex(pageStr, "\"artist_unicode\":", ",", left)
 
 	ev.Beatmapset.Covers.Cover, left = findStringWithIndex(pageStr, "\"cover\":", ",", left)
+	ev.Beatmapset.Covers.Cover = strings.ReplaceAll(ev.Beatmapset.Covers.Cover, "\\", "")
 	ev.Beatmapset.Covers.Cover2X, left = findStringWithIndex(pageStr, "\"cover@2x\":", ",", left)
+	ev.Beatmapset.Covers.Cover2X = strings.ReplaceAll(ev.Beatmapset.Covers.Cover2X, "\\", "")
 	ev.Beatmapset.Covers.Card, left = findStringWithIndex(pageStr, "\"card\":", ",", left)
+	ev.Beatmapset.Covers.Card = strings.ReplaceAll(ev.Beatmapset.Covers.Card, "\\", "")
 	ev.Beatmapset.Covers.Card2X, left = findStringWithIndex(pageStr, "\"card@2x\":", ",", left)
+	ev.Beatmapset.Covers.Card2X = strings.ReplaceAll(ev.Beatmapset.Covers.Card2X, "\\", "")
 	ev.Beatmapset.Covers.List, left = findStringWithIndex(pageStr, "\"list\":", ",", left)
+	ev.Beatmapset.Covers.List = strings.ReplaceAll(ev.Beatmapset.Covers.List, "\\", "")
 	ev.Beatmapset.Covers.List2X, left = findStringWithIndex(pageStr, "\"list@2x\":", ",", left)
+	ev.Beatmapset.Covers.List2X = strings.ReplaceAll(ev.Beatmapset.Covers.List2X, "\\", "")
 	ev.Beatmapset.Covers.SlimCover, left = findStringWithIndex(pageStr, "\"slimcover\":", ",", left)
-	ev.Beatmapset.Covers.SlimCover2X, left = findStringWithIndex(pageStr, "\"slimcover@2x\":", ",", left)
+	ev.Beatmapset.Covers.SlimCover = strings.ReplaceAll(ev.Beatmapset.Covers.SlimCover, "\\", "")
+	ev.Beatmapset.Covers.SlimCover2X, left = findStringWithIndex(pageStr, "\"slimcover@2x\":", "}", left)
+	ev.Beatmapset.Covers.SlimCover2X = strings.ReplaceAll(ev.Beatmapset.Covers.SlimCover2X, "\\", "")
+
+	ev.Beatmapset.Creator, left = findStringWithIndex(pageStr, "\"creator\":", ",", left)
+	ev.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
 
 	left = index(pageStr, "}}}", left)
 
