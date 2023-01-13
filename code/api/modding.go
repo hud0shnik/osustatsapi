@@ -31,6 +31,7 @@ type EventString struct {
 	CreatedAt  string                  `json:"created_at"`
 	UserId     string                  `json:"user_id"`
 	Beatmapset ModdingBeatmapsetString `json:"beatmapset"`
+	Discussion DiscussionString        `json:"discussion"`
 }
 
 // Структура комментария
@@ -387,6 +388,16 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.User.PmFriendsOnly, left = findWithIndex(pageStr, "\"pm_friends_only\":", ",", left)
 	ev.Beatmapset.User.ProfileColor, left = findWithIndex(pageStr, "\"profile_colour\":", ",", left)
 	ev.Beatmapset.User.Username, left = findStringWithIndex(pageStr, "\"username\":", "}", left)
+
+	ev.Discussion.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
+	ev.Discussion.BeatmapsetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
+	ev.Discussion.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+	ev.Discussion.DeletedById, left = findWithIndex(pageStr, "\"deleted_by_id\":", ",", left)
+	ev.Discussion.MessageType, left = findStringWithIndex(pageStr, "\"message_type\":", ",", left)
+	ev.Discussion.ParentId, left = findWithIndex(pageStr, "\"parent_id\":", ",", left)
+	ev.Discussion.Resolved, left = findWithIndex(pageStr, "\"resolved\":", ",", left)
+	ev.Discussion.CanBeResolved, left = findWithIndex(pageStr, "\"can_be_resolved\":", ",", left)
+	ev.Discussion.CanGrantKudosu, left = findWithIndex(pageStr, "\"can_grant_kudosu\":", ",", left)
 
 	left = index(pageStr, "}}}", left)
 
