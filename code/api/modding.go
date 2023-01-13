@@ -336,6 +336,17 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	ev.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left)
 	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
+	ev.Beatmapset.Artist, left = findStringWithIndex(pageStr, "\"artist\":", ",", left)
+	ev.Beatmapset.ArtistUnicode, left = findStringWithIndex(pageStr, "\"artist_unicode\":", ",", left)
+
+	ev.Beatmapset.Covers.Cover, left = findStringWithIndex(pageStr, "\"cover\":", ",", left)
+	ev.Beatmapset.Covers.Cover2X, left = findStringWithIndex(pageStr, "\"cover@2x\":", ",", left)
+	ev.Beatmapset.Covers.Card, left = findStringWithIndex(pageStr, "\"card\":", ",", left)
+	ev.Beatmapset.Covers.Card2X, left = findStringWithIndex(pageStr, "\"card@2x\":", ",", left)
+	ev.Beatmapset.Covers.List, left = findStringWithIndex(pageStr, "\"list\":", ",", left)
+	ev.Beatmapset.Covers.List2X, left = findStringWithIndex(pageStr, "\"list@2x\":", ",", left)
+	ev.Beatmapset.Covers.SlimCover, left = findStringWithIndex(pageStr, "\"slimcover\":", ",", left)
+	ev.Beatmapset.Covers.SlimCover2X, left = findStringWithIndex(pageStr, "\"slimcover@2x\":", ",", left)
 
 	return ev, left
 }
