@@ -398,8 +398,21 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Discussion.Resolved, left = findWithIndex(pageStr, "\"resolved\":", ",", left)
 	ev.Discussion.CanBeResolved, left = findWithIndex(pageStr, "\"can_be_resolved\":", ",", left)
 	ev.Discussion.CanGrantKudosu, left = findWithIndex(pageStr, "\"can_grant_kudosu\":", ",", left)
+	ev.Discussion.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left)
+	ev.Discussion.UpdatedAt, left = findStringWithIndex(pageStr, "\"updated_at\":", ",", left)
+	ev.Discussion.DeletedAt, left = findStringWithIndex(pageStr, "\"deleted_at\":", ",", left)
+	ev.Discussion.LastPostAt, left = findStringWithIndex(pageStr, "\"last_post_at\":", ",", left)
+	ev.Discussion.KudosuDenied, left = findWithIndex(pageStr, "\"kudosu_denied\":", ",", left)
 
-	left = index(pageStr, "}}}", left)
+	ev.Discussion.StartingPost.BeatmapsetDiscussionId, left = findWithIndex(pageStr, "\"beatmapset_discussion_id\":", ",", left)
+	ev.Discussion.StartingPost.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left)
+	ev.Discussion.StartingPost.DeletedAt, left = findStringWithIndex(pageStr, "\"deleted_at\":", ",", left)
+	ev.Discussion.StartingPost.DeletedById, left = findWithIndex(pageStr, "\"deleted_by_id\":", ",", left)
+	ev.Discussion.StartingPost.Id, left = findWithIndex(pageStr, ",\"id\":", ",", left)
+	ev.Discussion.StartingPost.LastEditorId, left = findWithIndex(pageStr, "\"last_editor_id\":", ",", left)
+	ev.Discussion.StartingPost.Message, left = findStringWithIndex(pageStr, "\"message\":", ",", left)
+	ev.Discussion.StartingPost.UpdatedAt, left = findStringWithIndex(pageStr, "\"updated_at\":", ",", left)
+	ev.Discussion.StartingPost.UserId, left = findWithIndex(pageStr, ",\"user_id\":", "}", left)
 
 	return ev, left
 }
