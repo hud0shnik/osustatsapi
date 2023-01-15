@@ -664,20 +664,14 @@ type PlayCountBeatmap struct {
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
 func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 
-	// Проверка на существование правой границы
-	if end == -1 {
-		// Обрезка левой границы поиска
-		str = str[start:]
-	} else {
-		// Обрезка границ поиска
-		str = str[start:end]
-	}
+	// Обрезка левой границы поиска
+	str = str[start:]
 
 	// Поиск индекса начала нужной строки
 	left := strings.Index(str, subStr) + len(subStr)
 
-	// Проверка на существование нужной строки
-	if left != len(subStr)-1 {
+	// Проверка на существование нужной строки и попадание в диапазон
+	if left != len(subStr)-1 && ((end == -1) || (left < end)) {
 
 		// Поиск правой границы
 		right := left + strings.Index(str[left:], stopChar)
@@ -695,20 +689,14 @@ func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 // Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
 func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 
-	// Проверка на существование правой границы
-	if end == -1 {
-		// Обрезка левой границы поиска
-		str = str[start:]
-	} else {
-		// Обрезка границ поиска
-		str = str[start:end]
-	}
+	// Обрезка левой границы поиска
+	str = str[start:]
 
 	// Поиск индекса начала нужной строки
 	left := strings.Index(str, subStr) + len(subStr)
 
-	// Проверка на существование нужной строки
-	if left != len(subStr)-1 {
+	// Проверка на существование нужной строки и попадание в диапазон
+	if left != len(subStr)-1 && ((end == -1) || (left < end)) {
 
 		// Поиск правой границы
 		right := left + strings.Index(str[left:], stopChar)
