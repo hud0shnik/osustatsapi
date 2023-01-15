@@ -312,8 +312,9 @@ type UserString struct {
 // Функция парсинга ивента
 func parseEvent(pageStr string, left int) (EventString, int) {
 
-	// Структура ивента
+	// Структура ивента и буфер
 	var ev EventString
+	var buffer string
 
 	// Запись данных
 	ev.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
@@ -323,14 +324,14 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Comment.NewVote.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
 	ev.Comment.NewVote.Score, left = findWithIndex(pageStr, "\"score\":", "}", left)
 
-	votesString, left := findWithIndex(pageStr, "\"votes\":[", "created_at", left)
+	buffer, left = findWithIndex(pageStr, "\"votes\":[", "created_at", left)
 
-	for i := 0; index(votesString, "user_id\":", i) != -1; {
+	for i := 0; index(buffer, "user_id\":", i) != -1; {
 
 		var vt VoteString
 
-		vt.UserId, i = findWithIndex(votesString, "\"user_id\":", ",", i)
-		vt.Score, i = findWithIndex(votesString, "\"score\":", "}", i)
+		vt.UserId, i = findWithIndex(buffer, "\"user_id\":", ",", i)
+		vt.Score, i = findWithIndex(buffer, "\"score\":", "}", i)
 
 		ev.Comment.Votes = append(ev.Comment.Votes, vt)
 	}
@@ -411,6 +412,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Discussion.StartingPost.Id, left = findWithIndex(pageStr, ",\"id\":", ",", left)
 	ev.Discussion.StartingPost.LastEditorId, left = findWithIndex(pageStr, "\"last_editor_id\":", ",", left)
 	ev.Discussion.StartingPost.Message, left = findStringWithIndex(pageStr, "\"message\":", ",", left)
+	ev.Discussion.StartingPost.System, left = findWithIndex(pageStr, "\"system\":", ",", left)
 	ev.Discussion.StartingPost.UpdatedAt, left = findStringWithIndex(pageStr, "\"updated_at\":", ",", left)
 	ev.Discussion.StartingPost.UserId, left = findWithIndex(pageStr, ",\"user_id\":", "}", left)
 
