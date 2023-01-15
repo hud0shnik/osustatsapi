@@ -299,7 +299,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие номинаций
 	if len(pageStr) == 0 {
@@ -317,10 +317,10 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 		var cn CurrentNominationString
 
 		// Запись данных
-		cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left)
-		cn.Rulesets, left = findWithIndex(pageStr, "rulesets\":[", "]", left)
-		cn.Reset, left = findWithIndex(pageStr, "reset\":", ",", left)
-		cn.UserId, left = findWithIndex(pageStr, "user_id\":", "}", left)
+		cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left, -1)
+		cn.Rulesets, left = findWithIndex(pageStr, "rulesets\":[", "]", left, -1)
+		cn.Reset, left = findWithIndex(pageStr, "reset\":", ",", left, -1)
+		cn.UserId, left = findWithIndex(pageStr, "user_id\":", "}", left, -1)
 
 		// Добавление карты к результату
 		result = append(result, cn)
@@ -336,7 +336,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие карт
 	if len(pageStr) == 0 {
@@ -369,39 +369,39 @@ func parseMapString(pageStr string, left int) (MapsString, int) {
 	var bm MapsString
 
 	// Запись данных
-	bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left)
-	bm.DifficultyRating, left = findWithIndex(pageStr, "\"difficulty_rating\":", ",", left)
-	bm.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
-	bm.Mode, left = findStringWithIndex(pageStr, "\"mode\":", ",", left)
-	bm.Status, left = findStringWithIndex(pageStr, "\"status\":", ",", left)
-	bm.TotalLength, left = findWithIndex(pageStr, "total_length\":", ",", left)
-	bm.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
-	bm.Version, left = findWithIndex(pageStr, "\"version\":\"", "\"", left)
-	bm.Accuracy, left = findWithIndex(pageStr, "\"accuracy\":", ",", left)
-	bm.Ar, left = findWithIndex(pageStr, "\"ar\":", ",", left)
-	bm.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
-	bm.Convert, left = findWithIndex(pageStr, "\"convert\":", ",", left)
-	bm.CountCircles, left = findWithIndex(pageStr, "\"count_circles\":", ",", left)
-	bm.CountSliders, left = findWithIndex(pageStr, "\"count_sliders\":", ",", left)
-	bm.CountSpinners, left = findWithIndex(pageStr, "\"count_spinners\":", ",", left)
-	bm.Cs, left = findWithIndex(pageStr, "\"cs\":", ",", left)
-	bm.DeletedAt, left = findStringWithIndex(pageStr, "\"deleted_at\":", ",", left)
-	bm.Drain, left = findWithIndex(pageStr, "\"drain\":", ",", left)
-	bm.HitLength, left = findWithIndex(pageStr, "\"hit_length\":", ",", left)
-	bm.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
-	bm.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left)
-	bm.ModeInt, left = findWithIndex(pageStr, "\"mode_int\":", ",", left)
-	bm.PassCount, left = findWithIndex(pageStr, "\"passcount\":", ",", left)
-	bm.PlayCount, left = findWithIndex(pageStr, "\"playcount\":", ",", left)
-	bm.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
-	bm.Url, left = findStringWithIndex(pageStr, "\"url\":", ",", left)
+	bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left, -1)
+	bm.DifficultyRating, left = findWithIndex(pageStr, "\"difficulty_rating\":", ",", left, -1)
+	bm.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, -1)
+	bm.Mode, left = findStringWithIndex(pageStr, "\"mode\":", ",", left, -1)
+	bm.Status, left = findStringWithIndex(pageStr, "\"status\":", ",", left, -1)
+	bm.TotalLength, left = findWithIndex(pageStr, "total_length\":", ",", left, -1)
+	bm.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, -1)
+	bm.Version, left = findWithIndex(pageStr, "\"version\":\"", "\"", left, -1)
+	bm.Accuracy, left = findWithIndex(pageStr, "\"accuracy\":", ",", left, -1)
+	bm.Ar, left = findWithIndex(pageStr, "\"ar\":", ",", left, -1)
+	bm.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left, -1)
+	bm.Convert, left = findWithIndex(pageStr, "\"convert\":", ",", left, -1)
+	bm.CountCircles, left = findWithIndex(pageStr, "\"count_circles\":", ",", left, -1)
+	bm.CountSliders, left = findWithIndex(pageStr, "\"count_sliders\":", ",", left, -1)
+	bm.CountSpinners, left = findWithIndex(pageStr, "\"count_spinners\":", ",", left, -1)
+	bm.Cs, left = findWithIndex(pageStr, "\"cs\":", ",", left, -1)
+	bm.DeletedAt, left = findStringWithIndex(pageStr, "\"deleted_at\":", ",", left, -1)
+	bm.Drain, left = findWithIndex(pageStr, "\"drain\":", ",", left, -1)
+	bm.HitLength, left = findWithIndex(pageStr, "\"hit_length\":", ",", left, -1)
+	bm.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
+	bm.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
+	bm.ModeInt, left = findWithIndex(pageStr, "\"mode_int\":", ",", left, -1)
+	bm.PassCount, left = findWithIndex(pageStr, "\"passcount\":", ",", left, -1)
+	bm.PlayCount, left = findWithIndex(pageStr, "\"playcount\":", ",", left, -1)
+	bm.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left, -1)
+	bm.Url, left = findStringWithIndex(pageStr, "\"url\":", ",", left, -1)
 	bm.Url = strings.ReplaceAll(bm.Url, "\\", "")
-	bm.Checksum, left = findStringWithIndex(pageStr, "\"checksum\":", ",", left)
+	bm.Checksum, left = findStringWithIndex(pageStr, "\"checksum\":", ",", left, -1)
 
-	bm.Failtimes.Fail, left = findWithIndex(pageStr, "\"fail\":[", "]", left)
-	bm.Failtimes.Exit, left = findWithIndex(pageStr, "\"exit\":[", "]", left)
+	bm.Failtimes.Fail, left = findWithIndex(pageStr, "\"fail\":[", "]", left, -1)
+	bm.Failtimes.Exit, left = findWithIndex(pageStr, "\"exit\":[", "]", left, -1)
 
-	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left)
+	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
 
 	return bm, left
 }
@@ -413,7 +413,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
@@ -446,19 +446,19 @@ func parseBmUserString(pageStr string, left int) (BmUserString, int) {
 	var user BmUserString
 
 	// Запись данных
-	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left)
-	user.CountryCode, left = findStringWithIndex(pageStr, "country_code\":", ",", left)
-	user.DefaultGroup, left = findStringWithIndex(pageStr, "default_group\":", ",", left)
-	user.Id, left = findWithIndex(pageStr, "id\":", ",", left)
-	user.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left)
-	user.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left)
-	user.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left)
-	user.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left)
-	user.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left)
-	user.LastVisit, left = findStringWithIndex(pageStr, "last_visit\":", ",", left)
-	user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left)
-	user.ProfileColor, left = findStringWithIndex(pageStr, "profile_colour\":", ",", left)
-	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left)
+	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, -1)
+	user.CountryCode, left = findStringWithIndex(pageStr, "country_code\":", ",", left, -1)
+	user.DefaultGroup, left = findStringWithIndex(pageStr, "default_group\":", ",", left, -1)
+	user.Id, left = findWithIndex(pageStr, "id\":", ",", left, -1)
+	user.IsActive, left = findWithIndex(pageStr, "is_active\":", ",", left, -1)
+	user.IsBot, left = findWithIndex(pageStr, "is_bot\":", ",", left, -1)
+	user.IsDeleted, left = findWithIndex(pageStr, "is_deleted\":", ",", left, -1)
+	user.IsOnline, left = findWithIndex(pageStr, "is_online\":", ",", left, -1)
+	user.IsSupporter, left = findWithIndex(pageStr, "is_supporter\":", ",", left, -1)
+	user.LastVisit, left = findStringWithIndex(pageStr, "last_visit\":", ",", left, -1)
+	user.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only\":", ",", left, -1)
+	user.ProfileColor, left = findStringWithIndex(pageStr, "profile_colour\":", ",", left, -1)
+	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left, -1)
 
 	return user, left
 }
@@ -470,7 +470,7 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentS
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left)
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
@@ -486,25 +486,25 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentS
 
 		// Структура комментария
 		var cm CommentString
-		cm.Id, left = findWithIndex(pageStr, "id\":", ",", left)
-		cm.ParentId, left = findWithIndex(pageStr, "parent_id\":", ",", left)
-		cm.UserId, left = findWithIndex(pageStr, "user_id\":", ",", left)
-		cm.Pinned, left = findWithIndex(pageStr, "pinned\":", ",", left)
-		cm.RepliesCount, left = findWithIndex(pageStr, "replies_count\":", ",", left)
-		cm.VotesCount, left = findWithIndex(pageStr, "votes_count\":", ",", left)
-		cm.CommentableType, left = findStringWithIndex(pageStr, "commentable_type\":", ",", left)
-		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left)
-		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left)
-		cm.CreatedAt, left = findStringWithIndex(pageStr, "created_at\":", ",", left)
-		cm.UpdatedAt, left = findStringWithIndex(pageStr, "updated_at\":", ",", left)
-		cm.DeletedAt, left = findStringWithIndex(pageStr, "deleted_at\":", ",", left)
-		cm.EditedAt, left = findStringWithIndex(pageStr, "edited_at\":", ",", left)
-		cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left)
+		cm.Id, left = findWithIndex(pageStr, "id\":", ",", left, -1)
+		cm.ParentId, left = findWithIndex(pageStr, "parent_id\":", ",", left, -1)
+		cm.UserId, left = findWithIndex(pageStr, "user_id\":", ",", left, -1)
+		cm.Pinned, left = findWithIndex(pageStr, "pinned\":", ",", left, -1)
+		cm.RepliesCount, left = findWithIndex(pageStr, "replies_count\":", ",", left, -1)
+		cm.VotesCount, left = findWithIndex(pageStr, "votes_count\":", ",", left, -1)
+		cm.CommentableType, left = findStringWithIndex(pageStr, "commentable_type\":", ",", left, -1)
+		cm.CommentableId, left = findWithIndex(pageStr, "commentable_id\":", ",", left, -1)
+		cm.LegacyName, left = findWithIndex(pageStr, "legacy_name\":", ",", left, -1)
+		cm.CreatedAt, left = findStringWithIndex(pageStr, "created_at\":", ",", left, -1)
+		cm.UpdatedAt, left = findStringWithIndex(pageStr, "updated_at\":", ",", left, -1)
+		cm.DeletedAt, left = findStringWithIndex(pageStr, "deleted_at\":", ",", left, -1)
+		cm.EditedAt, left = findStringWithIndex(pageStr, "edited_at\":", ",", left, -1)
+		cm.EditedById, left = findStringWithIndex(pageStr, "edited_by_id\":", ",", left, -1)
 		strings.Replace(cm.EditedById, "}", "", 1)
 
 		if i != 0 {
-			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left)
-			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left)
+			cm.Message, left = findWithIndex(pageStr, "message\":", "message_html\"", left, -1)
+			cm.MessageHtml, left = findWithIndex(pageStr, "message_html\":\"", "\"}", left, -1)
 		}
 
 		// Добавление комментария к результату
@@ -755,65 +755,65 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result := MapStringResponse{}
 	left := 0
 
-	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left)
-	result.ArtistUnicode, left = findWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left)
+	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
+	result.ArtistUnicode, left = findWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left, -1)
 
-	result.Covers.Cover, left = findWithIndex(pageStr, "\"cover\":\"", "\"", left)
+	result.Covers.Cover, left = findWithIndex(pageStr, "\"cover\":\"", "\"", left, -1)
 	result.Covers.Cover = strings.ReplaceAll(result.Covers.Cover, "\\", "")
-	result.Covers.Cover2X, left = findWithIndex(pageStr, "\"cover@2x\":\"", "\"", left)
+	result.Covers.Cover2X, left = findWithIndex(pageStr, "\"cover@2x\":\"", "\"", left, -1)
 	result.Covers.Cover2X = strings.ReplaceAll(result.Covers.Cover2X, "\\", "")
-	result.Covers.Card, left = findWithIndex(pageStr, "\"card\":\"", "\"", left)
+	result.Covers.Card, left = findWithIndex(pageStr, "\"card\":\"", "\"", left, -1)
 	result.Covers.Card = strings.ReplaceAll(result.Covers.Card, "\\", "")
-	result.Covers.Card2X, left = findWithIndex(pageStr, "\"card@2x\":\"", "\"", left)
+	result.Covers.Card2X, left = findWithIndex(pageStr, "\"card@2x\":\"", "\"", left, -1)
 	result.Covers.Card2X = strings.ReplaceAll(result.Covers.Card2X, "\\", "")
-	result.Covers.List, left = findWithIndex(pageStr, "\"list\":\"", "\"", left)
+	result.Covers.List, left = findWithIndex(pageStr, "\"list\":\"", "\"", left, -1)
 	result.Covers.List = strings.ReplaceAll(result.Covers.List, "\\", "")
-	result.Covers.List2X, left = findWithIndex(pageStr, "\"list@2x\":\"", "\"", left)
+	result.Covers.List2X, left = findWithIndex(pageStr, "\"list@2x\":\"", "\"", left, -1)
 	result.Covers.List2X = strings.ReplaceAll(result.Covers.List2X, "\\", "")
-	result.Covers.SlimCover, left = findWithIndex(pageStr, "\"slimcover\":\"", "\"", left)
+	result.Covers.SlimCover, left = findWithIndex(pageStr, "\"slimcover\":\"", "\"", left, -1)
 	result.Covers.SlimCover = strings.ReplaceAll(result.Covers.SlimCover, "\\", "")
-	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left)
+	result.Covers.SlimCover2X, left = findWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left, -1)
 	result.Covers.SlimCover2X = strings.ReplaceAll(result.Covers.SlimCover2X, "\\", "")
 
-	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left)
-	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left)
+	result.Creator, left = findWithIndex(pageStr, "\"creator\":\"", "\",", left, -1)
+	result.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left, -1)
 
 	if !contains(pageStr, "\"hype\":null", left) {
-		result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left)
-		result.HypeRequired, left = findWithIndex(pageStr, "required\":", "}", left)
+		result.HypeCurrent, left = findWithIndex(pageStr, "hype\":{\"current\":", ",", left, -1)
+		result.HypeRequired, left = findWithIndex(pageStr, "required\":", "}", left, -1)
 	}
 
-	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left)
-	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left)
-	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left)
-	result.PlayCount, left = findWithIndex(pageStr, "\"play_count\":", ",", left)
-	result.PreviewUrl, left = findWithIndex(pageStr, "\"preview_url\":\"\\/\\/", "\",", left)
+	result.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, -1)
+	result.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left, -1)
+	result.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left, -1)
+	result.PlayCount, left = findWithIndex(pageStr, "\"play_count\":", ",", left, -1)
+	result.PreviewUrl, left = findWithIndex(pageStr, "\"preview_url\":\"\\/\\/", "\",", left, -1)
 	result.PreviewUrl = strings.ReplaceAll(result.PreviewUrl, "\\", "")
-	result.Source, left = findWithIndex(pageStr, "\"source\":\"", "\",", left)
-	result.Spotlight, left = findWithIndex(pageStr, "\"spotlight\":", ",", left)
-	result.Status, left = findWithIndex(pageStr, "\"status\":\"", "\",", left)
-	result.Title, left = findWithIndex(pageStr, "\"title\":\"", "\",", left)
-	result.TitleUnicode, left = findWithIndex(pageStr, "\"title_unicode\":\"", "\",", left)
-	result.TrackId, left = findWithIndex(pageStr, "\"track_id\":", ",", left)
-	result.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left)
-	result.Video, left = findWithIndex(pageStr, "\"video\":", ",", left)
-	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left)
-	result.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left)
-	result.CanBeHyped, left = findWithIndex(pageStr, "\"can_be_hyped\":", ",", left)
-	result.DiscussionEnabled, left = findWithIndex(pageStr, "\"discussion_enabled\":", ",", left)
-	result.DiscussionLocked, left = findWithIndex(pageStr, "\"discussion_locked\":", ",", left)
-	result.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left)
-	result.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left)
-	result.LegacyThreadUrl, left = findStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left)
+	result.Source, left = findWithIndex(pageStr, "\"source\":\"", "\",", left, -1)
+	result.Spotlight, left = findWithIndex(pageStr, "\"spotlight\":", ",", left, -1)
+	result.Status, left = findWithIndex(pageStr, "\"status\":\"", "\",", left, -1)
+	result.Title, left = findWithIndex(pageStr, "\"title\":\"", "\",", left, -1)
+	result.TitleUnicode, left = findWithIndex(pageStr, "\"title_unicode\":\"", "\",", left, -1)
+	result.TrackId, left = findWithIndex(pageStr, "\"track_id\":", ",", left, -1)
+	result.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, -1)
+	result.Video, left = findWithIndex(pageStr, "\"video\":", ",", left, -1)
+	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left, -1)
+	result.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left, -1)
+	result.CanBeHyped, left = findWithIndex(pageStr, "\"can_be_hyped\":", ",", left, -1)
+	result.DiscussionEnabled, left = findWithIndex(pageStr, "\"discussion_enabled\":", ",", left, -1)
+	result.DiscussionLocked, left = findWithIndex(pageStr, "\"discussion_locked\":", ",", left, -1)
+	result.IsScoreable, left = findWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
+	result.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
+	result.LegacyThreadUrl, left = findStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left, -1)
 	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
 
-	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left)
-	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left)
+	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left, -1)
+	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left, -1)
 
-	result.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left)
-	result.RankedDate, left = findStringWithIndex(pageStr, "\"ranked_date\":", ",", left)
-	result.Storyboard, left = findWithIndex(pageStr, "\"storyboard\":", ",", left)
-	result.SubmittedDate, left = findStringWithIndex(pageStr, "\"submitted_date\":", ",", left)
+	result.Ranked, left = findWithIndex(pageStr, "\"ranked\":", ",", left, -1)
+	result.RankedDate, left = findStringWithIndex(pageStr, "\"ranked_date\":", ",", left, -1)
+	result.Storyboard, left = findWithIndex(pageStr, "\"storyboard\":", ",", left, -1)
+	result.SubmittedDate, left = findStringWithIndex(pageStr, "\"submitted_date\":", ",", left, -1)
 
 	result.Tags = strings.Split(find(pageStr, "\"tags\":\"", "\",", left), " ")
 	if result.Tags[0] == "" {
@@ -824,12 +824,12 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
 	result.CurrentNominations, left = parseCurrentNominations(pageStr, "current_nominations\":[", "\"description\":{\"description\":", left)
 
-	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left)
-	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left)
-	result.GenreName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
-	result.LanguageId, left = findWithIndex(pageStr, "\"language\":{\"id\":", ",", left)
-	result.LanguageName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left)
-	result.Ratings, left = findWithIndex(pageStr, "ratings\":[", "]", left)
+	result.Description, left = findWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left, -1)
+	result.GenreId, left = findWithIndex(pageStr, "\"genre\":{\"id\":", ",", left, -1)
+	result.GenreName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
+	result.LanguageId, left = findWithIndex(pageStr, "\"language\":{\"id\":", ",", left, -1)
+	result.LanguageName, left = findWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
+	result.Ratings, left = findWithIndex(pageStr, "ratings\":[", "]", left, -1)
 
 	result.RecentFavourites, left = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
@@ -838,7 +838,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.Comments, left = parseCommentsString(pageStr, "comments\":[", "has_more\":", left)
 	result.PinnedComments, left = parseCommentsString(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
 
-	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left)
+	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
 
 	return result
 }
