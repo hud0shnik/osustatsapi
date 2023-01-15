@@ -233,7 +233,7 @@ id                          |        int         |
 action                      |       string       |
 amount                      |        int         |
 model                       |       string       |
-created_at                  |       string       |
+created_at                  |       string       | like "2016-10-10T23:20:47+00:00"
 giver                       |     KudosuGiver    |
 post                        |     KudosuPost     |
 details                     |       string       |
@@ -267,7 +267,7 @@ legacy_score_id             |       string       |
 legacy_total_score          |       string       |
 max_combo                   |        int         |
 maximum_statistics          |     Statistics     |
-mods                        |      []string      | 
+mods                        |      []string      | like ["HD","HR","NC","PF"]
 passed                      |        bool        |
 rank                        |       string       |
 ruleset_id                  |        int         |
@@ -280,7 +280,7 @@ id                          |        int         |
 legacy_perfect              |        bool        |
 pp                          |       float        |
 replay                      |        bool        |
-type                        |       string       |
+type                        |       string       | 
 current_user_attributes     |       string       |
 beatmap                     |      Beatmaps      |
 beatmapset                  |     Beatmapset     |
@@ -308,12 +308,12 @@ artist_unicode              |       string       |
 covers                      |       Covers       |
 creator                     |       string       |
 favorite_count              |        int         |
-hype                        |       string       |
+hype                        |       string       | 
 id                          |        int         |
 nsfw                        |        bool        |
 offset                      |        int         |
 play_count                  |        int         |
-preview_url                 |       string       |
+preview_url                 |       string       | like "//b.ppy.sh/preview/1408011.mp3"
 source                      |       string       |
 spotlight                   |        bool        |
 status                      |       string       |
@@ -338,7 +338,7 @@ Field                       |       Type         | Description
 beatmapset_id               |        int         |
 difficulty_rating           |       float        |
 id                          |        int         |
-status                      |       string       |
+status                      |       string       | "ranked" or "graveyard"
 total_length                |        int         |
 user_id                     |        int         |
 version                     |       string       |
@@ -351,7 +351,7 @@ Field                       |       Type         | Description
 beatmapset_id               |        int         |
 difficulty_rating           |       float        |
 id                          |        int         |
-status                      |       string       |
+status                      |       string       | "ranked" or "graveyard"
 total_length                |        int         |
 user_id                     |        int         |
 version                     |       string       |
