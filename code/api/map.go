@@ -65,6 +65,12 @@ type MapStringResponse struct {
 	UserFollow         string                    `json:"user_follow"`
 }
 
+// Оценка номинаций
+type NominationsSummaryString struct {
+	Current  string `json:"current"`
+	Required string `json:"required"`
+}
+
 // Структура карты
 type MapsString struct {
 	BeatmapSetId     string          `json:"beatmapset_id"`
@@ -204,6 +210,12 @@ type MapResponse struct {
 	Comments           []Comment           `json:"comments"`
 	PinnedComments     []Comment           `json:"pinned_comments"`
 	UserFollow         bool                `json:"user_follow"`
+}
+
+// Оценка номинаций
+type NominationsSummary struct {
+	Current  int `json:"current"`
+	Required int `json:"required"`
 }
 
 // Структура карты

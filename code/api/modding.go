@@ -23,6 +23,37 @@ type ModdingResponseString struct {
 	ReceivedKudosu ReceivedKudosuString       `json:"recently_received_kudosu"`
 }
 
+// Мапы
+type BeatmapsString struct {
+	BeatmapSetId     string `json:"beatmapset_id"`
+	DifficultyRating string `json:"difficulty_rating"`
+	Id               string `json:"id"`
+	Mode             string `json:"mode"`
+	Status           string `json:"status"`
+	TotalLength      string `json:"total_length"`
+	UserId           string `json:"user_id"`
+	Version          string `json:"version"`
+	Accuracy         string `json:"accuracy"`
+	Ar               string `json:"ar"`
+	Bpm              string `json:"bpm"`
+	Convert          string `json:"convert"`
+	CountCircles     string `json:"count_circles"`
+	CountSliders     string `json:"count_sliders"`
+	CountSpinners    string `json:"count_spinners"`
+	Cs               string `json:"cs"`
+	DeletedAt        string `json:"deleted_at"`
+	Drain            string `json:"drain"`
+	HitLength        string `json:"hit_length"`
+	IsScoreable      string `json:"is_scoreable"`
+	LastUpdated      string `json:"last_updated"`
+	ModeInt          string `json:"mode_int"`
+	PassCount        string `json:"pass_count"`
+	PlayCount        string `json:"play_count"`
+	Ranked           string `json:"ranked"`
+	Url              string `json:"url"`
+	Checksum         string `json:"checksum"`
+}
+
 // Структура события
 type EventString struct {
 	Id         string                  `json:"id"`
@@ -209,6 +240,29 @@ type DiscussionPostString struct {
 	KudosuDenied   string           `json:"kudosu_denied"`
 	StartingPost   StartingPost     `json:"starting_post"`
 	Beatmapset     BeatmapsetString `json:"beatmapset"`
+}
+
+// Сет мапы рекорда
+type BeatmapsetString struct {
+	Artist        string `json:"artist"`
+	ArtistUnicode string `json:"artist_unicode"`
+	Covers        Covers `json:"covers"`
+	Creator       string `json:"creator"`
+	FavoriteCount string `json:"favorite_count"`
+	Hype          string `json:"hype"`
+	Id            string `json:"id"`
+	Nsfw          string `json:"nsfw"`
+	Offset        string `json:"offset"`
+	PlayCount     string `json:"play_count"`
+	PreviewUrl    string `json:"preview_url"`
+	Source        string `json:"source"`
+	Spotlight     string `json:"spotlight"`
+	Status        string `json:"status"`
+	Title         string `json:"title"`
+	TitleUnicode  string `json:"title_unicode"`
+	TrackId       string `json:"track_id"`
+	UserId        string `json:"userId"`
+	Video         string `json:"video"`
 }
 
 // Структура голосов
