@@ -155,6 +155,61 @@ status                      |       string       |
    https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
    ```
 
+<h4>MapResponse</h4>
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+success                     |        bool        | "true" or "false" 
+error                       |       string       | api error response 
+artist                      |       string       |
+artist_string               |       string       |
+covers                      |       Covers       |
+creator                     |       string       |
+favorite_count              |        int         |
+hype_current                |        int         |
+hype_required               |        int         |
+id                          |        int         |
+nsfw                        |        bool        |
+offset                      |        int         |
+play_count                  |        int         |
+preview_url                 |       string       |
+source                      |       string       |
+spotlight                   |        bool        |
+status                      |       string       |
+title                       |       string       |
+title_unicode               |       string       |
+track_id                    |        int         |
+user_id                     |        int         |
+video                       |        bool        |
+download_disabled           |        bool        |
+bpm                         |       float64      |
+can_be_hyped                |        bool        |
+discussion_enabled          |        bool        |
+discussion_locked           |        bool        |
+is_scoreable                |        bool        |
+last_updated                |       string       |
+legacy_thread_url           |       string       |
+nominations_summary         | NominationsSummary |
+ranked                      |        int         |
+ranked_date                 |       string       |
+storyboard                  |        bool        |
+submitted_date              |       string       |
+tags                        |      []string      |
+beatmaps                    |       []Maps       |
+converts                    |       []Maps       |
+current_nominations         |[]CurrentNomination |
+description                 |       string       |
+genre_id                    |        int         |
+genre_name                  |       string       |
+language_id                 |        int         |
+language_name               |       string       |
+ratings                     |       []int        |
+recent_favourites           |      []BmUser      |
+related_users               |      []BmUser      |
+user                        |       BmUser       |
+comments                    |      []Comment     |
+pinned_comments             |      []Comment     |
+user_follow                 |        bool        |
+
 
 
 
