@@ -8,6 +8,165 @@ import (
 	"strings"
 )
 
+// ---------------------- Классические структуры ------------------------
+
+// Структура респонса
+type MapResponse struct {
+	Success            bool                `json:"success"`
+	Error              string              `json:"error"`
+	Artist             string              `json:"artist"`
+	ArtistUnicode      string              `json:"artist_string"`
+	Covers             Covers              `json:"covers"`
+	Creator            string              `json:"creator"`
+	FavoriteCount      int                 `json:"favorite_count"`
+	HypeCurrent        int                 `json:"hype_current"`
+	HypeRequired       int                 `json:"hype_required"`
+	Id                 int                 `json:"id"`
+	Nsfw               bool                `json:"nsfw"`
+	Offset             int                 `json:"offset"`
+	PlayCount          int                 `json:"play_count"`
+	PreviewUrl         string              `json:"preview_url"`
+	Source             string              `json:"source"`
+	Spotlight          bool                `json:"spotlight"`
+	Status             string              `json:"status"`
+	Title              string              `json:"title"`
+	TitleUnicode       string              `json:"title_unicode"`
+	TrackId            int                 `json:"track_id"`
+	UserId             int                 `json:"user_id"`
+	Video              bool                `json:"video"`
+	DownloadDisabled   bool                `json:"download_disabled"`
+	Bpm                float64             `json:"bpm"`
+	CanBeHyped         bool                `json:"can_be_hyped"`
+	DiscussionEnabled  bool                `json:"discussion_enabled"`
+	DiscussionLocked   bool                `json:"discussion_locked"`
+	IsScoreable        bool                `json:"is_scoreable"`
+	LastUpdated        string              `json:"last_updated"`
+	LegacyThreadUrl    string              `json:"legacy_thread_url"`
+	NominationsSummary NominationsSummary  `json:"nominations_summary"`
+	Ranked             int                 `json:"ranked"`
+	RankedDate         string              `json:"ranked_date"`
+	Storyboard         bool                `json:"storyboard"`
+	SubmittedDate      string              `json:"submitted_date"`
+	Tags               []string            `json:"tags"`
+	Beatmaps           []Maps              `json:"beatmaps"`
+	Converts           []Maps              `json:"converts"`
+	CurrentNominations []CurrentNomination `json:"current_nominations"`
+	Description        string              `json:"description"`
+	GenreId            int                 `json:"genre_id"`
+	GenreName          string              `json:"genre_name"`
+	LanguageId         int                 `json:"language_id"`
+	LanguageName       string              `json:"language_name"`
+	Ratings            []int               `json:"ratings"`
+	RecentFavourites   []BmUser            `json:"recent_favourites"`
+	RelatedUsers       []BmUser            `json:"related_users"`
+	User               BmUser              `json:"user"`
+	Comments           []Comment           `json:"comments"`
+	PinnedComments     []Comment           `json:"pinned_comments"`
+	UserFollow         bool                `json:"user_follow"`
+}
+
+// Картинки
+type Covers struct {
+	Cover       string `json:"cover"`
+	Cover2X     string `json:"cover@2x"`
+	Card        string `json:"card"`
+	Card2X      string `json:"card@2x"`
+	List        string `json:"list"`
+	List2X      string `json:"list@2x"`
+	SlimCover   string `json:"slimcover"`
+	SlimCover2X string `json:"slimcover@2x"`
+}
+
+// Оценка номинаций
+type NominationsSummary struct {
+	Current  int `json:"current"`
+	Required int `json:"required"`
+}
+
+// Структура карты
+type Maps struct {
+	BeatmapSetId     int       `json:"beatmapset_id"`
+	DifficultyRating float64   `json:"difficulty_rating"`
+	Id               int       `json:"id"`
+	Mode             string    `json:"mode"`
+	Status           string    `json:"status"`
+	TotalLength      int       `json:"total_length"`
+	UserId           int       `json:"user_id"`
+	Version          string    `json:"version"`
+	Accuracy         float64   `json:"accuracy"`
+	Ar               float64   `json:"ar"`
+	Bpm              float64   `json:"bpm"`
+	Convert          bool      `json:"convert"`
+	CountCircles     int       `json:"count_circles"`
+	CountSliders     int       `json:"count_sliders"`
+	CountSpinners    int       `json:"count_spinners"`
+	Cs               float64   `json:"cs"`
+	DeletedAt        string    `json:"deleted_at"`
+	Drain            float64   `json:"drain"`
+	HitLength        int       `json:"hit_length"`
+	IsScoreable      bool      `json:"is_scoreable"`
+	LastUpdated      string    `json:"last_updated"`
+	ModeInt          int       `json:"mode_int"`
+	PassCount        int       `json:"pass_count"`
+	PlayCount        int       `json:"play_count"`
+	Ranked           int       `json:"ranked"`
+	Url              string    `json:"url"`
+	Checksum         string    `json:"checksum"`
+	Failtimes        Failtimes `json:"failtimes"`
+	MaxCombo         int       `json:"max_combo"`
+}
+
+// Структура проигрышей
+type Failtimes struct {
+	Fail []int `json:"fail"`
+	Exit []int `json:"exit"`
+}
+
+// Структура номинации
+type CurrentNomination struct {
+	BeatmapsetId int    `json:"beatmapset_id"`
+	Rulesets     string `json:"rulesets"`
+	Reset        bool   `json:"reset"`
+	UserId       int    `json:"user_id"`
+}
+
+// Структура пользователя
+type BmUser struct {
+	AvatarUrl     string `json:"avatar_url"`
+	CountryCode   string `json:"country_code"`
+	DefaultGroup  string `json:"default_group"`
+	Id            int    `json:"id "`
+	IsActive      bool   `json:"is_active"`
+	IsBot         bool   `json:"is_bot"`
+	IsDeleted     bool   `json:"is_deleted"`
+	IsOnline      bool   `json:"is_online"`
+	IsSupporter   bool   `json:"is_supporter"`
+	LastVisit     string `json:"last_visit"`
+	PmFriendsOnly bool   `json:"pm_friends_only"`
+	ProfileColor  string `json:"profile_color"`
+	Username      string `json:"username"`
+}
+
+// Структура комментария
+type Comment struct {
+	Id              int    `json:"id"`
+	ParentId        int    `json:"parent_id"`
+	UserId          int    `json:"user_id"`
+	Pinned          bool   `json:"pinned"`
+	RepliesCount    int    `json:"replies_count"`
+	VotesCount      int    `json:"votes_count"`
+	CommentableType string `json:"commentable_type"`
+	CommentableId   int    `json:"commentable_id"`
+	LegacyName      string `json:"legacy_name"`
+	CreatedAt       string `json:"created_at"`
+	UpdatedAt       string `json:"updated_at"`
+	DeletedAt       string `json:"deleted_at"`
+	EditedAt        string `json:"edited_at"`
+	EditedById      string `json:"edited_by_id"`
+	Message         string `json:"message"`
+	MessageHtml     string `json:"message_html"`
+}
+
 // ---------------------- Структуры для парсинга ------------------------
 
 // Структура респонса
@@ -110,6 +269,14 @@ type FailtimesString struct {
 	Exit string `json:"exit"`
 }
 
+// Структура номинации
+type CurrentNominationString struct {
+	BeatmapsetId string `json:"beatmapset_id"`
+	Rulesets     string `json:"rulesets"`
+	Reset        string `json:"reset"`
+	UserId       string `json:"user_id"`
+}
+
 // Структура пользователя
 type BmUserString struct {
 	AvatarUrl     string `json:"avatar_url"`
@@ -137,161 +304,6 @@ type CommentString struct {
 	VotesCount      string `json:"votes_count"`
 	CommentableType string `json:"commentable_type"`
 	CommentableId   string `json:"commentable_id"`
-	LegacyName      string `json:"legacy_name"`
-	CreatedAt       string `json:"created_at"`
-	UpdatedAt       string `json:"updated_at"`
-	DeletedAt       string `json:"deleted_at"`
-	EditedAt        string `json:"edited_at"`
-	EditedById      string `json:"edited_by_id"`
-	Message         string `json:"message"`
-	MessageHtml     string `json:"message_html"`
-}
-
-// Структура номинации
-type CurrentNominationString struct {
-	BeatmapsetId string `json:"beatmapset_id"`
-	Rulesets     string `json:"rulesets"`
-	Reset        string `json:"reset"`
-	UserId       string `json:"user_id"`
-}
-
-// ---------------------- Классические структуры ------------------------
-
-// Структура респонса
-type MapResponse struct {
-	Success            bool                `json:"success"`
-	Error              string              `json:"error"`
-	Artist             string              `json:"artist"`
-	ArtistUnicode      string              `json:"artist_string"`
-	Covers             Covers              `json:"covers"`
-	Creator            string              `json:"creator"`
-	FavoriteCount      int                 `json:"favorite_count"`
-	HypeCurrent        int                 `json:"hype_current"`
-	HypeRequired       int                 `json:"hype_required"`
-	Id                 int                 `json:"id"`
-	Nsfw               bool                `json:"nsfw"`
-	Offset             int                 `json:"offset"`
-	PlayCount          int                 `json:"play_count"`
-	PreviewUrl         string              `json:"preview_url"`
-	Source             string              `json:"source"`
-	Spotlight          bool                `json:"spotlight"`
-	Status             string              `json:"status"`
-	Title              string              `json:"title"`
-	TitleUnicode       string              `json:"title_unicode"`
-	TrackId            int                 `json:"track_id"`
-	UserId             int                 `json:"user_id"`
-	Video              bool                `json:"video"`
-	DownloadDisabled   bool                `json:"download_disabled"`
-	Bpm                float64             `json:"bpm"`
-	CanBeHyped         bool                `json:"can_be_hyped"`
-	DiscussionEnabled  bool                `json:"discussion_enabled"`
-	DiscussionLocked   bool                `json:"discussion_locked"`
-	IsScoreable        bool                `json:"is_scoreable"`
-	LastUpdated        string              `json:"last_updated"`
-	LegacyThreadUrl    string              `json:"legacy_thread_url"`
-	NominationsSummary NominationsSummary  `json:"nominations_summary"`
-	Ranked             int                 `json:"ranked"`
-	RankedDate         string              `json:"ranked_date"`
-	Storyboard         bool                `json:"storyboard"`
-	SubmittedDate      string              `json:"submitted_date"`
-	Tags               []string            `json:"tags"`
-	Beatmaps           []Maps              `json:"beatmaps"`
-	Converts           []Maps              `json:"converts"`
-	CurrentNominations []CurrentNomination `json:"current_nominations"`
-	Description        string              `json:"description"`
-	GenreId            int                 `json:"genre_id"`
-	GenreName          string              `json:"genre_name"`
-	LanguageId         int                 `json:"language_id"`
-	LanguageName       string              `json:"language_name"`
-	Ratings            []int               `json:"ratings"`
-	RecentFavourites   []BmUser            `json:"recent_favourites"`
-	RelatedUsers       []BmUser            `json:"related_users"`
-	User               BmUser              `json:"user"`
-	Comments           []Comment           `json:"comments"`
-	PinnedComments     []Comment           `json:"pinned_comments"`
-	UserFollow         bool                `json:"user_follow"`
-}
-
-// Оценка номинаций
-type NominationsSummary struct {
-	Current  int `json:"current"`
-	Required int `json:"required"`
-}
-
-// Структура карты
-type Maps struct {
-	BeatmapSetId     int       `json:"beatmapset_id"`
-	DifficultyRating float64   `json:"difficulty_rating"`
-	Id               int       `json:"id"`
-	Mode             string    `json:"mode"`
-	Status           string    `json:"status"`
-	TotalLength      int       `json:"total_length"`
-	UserId           int       `json:"user_id"`
-	Version          string    `json:"version"`
-	Accuracy         float64   `json:"accuracy"`
-	Ar               float64   `json:"ar"`
-	Bpm              float64   `json:"bpm"`
-	Convert          bool      `json:"convert"`
-	CountCircles     int       `json:"count_circles"`
-	CountSliders     int       `json:"count_sliders"`
-	CountSpinners    int       `json:"count_spinners"`
-	Cs               float64   `json:"cs"`
-	DeletedAt        string    `json:"deleted_at"`
-	Drain            float64   `json:"drain"`
-	HitLength        int       `json:"hit_length"`
-	IsScoreable      bool      `json:"is_scoreable"`
-	LastUpdated      string    `json:"last_updated"`
-	ModeInt          int       `json:"mode_int"`
-	PassCount        int       `json:"pass_count"`
-	PlayCount        int       `json:"play_count"`
-	Ranked           int       `json:"ranked"`
-	Url              string    `json:"url"`
-	Checksum         string    `json:"checksum"`
-	Failtimes        Failtimes `json:"failtimes"`
-	MaxCombo         int       `json:"max_combo"`
-}
-
-// Структура проигрышей
-type Failtimes struct {
-	Fail []int `json:"fail"`
-	Exit []int `json:"exit"`
-}
-
-// Структура номинации
-type CurrentNomination struct {
-	BeatmapsetId int    `json:"beatmapset_id"`
-	Rulesets     string `json:"rulesets"`
-	Reset        bool   `json:"reset"`
-	UserId       int    `json:"user_id"`
-}
-
-// Структура пользователя
-type BmUser struct {
-	AvatarUrl     string `json:"avatar_url"`
-	CountryCode   string `json:"country_code"`
-	DefaultGroup  string `json:"default_group"`
-	Id            int    `json:"id "`
-	IsActive      bool   `json:"is_active"`
-	IsBot         bool   `json:"is_bot"`
-	IsDeleted     bool   `json:"is_deleted"`
-	IsOnline      bool   `json:"is_online"`
-	IsSupporter   bool   `json:"is_supporter"`
-	LastVisit     string `json:"last_visit"`
-	PmFriendsOnly bool   `json:"pm_friends_only"`
-	ProfileColor  string `json:"profile_color"`
-	Username      string `json:"username"`
-}
-
-// Структура комментария
-type Comment struct {
-	Id              int    `json:"id"`
-	ParentId        int    `json:"parent_id"`
-	UserId          int    `json:"user_id"`
-	Pinned          bool   `json:"pinned"`
-	RepliesCount    int    `json:"replies_count"`
-	VotesCount      int    `json:"votes_count"`
-	CommentableType string `json:"commentable_type"`
-	CommentableId   int    `json:"commentable_id"`
 	LegacyName      string `json:"legacy_name"`
 	CreatedAt       string `json:"created_at"`
 	UpdatedAt       string `json:"updated_at"`
@@ -341,39 +353,6 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 	return result, end
 }
 
-// Функция парсинга карт
-func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, int) {
-
-	// Индекс конца карт
-	var end int
-
-	// Получение рабочей части и индекса её конца
-	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
-
-	// Проверка на наличие карт
-	if len(pageStr) == 0 {
-		return []MapsString{}, end
-	}
-
-	// Результат и индекс обработанной части
-	var result []MapsString
-	left = 0
-
-	// Пока есть необработанные карты
-	for index(pageStr, "\"beatmapset_id\"", left) != -1 {
-
-		// Структура карты
-		var bm MapsString
-
-		bm, left = parseMapString(pageStr, left)
-
-		// Добавление карты к результату
-		result = append(result, bm)
-	}
-
-	return result, end
-}
-
 // Функция парсинга карты
 func parseMapString(pageStr string, left int) (MapsString, int) {
 
@@ -416,6 +395,39 @@ func parseMapString(pageStr string, left int) (MapsString, int) {
 	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
 
 	return bm, left
+}
+
+// Функция парсинга карт
+func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, int) {
+
+	// Индекс конца карт
+	var end int
+
+	// Получение рабочей части и индекса её конца
+	pageStr, end = findWithIndex(pageStr, subStr, stopChar, left, -1)
+
+	// Проверка на наличие карт
+	if len(pageStr) == 0 {
+		return []MapsString{}, end
+	}
+
+	// Результат и индекс обработанной части
+	var result []MapsString
+	left = 0
+
+	// Пока есть необработанные карты
+	for index(pageStr, "\"beatmapset_id\"", left) != -1 {
+
+		// Структура карты
+		var bm MapsString
+
+		bm, left = parseMapString(pageStr, left)
+
+		// Добавление карты к результату
+		result = append(result, bm)
+	}
+
+	return result, end
 }
 
 // Функция парсинга пользователей
@@ -657,81 +669,6 @@ func formatComments(cms []CommentString) []Comment {
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения статистики карты
-func GetMapInfo(beatmapset, id string) MapResponse {
-
-	// Получение текстовой версии статистики
-	resultStr := GetMapInfoString(beatmapset, id)
-
-	// Проверка на ошибки при парсинге
-	if resultStr.Error != "" {
-		return MapResponse{
-			Success: false,
-			Error:   resultStr.Error,
-		}
-	}
-
-	// Перевод в классическую версию
-	result := MapResponse{
-		Success:           true,
-		Error:             resultStr.Error,
-		Artist:            resultStr.Artist,
-		ArtistUnicode:     resultStr.ArtistUnicode,
-		Covers:            resultStr.Covers,
-		Creator:           resultStr.Creator,
-		FavoriteCount:     toInt(resultStr.FavoriteCount),
-		HypeCurrent:       toInt(resultStr.HypeCurrent),
-		HypeRequired:      toInt(resultStr.HypeRequired),
-		Id:                toInt(resultStr.Id),
-		Nsfw:              toBool(resultStr.Nsfw),
-		Offset:            toInt(resultStr.Offset),
-		PlayCount:         toInt(resultStr.PlayCount),
-		PreviewUrl:        resultStr.PreviewUrl,
-		Source:            resultStr.Source,
-		Spotlight:         toBool(resultStr.Spotlight),
-		Status:            resultStr.Status,
-		Title:             resultStr.Title,
-		TitleUnicode:      resultStr.TitleUnicode,
-		TrackId:           toInt(resultStr.TrackId),
-		UserId:            toInt(resultStr.UserId),
-		Video:             toBool(resultStr.Video),
-		DownloadDisabled:  toBool(resultStr.DownloadDisabled),
-		Bpm:               toFloat64(resultStr.Bpm),
-		CanBeHyped:        toBool(resultStr.CanBeHyped),
-		DiscussionEnabled: toBool(resultStr.DiscussionEnabled),
-		DiscussionLocked:  toBool(resultStr.DiscussionLocked),
-		IsScoreable:       toBool(resultStr.IsScoreable),
-		LastUpdated:       resultStr.LastUpdated,
-		LegacyThreadUrl:   resultStr.LegacyThreadUrl,
-		NominationsSummary: NominationsSummary{
-			Current:  toInt(resultStr.NominationsSummary.Current),
-			Required: toInt(resultStr.NominationsSummary.Required),
-		},
-		Ranked:             toInt(resultStr.Ranked),
-		RankedDate:         resultStr.RankedDate,
-		Storyboard:         toBool(resultStr.Storyboard),
-		SubmittedDate:      resultStr.SubmittedDate,
-		Tags:               resultStr.Tags,
-		Beatmaps:           formatBeatmap(resultStr.Beatmaps),
-		Converts:           formatBeatmap(resultStr.Converts),
-		CurrentNominations: formatCurrentNominations(resultStr.CurrentNominations),
-		Description:        resultStr.Description,
-		GenreId:            toInt(resultStr.GenreId),
-		GenreName:          resultStr.GenreName,
-		LanguageId:         toInt(resultStr.LanguageId),
-		LanguageName:       resultStr.LanguageName,
-		Ratings:            toSlice(resultStr.Ratings),
-		RecentFavourites:   formatBmUsers(resultStr.RecentFavourites),
-		RelatedUsers:       formatBmUsers(resultStr.RelatedUsers),
-		User:               formatBmUser(resultStr.User),
-		Comments:           formatComments(resultStr.Comments),
-		PinnedComments:     formatComments(resultStr.PinnedComments),
-		UserFollow:         toBool(resultStr.UserFollow),
-	}
-
-	return result
-}
-
-// Функция получения статистики карты
 func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	// Формирование и исполнение запроса
@@ -851,6 +788,81 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.PinnedComments, left = parseCommentsString(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
 
 	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
+
+	return result
+}
+
+// Функция получения статистики карты
+func GetMapInfo(beatmapset, id string) MapResponse {
+
+	// Получение текстовой версии статистики
+	resultStr := GetMapInfoString(beatmapset, id)
+
+	// Проверка на ошибки при парсинге
+	if resultStr.Error != "" {
+		return MapResponse{
+			Success: false,
+			Error:   resultStr.Error,
+		}
+	}
+
+	// Перевод в классическую версию
+	result := MapResponse{
+		Success:           true,
+		Error:             resultStr.Error,
+		Artist:            resultStr.Artist,
+		ArtistUnicode:     resultStr.ArtistUnicode,
+		Covers:            resultStr.Covers,
+		Creator:           resultStr.Creator,
+		FavoriteCount:     toInt(resultStr.FavoriteCount),
+		HypeCurrent:       toInt(resultStr.HypeCurrent),
+		HypeRequired:      toInt(resultStr.HypeRequired),
+		Id:                toInt(resultStr.Id),
+		Nsfw:              toBool(resultStr.Nsfw),
+		Offset:            toInt(resultStr.Offset),
+		PlayCount:         toInt(resultStr.PlayCount),
+		PreviewUrl:        resultStr.PreviewUrl,
+		Source:            resultStr.Source,
+		Spotlight:         toBool(resultStr.Spotlight),
+		Status:            resultStr.Status,
+		Title:             resultStr.Title,
+		TitleUnicode:      resultStr.TitleUnicode,
+		TrackId:           toInt(resultStr.TrackId),
+		UserId:            toInt(resultStr.UserId),
+		Video:             toBool(resultStr.Video),
+		DownloadDisabled:  toBool(resultStr.DownloadDisabled),
+		Bpm:               toFloat64(resultStr.Bpm),
+		CanBeHyped:        toBool(resultStr.CanBeHyped),
+		DiscussionEnabled: toBool(resultStr.DiscussionEnabled),
+		DiscussionLocked:  toBool(resultStr.DiscussionLocked),
+		IsScoreable:       toBool(resultStr.IsScoreable),
+		LastUpdated:       resultStr.LastUpdated,
+		LegacyThreadUrl:   resultStr.LegacyThreadUrl,
+		NominationsSummary: NominationsSummary{
+			Current:  toInt(resultStr.NominationsSummary.Current),
+			Required: toInt(resultStr.NominationsSummary.Required),
+		},
+		Ranked:             toInt(resultStr.Ranked),
+		RankedDate:         resultStr.RankedDate,
+		Storyboard:         toBool(resultStr.Storyboard),
+		SubmittedDate:      resultStr.SubmittedDate,
+		Tags:               resultStr.Tags,
+		Beatmaps:           formatBeatmap(resultStr.Beatmaps),
+		Converts:           formatBeatmap(resultStr.Converts),
+		CurrentNominations: formatCurrentNominations(resultStr.CurrentNominations),
+		Description:        resultStr.Description,
+		GenreId:            toInt(resultStr.GenreId),
+		GenreName:          resultStr.GenreName,
+		LanguageId:         toInt(resultStr.LanguageId),
+		LanguageName:       resultStr.LanguageName,
+		Ratings:            toSlice(resultStr.Ratings),
+		RecentFavourites:   formatBmUsers(resultStr.RecentFavourites),
+		RelatedUsers:       formatBmUsers(resultStr.RelatedUsers),
+		User:               formatBmUser(resultStr.User),
+		Comments:           formatComments(resultStr.Comments),
+		PinnedComments:     formatComments(resultStr.PinnedComments),
+		UserFollow:         toBool(resultStr.UserFollow),
+	}
 
 	return result
 }
