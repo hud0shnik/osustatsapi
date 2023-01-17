@@ -156,6 +156,7 @@ status                      |       string       |
    ```
 
 <h4>MapResponse</h4>
+
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 success                     |        bool        | "true" or "false" 
@@ -209,8 +210,6 @@ user                        |       BmUser       |
 comments                    |      []Comment     |
 pinned_comments             |      []Comment     |
 user_follow                 |        bool        |
-
-
 
 
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
