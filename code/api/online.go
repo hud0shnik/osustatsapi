@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// Статуса пользователя
+// Структура статуса пользователя
 type OnlineInfo struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
