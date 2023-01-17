@@ -10,127 +10,6 @@ import (
 	"time"
 )
 
-// ---------------------- Структуры для парсинга ------------------------
-
-// Информация о пользователе
-type UserInfoString struct {
-	Success                 string              `json:"success"`
-	Error                   string              `json:"error"`
-	AvatarUrl               string              `json:"avatar_url"`
-	CountryCode             string              `json:"country_code"`
-	DefaultGroup            string              `json:"default_group"`
-	UserID                  string              `json:"id"`
-	IsActive                string              `json:"is_active"`
-	IsBot                   string              `json:"is_bot"`
-	IsDeleted               string              `json:"is_deleted"`
-	IsOnline                string              `json:"is_online"`
-	IsSupporter             string              `json:"is_supporter"`
-	LastVisit               string              `json:"last_visit"`
-	PmFriendsOnly           string              `json:"pm_friends_only"`
-	ProfileColor            string              `json:"profile_color"`
-	Username                string              `json:"username"`
-	CoverUrl                string              `json:"cover_url"`
-	Discord                 string              `json:"discord"`
-	HasSupported            string              `json:"has_supported"`
-	Interests               string              `json:"interests"`
-	JoinDate                string              `json:"join_date"`
-	Kudosu                  string              `json:"kudosu"`
-	Location                string              `json:"location"`
-	MaxFriends              string              `json:"max_friends"`
-	MaxBLock                string              `json:"max_block"`
-	Occupation              string              `json:"occupation"`
-	Playmode                string              `json:"playmode"`
-	Playstyle               []string            `json:"playstyle"`
-	PostCount               string              `json:"post_count"`
-	ProfileOrder            []string            `json:"profile_order"`
-	Title                   string              `json:"title"`
-	TitleUrl                string              `json:"title_url"`
-	Twitter                 string              `json:"twitter"`
-	Website                 string              `json:"website"`
-	CountyName              string              `json:"country_name"`
-	UserCover               CoverString         `json:"cover"`
-	IsAdmin                 string              `json:"is_admin"`
-	IsBng                   string              `json:"is_bng"`
-	IsFullBan               string              `json:"is_full_bn"`
-	IsGmt                   string              `json:"is_gmt"`
-	IsLimitedBan            string              `json:"is_limited_bn"`
-	IsModerator             string              `json:"is_moderator"`
-	IsNat                   string              `json:"is_nat"`
-	IsRestricted            string              `json:"is_restricted"`
-	IsSilenced              string              `json:"is_silenced"`
-	AccountHistory          string              `json:"account_history"`
-	ActiveTournamentBanner  string              `json:"active_tournament_banner"`
-	Badges                  []Badge             `json:"badges"`
-	CommentsCount           string              `json:"comments_count"`
-	FollowerCount           string              `json:"follower_count"`
-	Groups                  string              `json:"groups"`
-	MappingFollowerCount    string              `json:"mapping_follower_count"`
-	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
-	Names                   []string            `json:"previous_usernames"`
-	Level                   string              `json:"level"`
-	GlobalRank              string              `json:"global_rank"`
-	PP                      string              `json:"pp"`
-	RankedScore             string              `json:"ranked_score"`
-	Accuracy                string              `json:"accuracy"`
-	PlayCount               string              `json:"play_count"`
-	PlayTime                string              `json:"play_time"`
-	PlayTimeSeconds         string              `json:"play_time_seconds"`
-	TotalScore              string              `json:"total_score"`
-	TotalHits               string              `json:"total_hits"`
-	MaximumCombo            string              `json:"maximum_combo"`
-	Replays                 string              `json:"replays"`
-	IsRanked                string              `json:"is_ranked"`
-	SS                      string              `json:"ss"`
-	SSH                     string              `json:"ssh"`
-	S                       string              `json:"s"`
-	SH                      string              `json:"sh"`
-	A                       string              `json:"a"`
-	CountryRank             string              `json:"country_rank"`
-	SupportLvl              string              `json:"support_level"`
-	Achievements            []AchievementString `json:"achievements"`
-	Medals                  string              `json:"medals"`
-	RankHistory             HistoryString       `json:"rank_history"`
-	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
-}
-
-// Ковёр пользователя
-type CoverString struct {
-	CustomUrl string `json:"custom_url"`
-	Url       string `json:"url"`
-	Id        string `json:"id"`
-}
-
-// Значок профиля
-type Badge struct {
-	AwardedAt   string `json:"awarded_at"`
-	Description string `json:"description"`
-	ImageUrl    string `json:"image_url"`
-}
-
-// Достижение
-type AchievementString struct {
-	AchievedAt    string `json:"achieved_at"`
-	AchievementId string `json:"achievement_id"`
-}
-
-// История рейтинга
-type HistoryString struct {
-	Mode string   `json:"mode"`
-	Data []string `json:"data"`
-}
-
-// Картинки
-type Covers struct {
-	Cover       string `json:"cover"`
-	Cover2X     string `json:"cover@2x"`
-	Card        string `json:"card"`
-	Card2X      string `json:"card@2x"`
-	List        string `json:"list"`
-	List2X      string `json:"list@2x"`
-	SlimCover   string `json:"slimcover"`
-	SlimCover2X string `json:"slimcover@2x"`
-}
-
 // ---------------------- Классические структуры ------------------------
 
 // Информация о пользователе
@@ -221,6 +100,13 @@ type Cover struct {
 	Id        int    `json:"id"`
 }
 
+// Значок профиля
+type Badge struct {
+	AwardedAt   string `json:"awarded_at"`
+	Description string `json:"description"`
+	ImageUrl    string `json:"image_url"`
+}
+
 // Достижение
 type Achievement struct {
 	AchievedAt    string `json:"achieved_at"`
@@ -231,6 +117,108 @@ type Achievement struct {
 type History struct {
 	Mode string `json:"mode"`
 	Data []int  `json:"data"`
+}
+
+// ---------------------- Структуры для парсинга ------------------------
+
+// Информация о пользователе
+type UserInfoString struct {
+	Success                 string              `json:"success"`
+	Error                   string              `json:"error"`
+	AvatarUrl               string              `json:"avatar_url"`
+	CountryCode             string              `json:"country_code"`
+	DefaultGroup            string              `json:"default_group"`
+	UserID                  string              `json:"id"`
+	IsActive                string              `json:"is_active"`
+	IsBot                   string              `json:"is_bot"`
+	IsDeleted               string              `json:"is_deleted"`
+	IsOnline                string              `json:"is_online"`
+	IsSupporter             string              `json:"is_supporter"`
+	LastVisit               string              `json:"last_visit"`
+	PmFriendsOnly           string              `json:"pm_friends_only"`
+	ProfileColor            string              `json:"profile_color"`
+	Username                string              `json:"username"`
+	CoverUrl                string              `json:"cover_url"`
+	Discord                 string              `json:"discord"`
+	HasSupported            string              `json:"has_supported"`
+	Interests               string              `json:"interests"`
+	JoinDate                string              `json:"join_date"`
+	Kudosu                  string              `json:"kudosu"`
+	Location                string              `json:"location"`
+	MaxFriends              string              `json:"max_friends"`
+	MaxBLock                string              `json:"max_block"`
+	Occupation              string              `json:"occupation"`
+	Playmode                string              `json:"playmode"`
+	Playstyle               []string            `json:"playstyle"`
+	PostCount               string              `json:"post_count"`
+	ProfileOrder            []string            `json:"profile_order"`
+	Title                   string              `json:"title"`
+	TitleUrl                string              `json:"title_url"`
+	Twitter                 string              `json:"twitter"`
+	Website                 string              `json:"website"`
+	CountyName              string              `json:"country_name"`
+	UserCover               CoverString         `json:"cover"`
+	IsAdmin                 string              `json:"is_admin"`
+	IsBng                   string              `json:"is_bng"`
+	IsFullBan               string              `json:"is_full_bn"`
+	IsGmt                   string              `json:"is_gmt"`
+	IsLimitedBan            string              `json:"is_limited_bn"`
+	IsModerator             string              `json:"is_moderator"`
+	IsNat                   string              `json:"is_nat"`
+	IsRestricted            string              `json:"is_restricted"`
+	IsSilenced              string              `json:"is_silenced"`
+	AccountHistory          string              `json:"account_history"`
+	ActiveTournamentBanner  string              `json:"active_tournament_banner"`
+	Badges                  []Badge             `json:"badges"`
+	CommentsCount           string              `json:"comments_count"`
+	FollowerCount           string              `json:"follower_count"`
+	Groups                  string              `json:"groups"`
+	MappingFollowerCount    string              `json:"mapping_follower_count"`
+	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
+	Names                   []string            `json:"previous_usernames"`
+	Level                   string              `json:"level"`
+	GlobalRank              string              `json:"global_rank"`
+	PP                      string              `json:"pp"`
+	RankedScore             string              `json:"ranked_score"`
+	Accuracy                string              `json:"accuracy"`
+	PlayCount               string              `json:"play_count"`
+	PlayTime                string              `json:"play_time"`
+	PlayTimeSeconds         string              `json:"play_time_seconds"`
+	TotalScore              string              `json:"total_score"`
+	TotalHits               string              `json:"total_hits"`
+	MaximumCombo            string              `json:"maximum_combo"`
+	Replays                 string              `json:"replays"`
+	IsRanked                string              `json:"is_ranked"`
+	SS                      string              `json:"ss"`
+	SSH                     string              `json:"ssh"`
+	S                       string              `json:"s"`
+	SH                      string              `json:"sh"`
+	A                       string              `json:"a"`
+	CountryRank             string              `json:"country_rank"`
+	SupportLvl              string              `json:"support_level"`
+	Achievements            []AchievementString `json:"achievements"`
+	Medals                  string              `json:"medals"`
+	RankHistory             HistoryString       `json:"rank_history"`
+	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
+}
+
+// Ковёр пользователя
+type CoverString struct {
+	CustomUrl string `json:"custom_url"`
+	Url       string `json:"url"`
+	Id        string `json:"id"`
+}
+
+// Достижение
+type AchievementString struct {
+	AchievedAt    string `json:"achieved_at"`
+	AchievementId string `json:"achievement_id"`
+}
+
+// История рейтинга
+type HistoryString struct {
+	Mode string   `json:"mode"`
+	Data []string `json:"data"`
 }
 
 // ---------------------- Функции поиска ------------------------
@@ -390,121 +378,6 @@ func toSlice(s string) []int {
 }
 
 // ----------------- Функции получения статистики ----------------
-
-// Функция получения информации о пользователе
-func GetUserInfo(id string) UserInfo {
-
-	// Получение текстовой версии статистики
-	resultStr := GetUserInfoString(id)
-
-	// Проверка на ошибки при парсинге
-	if resultStr.Error != "" {
-		return UserInfo{
-			Success: false,
-			Error:   resultStr.Error,
-		}
-	}
-
-	// Перевод в классическую версию
-	result := UserInfo{
-		Success:       true,
-		Error:         resultStr.Error,
-		AvatarUrl:     resultStr.AvatarUrl,
-		CountryCode:   resultStr.CountryCode,
-		DefaultGroup:  resultStr.DefaultGroup,
-		UserID:        toInt(resultStr.UserID),
-		IsActive:      toBool(resultStr.IsActive),
-		IsBot:         toBool(resultStr.IsBot),
-		IsDeleted:     toBool(resultStr.IsDeleted),
-		IsOnline:      toBool(resultStr.IsOnline),
-		IsSupporter:   toBool(resultStr.IsSupporter),
-		LastVisit:     resultStr.LastVisit,
-		PmFriendsOnly: toBool(resultStr.PmFriendsOnly),
-		ProfileColor:  resultStr.ProfileColor,
-		Username:      resultStr.Username,
-		CoverUrl:      resultStr.CoverUrl,
-		Discord:       resultStr.Discord,
-		HasSupported:  toBool(resultStr.HasSupported),
-		Interests:     resultStr.Interests,
-		JoinDate:      resultStr.JoinDate,
-		Kudosu:        toInt(resultStr.Kudosu),
-		Location:      resultStr.Location,
-		MaxFriends:    toInt(resultStr.MaxFriends),
-		MaxBLock:      toInt(resultStr.MaxBLock),
-		Occupation:    resultStr.Occupation,
-		Playmode:      resultStr.Playmode,
-		Playstyle:     resultStr.Playstyle,
-		PostCount:     toInt(resultStr.PostCount),
-		ProfileOrder:  resultStr.ProfileOrder,
-		Title:         resultStr.Title,
-		TitleUrl:      resultStr.TitleUrl,
-		Twitter:       resultStr.Twitter,
-		Website:       resultStr.Website,
-		CountyName:    resultStr.CountyName,
-		UserCover: Cover{
-			CustomUrl: resultStr.UserCover.CustomUrl,
-			Url:       resultStr.UserCover.Url,
-			Id:        toInt(resultStr.UserCover.Id),
-		},
-		IsAdmin:                 toBool(resultStr.IsAdmin),
-		IsBng:                   toBool(resultStr.IsBng),
-		IsFullBan:               toBool(resultStr.IsFullBan),
-		IsGmt:                   toBool(resultStr.IsGmt),
-		IsLimitedBan:            toBool(resultStr.IsLimitedBan),
-		IsModerator:             toBool(resultStr.IsModerator),
-		IsNat:                   toBool(resultStr.IsNat),
-		IsRestricted:            toBool(resultStr.IsRestricted),
-		IsSilenced:              toBool(resultStr.IsSilenced),
-		AccountHistory:          resultStr.AccountHistory,
-		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
-		Badges:                  resultStr.Badges,
-		CommentsCount:           toInt(resultStr.CommentsCount),
-		FollowerCount:           toInt(resultStr.FollowerCount),
-		Groups:                  resultStr.Groups,
-		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
-		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
-		Names:                   resultStr.Names,
-		Level:                   toInt(resultStr.Level),
-		GlobalRank:              toInt64(resultStr.GlobalRank),
-		PP:                      toFloat64(resultStr.PP),
-		RankedScore:             toInt(resultStr.RankedScore),
-		Accuracy:                toFloat64(resultStr.Accuracy),
-		PlayCount:               toInt(resultStr.PlayCount),
-		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         toInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              toInt64(resultStr.TotalScore),
-		TotalHits:               toInt64(resultStr.TotalHits),
-		MaximumCombo:            toInt(resultStr.MaximumCombo),
-		Replays:                 toInt(resultStr.Replays),
-		IsRanked:                toBool(resultStr.IsRanked),
-		SS:                      toInt(resultStr.SS),
-		SSH:                     toInt(resultStr.SSH),
-		S:                       toInt(resultStr.S),
-		SH:                      toInt(resultStr.SH),
-		A:                       toInt(resultStr.A),
-		CountryRank:             toInt(resultStr.CountryRank),
-		SupportLvl:              toInt(resultStr.SupportLvl),
-		UnrankedBeatmapsetCount: toInt(resultStr.UnrankedBeatmapsetCount),
-	}
-
-	// Перевод достижений
-	for _, c := range resultStr.Achievements {
-		result.Achievements = append(result.Achievements, Achievement{
-			AchievedAt:    c.AchievedAt,
-			AchievementId: toInt(c.AchievementId),
-		})
-	}
-
-	// Перевод количества медалей и истории рейтинга
-	result.Medals = toInt(resultStr.Medals)
-	result.RankHistory.Mode = resultStr.RankHistory.Mode
-
-	for _, d := range resultStr.RankHistory.Data {
-		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
-	}
-
-	return result
-}
 
 // Функция получения текстовой информации о пользователе
 func GetUserInfoString(id string) UserInfoString {
@@ -694,6 +567,121 @@ func GetUserInfoString(id string) UserInfoString {
 	}
 
 	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
+
+	return result
+}
+
+// Функция получения информации о пользователе
+func GetUserInfo(id string) UserInfo {
+
+	// Получение текстовой версии статистики
+	resultStr := GetUserInfoString(id)
+
+	// Проверка на ошибки при парсинге
+	if resultStr.Error != "" {
+		return UserInfo{
+			Success: false,
+			Error:   resultStr.Error,
+		}
+	}
+
+	// Перевод в классическую версию
+	result := UserInfo{
+		Success:       true,
+		Error:         resultStr.Error,
+		AvatarUrl:     resultStr.AvatarUrl,
+		CountryCode:   resultStr.CountryCode,
+		DefaultGroup:  resultStr.DefaultGroup,
+		UserID:        toInt(resultStr.UserID),
+		IsActive:      toBool(resultStr.IsActive),
+		IsBot:         toBool(resultStr.IsBot),
+		IsDeleted:     toBool(resultStr.IsDeleted),
+		IsOnline:      toBool(resultStr.IsOnline),
+		IsSupporter:   toBool(resultStr.IsSupporter),
+		LastVisit:     resultStr.LastVisit,
+		PmFriendsOnly: toBool(resultStr.PmFriendsOnly),
+		ProfileColor:  resultStr.ProfileColor,
+		Username:      resultStr.Username,
+		CoverUrl:      resultStr.CoverUrl,
+		Discord:       resultStr.Discord,
+		HasSupported:  toBool(resultStr.HasSupported),
+		Interests:     resultStr.Interests,
+		JoinDate:      resultStr.JoinDate,
+		Kudosu:        toInt(resultStr.Kudosu),
+		Location:      resultStr.Location,
+		MaxFriends:    toInt(resultStr.MaxFriends),
+		MaxBLock:      toInt(resultStr.MaxBLock),
+		Occupation:    resultStr.Occupation,
+		Playmode:      resultStr.Playmode,
+		Playstyle:     resultStr.Playstyle,
+		PostCount:     toInt(resultStr.PostCount),
+		ProfileOrder:  resultStr.ProfileOrder,
+		Title:         resultStr.Title,
+		TitleUrl:      resultStr.TitleUrl,
+		Twitter:       resultStr.Twitter,
+		Website:       resultStr.Website,
+		CountyName:    resultStr.CountyName,
+		UserCover: Cover{
+			CustomUrl: resultStr.UserCover.CustomUrl,
+			Url:       resultStr.UserCover.Url,
+			Id:        toInt(resultStr.UserCover.Id),
+		},
+		IsAdmin:                 toBool(resultStr.IsAdmin),
+		IsBng:                   toBool(resultStr.IsBng),
+		IsFullBan:               toBool(resultStr.IsFullBan),
+		IsGmt:                   toBool(resultStr.IsGmt),
+		IsLimitedBan:            toBool(resultStr.IsLimitedBan),
+		IsModerator:             toBool(resultStr.IsModerator),
+		IsNat:                   toBool(resultStr.IsNat),
+		IsRestricted:            toBool(resultStr.IsRestricted),
+		IsSilenced:              toBool(resultStr.IsSilenced),
+		AccountHistory:          resultStr.AccountHistory,
+		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
+		Badges:                  resultStr.Badges,
+		CommentsCount:           toInt(resultStr.CommentsCount),
+		FollowerCount:           toInt(resultStr.FollowerCount),
+		Groups:                  resultStr.Groups,
+		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
+		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
+		Names:                   resultStr.Names,
+		Level:                   toInt(resultStr.Level),
+		GlobalRank:              toInt64(resultStr.GlobalRank),
+		PP:                      toFloat64(resultStr.PP),
+		RankedScore:             toInt(resultStr.RankedScore),
+		Accuracy:                toFloat64(resultStr.Accuracy),
+		PlayCount:               toInt(resultStr.PlayCount),
+		PlayTime:                resultStr.PlayTime,
+		PlayTimeSeconds:         toInt64(resultStr.PlayTimeSeconds),
+		TotalScore:              toInt64(resultStr.TotalScore),
+		TotalHits:               toInt64(resultStr.TotalHits),
+		MaximumCombo:            toInt(resultStr.MaximumCombo),
+		Replays:                 toInt(resultStr.Replays),
+		IsRanked:                toBool(resultStr.IsRanked),
+		SS:                      toInt(resultStr.SS),
+		SSH:                     toInt(resultStr.SSH),
+		S:                       toInt(resultStr.S),
+		SH:                      toInt(resultStr.SH),
+		A:                       toInt(resultStr.A),
+		CountryRank:             toInt(resultStr.CountryRank),
+		SupportLvl:              toInt(resultStr.SupportLvl),
+		UnrankedBeatmapsetCount: toInt(resultStr.UnrankedBeatmapsetCount),
+	}
+
+	// Перевод достижений
+	for _, c := range resultStr.Achievements {
+		result.Achievements = append(result.Achievements, Achievement{
+			AchievedAt:    c.AchievedAt,
+			AchievementId: toInt(c.AchievementId),
+		})
+	}
+
+	// Перевод количества медалей и истории рейтинга
+	result.Medals = toInt(resultStr.Medals)
+	result.RankHistory.Mode = resultStr.RankHistory.Mode
+
+	for _, d := range resultStr.RankHistory.Data {
+		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
+	}
 
 	return result
 }
