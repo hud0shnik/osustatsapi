@@ -211,6 +211,28 @@ comments                    |      []Comment     |
 pinned_comments             |      []Comment     |
 user_follow                 |        bool        |
 
+  
+<h4>Covers</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+cover                       |       string       |   
+cover@2x                    |       string       |   
+card                        |       string       |
+card@2x                     |       string       |
+list                        |       string       |
+list@2x                     |       string       |
+slimcover                   |       string       |
+slimcover@2x                |       string       |
+
+  
+<h4>NominationsSummary</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+current                     |        int         |
+required                    |        int         |
+
 
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
 
