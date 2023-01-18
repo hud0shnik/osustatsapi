@@ -94,20 +94,6 @@ achievements                |    []Achievement   |
 medals                      |        int         |
 rank_history                |       History      |
 unranked_beatmapset_count   |        int         |
-favorite_beatmaps           |     []Beatmap      |
-graveyard_beatmaps          |     []Beatmap      |
-guest_beatmaps              |     []Beatmap      |
-loved_beatmaps              |     []Beatmap      |
-ranked_beatmaps             |     []Beatmap      |
-pending_beatmaps            |     []Beatmap      |
-kudosu_items                |     []Kudosu       |
-recent_activity             |    []Activity      |
-best                        |      []Score       |
-firsts                      |      []Score       | first places
-pinned                      |      []Score       | pinned beatmaps
-beatmap_playcounts          |    []PlayCount     |
-monthly_playcounts          |      []Count       |
-replays_watched_counts      |      []Count       |
 
 
 <h4>Cover</h4>
@@ -144,218 +130,6 @@ mode                        |       string       | like "osu"
 data                        |       []int        |
 
 
-<h4>Beatmap</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-artist                      |       string       |
-artist_unicode              |       string       |
-covers                      |       Cover        |
-creator                     |       string       |
-favorite_count              |        int         |
-hype                        |       string       |
-id                          |        int         |
-nsfw                        |        bool        | Not Safe For Work
-offset                      |        int         |
-play_count                  |        int         |
-preview_url                 |       string       | like "b.ppy.sh/preview/1730467.mp3"
-source                      |       string       |
-spotlight                   |        bool        |
-status                      |       string       |
-title                       |       string       |
-title_unicode               |       string       |
-track_id                    |       string       |
-userId                      |        int         |
-video                       |        bool        |
-download_disabled           |        bool        |
-bpm                         |       float        |
-can_be_hyped                |        bool        |
-discussion_enabled          |        bool        |
-discussion_locked           |        bool        |
-is_scoreable                |        bool        |
-last_updated                |       string       | UTC date
-legacy_thread_url           |       string       |
-nominations_summary         | NominationsSummary |
-ranked                      |        int         |
-ranked_date                 |       string       |
-storyboard                  |        bool        |
-submitted_date              |       string       | UTC date
-tags                        |      []string      |
-beatmap                     |       Beatmaps     |
-
-
-<h4>NominationsSummary</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-current                     |        int         |
-required                    |        int         |
-
-
-<h4>Beatmaps</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-beatmapset_id               |        int         |
-difficulty_rating           |       float        |
-id                          |        int         |
-mode                        |       string       | like "osu"
-status                      |       string       | like "ranked"
-total_length                |        int         |
-user_id                     |        int         |
-version                     |       string       |
-accuracy                    |       float        |
-ar                          |       float        | Approach Rate
-bpm                         |       float        |
-convert                     |        bool        |
-count_circles               |        int         |
-count_sliders               |        int         |
-count_spinners              |        int         |
-cs                          |       float        | Circle Size
-deleted_at                  |       string       | "null" or UTC date
-drain                       |       float        |
-hit_length                  |        int         |
-is_scoreable                |        bool        |
-last_updated                |       string       | UTC date
-mode_int                    |        int         |
-pass_count                  |        int         |
-play_count                  |        int         |
-ranked                      |        int         |
-url                         |       string       |
-checksum                    |       string       |
-
-
-<h4>Kudosu</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-id                          |        int         |
-action                      |       string       |
-amount                      |        int         |
-model                       |       string       |
-created_at                  |       string       | like "2016-10-10T23:20:47+00:00"
-giver                       |     KudosuGiver    |
-post                        |     KudosuPost     |
-details                     |       string       |
-
-
-<h4>KudosuGiver</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-url                         |       string       |
-username                    |       string       |
-
-
-<h4>KudosuPost</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-url                         |       string       |
-title                       |       string       |
-
-
-<h4>Score</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-accuracy                    |       float        |
-beatmap_id                  |        int         |
-build_id                    |       string       |  
-ended_at                    |       string       |
-legacy_score_id             |       string       |
-legacy_total_score          |       string       |
-max_combo                   |        int         |
-maximum_statistics          |     Statistics     |
-mods                        |      []string      | like ["HD","HR","NC","PF"]
-passed                      |        bool        |
-rank                        |       string       |
-ruleset_id                  |        int         |
-started_at                  |       string       |
-statistics                  |     Statistics     |
-total_score                 |        int         |
-user_id                     |        int         |
-best_id                     |        int         |
-id                          |        int         |
-legacy_perfect              |        bool        |
-pp                          |       float        |
-replay                      |        bool        |
-type                        |       string       | 
-current_user_attributes     |       string       |
-beatmap                     |      Beatmaps      |
-beatmapset                  |     Beatmapset     |
-weight                      |       Weight       |
-
-
-<h4>Statistics</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-good                        |        int         |
-great                       |        int         |
-meh                         |        int         |
-miss                        |        int         |
-ok                          |        int         |
-perfect                     |        int         |
-
-
-<h4>Beatmapset</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-artist                      |       string       |
-artist_unicode              |       string       |
-covers                      |       Covers       |
-creator                     |       string       |
-favorite_count              |        int         |
-hype                        |       string       | 
-id                          |        int         |
-nsfw                        |        bool        |
-offset                      |        int         |
-play_count                  |        int         |
-preview_url                 |       string       | like "//b.ppy.sh/preview/1408011.mp3"
-source                      |       string       |
-spotlight                   |        bool        |
-status                      |       string       |
-title                       |       string       |
-title_unicode               |       string       |
-track_id                    |       string       |
-userId                      |        int         |
-video                       |        bool        |
-
-<h4>Weight</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-percentage                  |       float        |
-pp                          |       float        |
-
-
-<h4>PlayCount</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-beatmapset_id               |        int         |
-difficulty_rating           |       float        |
-id                          |        int         |
-status                      |       string       | "ranked" or "graveyard"
-total_length                |        int         |
-user_id                     |        int         |
-version                     |       string       |
-
-
-<h4>PlayCountBeatmap</h4>
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-beatmapset_id               |        int         |
-difficulty_rating           |       float        |
-id                          |        int         |
-status                      |       string       | "ranked" or "graveyard"
-total_length                |        int         |
-user_id                     |        int         |
-version                     |       string       |
- 
 
 <h3>/online/</h3>
 <h4>Request sample </h4>
@@ -372,6 +146,8 @@ success                     |        bool        |
 error                       |       string       | api error response (default value= "")
 status                      |       string       |
 
+
+
 <h3>/map/</h3>
 <h4>Request sample </h4>
   
@@ -379,7 +155,177 @@ status                      |       string       |
    https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
    ```
 
+<h4>MapResponse</h4>
 
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+success                     |        bool        | "true" or "false" 
+error                       |       string       | api error response 
+artist                      |       string       |
+artist_string               |       string       |
+covers                      |       Covers       |
+creator                     |       string       |
+favorite_count              |        int         |
+hype_current                |        int         |
+hype_required               |        int         |
+id                          |        int         |
+nsfw                        |        bool        |
+offset                      |        int         |
+play_count                  |        int         |
+preview_url                 |       string       |
+source                      |       string       |
+spotlight                   |        bool        |
+status                      |       string       |
+title                       |       string       |
+title_unicode               |       string       |
+track_id                    |        int         |
+user_id                     |        int         |
+video                       |        bool        |
+download_disabled           |        bool        |
+bpm                         |        float       |
+can_be_hyped                |        bool        |
+discussion_enabled          |        bool        |
+discussion_locked           |        bool        |
+is_scoreable                |        bool        |
+last_updated                |       string       |
+legacy_thread_url           |       string       |
+nominations_summary         | NominationsSummary |
+ranked                      |        int         |
+ranked_date                 |       string       |
+storyboard                  |        bool        |
+submitted_date              |       string       |
+tags                        |      []string      |
+beatmaps                    |       []Maps       |
+converts                    |       []Maps       |
+current_nominations         |[]CurrentNomination |
+description                 |       string       |
+genre_id                    |        int         |
+genre_name                  |       string       |
+language_id                 |        int         |
+language_name               |       string       |
+ratings                     |       []int        |
+recent_favourites           |      []BmUser      |
+related_users               |      []BmUser      |
+user                        |       BmUser       |
+comments                    |      []Comment     |
+pinned_comments             |      []Comment     |
+user_follow                 |        bool        |
+
+  
+<h4>Covers</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+cover                       |       string       |   
+cover@2x                    |       string       |   
+card                        |       string       |
+card@2x                     |       string       |
+list                        |       string       |
+list@2x                     |       string       |
+slimcover                   |       string       |
+slimcover@2x                |       string       |
+
+  
+<h4>NominationsSummary</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+current                     |        int         |
+required                    |        int         |
+
+
+<h4>Maps</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |        int         |
+difficulty_rating           |       float        |
+id                          |        int         |
+mode                        |       string       |
+status                      |       string       |
+total_length                |        int         |
+user_id                     |        int         |
+version                     |       string       |
+accuracy                    |       float        |
+ar                          |       float        |
+bpm                         |       float        |
+convert                     |        bool        |
+count_circles               |        int         |
+count_sliders               |        int         |
+count_spinners              |        int         |
+cs                          |       float        |
+deleted_at                  |       string       |
+drain                       |       float        |
+hit_length                  |        int         |
+is_scoreable                |        bool        |
+last_updated                |       string       |
+mode_int                    |        int         |
+pass_count                  |        int         |
+play_count                  |        int         |
+ranked                      |        int         |
+url                         |       string       |
+checksum                    |       string       |
+failtimes                   |     Failtimes      |
+max_combo                   |        int         |
+
+
+<h4>Failtimes</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+Fail                        |       []int        |
+Exit                        |       []int        |
+  
+
+<h4>CurrentNomination</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |        int         |
+rulesets                    |       string       |
+reset                       |        bool        |
+user_id                     |        int         |
+
+
+<h4>BmUser</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+avatar_url                  |       string       |        
+country_code                |       string       |
+default_group               |       string       |
+id                          |        int         |
+is_active                   |        bool        |
+is_bot                      |        bool        |
+is_deleted                  |        bool        |
+is_online                   |        bool        |
+is_supporter                |        bool        |
+last_visit                  |       string       |
+pm_friends_only             |        bool        |
+profile_color               |       string       |
+username                    |       string       |
+
+
+<h4>Comment</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+id                          |        int         |
+parent_id                   |        int         |
+user_id                     |        int         |
+pinned                      |        bool        |
+replies_count               |        int         |
+votes_count                 |        int         |
+commentable_type            |       string       |
+commentable_id              |        int         |
+legacy_name                 |       string       |
+created_at                  |       string       |
+updated_at                  |       string       |
+deleted_at                  |       string       |
+edited_at                   |       string       |
+edited_by_id                |       string       |
+message                     |       string       |
+message_html                |       string       |
 
 
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
