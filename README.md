@@ -182,7 +182,7 @@ track_id                    |        int         |
 user_id                     |        int         |
 video                       |        bool        |
 download_disabled           |        bool        |
-bpm                         |       float64      |
+bpm                         |        float       |
 can_be_hyped                |        bool        |
 discussion_enabled          |        bool        |
 discussion_locked           |        bool        |
@@ -232,6 +232,41 @@ Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 current                     |        int         |
 required                    |        int         |
+
+
+<h4>Maps</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+beatmapset_id               |        int         |
+difficulty_rating           |       float        |
+id                          |        int         |
+mode                        |       string       |
+status                      |       string       |
+total_length                |        int         |
+user_id                     |        int         |
+version                     |       string       |
+accuracy                    |       float        |
+ar                          |       float        |
+bpm                         |       float        |
+convert                     |        bool        |
+count_circles               |        int         |
+count_sliders               |        int         |
+count_spinners              |        int         |
+cs                          |       float        |
+deleted_at                  |       string       |
+drain                       |       float        |
+hit_length                  |        int         |
+is_scoreable                |        bool        |
+last_updated                |       string       |
+mode_int                    |        int         |
+pass_count                  |        int         |
+play_count                  |        int         |
+ranked                      |        int         |
+url                         |       string       |
+checksum                    |       string       |
+failtimes                   |     Failtimes      |
+max_combo                   |        int         |
 
 
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
