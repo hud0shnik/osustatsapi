@@ -287,6 +287,46 @@ reset                       |        bool        |
 user_id                     |        int         |
 
 
+<h4>BmUser</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+avatar_url                  |       string       |        
+country_code                |       string       |
+default_group               |       string       |
+id                          |        int         |
+is_active                   |        bool        |
+is_bot                      |        bool        |
+is_deleted                  |        bool        |
+is_online                   |        bool        |
+is_supporter                |        bool        |
+last_visit                  |       string       |
+pm_friends_only             |        bool        |
+profile_color               |       string       |
+username                    |       string       |
+
+
+<h4>Comment</h4>
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+id                          |        int         |
+parent_id                   |        int         |
+user_id                     |        int         |
+pinned                      |        bool        |
+replies_count               |        int         |
+votes_count                 |        int         |
+commentable_type            |       string       |
+commentable_id              |        int         |
+legacy_name                 |       string       |
+created_at                  |       string       |
+updated_at                  |       string       |
+deleted_at                  |       string       |
+edited_at                   |       string       |
+edited_by_id                |       string       |
+message                     |       string       |
+message_html                |       string       |
+
 
 <img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
 
