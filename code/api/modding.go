@@ -394,7 +394,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	}
 
 	ev.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left, end)
-	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, end)
+	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", "}", left, end)
 	ev.Beatmapset.Artist, left = findStringWithIndex(pageStr, "\"artist\":", ",", left, end)
 	ev.Beatmapset.ArtistUnicode, left = findStringWithIndex(pageStr, "\"artist_unicode\":", ",", left, end)
 
@@ -422,7 +422,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left, end)
 	ev.Beatmapset.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left, end)
 	ev.Beatmapset.PlayCount, left = findWithIndex(pageStr, "\"play_count\":", ",", left, end)
-	ev.Beatmapset.PreviewUrl, left = findStringWithIndex(pageStr, "\"preview_url\":", ",", left, end)
+	ev.Beatmapset.PreviewUrl, left = findStringWithIndex(pageStr, "\"preview_url\":\"\\/\\/", ",", left, end)
 	ev.Beatmapset.PreviewUrl = strings.ReplaceAll(ev.Beatmapset.PreviewUrl, "\\", "")
 	ev.Beatmapset.Source, left = findWithIndex(pageStr, "\"source\":", ",", left, end)
 	ev.Beatmapset.Spotlight, left = findWithIndex(pageStr, "\"spotlight\":", ",", left, end)
@@ -434,6 +434,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Beatmapset.Video, left = findWithIndex(pageStr, "\"video\":", ",", left, end)
 
 	ev.Beatmapset.User.AvatarUrl, left = findStringWithIndex(pageStr, "\"avatar_url\":", ",", left, end)
+	ev.Beatmapset.User.AvatarUrl = strings.ReplaceAll(ev.Beatmapset.User.AvatarUrl, "\\", "")
 	ev.Beatmapset.User.CountryCode, left = findStringWithIndex(pageStr, "\"country_code\":", ",", left, end)
 	ev.Beatmapset.User.DefaultGroup, left = findStringWithIndex(pageStr, "\"default_group\":", ",", left, end)
 	ev.Beatmapset.User.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, end)
@@ -537,9 +538,9 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	result := ModdingResponseString{}
 
 	// Крайняя левая граница поиска
-	left := 0
+	//left := 0
 
-	result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", left)
+	//result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", 0)
 
 	return result
 }
