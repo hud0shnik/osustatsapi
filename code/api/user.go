@@ -235,11 +235,14 @@ func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 	// Проверка на существование нужной строки и попадание в диапазон
 	if left != len(subStr)-1 && ((end == -1) || (left < end)) {
 
-		// Поиск правой границы
-		right := left + strings.Index(str[left:], stopChar)
+		// Поиск и проверка правой границы
+		right := strings.Index(str[left:], stopChar)
+		if right == -1 {
+			return "", start
+		}
 
 		// Обрезка и вывод результата
-		return str[left:right], right + start
+		return str[left : left+right], right + left + start
 	}
 
 	// Вывод ненайденных значений для тестов
