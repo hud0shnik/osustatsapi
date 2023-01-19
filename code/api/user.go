@@ -279,7 +279,10 @@ func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 // Облегчённая функция поиска. Возвращает только искомое значение
 func find(str, subStr, stopChar string, start int) string {
 
+	// Обрезка левой границы поиска
 	str = str[start:]
+
+	// Поиск индекса начала нужной строки
 	left := strings.Index(str, subStr)
 
 	// Проверка на существование нужной строки

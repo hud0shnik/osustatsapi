@@ -395,7 +395,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	}
 
 	ev.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left, end)
-	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", "}", left, end)
+	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, end)
 	ev.Beatmapset.Artist, left = findStringWithIndex(pageStr, "\"artist\":", ",", left, end)
 	ev.Beatmapset.ArtistUnicode, left = findStringWithIndex(pageStr, "\"artist_unicode\":", ",", left, end)
 
