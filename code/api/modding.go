@@ -566,7 +566,9 @@ func Modding(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// Формирование и отправка статистики
-	jsonResp, err := json.Marshal(GetModdingInfoString(id))
+	jsonResp, err := json.Marshal(map[string]string{
+		"status": "Not yet available",
+	})
 	if err != nil {
 		fmt.Print("Error: ", err)
 		w.WriteHeader(http.StatusInternalServerError)
