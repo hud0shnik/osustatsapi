@@ -285,8 +285,14 @@ func find(str, subStr, stopChar string, start int) string {
 		// Обрезка левой части
 		str = str[left+len(subStr):]
 
+		// Поиск и проверка правой границы
+		right := strings.Index(str, stopChar)
+		if right == -1 {
+			return ""
+		}
+
 		// Обрезка правой части и вывод результата
-		return str[:strings.Index(str, stopChar)]
+		return str[:right]
 	}
 
 	return ""
