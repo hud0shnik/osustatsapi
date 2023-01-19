@@ -86,7 +86,8 @@ type ModdingBeatmapsetString struct {
 	Covers        Covers       `json:"covers"`
 	Creator       string       `json:"creator"`
 	FavoriteCount string       `json:"favorite_count"`
-	Hype          string       `json:"hype"`
+	HypeCurrent   string       `json:"hype_current"`
+	HypeRequired  string       `json:"hype_required"`
 	Id            string       `json:"id"`
 	Nsfw          string       `json:"nsfw"`
 	Offset        string       `json:"offset"`
@@ -417,7 +418,11 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	ev.Beatmapset.Creator, left = findStringWithIndex(pageStr, "\"creator\":", ",", left, end)
 	ev.Beatmapset.FavoriteCount, left = findWithIndex(pageStr, "\"favourite_count\":", ",", left, end)
-	ev.Beatmapset.Hype, left = findWithIndex(pageStr, "\"hype\":", ",\"id", left, end)
+	buffer, left = findWithIndex(pageStr, "\"hype\":", ",\"id", left, end)
+	if buffer != "null" {
+		ev.Beatmapset.HypeCurrent = find(buffer, "current\":", ",", 0)
+		ev.Beatmapset.HypeRequired = find(buffer, "required\":", "}", 0)
+	}
 	ev.Beatmapset.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, end)
 	ev.Beatmapset.Nsfw, left = findWithIndex(pageStr, "\"nsfw\":", ",", left, end)
 	ev.Beatmapset.Offset, left = findWithIndex(pageStr, "\"offset\":", ",", left, end)
