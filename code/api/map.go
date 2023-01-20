@@ -335,7 +335,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 	left = 0
 
 	// Пока есть необработанные карты
-	for index(pageStr, "beatmapset_id", left) != -1 {
+	for index(pageStr, "beatmapset_id", left, -1) != -1 {
 
 		// Структура номинации
 		var cn CurrentNominationString
@@ -416,7 +416,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 	left = 0
 
 	// Пока есть необработанные карты
-	for index(pageStr, "\"beatmapset_id\"", left) != -1 {
+	for index(pageStr, "\"beatmapset_id\"", left, -1) != -1 {
 
 		// Структура карты
 		var bm MapsString
@@ -449,7 +449,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 	left = 0
 
 	// Пока есть необработанные пользователи
-	for index(pageStr, "avatar_url", left) != -1 {
+	for index(pageStr, "avatar_url", left, -1) != -1 {
 
 		// Структура пользователя
 		var user BmUserString
@@ -506,7 +506,7 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentS
 	left = 0
 
 	// Пока есть необработанные пользователи
-	for i := 0; index(pageStr, "id\":", left) != -1; i++ {
+	for i := 0; index(pageStr, "id\":", left, -1) != -1; i++ {
 
 		// Структура комментария
 		var cm CommentString
@@ -694,7 +694,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	// Полученная страница в формате string
 	pageStr := string(body)
-	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000)+61:]
+	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000, -1)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*if err := os.WriteFile("sampleVotes.html", []byte(pageStr), 0666); err != nil {

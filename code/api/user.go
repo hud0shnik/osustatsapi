@@ -308,20 +308,19 @@ func find(str, subStr, stopChar string, start int) string {
 }
 
 // Функция поиска индекса
-func index(str, subStr string, start int) int {
+func index(str, subStr string, start, end int) int {
 
 	res := strings.Index(str[start:], subStr)
 
-	// Проверка на существование нужной строки
-	if res == -1 {
+	// Проверка на существование нужной строки в диапазоне
+	if res != -1 && ((end == -1) || (res+start < end)) {
 
-		//fmt.Println("index error: \t", subStr)
-
-		return -1
+		//fmt.Println(res+start, " - ", subStr)
+		return res + start
 	}
 
-	//fmt.Println(res+start, " - ", subStr)
-	return res + start
+	//fmt.Println("index error: \t", subStr)
+	return -1
 }
 
 // Функция проверки наличия подстроки
@@ -500,7 +499,7 @@ func GetUserInfoString(id string) UserInfoString {
 	result.ActiveTournamentBanner = strings.ReplaceAll(result.ActiveTournamentBanner, "\\", "")
 
 	// Значки
-	for c := index(pageStr, "badges :[", left); pageStr[c] != ']'; c++ {
+	for c := index(pageStr, "badges :[", left, -1); pageStr[c] != ']'; c++ {
 		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, Badge{
 				AwardedAt:   find(pageStr[c:], "awarded_at : ", " ", 0),
@@ -514,7 +513,7 @@ func GetUserInfoString(id string) UserInfoString {
 	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left, -1)
 
 	// Принадлежность к группам
-	for c := index(pageStr, "groups :[", left); pageStr[c] != ']'; c++ {
+	for c := index(pageStr, "groups :[", left, -1); pageStr[c] != ']'; c++ {
 		if pageStr[c] == '{' {
 			result.Groups += find(pageStr[c:], "name : ", " ,", 0) + ", "
 		}
@@ -552,7 +551,7 @@ func GetUserInfoString(id string) UserInfoString {
 	if !contains(pageStr, "user_achievements :[]", left) {
 
 		// Конец блока достижений
-		end := index(pageStr, "]", left) - 10
+		end := index(pageStr, "]", left, -1) - 10
 		medals := 0
 
 		// Цикл обработки достижений
