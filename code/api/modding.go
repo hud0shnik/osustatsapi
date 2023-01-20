@@ -505,15 +505,25 @@ func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int
 func parseUser(pageStr string, left int) (ModdingUserString, int) {
 
 	// Структура юзера и буфер
-	var mu ModdingUserString
+	var user ModdingUserString
 	//var buffer string
 
 	// Конец юзера
 	end := index(pageStr, "]}", left)
 
-	mu.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, end)
+	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, end)
+	user.CountryCode, left = findStringWithIndex(pageStr, "country_code\":", ",", left, end)
+	user.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, end)
+	user.IsActive, left = findWithIndex(pageStr, "\"is_active\":", ",", left, end)
+	user.IsBot, left = findWithIndex(pageStr, "\"is_bot\":", ",", left, end)
+	user.IsDeleted, left = findWithIndex(pageStr, "\"is_deleted\":", ",", left, end)
+	user.IsOnline, left = findWithIndex(pageStr, "\"is_online\":", ",", left, end)
+	user.IsSupporter, left = findWithIndex(pageStr, "\"is_supporter\":", ",", left, end)
+	user.LastVisit, left = findStringWithIndex(pageStr, "\"last_visit\":", ",", left, end)
+	user.PmFriendsOnly, left = findWithIndex(pageStr, "\"pm_friends_only\":", ",", left, end)
+	user.Username, left = findStringWithIndex(pageStr, "\"username\":", ",", left, end)
 
-	return mu, left
+	return user, left
 }
 
 // Функция парсинга юзеров
