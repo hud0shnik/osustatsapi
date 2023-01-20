@@ -370,7 +370,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	var buffer string
 
 	// Конец ивента
-	end := index(pageStr, "}}}", left)
+	end := index(pageStr, "}}}", left, -1)
 
 	// Запись данных
 	ev.Id, left = findWithIndex(pageStr, "\"id\":", ",", left, end)
@@ -382,7 +382,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	buffer, left = findWithIndex(pageStr, "\"votes\":[", "created_at", left, end)
 
-	for i := 0; index(buffer, "user_id\":", i) != -1; {
+	for i := 0; index(buffer, "user_id\":", i, -1) != -1; {
 
 		var vt VoteString
 
@@ -394,9 +394,9 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	ev.CreatedAt, left = findStringWithIndex(pageStr, "\"created_at\":", ",", left, end)
 	ev.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, end)
+
 	ev.Beatmapset.Artist, left = findStringWithIndex(pageStr, "\"artist\":", ",", left, end)
 	ev.Beatmapset.ArtistUnicode, left = findStringWithIndex(pageStr, "\"artist_unicode\":", ",", left, end)
-
 	ev.Beatmapset.Covers.Cover, left = findStringWithIndex(pageStr, "\"cover\":", ",", left, end)
 	ev.Beatmapset.Covers.Cover = strings.ReplaceAll(ev.Beatmapset.Covers.Cover, "\\", "")
 	ev.Beatmapset.Covers.Cover2X, left = findStringWithIndex(pageStr, "\"cover@2x\":", ",", left, end)
@@ -488,7 +488,7 @@ func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int
 	var result []EventString
 	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
 
-	for index(pageStr, "{\"id\":", left) != -1 {
+	for index(pageStr, "{\"id\":", left, end) != -1 {
 
 		var ev EventString
 
@@ -509,7 +509,7 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 	//var buffer string
 
 	// Конец юзера
-	end := index(pageStr, "]}", left)
+	end := index(pageStr, "]}", left, -1)
 
 	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, end)
 	user.CountryCode, left = findStringWithIndex(pageStr, "country_code\":", ",", left, end)
@@ -533,12 +533,11 @@ func parseUsers(pageStr, subStr, stopChar string, left int) ([]ModdingUserString
 	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
 	left = 0
 
-	for index(pageStr, "{\"avatar_url\":", left) != -1 {
+	for index(pageStr, "{\"avatar_url\":", left, end) != -1 {
 
 		var us ModdingUserString
 
 		us, left = parseUser(pageStr, left)
-		fmt.Println(left)
 		result = append(result, us)
 	}
 
