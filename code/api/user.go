@@ -233,7 +233,7 @@ func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 	left := strings.Index(str, subStr) + len(subStr)
 
 	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left < end)) {
+	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
 
 		// Поиск и проверка правой границы
 		right := strings.Index(str[left:], stopChar)
@@ -261,7 +261,7 @@ func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 	left := strings.Index(str, subStr) + len(subStr)
 
 	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left < end)) {
+	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
 
 		// Поиск и проверка правой границы
 		right := strings.Index(str[left:], stopChar)
@@ -270,7 +270,7 @@ func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 		}
 
 		// Обрезка и вывод результата
-		return strings.ReplaceAll(str[left:left+right], "\"", ""), right + start
+		return strings.ReplaceAll(str[left:left+right], "\"", ""), right + left + start
 	}
 
 	// Вывод ненайденных значений для тестов
