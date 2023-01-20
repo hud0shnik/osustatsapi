@@ -287,8 +287,6 @@ type ReceivedKudosuString struct {
 
 // Структура пользователя
 type UserString struct {
-	Success                string      `json:"success"`
-	Error                  string      `json:"error"`
 	AvatarUrl              string      `json:"avatar_url"`
 	CountryCode            string      `json:"country_code"`
 	DefaultGroup           string      `json:"default_group"`
@@ -503,6 +501,20 @@ func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int
 	return result, end
 }
 
+// Функция парсинга юзера
+func parseUser(pageStr string, left int) (ModdingUserString, int) {
+
+	// Структура юзера и буфер
+	var mu ModdingUserString
+	//var buffer string
+
+	// Конец юзера
+	end := index(pageStr, "]}", left)
+
+	mu.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, end)
+
+	return mu, left
+}
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
