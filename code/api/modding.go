@@ -515,6 +515,27 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 
 	return mu, left
 }
+
+// Функция парсинга юзеров
+func parseUsers(pageStr, subStr, stopChar string, left int) ([]ModdingUserString, int) {
+
+	var result []ModdingUserString
+	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
+	left = 0
+
+	for index(pageStr, "{\"avatar_url\":", left) != -1 {
+
+		var us ModdingUserString
+
+		us, left = parseUser(pageStr, left)
+		fmt.Println(left)
+		result = append(result, us)
+	}
+
+	return result, end
+
+}
+
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
@@ -555,9 +576,10 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	result := ModdingResponseString{}
 
 	// Крайняя левая граница поиска
-	//left := 0
+	left := 0
 
-	//result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", 0)
+	result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", 0)
+	result.Users, _ = parseUsers(pageStr, "<script id=\"json-users\"", "</script>", left)
 
 	return result
 }
