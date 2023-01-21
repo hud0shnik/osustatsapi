@@ -506,7 +506,7 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 
 	// Структура юзера и буфер
 	var user ModdingUserString
-	//var buffer string
+	var buffer string
 
 	// Конец юзера
 	end := index(pageStr, "]}", left, -1)
@@ -523,7 +523,28 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 	user.PmFriendsOnly, left = findWithIndex(pageStr, "\"pm_friends_only\":", ",", left, end)
 	user.Username, left = findStringWithIndex(pageStr, "\"username\":", ",", left, end)
 
-	return user, left
+	for index(pageStr, "\"colour\"", left, end) != -1 {
+		var gr GroupString
+
+		gr.Colour, left = findStringWithIndex(pageStr, "\"colour\":", ",", left, end)
+		gr.HasListing, left = findWithIndex(pageStr, "has_listing\":", ",", left, end)
+		gr.HasPlaymodes, left = findWithIndex(pageStr, "has_playmodes\":", ",", left, end)
+		gr.Id, left = findWithIndex(pageStr, "id\":", ",", left, end)
+		gr.Identifier, left = findStringWithIndex(pageStr, "identifier\":", ",", left, end)
+		gr.IsProbationary, left = findWithIndex(pageStr, "is_probationary\":", ",", left, end)
+		gr.Name, left = findStringWithIndex(pageStr, "name\":", ",", left, end)
+		gr.ShortName, left = findStringWithIndex(pageStr, "short_name\":", ",", left, end)
+
+		buffer, left = findStringWithIndex(pageStr, "playmodes\":[", "]", left, end)
+		gr.Playmodes = strings.Split(buffer, ",")
+		if gr.Playmodes[0] == "" {
+			gr.Playmodes = nil
+		}
+
+		user.Groups = append(user.Groups, gr)
+	}
+
+	return user, end + 1
 }
 
 // Функция парсинга юзеров
