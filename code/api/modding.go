@@ -566,6 +566,17 @@ func parseUsers(pageStr, subStr, stopChar string, left int) ([]ModdingUserString
 
 }
 
+// Функция парсинга карты
+func parseBeatmap(pageStr string, left int) (BeatmapsString, int) {
+
+	var result BeatmapsString
+	end := index(pageStr, "\"checksum\":", left, -1) + 36
+	fmt.Println(pageStr[end-10 : end+10])
+
+	return result, end + 1
+
+}
+
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
