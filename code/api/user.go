@@ -700,7 +700,7 @@ func GetUserInfo(id string) UserInfo {
 	return result
 }
 
-// Роут "/user"  для vercel
+// Роут "/user"
 func User(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметра id из реквеста

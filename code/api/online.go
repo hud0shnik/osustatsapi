@@ -56,7 +56,7 @@ func GetOnlineInfo(id string) OnlineInfo {
 	}
 }
 
-// Роут "/online"  для vercel
+// Роут "/online"
 func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметра id из реквеста

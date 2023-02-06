@@ -867,7 +867,7 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 	return result
 }
 
-// Роут "/map" для vercel
+// Роут "/map"
 func Map(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметра id из реквеста
