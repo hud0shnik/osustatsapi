@@ -577,6 +577,24 @@ func parseBeatmap(pageStr string, left int) (BeatmapsString, int) {
 
 }
 
+// Функция парсинга карт
+func parseBeatmaps(pageStr, subStr, stopChar string, left int) ([]BeatmapsString, int) {
+
+	var result []BeatmapsString
+	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
+
+	for index(pageStr, "\"beatmapset_id\":", left, end) != -1 {
+
+		var bm BeatmapsString
+		bm, left = parseBeatmap(pageStr, left)
+
+		result = append(result, bm)
+
+	}
+
+	return result, end
+}
+
 // Функция получения текстовой информации
 func GetModdingInfoString(id string) ModdingResponseString {
 
