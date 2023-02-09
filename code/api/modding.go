@@ -479,7 +479,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 	ev.Discussion.StartingPost.UpdatedAt, left = findStringWithIndex(pageStr, "\"updated_at\":", ",", left, end)
 	ev.Discussion.StartingPost.UserId, left = findWithIndex(pageStr, "\"user_id\":", "}", left, end)
 
-	return ev, left
+	return ev, end + 1
 }
 
 // Функция парсинга ивентов
@@ -638,12 +638,13 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	left := 0
 
 	result.Events, left = parseEvents(pageStr, "<script id=\"json-events\"", "</script>", 0)
-	result.Users, _ = parseUsers(pageStr, "<script id=\"json-users\"", "</script>", left)
+	result.Users, left = parseUsers(pageStr, "<script id=\"json-users\"", "</script>", left)
+	result.Beatmaps, _ = parseBeatmaps(pageStr, "<script id=\"json-beatmaps\"", "</script>", left)
 
 	return result
 }
 
-// Роут "/modding"  для vercel
+// Роут "/modding"
 func Modding(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметра id из реквеста
