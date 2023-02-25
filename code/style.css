@@ -50,3 +50,9 @@ body {
     padding-bottom: 5px;
     padding-right: 10px;
 }
+.message{
+    font-size: 250%;
+}
+img{
+    height:220px;
+}
