@@ -2,8 +2,8 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -876,7 +876,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 
 	// Если параметра нет, отправка ошибки
 	if id == "" || beatmapset == "" {
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -887,7 +887,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
 		if err != nil {
-			fmt.Print("Error: ", err)
+			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)
@@ -896,7 +896,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	} else {
 		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
 		if err != nil {
-			fmt.Print("Error: ", err)
+			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)

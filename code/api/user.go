@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -708,7 +709,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 	// Если параметра нет, отправка ошибки
 	if id == "" {
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -719,7 +720,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetUserInfoString(id))
 		if err != nil {
-			fmt.Print("Error: ", err)
+			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)
@@ -728,7 +729,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 	} else {
 		jsonResp, err := json.Marshal(GetUserInfo(id))
 		if err != nil {
-			fmt.Print("Error: ", err)
+			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		} else {
 			w.WriteHeader(http.StatusOK)

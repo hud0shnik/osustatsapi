@@ -2,8 +2,8 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -64,7 +64,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Если параметра нет, отправка ошибки
 	if id == "" {
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -74,7 +74,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 	// Получение статистики, форматирование и отправка
 	jsonResp, err := json.Marshal(GetOnlineInfo(id))
 	if err != nil {
-		fmt.Print("Error: ", err)
+		log.Printf("json.Marshal error: %s", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
 		w.WriteHeader(http.StatusOK)

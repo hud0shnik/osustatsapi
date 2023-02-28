@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -652,7 +653,7 @@ func Modding(w http.ResponseWriter, r *http.Request) {
 
 	// Если параметра нет, отправка ошибки
 	if id == "" {
-		http.NotFound(w, r)
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -664,7 +665,7 @@ func Modding(w http.ResponseWriter, r *http.Request) {
 		"status": "Not yet available",
 	})
 	if err != nil {
-		fmt.Print("Error: ", err)
+		log.Printf("json.Marshal error: %s", err)
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
 		w.WriteHeader(http.StatusOK)
