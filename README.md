@@ -1,18 +1,22 @@
 # 🎨 OsuStatsApi 🎶
 
-Osu Stats Api provides fast and powerful
-access to player statistics,
-including real PP count and real Accuracy percentage
+<i><b>OsuStatsApi</b></i> provides fast and powerful access to player statistics, including real PP count and real Accuracy percentage
 
-<h2>Structures</h2>
+<h2>/user/</h2>
+<h3>Request</h3>
 
-<h3>/user/</h3>
-<h4>Request sample </h4>
-  
-   ``` Elixir
-   https://osustatsapi.vercel.app/api/user?id=hud0shnik
-   ```
-  
+``` Elixir
+https://osustatsapi.vercel.app/api/user
+```
+
+Parameter       | Value type | Description   
+----------------|------------|-------------------------------------
+id              |   string   | username
+type            |   string   | response type (like "string")
+
+
+<h3>Structures</h3>
+
 <h4>UserInfo</h4>
 
 Field                       |       Type         | Description
@@ -131,13 +135,20 @@ data                        |       []int        |
 
 
 
-<h3>/online/</h3>
-<h4>Request sample </h4>
-  
-   ``` Elixir
-   https://osustatsapi.vercel.app/api/online?id=hud0shnik
-   ```
-   
+<h2>/online/</h2>
+<h3>Request</h3>
+
+``` Elixir
+https://osustatsapi.vercel.app/api/online
+```
+
+Parameter       | Value type | Description   
+----------------|------------|-------------------------------------
+id              |   string   | username
+type            |   string   | response type (like "string")
+
+<h3>Structures</h3>
+
 <h4>OnlineResponse</h4>
 
 Field                       |       Type         | Description
@@ -148,13 +159,21 @@ status                      |       string       |
 
 
 
-<h3>/map/</h3>
-<h4>Request sample </h4>
-  
-   ``` Elixir
-   https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
-   ```
+<h2>/map/</h2>
+<h3>Request</h3>
 
+``` Elixir
+https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
+```
+
+Parameter       | Value type | Description   
+----------------|------------|-------------------------------------
+id              |    int     | map id
+beatmapset      |    int     | beatmapset id
+type            |   string   | response type (like "string")
+
+
+<h3>Structures</h3>
 <h4>MapResponse</h4>
 
 Field                       |       Type         | Description
