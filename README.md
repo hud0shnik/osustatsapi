@@ -9,10 +9,10 @@
 https://osustatsapi.vercel.app/api/user
 ```
 
-Parameter       | Value type | Description   
-----------------|------------|-------------------------------------
-id              |   string   | username
-type            |   string   | response type (like "string")
+Parameter       | Value type | Required | Description  
+----------------|------------|----------|------------
+id              |   string   |   Yes    |username
+type            |   string   |   No     |response type (like "string")
 
 
 <h3>Structures</h3>
@@ -142,10 +142,10 @@ data                        |       []int        |
 https://osustatsapi.vercel.app/api/online
 ```
 
-Parameter       | Value type | Description   
-----------------|------------|-------------------------------------
-id              |   string   | username
-type            |   string   | response type (like "string")
+Parameter       | Value type | Required | Description   
+----------------|------------|----------|------------
+id              |   string   |   Yes    | username
+type            |   string   |   No     | response type (like "string")
 
 <h3>Structures</h3>
 
@@ -163,14 +163,14 @@ status                      |       string       |
 <h3>Request</h3>
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/map?beatmapset=1607429&id=3477840
+https://osustatsapi.vercel.app/api/map
 ```
 
-Parameter       | Value type | Description   
-----------------|------------|-------------------------------------
-id              |    int     | map id
-beatmapset      |    int     | beatmapset id
-type            |   string   | response type (like "string")
+Parameter       | Value type | Required | Description   
+----------------|------------|----------|-------------
+id              |    int     |   Yes    | map id
+beatmapset      |    int     |   Yes    | beatmapset id
+type            |   string   |   No     | response type (like "string")
 
 
 <h3>Structures</h3>
