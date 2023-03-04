@@ -870,6 +870,9 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 // Роут "/map"
 func Map(w http.ResponseWriter, r *http.Request) {
 
+	// Передача в заголовок респонса типа данных
+	w.Header().Set("Content-Type", "application/json")
+
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 	beatmapset := r.URL.Query().Get("beatmapset")
@@ -877,18 +880,19 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	// Если параметра нет, отправка ошибки
 	if id == "" || beatmapset == "" {
 		w.WriteHeader(http.StatusBadRequest)
+		json, _ := json.Marshal(map[string]string{"Error": "Please insert map id and beatmapset id"})
+		w.Write(json)
 		return
 	}
-
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
 
 	// Проверка на тип, получение статистики, форматирование и отправка
 	if r.URL.Query().Get("type") == "string" {
 		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
 		if err != nil {
-			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			w.Write(json)
+			log.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
@@ -896,8 +900,10 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	} else {
 		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
 		if err != nil {
-			log.Printf("json.Marshal error: %s", err)
 			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			w.Write(json)
+			log.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
