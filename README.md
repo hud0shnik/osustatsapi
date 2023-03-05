@@ -1,9 +1,17 @@
-# 🎨 OsuStatsApi 🎶
+# 🖌️ OsuStatsApi 🎶
 
 <i><b>OsuStatsApi</b></i> provides fast and powerful access to player statistics, including real PP count and real Accuracy percentage
 
-<h2>/user/</h2>
-<h3>Request</h3>
+## Overview
+
+- [Overview](#overview)
+- [User](#user)
+- [Online](#online)
+- [Map](#map)
+
+## User
+
+### Request
 
 ``` Elixir
 https://osustatsapi.vercel.app/api/user
@@ -15,9 +23,9 @@ id              |   string   |   Yes    |username
 type            |   string   |   No     |response type (like "string")
 
 
-<h3>Structures</h3>
+### Structures
 
-<h4>UserInfo</h4>
+#### UserInfo
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -100,7 +108,7 @@ rank_history                |       History      |
 unranked_beatmapset_count   |        int         |
 
 
-<h4>Cover</h4>
+#### Cover
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -109,7 +117,7 @@ url                         |       string       |
 id                          |        int         |
 
 
-<h4>Badge</h4>
+#### Badge
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -118,7 +126,7 @@ description                 |       string       |
 image_url                   |       string       |
 
 
-<h4>Achievement</h4>
+#### Achievement
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -126,7 +134,7 @@ achieved_at                 |       string       | UTC format date (yyyy-mm-ddTh
 achievement_id              |       string       |
 
 
-<h4>History</h4>
+#### History
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -135,8 +143,9 @@ data                        |       []int        |
 
 
 
-<h2>/online/</h2>
-<h3>Request</h3>
+## Online
+
+### Request
 
 ``` Elixir
 https://osustatsapi.vercel.app/api/online
@@ -147,9 +156,9 @@ Parameter       | Value type | Required | Description
 id              |   string   |   Yes    | username
 type            |   string   |   No     | response type (like "string")
 
-<h3>Structures</h3>
+### Structures
 
-<h4>OnlineResponse</h4>
+#### OnlineResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -158,9 +167,9 @@ error                       |       string       | api error response (default v
 status                      |       string       |
 
 
+## Map
 
-<h2>/map/</h2>
-<h3>Request</h3>
+### Request
 
 ``` Elixir
 https://osustatsapi.vercel.app/api/map
@@ -173,8 +182,9 @@ beatmapset      |    int     |   Yes    | beatmapset id
 type            |   string   |   No     | response type (like "string")
 
 
-<h3>Structures</h3>
-<h4>MapResponse</h4>
+### Structures
+
+#### MapResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -231,7 +241,7 @@ pinned_comments             |      []Comment     |
 user_follow                 |        bool        |
 
   
-<h4>Covers</h4>
+#### Covers
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -245,7 +255,7 @@ slimcover                   |       string       |
 slimcover@2x                |       string       |
 
   
-<h4>NominationsSummary</h4>
+#### NominationsSummary
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -253,7 +263,7 @@ current                     |        int         |
 required                    |        int         |
 
 
-<h4>Maps</h4>
+#### Maps
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -288,7 +298,7 @@ failtimes                   |     Failtimes      |
 max_combo                   |        int         |
 
 
-<h4>Failtimes</h4>
+#### Failtimes
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -296,7 +306,7 @@ Fail                        |       []int        |
 Exit                        |       []int        |
   
 
-<h4>CurrentNomination</h4>
+#### CurrentNomination
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -306,7 +316,7 @@ reset                       |        bool        |
 user_id                     |        int         |
 
 
-<h4>BmUser</h4>
+#### BmUser
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -325,7 +335,7 @@ profile_color               |       string       |
 username                    |       string       |
 
 
-<h4>Comment</h4>
+#### Comment
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
