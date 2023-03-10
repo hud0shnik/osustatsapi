@@ -701,7 +701,9 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		log.Fatal(err)
 	}*/
 
-	result := MapStringResponse{}
+	result := MapStringResponse{
+		Success: true,
+	}
 	left := 0
 
 	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
@@ -799,7 +801,7 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 	resultStr := GetMapInfoString(beatmapset, id)
 
 	// Проверка на ошибки при парсинге
-	if resultStr.Error != "" {
+	if !resultStr.Success {
 		return MapResponse{
 			Success: false,
 			Error:   resultStr.Error,

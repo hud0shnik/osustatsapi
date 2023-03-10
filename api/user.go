@@ -432,7 +432,9 @@ func GetUserInfoString(id string) UserInfoString {
 	*/
 
 	// Структура, которую будет возвращать функция
-	result := UserInfoString{}
+	result := UserInfoString{
+		Success: true,
+	}
 
 	// Крайняя левая граница поиска
 	left := 0
@@ -593,7 +595,7 @@ func GetUserInfo(id string) UserInfo {
 	resultStr := GetUserInfoString(id)
 
 	// Проверка на ошибки при парсинге
-	if resultStr.Error != "" {
+	if !resultStr.Success {
 		return UserInfo{
 			Success: false,
 			Error:   resultStr.Error,

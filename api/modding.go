@@ -633,7 +633,9 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	}*/
 
 	// Структура, которую будет возвращать функция
-	result := ModdingResponseString{}
+	result := ModdingResponseString{
+		Success: true,
+	}
 
 	// Крайняя левая граница поиска
 	left := 0
