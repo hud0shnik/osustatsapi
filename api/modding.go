@@ -13,7 +13,7 @@ import (
 
 // Структура респонса
 type ModdingResponseString struct {
-	Success        string                     `json:"success"`
+	Success        bool                       `json:"success"`
 	Error          string                     `json:"error"`
 	Events         []EventString              `json:"events"`
 	Users          []ModdingUserString        `json:"users"`
@@ -603,7 +603,7 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/modding")
 	if err != nil {
 		return ModdingResponseString{
-			Success: "false",
+			Success: false,
 			Error:   "http get error",
 		}
 	}
@@ -618,7 +618,7 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
 		return ModdingResponseString{
-			Success: "false",
+			Success: false,
 			Error:   "user not found",
 		}
 	}

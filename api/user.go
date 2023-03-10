@@ -124,7 +124,7 @@ type History struct {
 
 // Информация о пользователе
 type UserInfoString struct {
-	Success                 string              `json:"success"`
+	Success                 bool                `json:"success"`
 	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
 	CountryCode             string              `json:"country_code"`
@@ -401,7 +401,7 @@ func GetUserInfoString(id string) UserInfoString {
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
 		return UserInfoString{
-			Success: "false",
+			Success: false,
 			Error:   "http get error",
 		}
 	}
@@ -416,7 +416,7 @@ func GetUserInfoString(id string) UserInfoString {
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
 		return UserInfoString{
-			Success: "false",
+			Success: false,
 			Error:   "user not found",
 		}
 	}

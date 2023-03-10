@@ -171,7 +171,7 @@ type Comment struct {
 
 // Структура респонса
 type MapStringResponse struct {
-	Success            string                    `json:"success"`
+	Success            bool                      `json:"success"`
 	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
@@ -675,7 +675,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
 	if err != nil {
 		return MapStringResponse{
-			Success: "false",
+			Success: false,
 			Error:   "http get error",
 		}
 	}
@@ -683,7 +683,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	// Проверка на ошибки
 	if resp.StatusCode != 200 {
 		return MapStringResponse{
-			Success: "false",
+			Success: false,
 			Error:   resp.Status,
 		}
 	}
