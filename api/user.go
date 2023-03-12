@@ -528,6 +528,9 @@ func GetUserInfoString(id string) UserInfoString {
 	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left, -1)
 	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left, -1)
 	result.Names = strings.Split(find(pageStr, "previous_usernames :[ ", " ],", left), " , ")
+	if result.Names[0] == "" {
+		result.Names = nil
+	}
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left, -1)
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left, -1)
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left, -1)
