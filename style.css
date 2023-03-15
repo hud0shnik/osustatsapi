@@ -21,9 +21,9 @@ body {
 }
 .card a{
     margin: 8px;
-    width: 70%; 
+    width: 600px; 
     color: #FFFFFF;
-    font-size: 250%;
+    font-size: 160%;
     line-height: 1.75;
     background-color: #1C1719;
     border-radius: 10000px;
