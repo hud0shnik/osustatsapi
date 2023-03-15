@@ -697,7 +697,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	pageStr = pageStr[index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000, -1)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
-	/*if err := os.WriteFile("sampleVotes.html", []byte(pageStr), 0666); err != nil {
+	/*if err := os.WriteFile("sampleMap.html", []byte(pageStr), 0666); err != nil {
 		log.Fatal(err)
 	}*/
 
@@ -748,7 +748,6 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.TrackId, left = findWithIndex(pageStr, "\"track_id\":", ",", left, -1)
 	result.UserId, left = findWithIndex(pageStr, "\"user_id\":", ",", left, -1)
 	result.Video, left = findWithIndex(pageStr, "\"video\":", ",", left, -1)
-	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left, -1)
 	result.Bpm, left = findWithIndex(pageStr, "\"bpm\":", ",", left, -1)
 	result.CanBeHyped, left = findWithIndex(pageStr, "\"can_be_hyped\":", ",", left, -1)
 	result.DiscussionEnabled, left = findWithIndex(pageStr, "\"discussion_enabled\":", ",", left, -1)
@@ -757,7 +756,6 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 	result.LastUpdated, left = findStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
 	result.LegacyThreadUrl, left = findStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left, -1)
 	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
-
 	result.NominationsSummary.Current, left = findWithIndex(pageStr, "\"current\":", ",", left, -1)
 	result.NominationsSummary.Required, left = findWithIndex(pageStr, "\"required\":", "}", left, -1)
 
@@ -771,6 +769,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		result.Tags = nil
 	}
 
+	result.DownloadDisabled, left = findWithIndex(pageStr, "\"download_disabled\":", ",", left, -1)
 	result.Beatmaps, left = parseMapsString(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
 	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
 	result.CurrentNominations, left = parseCurrentNominations(pageStr, "current_nominations\":[", "\"description\":{\"description\":", left)
