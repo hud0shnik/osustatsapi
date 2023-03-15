@@ -164,7 +164,7 @@ Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 success                     |        bool        | 
 error                       |       string       | api error response (default value= "")
-status                      |       string       |
+status                      |        bool        | true = online
 
 
 ## Map
