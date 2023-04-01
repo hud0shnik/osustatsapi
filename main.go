@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	api "osustatsapi/api"
+	api2 "osustatsapi/api/v2"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -23,10 +24,13 @@ func main() {
 	// Маршруты
 
 	router.HandleFunc("/api/user", api.User).Methods("GET")
+	router.HandleFunc("/api/v2/user", api2.User).Methods("GET")
 
 	router.HandleFunc("/api/online", api.Online).Methods("GET")
+	router.HandleFunc("/api/v2/online", api2.Online).Methods("GET")
 
 	router.HandleFunc("/api/map", api.Map).Methods("GET")
+	router.HandleFunc("/api/v2/map", api2.Map).Methods("GET")
 
 	router.HandleFunc("/api/modding", api.Modding).Methods("GET")
 
