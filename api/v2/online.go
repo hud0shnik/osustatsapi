@@ -9,26 +9,26 @@ import (
 )
 
 // Структура статуса пользователя
-type OnlineInfo struct {
+type onlineInfo struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 	Status  bool   `json:"is_online"`
 }
 
 // Структура статуса пользователя для парсинга
-type OnlineInfoString struct {
+type onlineInfoString struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 	Status  string `json:"is_online"`
 }
 
 // Функция парсинга информации о пользователе
-func GetOnlineInfoString(id string) OnlineInfoString {
+func getOnlineInfoString(id string) onlineInfoString {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return OnlineInfoString{
+		return onlineInfoString{
 			Success: false,
 			Error:   "can't reach osu.ppy.sh",
 		}
@@ -50,23 +50,23 @@ func GetOnlineInfoString(id string) OnlineInfoString {
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
-		return OnlineInfoString{
+		return onlineInfoString{
 			Success: false,
 			Error:   "not found",
 		}
 	}
 
 	// Поиск статуса пользователя и вывод результата
-	return OnlineInfoString{
+	return onlineInfoString{
 		Success: true,
 		Status:  find(pageStr, "is_online&quot;:", ",", 0),
 	}
 }
 
 // Функция получения информации о пользователе
-func GetOnlineInfo(id string) OnlineInfo {
-	resultStr := GetOnlineInfoString(id)
-	return OnlineInfo{
+func GetOnlineInfo(id string) onlineInfo {
+	resultStr := getOnlineInfoString(id)
+	return onlineInfo{
 		Success: resultStr.Success,
 		Error:   resultStr.Error,
 		Status:  toBool(resultStr.Status),
@@ -85,7 +85,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 	// Проверка на наличие параметра
 	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(ApiError{Error: "please insert user id"})
+		json, _ := json.Marshal(apiError{Error: "please insert user id"})
 		w.Write(json)
 		return
 	}
@@ -94,23 +94,23 @@ func Online(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 
 		// Получение статистики и перевод в json
-		result := GetOnlineInfoString(id)
+		result := getOnlineInfoString(id)
 		jsonResp, err := json.Marshal(result)
 
 		// Обработчик ошибок
 		switch {
 		case err != nil:
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(ApiError{Error: "internal server error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
 			log.Printf("json.Marshal error: %s", err)
 		case result.Error == "not found":
 			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(ApiError{Error: "not found"})
+			json, _ := json.Marshal(apiError{Error: "not found"})
 			w.Write(json)
 		case !result.Success:
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(ApiError{Error: result.Error})
+			json, _ := json.Marshal(apiError{Error: result.Error})
 			w.Write(json)
 		default:
 			w.WriteHeader(http.StatusOK)
@@ -127,16 +127,16 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case err != nil:
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(ApiError{Error: "internal server error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
 			log.Printf("json.Marshal error: %s", err)
 		case result.Error == "not found":
 			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(ApiError{Error: "not found"})
+			json, _ := json.Marshal(apiError{Error: "not found"})
 			w.Write(json)
 		case !result.Success:
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(ApiError{Error: result.Error})
+			json, _ := json.Marshal(apiError{Error: result.Error})
 			w.Write(json)
 		default:
 			w.WriteHeader(http.StatusOK)
