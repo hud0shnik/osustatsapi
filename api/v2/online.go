@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 )
 
 // Структура статуса пользователя
@@ -33,13 +32,7 @@ func getOnlineInfoString(id string) onlineInfoString {
 			Error:   "can't reach osu.ppy.sh",
 		}
 	}
-
-	// Запись респонса
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	// Полученная страница в формате string
-	pageStr := string(body)[80000:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*
@@ -48,13 +41,18 @@ func getOnlineInfoString(id string) onlineInfoString {
 		}
 	*/
 
-	// Проверка на страницу пользователя
-	if !strings.Contains(pageStr, "js-react--profile") {
+	// Проверка статускода
+	if resp.StatusCode != 200 {
 		return onlineInfoString{
 			Success: false,
-			Error:   "not found",
+			Error:   resp.Status,
 		}
 	}
+	// Запись респонса
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	// Полученная страница в формате string
+	pageStr := string(body)[80000:]
 
 	// Поиск статуса пользователя и вывод результата
 	return onlineInfoString{

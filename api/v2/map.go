@@ -679,6 +679,7 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 			Error:   "can't reach osu.ppy.sh",
 		}
 	}
+	defer resp.Body.Close()
 
 	// Проверка на ошибки
 	if resp.StatusCode != 200 {
@@ -689,7 +690,6 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 	}
 
 	// Запись респонса
-	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// Полученная страница в формате string
@@ -701,6 +701,7 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 		log.Fatal(err)
 	}*/
 
+	// Структура результата и указатель отработанной части
 	result := mapStringResponse{
 		Success: true,
 	}

@@ -411,21 +411,21 @@ func getUserInfoString(id string) userInfoString {
 			Error:   "can't reach osu.ppy.sh",
 		}
 	}
+	defer resp.Body.Close()
+
+	// Проверка статускода
+	if resp.StatusCode != 200 {
+		return userInfoString{
+			Success: false,
+			Error:   resp.Status,
+		}
+	}
 
 	// Запись респонса
-	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// HTML полученной страницы в формате string
 	pageStr := string(body)[80000:]
-
-	// Проверка на страницу пользователя
-	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
-		return userInfoString{
-			Success: false,
-			Error:   "not found",
-		}
-	}
 
 	// Обрезка юзелесс части html"ки
 	pageStr = strings.ReplaceAll(pageStr[strings.Index(pageStr, "current_mode"):], "&quot;", " ")
