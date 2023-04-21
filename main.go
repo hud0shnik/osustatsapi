@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	api "osustatsapi/api"
+	"osustatsapi/api"
 	api2 "osustatsapi/api/v2"
 	"time"
 
