@@ -11,12 +11,12 @@ import (
 // ---------------------- Классические структуры ------------------------
 
 // Структура респонса
-type MapResponse struct {
+type mapResponse struct {
 	Success            bool                `json:"success"`
 	Error              string              `json:"error"`
 	Artist             string              `json:"artist"`
 	ArtistUnicode      string              `json:"artist_string"`
-	Covers             Covers              `json:"covers"`
+	Covers             covers              `json:"covers"`
 	Creator            string              `json:"creator"`
 	FavoriteCount      int                 `json:"favorite_count"`
 	HypeCurrent        int                 `json:"hype_current"`
@@ -42,31 +42,31 @@ type MapResponse struct {
 	IsScoreable        bool                `json:"is_scoreable"`
 	LastUpdated        string              `json:"last_updated"`
 	LegacyThreadUrl    string              `json:"legacy_thread_url"`
-	NominationsSummary NominationsSummary  `json:"nominations_summary"`
+	NominationsSummary nominationsSummary  `json:"nominations_summary"`
 	Ranked             int                 `json:"ranked"`
 	RankedDate         string              `json:"ranked_date"`
 	Storyboard         bool                `json:"storyboard"`
 	SubmittedDate      string              `json:"submitted_date"`
 	Tags               []string            `json:"tags"`
-	Beatmaps           []Maps              `json:"beatmaps"`
-	Converts           []Maps              `json:"converts"`
-	CurrentNominations []CurrentNomination `json:"current_nominations"`
+	Beatmaps           []maps              `json:"beatmaps"`
+	Converts           []maps              `json:"converts"`
+	CurrentNominations []currentNomination `json:"current_nominations"`
 	Description        string              `json:"description"`
 	GenreId            int                 `json:"genre_id"`
 	GenreName          string              `json:"genre_name"`
 	LanguageId         int                 `json:"language_id"`
 	LanguageName       string              `json:"language_name"`
 	Ratings            []int               `json:"ratings"`
-	RecentFavourites   []BmUser            `json:"recent_favourites"`
-	RelatedUsers       []BmUser            `json:"related_users"`
-	User               BmUser              `json:"user"`
-	Comments           []Comment           `json:"comments"`
-	PinnedComments     []Comment           `json:"pinned_comments"`
+	RecentFavourites   []bmUser            `json:"recent_favourites"`
+	RelatedUsers       []bmUser            `json:"related_users"`
+	User               bmUser              `json:"user"`
+	Comments           []comment           `json:"comments"`
+	PinnedComments     []comment           `json:"pinned_comments"`
 	UserFollow         bool                `json:"user_follow"`
 }
 
 // Картинки
-type Covers struct {
+type covers struct {
 	Cover       string `json:"cover"`
 	Cover2X     string `json:"cover@2x"`
 	Card        string `json:"card"`
@@ -78,13 +78,13 @@ type Covers struct {
 }
 
 // Оценка номинаций
-type NominationsSummary struct {
+type nominationsSummary struct {
 	Current  int `json:"current"`
 	Required int `json:"required"`
 }
 
 // Структура карты
-type Maps struct {
+type maps struct {
 	BeatmapSetId     int       `json:"beatmapset_id"`
 	DifficultyRating float64   `json:"difficulty_rating"`
 	Id               int       `json:"id"`
@@ -112,18 +112,18 @@ type Maps struct {
 	Ranked           int       `json:"ranked"`
 	Url              string    `json:"url"`
 	Checksum         string    `json:"checksum"`
-	Failtimes        Failtimes `json:"failtimes"`
+	Failtimes        failtimes `json:"failtimes"`
 	MaxCombo         int       `json:"max_combo"`
 }
 
 // Структура проигрышей
-type Failtimes struct {
+type failtimes struct {
 	Fail []int `json:"fail"`
 	Exit []int `json:"exit"`
 }
 
 // Структура номинации
-type CurrentNomination struct {
+type currentNomination struct {
 	BeatmapsetId int    `json:"beatmapset_id"`
 	Rulesets     string `json:"rulesets"`
 	Reset        bool   `json:"reset"`
@@ -131,7 +131,7 @@ type CurrentNomination struct {
 }
 
 // Структура пользователя
-type BmUser struct {
+type bmUser struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
 	DefaultGroup  string `json:"default_group"`
@@ -148,7 +148,7 @@ type BmUser struct {
 }
 
 // Структура комментария
-type Comment struct {
+type comment struct {
 	Id              int    `json:"id"`
 	ParentId        int    `json:"parent_id"`
 	UserId          int    `json:"user_id"`
@@ -170,12 +170,12 @@ type Comment struct {
 // ---------------------- Структуры для парсинга ------------------------
 
 // Структура респонса
-type MapStringResponse struct {
+type mapStringResponse struct {
 	Success            bool                      `json:"success"`
 	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
-	Covers             Covers                    `json:"covers"`
+	Covers             covers                    `json:"covers"`
 	Creator            string                    `json:"creator"`
 	FavoriteCount      string                    `json:"favorite_count"`
 	HypeCurrent        string                    `json:"hype_current"`
@@ -201,37 +201,37 @@ type MapStringResponse struct {
 	IsScoreable        string                    `json:"is_scoreable"`
 	LastUpdated        string                    `json:"last_updated"`
 	LegacyThreadUrl    string                    `json:"legacy_thread_url"`
-	NominationsSummary NominationsSummaryString  `json:"nominations_summary"`
+	NominationsSummary nominationsSummaryString  `json:"nominations_summary"`
 	Ranked             string                    `json:"ranked"`
 	RankedDate         string                    `json:"ranked_date"`
 	Storyboard         string                    `json:"storyboard"`
 	SubmittedDate      string                    `json:"submitted_date"`
 	Tags               []string                  `json:"tags"`
-	Beatmaps           []MapsString              `json:"beatmaps"`
-	Converts           []MapsString              `json:"converts"`
-	CurrentNominations []CurrentNominationString `json:"current_nominations"`
+	Beatmaps           []mapsString              `json:"beatmaps"`
+	Converts           []mapsString              `json:"converts"`
+	CurrentNominations []currentNominationString `json:"current_nominations"`
 	Description        string                    `json:"description"`
 	GenreId            string                    `json:"genre_id"`
 	GenreName          string                    `json:"genre_name"`
 	LanguageId         string                    `json:"language_id"`
 	LanguageName       string                    `json:"language_name"`
 	Ratings            string                    `json:"ratings"`
-	RecentFavourites   []BmUserString            `json:"recent_favourites"`
-	RelatedUsers       []BmUserString            `json:"related_users"`
-	User               BmUserString              `json:"user"`
-	Comments           []CommentString           `json:"comments"`
-	PinnedComments     []CommentString           `json:"pinned_comments"`
+	RecentFavourites   []bmUserString            `json:"recent_favourites"`
+	RelatedUsers       []bmUserString            `json:"related_users"`
+	User               bmUserString              `json:"user"`
+	Comments           []commentString           `json:"comments"`
+	PinnedComments     []commentString           `json:"pinned_comments"`
 	UserFollow         string                    `json:"user_follow"`
 }
 
 // Оценка номинаций
-type NominationsSummaryString struct {
+type nominationsSummaryString struct {
 	Current  string `json:"current"`
 	Required string `json:"required"`
 }
 
 // Структура карты
-type MapsString struct {
+type mapsString struct {
 	BeatmapSetId     string          `json:"beatmapset_id"`
 	DifficultyRating string          `json:"difficulty_rating"`
 	Id               string          `json:"id"`
@@ -259,18 +259,18 @@ type MapsString struct {
 	Ranked           string          `json:"ranked"`
 	Url              string          `json:"url"`
 	Checksum         string          `json:"checksum"`
-	Failtimes        FailtimesString `json:"failtimes"`
+	Failtimes        failtimesString `json:"failtimes"`
 	MaxCombo         string          `json:"max_combo"`
 }
 
 // Структура проигрышей
-type FailtimesString struct {
+type failtimesString struct {
 	Fail string `json:"fail"`
 	Exit string `json:"exit"`
 }
 
 // Структура номинации
-type CurrentNominationString struct {
+type currentNominationString struct {
 	BeatmapsetId string `json:"beatmapset_id"`
 	Rulesets     string `json:"rulesets"`
 	Reset        string `json:"reset"`
@@ -278,7 +278,7 @@ type CurrentNominationString struct {
 }
 
 // Структура пользователя
-type BmUserString struct {
+type bmUserString struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
 	DefaultGroup  string `json:"default_group"`
@@ -295,7 +295,7 @@ type BmUserString struct {
 }
 
 // Структура комментария
-type CommentString struct {
+type commentString struct {
 	Id              string `json:"id"`
 	ParentId        string `json:"parent_id"`
 	UserId          string `json:"user_id"`
@@ -317,7 +317,7 @@ type CommentString struct {
 // ---------------------- Функции парсинга ----------------------
 
 // Функция парсинга текущих номинаций
-func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]CurrentNominationString, int) {
+func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]currentNominationString, int) {
 
 	// Индекс конца номинаций
 	var end int
@@ -327,18 +327,18 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 
 	// Проверка на наличие номинаций
 	if len(pageStr) == 0 {
-		return []CurrentNominationString{}, end
+		return []currentNominationString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []CurrentNominationString
+	var result []currentNominationString
 	left = 0
 
 	// Пока есть необработанные карты
 	for index(pageStr, "beatmapset_id", left, -1) != -1 {
 
 		// Структура номинации
-		var cn CurrentNominationString
+		var cn currentNominationString
 
 		// Запись данных
 		cn.BeatmapsetId, left = findWithIndex(pageStr, "beatmapset_id\":", ",", left, -1)
@@ -354,10 +354,10 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]Curr
 }
 
 // Функция парсинга карты
-func parseMapString(pageStr string, left int) (MapsString, int) {
+func parseMapString(pageStr string, left int) (mapsString, int) {
 
 	// Структура карты
-	var bm MapsString
+	var bm mapsString
 
 	// Запись данных
 	bm.BeatmapSetId, left = findWithIndex(pageStr, "\"beatmapset_id\":", ",", left, -1)
@@ -398,7 +398,7 @@ func parseMapString(pageStr string, left int) (MapsString, int) {
 }
 
 // Функция парсинга карт
-func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, int) {
+func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, int) {
 
 	// Индекс конца карт
 	var end int
@@ -408,18 +408,18 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 
 	// Проверка на наличие карт
 	if len(pageStr) == 0 {
-		return []MapsString{}, end
+		return []mapsString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []MapsString
+	var result []mapsString
 	left = 0
 
 	// Пока есть необработанные карты
 	for index(pageStr, "\"beatmapset_id\"", left, -1) != -1 {
 
 		// Структура карты
-		var bm MapsString
+		var bm mapsString
 
 		bm, left = parseMapString(pageStr, left)
 
@@ -431,7 +431,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]MapsString, 
 }
 
 // Функция парсинга пользователей
-func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, int) {
+func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, int) {
 
 	// Индекс конца пользователей
 	var end int
@@ -441,18 +441,18 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []BmUserString{}, end
+		return []bmUserString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	var result []BmUserString
+	var result []bmUserString
 	left = 0
 
 	// Пока есть необработанные пользователи
 	for index(pageStr, "avatar_url", left, -1) != -1 {
 
 		// Структура пользователя
-		var user BmUserString
+		var user bmUserString
 
 		user, left = parseBmUserString(pageStr, left)
 
@@ -464,10 +464,10 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]BmUserString, i
 }
 
 // функция парсинга пользователей
-func parseBmUserString(pageStr string, left int) (BmUserString, int) {
+func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 
 	// Структура пользователя
-	var user BmUserString
+	var user bmUserString
 
 	// Запись данных
 	user.AvatarUrl, left = findStringWithIndex(pageStr, "avatar_url\":", ",", left, -1)
@@ -488,7 +488,7 @@ func parseBmUserString(pageStr string, left int) (BmUserString, int) {
 }
 
 // Функция парсинга комментов
-func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentString, int) {
+func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentString, int) {
 
 	// Индекс конца комментариев
 	var end int
@@ -498,18 +498,18 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentS
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
-		return []CommentString{}, end
+		return []commentString{}, end
 	}
 
 	// Результат и индекс обработанной части
-	result := []CommentString{}
+	result := []commentString{}
 	left = 0
 
 	// Пока есть необработанные пользователи
 	for i := 0; index(pageStr, "id\":", left, -1) != -1; i++ {
 
 		// Структура комментария
-		var cm CommentString
+		var cm commentString
 		cm.Id, left = findWithIndex(pageStr, "id\":", ",", left, -1)
 		cm.ParentId, left = findWithIndex(pageStr, "parent_id\":", ",", left, -1)
 		cm.UserId, left = findWithIndex(pageStr, "user_id\":", ",", left, -1)
@@ -541,14 +541,14 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]CommentS
 // ---------------------- Функции перевода ----------------------
 
 // Функция перевода карты
-func formatBeatmap(mpss []MapsString) []Maps {
+func formatBeatmap(mpss []mapsString) []maps {
 
-	var result []Maps
+	var result []maps
 
 	// Обработка текстовых карт
 	for _, mps := range mpss {
 
-		mp := Maps{
+		mp := maps{
 			BeatmapSetId:     toInt(mps.BeatmapSetId),
 			DifficultyRating: toFloat64(mps.DifficultyRating),
 			Id:               toInt(mps.Id),
@@ -576,7 +576,7 @@ func formatBeatmap(mpss []MapsString) []Maps {
 			Ranked:           toInt(mps.Ranked),
 			Url:              mps.Url,
 			Checksum:         mps.Checksum,
-			Failtimes: Failtimes{
+			Failtimes: failtimes{
 				Fail: toSlice(mps.Failtimes.Fail),
 				Exit: toSlice(mps.Failtimes.Exit),
 			},
@@ -591,13 +591,13 @@ func formatBeatmap(mpss []MapsString) []Maps {
 }
 
 // Функция перевода номинаций
-func formatCurrentNominations(cns []CurrentNominationString) []CurrentNomination {
+func formatCurrentNominations(cns []currentNominationString) []currentNomination {
 
-	var result []CurrentNomination
+	var result []currentNomination
 
 	// Обработка текстовых номинаций
 	for _, cn := range cns {
-		result = append(result, CurrentNomination{
+		result = append(result, currentNomination{
 			BeatmapsetId: toInt(cn.BeatmapsetId),
 			Rulesets:     cn.Rulesets,
 			Reset:        toBool(cn.Reset),
@@ -609,8 +609,8 @@ func formatCurrentNominations(cns []CurrentNominationString) []CurrentNomination
 }
 
 // Функция перевода пользователя
-func formatBmUser(usr BmUserString) BmUser {
-	return BmUser{
+func formatBmUser(usr bmUserString) bmUser {
+	return bmUser{
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
 		DefaultGroup:  usr.DefaultGroup,
@@ -628,8 +628,8 @@ func formatBmUser(usr BmUserString) BmUser {
 }
 
 // Функция перевода пользователей
-func formatBmUsers(usrs []BmUserString) []BmUser {
-	var result []BmUser
+func formatBmUsers(usrs []bmUserString) []bmUser {
+	var result []bmUser
 
 	for _, usr := range usrs {
 		result = append(result, formatBmUser(usr))
@@ -639,11 +639,11 @@ func formatBmUsers(usrs []BmUserString) []BmUser {
 }
 
 // Функция перевода комментариев
-func formatComments(cms []CommentString) []Comment {
-	var result []Comment
+func formatComments(cms []commentString) []comment {
+	var result []comment
 
 	for _, cm := range cms {
-		result = append(result, Comment{
+		result = append(result, comment{
 			Id:              toInt(cm.Id),
 			ParentId:        toInt(cm.ParentId),
 			UserId:          toInt(cm.UserId),
@@ -669,12 +669,12 @@ func formatComments(cms []CommentString) []Comment {
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения статистики карты
-func GetMapInfoString(beatmapset, id string) MapStringResponse {
+func GetMapInfoString(beatmapset, id string) mapStringResponse {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
 	if err != nil {
-		return MapStringResponse{
+		return mapStringResponse{
 			Success: false,
 			Error:   "http get error",
 		}
@@ -682,7 +682,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 
 	// Проверка на ошибки
 	if resp.StatusCode != 200 {
-		return MapStringResponse{
+		return mapStringResponse{
 			Success: false,
 			Error:   resp.Status,
 		}
@@ -701,7 +701,7 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 		log.Fatal(err)
 	}*/
 
-	result := MapStringResponse{
+	result := mapStringResponse{
 		Success: true,
 	}
 	left := 0
@@ -794,21 +794,21 @@ func GetMapInfoString(beatmapset, id string) MapStringResponse {
 }
 
 // Функция получения статистики карты
-func GetMapInfo(beatmapset, id string) MapResponse {
+func GetMapInfo(beatmapset, id string) mapResponse {
 
 	// Получение текстовой версии статистики
 	resultStr := GetMapInfoString(beatmapset, id)
 
 	// Проверка на ошибки при парсинге
 	if !resultStr.Success {
-		return MapResponse{
+		return mapResponse{
 			Success: false,
 			Error:   resultStr.Error,
 		}
 	}
 
 	// Перевод в классическую версию
-	result := MapResponse{
+	result := mapResponse{
 		Success:           true,
 		Error:             resultStr.Error,
 		Artist:            resultStr.Artist,
@@ -839,7 +839,7 @@ func GetMapInfo(beatmapset, id string) MapResponse {
 		IsScoreable:       toBool(resultStr.IsScoreable),
 		LastUpdated:       resultStr.LastUpdated,
 		LegacyThreadUrl:   resultStr.LegacyThreadUrl,
-		NominationsSummary: NominationsSummary{
+		NominationsSummary: nominationsSummary{
 			Current:  toInt(resultStr.NominationsSummary.Current),
 			Required: toInt(resultStr.NominationsSummary.Required),
 		},

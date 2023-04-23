@@ -14,7 +14,7 @@ import (
 // ---------------------- Классические структуры ------------------------
 
 // Информация о пользователе
-type UserInfo struct {
+type userInfo struct {
 	Success                 bool          `json:"success"`
 	Error                   string        `json:"error"`
 	AvatarUrl               string        `json:"avatar_url"`
@@ -49,7 +49,7 @@ type UserInfo struct {
 	Twitter                 string        `json:"twitter"`
 	Website                 string        `json:"website"`
 	CountyName              string        `json:"country_name"`
-	UserCover               Cover         `json:"cover"`
+	UserCover               cover         `json:"cover"`
 	IsAdmin                 bool          `json:"is_admin"`
 	IsBng                   bool          `json:"is_bng"`
 	IsFullBan               bool          `json:"is_full_bn"`
@@ -61,7 +61,7 @@ type UserInfo struct {
 	IsSilenced              bool          `json:"is_silenced"`
 	AccountHistory          string        `json:"account_history"`
 	ActiveTournamentBanner  string        `json:"active_tournament_banner"`
-	Badges                  []Badge       `json:"badges"`
+	Badges                  []badge       `json:"badges"`
 	CommentsCount           int           `json:"comments_count"`
 	FollowerCount           int           `json:"follower_count"`
 	Groups                  string        `json:"groups"`
@@ -88,34 +88,34 @@ type UserInfo struct {
 	A                       int           `json:"a"`
 	CountryRank             int           `json:"country_rank"`
 	SupportLvl              int           `json:"support_level"`
-	Achievements            []Achievement `json:"achievements"`
+	Achievements            []achievement `json:"achievements"`
 	Medals                  int           `json:"medals"`
-	RankHistory             History       `json:"rank_history"`
+	RankHistory             history       `json:"rank_history"`
 	UnrankedBeatmapsetCount int           `json:"unranked_beatmapset_count"`
 }
 
 // Ковёр пользователя
-type Cover struct {
+type cover struct {
 	CustomUrl string `json:"custom_url"`
 	Url       string `json:"url"`
 	Id        int    `json:"id"`
 }
 
 // Значок профиля
-type Badge struct {
+type badge struct {
 	AwardedAt   string `json:"awarded_at"`
 	Description string `json:"description"`
 	ImageUrl    string `json:"image_url"`
 }
 
 // Достижение
-type Achievement struct {
+type achievement struct {
 	AchievedAt    string `json:"achieved_at"`
 	AchievementId int    `json:"achievement_id"`
 }
 
 // История рейтинга
-type History struct {
+type history struct {
 	Mode string `json:"mode"`
 	Data []int  `json:"data"`
 }
@@ -123,7 +123,7 @@ type History struct {
 // ---------------------- Структуры для парсинга ------------------------
 
 // Информация о пользователе
-type UserInfoString struct {
+type userInfoString struct {
 	Success                 bool                `json:"success"`
 	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
@@ -158,7 +158,7 @@ type UserInfoString struct {
 	Twitter                 string              `json:"twitter"`
 	Website                 string              `json:"website"`
 	CountyName              string              `json:"country_name"`
-	UserCover               CoverString         `json:"cover"`
+	UserCover               coverString         `json:"cover"`
 	IsAdmin                 string              `json:"is_admin"`
 	IsBng                   string              `json:"is_bng"`
 	IsFullBan               string              `json:"is_full_bn"`
@@ -170,7 +170,7 @@ type UserInfoString struct {
 	IsSilenced              string              `json:"is_silenced"`
 	AccountHistory          string              `json:"account_history"`
 	ActiveTournamentBanner  string              `json:"active_tournament_banner"`
-	Badges                  []Badge             `json:"badges"`
+	Badges                  []badge             `json:"badges"`
 	CommentsCount           string              `json:"comments_count"`
 	FollowerCount           string              `json:"follower_count"`
 	Groups                  string              `json:"groups"`
@@ -197,27 +197,27 @@ type UserInfoString struct {
 	A                       string              `json:"a"`
 	CountryRank             string              `json:"country_rank"`
 	SupportLvl              string              `json:"support_level"`
-	Achievements            []AchievementString `json:"achievements"`
+	Achievements            []achievementString `json:"achievements"`
 	Medals                  string              `json:"medals"`
-	RankHistory             HistoryString       `json:"rank_history"`
+	RankHistory             historyString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
 }
 
 // Ковёр пользователя
-type CoverString struct {
+type coverString struct {
 	CustomUrl string `json:"custom_url"`
 	Url       string `json:"url"`
 	Id        string `json:"id"`
 }
 
 // Достижение
-type AchievementString struct {
+type achievementString struct {
 	AchievedAt    string `json:"achieved_at"`
 	AchievementId string `json:"achievement_id"`
 }
 
 // История рейтинга
-type HistoryString struct {
+type historyString struct {
 	Mode string   `json:"mode"`
 	Data []string `json:"data"`
 }
@@ -395,12 +395,12 @@ func toSlice(s string) []int {
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения текстовой информации о пользователе
-func GetUserInfoString(id string) UserInfoString {
+func getUserInfoString(id string) userInfoString {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return UserInfoString{
+		return userInfoString{
 			Success: false,
 			Error:   "http get error",
 		}
@@ -415,7 +415,7 @@ func GetUserInfoString(id string) UserInfoString {
 
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
-		return UserInfoString{
+		return userInfoString{
 			Success: false,
 			Error:   "user not found",
 		}
@@ -432,7 +432,7 @@ func GetUserInfoString(id string) UserInfoString {
 	*/
 
 	// Структура, которую будет возвращать функция
-	result := UserInfoString{
+	result := userInfoString{
 		Success: true,
 	}
 
@@ -504,7 +504,7 @@ func GetUserInfoString(id string) UserInfoString {
 	// Значки
 	for c := index(pageStr, "badges :[", left, -1); pageStr[c] != ']'; c++ {
 		if pageStr[c:c+13] == "awarded_at : " {
-			result.Badges = append(result.Badges, Badge{
+			result.Badges = append(result.Badges, badge{
 				AwardedAt:   find(pageStr[c:], "awarded_at : ", " ", 0),
 				Description: find(pageStr[c:], "description : ", " ,", 0),
 				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " ", 0), "\\", ""),
@@ -564,7 +564,7 @@ func GetUserInfoString(id string) UserInfoString {
 		for ; left < end; medals++ {
 
 			// Инициализация достижения
-			var achieve AchievementString
+			var achieve achievementString
 
 			// Генерация достижения
 			achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left, -1)
@@ -592,21 +592,21 @@ func GetUserInfoString(id string) UserInfoString {
 }
 
 // Функция получения информации о пользователе
-func GetUserInfo(id string) UserInfo {
+func getUserInfo(id string) userInfo {
 
 	// Получение текстовой версии статистики
-	resultStr := GetUserInfoString(id)
+	resultStr := getUserInfoString(id)
 
 	// Проверка на ошибки при парсинге
 	if !resultStr.Success {
-		return UserInfo{
+		return userInfo{
 			Success: false,
 			Error:   resultStr.Error,
 		}
 	}
 
 	// Перевод в классическую версию
-	result := UserInfo{
+	result := userInfo{
 		Success:       true,
 		Error:         resultStr.Error,
 		AvatarUrl:     resultStr.AvatarUrl,
@@ -641,7 +641,7 @@ func GetUserInfo(id string) UserInfo {
 		Twitter:       resultStr.Twitter,
 		Website:       resultStr.Website,
 		CountyName:    resultStr.CountyName,
-		UserCover: Cover{
+		UserCover: cover{
 			CustomUrl: resultStr.UserCover.CustomUrl,
 			Url:       resultStr.UserCover.Url,
 			Id:        toInt(resultStr.UserCover.Id),
@@ -689,7 +689,7 @@ func GetUserInfo(id string) UserInfo {
 
 	// Перевод достижений
 	for _, c := range resultStr.Achievements {
-		result.Achievements = append(result.Achievements, Achievement{
+		result.Achievements = append(result.Achievements, achievement{
 			AchievedAt:    c.AchievedAt,
 			AchievementId: toInt(c.AchievementId),
 		})
@@ -725,7 +725,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на тип, получение статистики, форматирование и отправка
 	if r.URL.Query().Get("type") == "string" {
-		jsonResp, err := json.Marshal(GetUserInfoString(id))
+		jsonResp, err := json.Marshal(getUserInfoString(id))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
@@ -736,7 +736,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.Write(jsonResp)
 		}
 	} else {
-		jsonResp, err := json.Marshal(GetUserInfo(id))
+		jsonResp, err := json.Marshal(getUserInfo(id))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})

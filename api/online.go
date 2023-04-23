@@ -9,26 +9,26 @@ import (
 )
 
 // Структура статуса пользователя
-type OnlineInfo struct {
+type onlineInfo struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 	Status  bool   `json:"is_online"`
 }
 
 // Структура статуса пользователя для парсинга
-type OnlineInfoString struct {
+type onlineInfoString struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 	Status  string `json:"is_online"`
 }
 
 // Функция парсинга информации о пользователе
-func GetOnlineInfoString(id string) OnlineInfoString {
+func getOnlineInfoString(id string) onlineInfoString {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return OnlineInfoString{
+		return onlineInfoString{
 			Success: false,
 			Error:   "http get error",
 		}
@@ -50,23 +50,23 @@ func GetOnlineInfoString(id string) OnlineInfoString {
 
 	// Проверка на страницу пользователя
 	if !strings.Contains(pageStr, "js-react--profile") {
-		return OnlineInfoString{
+		return onlineInfoString{
 			Success: false,
 			Error:   "user not found",
 		}
 	}
 
 	// Поиск статуса пользователя и вывод результата
-	return OnlineInfoString{
+	return onlineInfoString{
 		Success: true,
 		Status:  find(pageStr, "is_online&quot;:", ",", 0),
 	}
 }
 
 // Функция получения информации о пользователе
-func GetOnlineInfo(id string) OnlineInfo {
-	resultStr := GetOnlineInfoString(id)
-	return OnlineInfo{
+func getOnlineInfo(id string) onlineInfo {
+	resultStr := getOnlineInfoString(id)
+	return onlineInfo{
 		Success: resultStr.Success,
 		Error:   resultStr.Error,
 		Status:  toBool(resultStr.Status),
@@ -92,7 +92,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на тип, получение статистики, форматирование и отправка
 	if r.URL.Query().Get("type") == "string" {
-		jsonResp, err := json.Marshal(GetOnlineInfoString(id))
+		jsonResp, err := json.Marshal(getOnlineInfoString(id))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
@@ -103,7 +103,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 			w.Write(jsonResp)
 		}
 	} else {
-		jsonResp, err := json.Marshal(GetOnlineInfo(id))
+		jsonResp, err := json.Marshal(getOnlineInfo(id))
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})

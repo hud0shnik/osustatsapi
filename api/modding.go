@@ -12,20 +12,20 @@ import (
 // ---------------------- Структуры для парсинга ------------------------
 
 // Структура респонса
-type ModdingResponseString struct {
+type moddingResponseString struct {
 	Success        bool                       `json:"success"`
 	Error          string                     `json:"error"`
-	Events         []EventString              `json:"events"`
-	Users          []ModdingUserString        `json:"users"`
-	Beatmaps       []BeatmapsString           `json:"beatmaps"`
-	Beatmapsets    []ModdingBeatmapsetsString `json:"beatmapsets"`
-	Discussions    []DiscussionString         `json:"discussions"`
-	Posts          []PostString               `json:"posts"`
-	ReceivedKudosu ReceivedKudosuString       `json:"recently_received_kudosu"`
+	Events         []eventString              `json:"events"`
+	Users          []moddingUserString        `json:"users"`
+	Beatmaps       []beatmapsString           `json:"beatmaps"`
+	Beatmapsets    []moddingBeatmapsetsString `json:"beatmapsets"`
+	Discussions    []discussionString         `json:"discussions"`
+	Posts          []postString               `json:"posts"`
+	ReceivedKudosu receivedKudosuString       `json:"recently_received_kudosu"`
 }
 
 // Мапы
-type BeatmapsString struct {
+type beatmapsString struct {
 	BeatmapSetId     string `json:"beatmapset_id"`
 	DifficultyRating string `json:"difficulty_rating"`
 	Id               string `json:"id"`
@@ -56,35 +56,35 @@ type BeatmapsString struct {
 }
 
 // Структура события
-type EventString struct {
+type eventString struct {
 	Id         string                  `json:"id"`
 	Type       string                  `json:"type"`
-	Comment    ModdingCommentString    `json:"comment"`
+	Comment    moddingCommentString    `json:"comment"`
 	CreatedAt  string                  `json:"created_at"`
 	UserId     string                  `json:"user_id"`
-	Beatmapset ModdingBeatmapsetString `json:"beatmapset"`
-	Discussion DiscussionString        `json:"discussion"`
+	Beatmapset moddingBeatmapsetString `json:"beatmapset"`
+	Discussion discussionString        `json:"discussion"`
 }
 
 // Структура комментария
-type ModdingCommentString struct {
+type moddingCommentString struct {
 	BeatmapDiscussionId     string       `json:"beatmap_discussion_id"`
 	BeatmapDiscussionPostId string       `json:"beatmap_discussion_post_id"`
-	NewVote                 VoteString   `json:"new_vote"`
-	Votes                   []VoteString `json:"votes"`
+	NewVote                 voteString   `json:"new_vote"`
+	Votes                   []voteString `json:"votes"`
 }
 
 // Структура голоса
-type VoteString struct {
+type voteString struct {
 	UserId string `json:"user_id"`
 	Score  string `json:"score"`
 }
 
 // Структура карты
-type ModdingBeatmapsetString struct {
+type moddingBeatmapsetString struct {
 	Artist        string       `json:"artist"`
 	ArtistUnicode string       `json:"artist_unicode"`
-	Covers        Covers       `json:"covers"`
+	Covers        covers       `json:"covers"`
 	Creator       string       `json:"creator"`
 	FavoriteCount string       `json:"favorite_count"`
 	HypeCurrent   string       `json:"hype_current"`
@@ -102,11 +102,11 @@ type ModdingBeatmapsetString struct {
 	TrackId       string       `json:"track_id"`
 	UserId        string       `json:"userId"`
 	Video         string       `json:"video"`
-	User          BmUserString `json:"user"`
+	User          bmUserString `json:"user"`
 }
 
 // Структура дискуссии
-type DiscussionString struct {
+type discussionString struct {
 	Id             string       `json:"id"`
 	BeatmapsetId   string       `json:"beatmapset_id"`
 	BeatmapId      string       `json:"beatmap_id"`
@@ -123,11 +123,11 @@ type DiscussionString struct {
 	DeletedAt      string       `json:"deleted_at"`
 	LastPostAt     string       `json:"last_post_at"`
 	KudosuDenied   string       `json:"kudosu_denied"`
-	StartingPost   StartingPost `json:"starting_post"`
+	StartingPost   startingPost `json:"starting_post"`
 }
 
 // Структура первого поста
-type StartingPost struct {
+type startingPost struct {
 	BeatmapsetDiscussionId string `json:"beatmapset_discussion_id"`
 	CreatedAt              string `json:"created_at"`
 	DeletedAt              string `json:"deleted_at"`
@@ -141,7 +141,7 @@ type StartingPost struct {
 }
 
 // Структура пользователя
-type ModdingUserString struct {
+type moddingUserString struct {
 	AvatarUrl     string        `json:"avatar_url"`
 	CountryCode   string        `json:"country_code"`
 	DefaultGroup  string        `json:"default_group"`
@@ -155,11 +155,11 @@ type ModdingUserString struct {
 	PmFriendsOnly string        `json:"pm_friends_only"`
 	ProfileColor  string        `json:"profile_color"`
 	Username      string        `json:"username"`
-	Groups        []GroupString `json:"groups"`
+	Groups        []groupString `json:"groups"`
 }
 
 // Структура группы
-type GroupString struct {
+type groupString struct {
 	Colour         string   `json:"colour"`
 	HasListing     string   `json:"has_listing"`
 	HasPlaymodes   string   `json:"has_playmodes"`
@@ -172,10 +172,10 @@ type GroupString struct {
 }
 
 // Структура сета
-type ModdingBeatmapsetsString struct {
+type moddingBeatmapsetsString struct {
 	Artist            string                   `json:"artist"`
 	ArtistUnicode     string                   `json:"artist_unicode"`
-	Covers            Covers                   `json:"covers"`
+	Covers            covers                   `json:"covers"`
 	Creator           string                   `json:"creator"`
 	FavoriteCount     string                   `json:"favorite_count"`
 	Hype              string                   `json:"hype"`
@@ -200,7 +200,7 @@ type ModdingBeatmapsetsString struct {
 	IsScoreable       string                   `json:"is_scoreable"`
 	LastUpdated       string                   `json:"last_updated"`
 	LegacyThreadUrl   string                   `json:"legacy_thread_url"`
-	Nominations       NominationsSummaryString `json:"nominations_summary"`
+	Nominations       nominationsSummaryString `json:"nominations_summary"`
 	Ranked            string                   `json:"ranked"`
 	RankedDate        string                   `json:"ranked_date"`
 	Storyboard        string                   `json:"storyboard"`
@@ -209,7 +209,7 @@ type ModdingBeatmapsetsString struct {
 }
 
 // Структура поста
-type PostString struct {
+type postString struct {
 	BeatmapsetDiscussionId string `json:"beatmapset_discussion_id"`
 	CreatedAt              string `json:"created_at"`
 	DeletedAt              string `json:"deleted_at"`
@@ -223,7 +223,7 @@ type PostString struct {
 }
 
 // Структура дискуссии поста
-type DiscussionPostString struct {
+type discussionPostString struct {
 	Id             string           `json:"id"`
 	BeatmapsetId   string           `json:"beatmapset_id"`
 	BeatmapId      string           `json:"beatmap_id"`
@@ -240,15 +240,15 @@ type DiscussionPostString struct {
 	DeletedAt      string           `json:"deleted_at"`
 	LastPostAt     string           `json:"last_post_at"`
 	KudosuDenied   string           `json:"kudosu_denied"`
-	StartingPost   StartingPost     `json:"starting_post"`
-	Beatmapset     BeatmapsetString `json:"beatmapset"`
+	StartingPost   startingPost     `json:"starting_post"`
+	Beatmapset     beatmapsetString `json:"beatmapset"`
 }
 
 // Сет мапы рекорда
-type BeatmapsetString struct {
+type beatmapsetString struct {
 	Artist        string `json:"artist"`
 	ArtistUnicode string `json:"artist_unicode"`
-	Covers        Covers `json:"covers"`
+	Covers        covers `json:"covers"`
 	Creator       string `json:"creator"`
 	FavoriteCount string `json:"favorite_count"`
 	Hype          string `json:"hype"`
@@ -268,13 +268,13 @@ type BeatmapsetString struct {
 }
 
 // Структура голосов
-type VotesString struct {
-	Given    []VoteString `json:"given"`
-	Received []VoteString `json:"received"`
+type votesString struct {
+	Given    []voteString `json:"given"`
+	Received []voteString `json:"received"`
 }
 
 // Структура кудосу
-type ReceivedKudosuString struct {
+type receivedKudosuString struct {
 	Id        string `json:"id"`
 	Action    string `json:"action"`
 	Amount    string `json:"amount"`
@@ -287,7 +287,7 @@ type ReceivedKudosuString struct {
 }
 
 // Структура пользователя
-type UserString struct {
+type userString struct {
 	AvatarUrl              string      `json:"avatar_url"`
 	CountryCode            string      `json:"country_code"`
 	DefaultGroup           string      `json:"default_group"`
@@ -320,7 +320,7 @@ type UserString struct {
 	Twitter                string      `json:"twitter"`
 	Website                string      `json:"website"`
 	CountyName             string      `json:"country_name"`
-	UserCover              CoverString `json:"cover"`
+	UserCover              coverString `json:"cover"`
 	IsAdmin                string      `json:"is_admin"`
 	IsBng                  string      `json:"is_bng"`
 	IsFullBan              string      `json:"is_full_bn"`
@@ -331,7 +331,7 @@ type UserString struct {
 	IsRestricted           string      `json:"is_restricted"`
 	IsSilenced             string      `json:"is_silenced"`
 	ActiveTournamentBanner string      `json:"active_tournament_banner"`
-	Badges                 []Badge     `json:"badges"`
+	Badges                 []badge     `json:"badges"`
 	CommentsCount          string      `json:"comments_count"`
 	FollowerCount          string      `json:"follower_count"`
 	Groups                 string      `json:"groups"`
@@ -364,10 +364,10 @@ type UserString struct {
 // ---------------------- Функции парсинга ----------------------
 
 // Функция парсинга ивента
-func parseEvent(pageStr string, left int) (EventString, int) {
+func parseEvent(pageStr string, left int) (eventString, int) {
 
 	// Структура ивента и буфер
-	var ev EventString
+	var ev eventString
 	var buffer string
 
 	// Конец ивента
@@ -385,7 +385,7 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 
 	for i := 0; index(buffer, "user_id\":", i, -1) != -1; {
 
-		var vt VoteString
+		var vt voteString
 
 		vt.UserId, i = findWithIndex(buffer, "\"user_id\":", ",", i, -1)
 		vt.Score, i = findWithIndex(buffer, "\"score\":", "}", i, -1)
@@ -484,14 +484,14 @@ func parseEvent(pageStr string, left int) (EventString, int) {
 }
 
 // Функция парсинга ивентов
-func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int) {
+func parseEvents(pageStr, subStr, stopChar string, left int) ([]eventString, int) {
 
-	var result []EventString
+	var result []eventString
 	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	for index(pageStr, "{\"id\":", left, end) != -1 {
 
-		var ev EventString
+		var ev eventString
 
 		ev, left = parseEvent(pageStr, left)
 
@@ -503,10 +503,10 @@ func parseEvents(pageStr, subStr, stopChar string, left int) ([]EventString, int
 }
 
 // Функция парсинга юзера
-func parseUser(pageStr string, left int) (ModdingUserString, int) {
+func parseUser(pageStr string, left int) (moddingUserString, int) {
 
 	// Структура юзера и буфер
-	var user ModdingUserString
+	var user moddingUserString
 	var buffer string
 
 	// Конец юзера
@@ -525,7 +525,7 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 	user.Username, left = findStringWithIndex(pageStr, "\"username\":", ",", left, end)
 
 	for index(pageStr, "\"colour\"", left, end) != -1 {
-		var gr GroupString
+		var gr groupString
 
 		gr.Colour, left = findStringWithIndex(pageStr, "\"colour\":", ",", left, end)
 		gr.HasListing, left = findWithIndex(pageStr, "has_listing\":", ",", left, end)
@@ -549,15 +549,15 @@ func parseUser(pageStr string, left int) (ModdingUserString, int) {
 }
 
 // Функция парсинга юзеров
-func parseUsers(pageStr, subStr, stopChar string, left int) ([]ModdingUserString, int) {
+func parseUsers(pageStr, subStr, stopChar string, left int) ([]moddingUserString, int) {
 
-	var result []ModdingUserString
+	var result []moddingUserString
 	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
 	left = 0
 
 	for index(pageStr, "{\"avatar_url\":", left, end) != -1 {
 
-		var us ModdingUserString
+		var us moddingUserString
 
 		us, left = parseUser(pageStr, left)
 		result = append(result, us)
@@ -568,9 +568,9 @@ func parseUsers(pageStr, subStr, stopChar string, left int) ([]ModdingUserString
 }
 
 // Функция парсинга карты
-func parseBeatmap(pageStr string, left int) (BeatmapsString, int) {
+func parseBeatmap(pageStr string, left int) (beatmapsString, int) {
 
-	var result BeatmapsString
+	var result beatmapsString
 	end := index(pageStr, "\"checksum\":", left, -1) + 36
 	fmt.Println(pageStr[end-10 : end+10])
 
@@ -579,14 +579,14 @@ func parseBeatmap(pageStr string, left int) (BeatmapsString, int) {
 }
 
 // Функция парсинга карт
-func parseBeatmaps(pageStr, subStr, stopChar string, left int) ([]BeatmapsString, int) {
+func parseBeatmaps(pageStr, subStr, stopChar string, left int) ([]beatmapsString, int) {
 
-	var result []BeatmapsString
+	var result []beatmapsString
 	pageStr, end := findWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	for index(pageStr, "\"beatmapset_id\":", left, end) != -1 {
 
-		var bm BeatmapsString
+		var bm beatmapsString
 		bm, left = parseBeatmap(pageStr, left)
 
 		result = append(result, bm)
@@ -597,12 +597,12 @@ func parseBeatmaps(pageStr, subStr, stopChar string, left int) ([]BeatmapsString
 }
 
 // Функция получения текстовой информации
-func GetModdingInfoString(id string) ModdingResponseString {
+func getModdingInfoString(id string) moddingResponseString {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/modding")
 	if err != nil {
-		return ModdingResponseString{
+		return moddingResponseString{
 			Success: false,
 			Error:   "http get error",
 		}
@@ -617,7 +617,7 @@ func GetModdingInfoString(id string) ModdingResponseString {
 
 	// Проверка на страницу пользователя
 	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
-		return ModdingResponseString{
+		return moddingResponseString{
 			Success: false,
 			Error:   "user not found",
 		}
@@ -633,7 +633,7 @@ func GetModdingInfoString(id string) ModdingResponseString {
 	}*/
 
 	// Структура, которую будет возвращать функция
-	result := ModdingResponseString{
+	result := moddingResponseString{
 		Success: true,
 	}
 
