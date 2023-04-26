@@ -2,6 +2,7 @@ package api2
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -22,15 +23,12 @@ type onlineInfoString struct {
 }
 
 // Функция парсинга информации о пользователе
-func getOnlineInfoString(id string) onlineInfoString {
+func getOnlineInfoString(id string) (onlineInfoString, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return onlineInfoString{
-			Success: false,
-			Error:   "can't reach osu.ppy.sh",
-		}
+		return onlineInfoString{}, fmt.Errorf("in http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 
@@ -43,11 +41,9 @@ func getOnlineInfoString(id string) onlineInfoString {
 
 	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return onlineInfoString{
-			Success: false,
-			Error:   resp.Status,
-		}
+		return onlineInfoString{}, fmt.Errorf("response status: %s", resp.Status)
 	}
+
 	// Запись респонса
 	body, _ := ioutil.ReadAll(resp.Body)
 
@@ -58,17 +54,25 @@ func getOnlineInfoString(id string) onlineInfoString {
 	return onlineInfoString{
 		Success: true,
 		Status:  find(pageStr, "is_online&quot;:", ",", 0),
-	}
+	}, nil
 }
 
 // Функция получения информации о пользователе
-func GetOnlineInfo(id string) onlineInfo {
-	resultStr := getOnlineInfoString(id)
+func getOnlineInfo(id string) (onlineInfo, error) {
+
+	// Получение текстовой версии
+	resultStr, err := getOnlineInfoString(id)
+	if err != nil {
+		return onlineInfo{}, err
+	}
+
+	// Перевод в классическую версию
 	return onlineInfo{
 		Success: resultStr.Success,
 		Error:   resultStr.Error,
 		Status:  toBool(resultStr.Status),
-	}
+	}, nil
+
 }
 
 // Роут "/online"
@@ -91,55 +95,65 @@ func Online(w http.ResponseWriter, r *http.Request) {
 	// Проверка на тип
 	if r.URL.Query().Get("type") == "string" {
 
-		// Получение статистики и перевод в json
-		result := getOnlineInfoString(id)
-		jsonResp, err := json.Marshal(result)
-
-		// Обработчик ошибок
-		switch {
-		case err != nil:
+		// Получение статистики
+		result, err := getOnlineInfoString(id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
-		case result.Error == "not found":
-			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(apiError{Error: "not found"})
-			w.Write(json)
-		case !result.Success:
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: result.Error})
-			w.Write(json)
-		default:
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			log.Printf("getOnlineInfo err: %s", err)
+			return
 		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			log.Printf("json.Marshal err: %s", err)
+			return
+		}
+
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
 
 	} else {
 
-		// Получение статистики и перевод в json
-		result := GetOnlineInfo(id)
-		jsonResp, err := json.Marshal(result)
-
-		// Обработчик ошибок
-		switch {
-		case err != nil:
+		// Получение статистики
+		result, err := getOnlineInfo(id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
-		case result.Error == "not found":
-			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(apiError{Error: "not found"})
-			w.Write(json)
-		case !result.Success:
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: result.Error})
-			w.Write(json)
-		default:
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			log.Printf("getOnlineInfo err: %s", err)
+			return
 		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			log.Printf("json.Marshal err: %s", err)
+			return
+		}
+
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
 
 	}
 
