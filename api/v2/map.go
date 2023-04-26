@@ -2,6 +2,7 @@ package api2
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -669,24 +670,18 @@ func formatComments(cms []commentString) []comment {
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения статистики карты
-func GetMapInfoString(beatmapset, id string) mapStringResponse {
+func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
 	if err != nil {
-		return mapStringResponse{
-			Success: false,
-			Error:   "can't reach osu.ppy.sh",
-		}
+		return mapStringResponse{}, fmt.Errorf("in http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 
-	// Проверка на ошибки
+	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return mapStringResponse{
-			Success: false,
-			Error:   resp.Status,
-		}
+		return mapStringResponse{}, fmt.Errorf("response status: %s", resp.Status)
 	}
 
 	// Запись респонса
@@ -791,21 +786,16 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 
 	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
 
-	return result
+	return result, nil
 }
 
 // Функция получения статистики карты
-func GetMapInfo(beatmapset, id string) mapResponse {
+func getMapInfo(beatmapset, id string) (mapResponse, error) {
 
 	// Получение текстовой версии статистики
-	resultStr := GetMapInfoString(beatmapset, id)
-
-	// Проверка на ошибки при парсинге
-	if !resultStr.Success {
-		return mapResponse{
-			Success: false,
-			Error:   resultStr.Error,
-		}
+	resultStr, err := getMapInfoString(beatmapset, id)
+	if err != nil {
+		return mapResponse{}, err
 	}
 
 	// Перевод в классическую версию
@@ -866,7 +856,7 @@ func GetMapInfo(beatmapset, id string) mapResponse {
 		UserFollow:         toBool(resultStr.UserFollow),
 	}
 
-	return result
+	return result, nil
 }
 
 // Роут "/map"
@@ -890,55 +880,67 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	// Проверка на тип
 	if r.URL.Query().Get("type") == "string" {
 
-		// Получение статистики и перевод в json
-		result := GetMapInfoString(beatmapset, id)
-		jsonResp, err := json.Marshal(result)
-
-		// Обработчик ошибок
-		switch {
-		case err != nil:
+		// Получение статистики
+		result, err := getMapInfoString(beatmapset, id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
-		case result.Error == "not found":
-			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(apiError{Error: "not found"})
-			w.Write(json)
-		case !result.Success:
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: result.Error})
-			w.Write(json)
-		default:
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			log.Printf("getMapInfo err: %s", err)
+			return
 		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			log.Printf("json.Marshal err: %s", err)
+			return
+		}
+
+		// Формирование и запись респонса
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
 
 	} else {
 
-		// Получение статистики и перевод в json
-		result := GetMapInfo(beatmapset, id)
-		jsonResp, err := json.Marshal(result)
-
-		// Обработчик ошибок
-		switch {
-		case err != nil:
+		// Получение статистики
+		result, err := getMapInfo(beatmapset, id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
-		case result.Error == "not found":
-			w.WriteHeader(http.StatusNotFound)
-			json, _ := json.Marshal(apiError{Error: "not found"})
-			w.Write(json)
-		case !result.Success:
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: result.Error})
-			w.Write(json)
-		default:
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			log.Printf("getMapInfo err: %s", err)
+			return
 		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			log.Printf("json.Marshal err: %s", err)
+			return
+		}
+
+		// Формирование и запись респонса
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
 
 	}
 
