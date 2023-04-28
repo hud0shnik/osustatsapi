@@ -19,6 +19,8 @@ Field                       |       Type         | Description
 success                     |       bool         | always "false" for errors
 error                       |      string        |
 
+Version 2 has new structures (without "success" and "error") and HTTP response status codes (200, 404, 500 and 400)
+
 ## User
 
 ### Request
@@ -35,12 +37,10 @@ type            |   string   |   No     |response type (like "string")
 
 ### Structures
 
-#### UserInfo
+#### userInfo
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | "true" or "false" 
-error                       |       string       | api error response (default value= "")
 avatar_url                  |       string       |
 country_code                |       string       | like "RU" or "JP"
 default_group               |       string       |
@@ -73,7 +73,7 @@ title_url                   |       string       |
 twitter                     |       string       |
 website                     |       string       |
 country_name                |       string       | like "Japan"
-cover                       |       Cover        |
+cover                       |       cover        |
 is_admin                    |        bool        |    
 is_bng                      |        bool        | Beatmap Nominators Group
 is_full_bn                  |        bool        | full ban
@@ -85,7 +85,7 @@ is_restricted               |        bool        | timeout from the community
 is_silenced                 |        bool        |
 account_history             |       string       |
 active_tournament_banner    |       string       |
-badges                      |      []Badge       |
+badges                      |      []badge       |
 comments_count              |        int         |
 follower_count              |        int         |
 groups                      |       string       | like "Developers"
@@ -112,13 +112,13 @@ sh                          |        int         | silver s
 a                           |        int         |
 country_rank                |        int         |
 support_level               |        int         |
-achievements                |    []Achievement   |
+achievements                |    []achievement   |
 medals                      |        int         |
-rank_history                |       History      |
+rank_history                |       history      |
 unranked_beatmapset_count   |        int         |
 
 
-#### Cover
+#### cover
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -127,7 +127,7 @@ url                         |       string       |
 id                          |        int         |
 
 
-#### Badge
+#### badge
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -136,7 +136,7 @@ description                 |       string       |
 image_url                   |       string       |
 
 
-#### Achievement
+#### achievement
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -144,7 +144,7 @@ achieved_at                 |       string       | UTC format date (yyyy-mm-ddTh
 achievement_id              |       string       |
 
 
-#### History
+#### history
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -168,12 +168,10 @@ type            |   string   |   No     | response type (like "string")
 
 ### Structures
 
-#### OnlineResponse
+#### onlineResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | 
-error                       |       string       | api error response (default value= "")
 status                      |        bool        | true = online
 
 
@@ -194,15 +192,13 @@ type            |   string   |   No     | response type (like "string")
 
 ### Structures
 
-#### MapResponse
+#### mapResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | "true" or "false" 
-error                       |       string       | api error response 
 artist                      |       string       |
 artist_string               |       string       |
-covers                      |       Covers       |
+covers                      |       covers       |
 creator                     |       string       |
 favorite_count              |        int         |
 hype_current                |        int         |
@@ -228,30 +224,30 @@ discussion_locked           |        bool        |
 is_scoreable                |        bool        |
 last_updated                |       string       |
 legacy_thread_url           |       string       |
-nominations_summary         | NominationsSummary |
+nominations_summary         | nominationsSummary |
 ranked                      |        int         |
 ranked_date                 |       string       |
 storyboard                  |        bool        |
 submitted_date              |       string       |
 tags                        |      []string      |
-beatmaps                    |       []Maps       |
-converts                    |       []Maps       |
-current_nominations         |[]CurrentNomination |
+beatmaps                    |       []maps       |
+converts                    |       []maps       |
+current_nominations         |[]currentNomination |
 description                 |       string       |
 genre_id                    |        int         |
 genre_name                  |       string       |
 language_id                 |        int         |
 language_name               |       string       |
 ratings                     |       []int        |
-recent_favourites           |      []BmUser      |
-related_users               |      []BmUser      |
-user                        |       BmUser       |
-comments                    |      []Comment     |
-pinned_comments             |      []Comment     |
+recent_favourites           |      []bmUser      |
+related_users               |      []bmUser      |
+user                        |       bmUser       |
+comments                    |      []comment     |
+pinned_comments             |      []comment     |
 user_follow                 |        bool        |
 
   
-#### Covers
+#### covers
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -265,7 +261,7 @@ slimcover                   |       string       |
 slimcover@2x                |       string       |
 
   
-#### NominationsSummary
+#### nominationsSummary
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -273,7 +269,7 @@ current                     |        int         |
 required                    |        int         |
 
 
-#### Maps
+#### maps
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -304,11 +300,11 @@ play_count                  |        int         |
 ranked                      |        int         |
 url                         |       string       |
 checksum                    |       string       |
-failtimes                   |     Failtimes      |
+failtimes                   |     failtimes      |
 max_combo                   |        int         |
 
 
-#### Failtimes
+#### failtimes
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -316,7 +312,7 @@ Fail                        |       []int        |
 Exit                        |       []int        |
   
 
-#### CurrentNomination
+#### currentNomination
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -326,7 +322,7 @@ reset                       |        bool        |
 user_id                     |        int         |
 
 
-#### BmUser
+#### bmUser
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -345,7 +341,7 @@ profile_color               |       string       |
 username                    |       string       |
 
 
-#### Comment
+#### comment
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
