@@ -10,16 +10,12 @@ import (
 
 // Структура статуса пользователя
 type onlineInfo struct {
-	Success bool   `json:"success"`
-	Error   string `json:"error"`
-	Status  bool   `json:"is_online"`
+	Status bool `json:"is_online"`
 }
 
 // Структура статуса пользователя для парсинга
 type onlineInfoString struct {
-	Success bool   `json:"success"`
-	Error   string `json:"error"`
-	Status  string `json:"is_online"`
+	Status string `json:"is_online"`
 }
 
 // Функция парсинга информации о пользователе
@@ -52,8 +48,7 @@ func getOnlineInfoString(id string) (onlineInfoString, error) {
 
 	// Поиск статуса пользователя и вывод результата
 	return onlineInfoString{
-		Success: true,
-		Status:  find(pageStr, "is_online&quot;:", ",", 0),
+		Status: find(pageStr, "is_online&quot;:", ",", 0),
 	}, nil
 }
 
@@ -68,9 +63,7 @@ func getOnlineInfo(id string) (onlineInfo, error) {
 
 	// Перевод в классическую версию
 	return onlineInfo{
-		Success: resultStr.Success,
-		Error:   resultStr.Error,
-		Status:  toBool(resultStr.Status),
+		Status: toBool(resultStr.Status),
 	}, nil
 
 }
