@@ -15,8 +15,6 @@ import (
 
 // Информация о пользователе
 type userInfo struct {
-	Success                 bool          `json:"success"`
-	Error                   string        `json:"error"`
 	AvatarUrl               string        `json:"avatar_url"`
 	CountryCode             string        `json:"country_code"`
 	DefaultGroup            string        `json:"default_group"`
@@ -124,8 +122,6 @@ type history struct {
 
 // Информация о пользователе
 type userInfoString struct {
-	Success                 bool                `json:"success"`
-	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
 	CountryCode             string              `json:"country_code"`
 	DefaultGroup            string              `json:"default_group"`
@@ -432,9 +428,7 @@ func getUserInfoString(id string) (userInfoString, error) {
 	*/
 
 	// Структура, которую будет возвращать функция
-	result := userInfoString{
-		Success: true,
-	}
+	result := userInfoString{}
 
 	// Крайняя левая граница поиска
 	left := 0
@@ -602,8 +596,6 @@ func getUserInfo(id string) (userInfo, error) {
 
 	// Перевод в классическую версию
 	result := userInfo{
-		Success:       true,
-		Error:         resultStr.Error,
 		AvatarUrl:     resultStr.AvatarUrl,
 		CountryCode:   resultStr.CountryCode,
 		DefaultGroup:  resultStr.DefaultGroup,
