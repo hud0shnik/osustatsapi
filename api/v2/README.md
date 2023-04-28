@@ -73,7 +73,7 @@ title_url                   |       string       |
 twitter                     |       string       |
 website                     |       string       |
 country_name                |       string       | like "Japan"
-cover                       |       cover        |
+cover                       |   [cover](#cover)  |
 is_admin                    |        bool        |    
 is_bng                      |        bool        | Beatmap Nominators Group
 is_full_bn                  |        bool        | full ban
@@ -85,7 +85,7 @@ is_restricted               |        bool        | timeout from the community
 is_silenced                 |        bool        |
 account_history             |       string       |
 active_tournament_banner    |       string       |
-badges                      |      []badge       |
+badges                      | [[]badges](#badges)|
 comments_count              |        int         |
 follower_count              |        int         |
 groups                      |       string       | like "Developers"
@@ -112,9 +112,9 @@ sh                          |        int         | silver s
 a                           |        int         |
 country_rank                |        int         |
 support_level               |        int         |
-achievements                |    []achievement   |
+achievements                |[[]achievement](#achievement)|
 medals                      |        int         |
-rank_history                |       history      |
+rank_history                |[history](#history) |
 unranked_beatmapset_count   |        int         |
 
 
@@ -198,7 +198,7 @@ Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 artist                      |       string       |
 artist_string               |       string       |
-covers                      |       covers       |
+covers                      |  [covers](#covers) |
 creator                     |       string       |
 favorite_count              |        int         |
 hype_current                |        int         |
@@ -224,26 +224,26 @@ discussion_locked           |        bool        |
 is_scoreable                |        bool        |
 last_updated                |       string       |
 legacy_thread_url           |       string       |
-nominations_summary         | nominationsSummary |
+nominations_summary         |[nominationsSummary](#nominationsSummary)|
 ranked                      |        int         |
 ranked_date                 |       string       |
 storyboard                  |        bool        |
 submitted_date              |       string       |
 tags                        |      []string      |
-beatmaps                    |       []maps       |
-converts                    |       []maps       |
-current_nominations         |[]currentNomination |
+beatmaps                    |  [[]maps](#maps)   |
+converts                    |  [[]maps](#maps)   |
+current_nominations         |[[]currentNomination](#currentNomination)|
 description                 |       string       |
 genre_id                    |        int         |
 genre_name                  |       string       |
 language_id                 |        int         |
 language_name               |       string       |
 ratings                     |       []int        |
-recent_favourites           |      []bmUser      |
-related_users               |      []bmUser      |
-user                        |       bmUser       |
-comments                    |      []comment     |
-pinned_comments             |      []comment     |
+recent_favourites           | [[]bmUser](#bmUser)|
+related_users               | [[]bmUser](#bmUser)|
+user                        | [bmUser](#bmUser)  |
+comments                    |[[]comment](#comment)|
+pinned_comments             |[[]comment](#comment)|
 user_follow                 |        bool        |
 
   
@@ -300,7 +300,7 @@ play_count                  |        int         |
 ranked                      |        int         |
 url                         |       string       |
 checksum                    |       string       |
-failtimes                   |     failtimes      |
+failtimes                   |[failtimes](#failtimes)|
 max_combo                   |        int         |
 
 
