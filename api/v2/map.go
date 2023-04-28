@@ -13,8 +13,6 @@ import (
 
 // Структура респонса
 type mapResponse struct {
-	Success            bool                `json:"success"`
-	Error              string              `json:"error"`
 	Artist             string              `json:"artist"`
 	ArtistUnicode      string              `json:"artist_string"`
 	Covers             covers              `json:"covers"`
@@ -172,8 +170,6 @@ type comment struct {
 
 // Структура респонса
 type mapStringResponse struct {
-	Success            bool                      `json:"success"`
-	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
 	Covers             covers                    `json:"covers"`
@@ -697,9 +693,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 	}*/
 
 	// Структура результата и указатель отработанной части
-	result := mapStringResponse{
-		Success: true,
-	}
+	result := mapStringResponse{}
 	left := 0
 
 	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
@@ -800,8 +794,6 @@ func getMapInfo(beatmapset, id string) (mapResponse, error) {
 
 	// Перевод в классическую версию
 	result := mapResponse{
-		Success:           true,
-		Error:             resultStr.Error,
 		Artist:            resultStr.Artist,
 		ArtistUnicode:     resultStr.ArtistUnicode,
 		Covers:            resultStr.Covers,
