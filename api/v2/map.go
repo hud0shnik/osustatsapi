@@ -348,6 +348,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]curr
 	}
 
 	return result, end
+
 }
 
 // Функция парсинга карты
@@ -392,6 +393,7 @@ func parseMapString(pageStr string, left int) (mapsString, int) {
 	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
 
 	return bm, left
+
 }
 
 // Функция парсинга карт
@@ -422,9 +424,11 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, 
 
 		// Добавление карты к результату
 		result = append(result, bm)
+
 	}
 
 	return result, end
+
 }
 
 // Функция парсинга пользователей
@@ -455,9 +459,11 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, i
 
 		// Добавление пользователя к результату
 		result = append(result, user)
+
 	}
 
 	return result, end
+
 }
 
 // функция парсинга пользователей
@@ -482,6 +488,7 @@ func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left, -1)
 
 	return user, left
+
 }
 
 // Функция парсинга комментов
@@ -530,9 +537,11 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentS
 
 		// Добавление комментария к результату
 		result = append(result, cm)
+
 	}
 
 	return result, end
+
 }
 
 // ---------------------- Функции перевода ----------------------
@@ -585,6 +594,7 @@ func formatBeatmap(mpss []mapsString) []maps {
 	}
 
 	return result
+
 }
 
 // Функция перевода номинаций
@@ -603,10 +613,12 @@ func formatCurrentNominations(cns []currentNominationString) []currentNomination
 	}
 
 	return result
+
 }
 
 // Функция перевода пользователя
 func formatBmUser(usr bmUserString) bmUser {
+
 	return bmUser{
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
@@ -622,10 +634,12 @@ func formatBmUser(usr bmUserString) bmUser {
 		ProfileColor:  usr.ProfileColor,
 		Username:      usr.Username,
 	}
+
 }
 
 // Функция перевода пользователей
 func formatBmUsers(usrs []bmUserString) []bmUser {
+
 	var result []bmUser
 
 	for _, usr := range usrs {
@@ -633,10 +647,12 @@ func formatBmUsers(usrs []bmUserString) []bmUser {
 	}
 
 	return result
+
 }
 
 // Функция перевода комментариев
 func formatComments(cms []commentString) []comment {
+
 	var result []comment
 
 	for _, cm := range cms {
@@ -661,6 +677,7 @@ func formatComments(cms []commentString) []comment {
 	}
 
 	return result
+
 }
 
 // ----------------- Функции получения статистики ----------------
@@ -781,6 +798,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
 
 	return result, nil
+
 }
 
 // Функция получения статистики карты
@@ -849,6 +867,7 @@ func getMapInfo(beatmapset, id string) (mapResponse, error) {
 	}
 
 	return result, nil
+
 }
 
 // Роут "/map"

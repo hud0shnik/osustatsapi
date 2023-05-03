@@ -252,6 +252,7 @@ func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 	// fmt.Println("error foundn't \t", subStr, "-")
 
 	return "", start
+
 }
 
 // Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
@@ -280,6 +281,7 @@ func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 	// fmt.Println("error foundn't \t", subStr, "-")
 
 	return "", start
+
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
@@ -308,6 +310,7 @@ func find(str, subStr, stopChar string, start int) string {
 	}
 
 	return ""
+
 }
 
 // Функция поиска индекса
@@ -324,6 +327,7 @@ func index(str, subStr string, start, end int) int {
 
 	//fmt.Println("index error: \t", subStr)
 	return -1
+
 }
 
 // Функция проверки наличия подстроки
@@ -335,47 +339,51 @@ func contains(str, subStr string, left int) bool {
 // ---------------------- Функции перевода ----------------------
 
 func toInt(s string) int {
-	i, err := strconv.Atoi(s)
 
+	i, err := strconv.Atoi(s)
 	if err != nil {
 		fmt.Println("parsing error: \t", s)
 		return 0
 	}
 
 	return i
+
 }
 
 func toInt64(s string) int64 {
-	i, err := strconv.ParseInt(s, 10, 64)
 
+	i, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
-		fmt.Println("parsing error: \t", s)
+		// fmt.Println("parsing error: \t", s)
 		return 0
 	}
 
 	return i
+
 }
 
 func toBool(s string) bool {
-	f, err := strconv.ParseBool(s)
 
+	f, err := strconv.ParseBool(s)
 	if err != nil {
-		fmt.Println("parsing error: \t", s)
+		// fmt.Println("parsing error: \t", s)
 		return false
 	}
 
 	return f
+
 }
 
 func toFloat64(s string) float64 {
-	i, err := strconv.ParseFloat(s, 64)
 
+	i, err := strconv.ParseFloat(s, 64)
 	if err != nil {
-		fmt.Println("parsing error: \t", s)
+		// fmt.Println("parsing error: \t", s)
 		return 0
 	}
 
 	return i
+
 }
 
 func toSlice(s string) []int {
@@ -392,6 +400,7 @@ func toSlice(s string) []int {
 	}
 
 	return result
+
 }
 
 // ----------------- Функции получения статистики ----------------
@@ -583,6 +592,7 @@ func getUserInfoString(id string) (userInfoString, error) {
 	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
 
 	return result, nil
+
 }
 
 // Функция получения информации о пользователе
@@ -691,6 +701,7 @@ func getUserInfo(id string) (userInfo, error) {
 	}
 
 	return result, nil
+
 }
 
 // Роут "/user"

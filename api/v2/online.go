@@ -50,6 +50,7 @@ func getOnlineInfoString(id string) (onlineInfoString, error) {
 	return onlineInfoString{
 		Status: find(pageStr, "is_online&quot;:", ",", 0),
 	}, nil
+
 }
 
 // Функция получения информации о пользователе
