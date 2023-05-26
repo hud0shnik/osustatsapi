@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 // ---------------------- Классические структуры ------------------------
@@ -432,7 +433,7 @@ func getUserInfoString(id string) (userInfoString, error) {
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*
 		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
+			logrus.Fatal(err)
 		}
 	*/
 
@@ -736,7 +737,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("getUserInfo err: %s", err)
+			logrus.Printf("getUserInfo err: %s", err)
 			return
 		}
 
@@ -746,7 +747,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal err: %s", err)
+			logrus.Printf("json.Marshal err: %s", err)
 			return
 		}
 
@@ -767,7 +768,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("getUserInfo err: %s", err)
+			logrus.Printf("getUserInfo err: %s", err)
 			return
 		}
 
@@ -777,7 +778,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal err: %s", err)
+			logrus.Printf("json.Marshal err: %s", err)
 			return
 		}
 

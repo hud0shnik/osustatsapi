@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // ---------------------- Классические структуры ------------------------
@@ -706,7 +707,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*if err := os.WriteFile("sampleMap.html", []byte(pageStr), 0666); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}*/
 
 	// Структура результата и указатель отработанной части
@@ -903,7 +904,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("getMapInfo err: %s", err)
+			logrus.Printf("getMapInfo err: %s", err)
 			return
 		}
 
@@ -913,7 +914,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal err: %s", err)
+			logrus.Printf("json.Marshal err: %s", err)
 			return
 		}
 
@@ -935,7 +936,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("getMapInfo err: %s", err)
+			logrus.Printf("getMapInfo err: %s", err)
 			return
 		}
 
@@ -945,7 +946,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			log.Printf("json.Marshal err: %s", err)
+			logrus.Printf("json.Marshal err: %s", err)
 			return
 		}
 
