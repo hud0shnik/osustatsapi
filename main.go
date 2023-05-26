@@ -10,9 +10,13 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
+
+	// Настройка логгера
+	logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	// Вывод времени начала работы
 	fmt.Println("API Start: " + string(time.Now().Format("2006-01-02 15:04:05")))
