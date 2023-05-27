@@ -3,9 +3,10 @@ package api
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // ---------------------- Классические структуры ------------------------
@@ -698,7 +699,7 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*if err := os.WriteFile("sampleMap.html", []byte(pageStr), 0666); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}*/
 
 	result := mapStringResponse{
@@ -893,7 +894,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
+			logrus.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
@@ -904,7 +905,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
+			logrus.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)

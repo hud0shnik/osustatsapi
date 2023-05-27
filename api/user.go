@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 // ---------------------- Классические структуры ------------------------
@@ -427,7 +428,7 @@ func getUserInfoString(id string) userInfoString {
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*
 		if err := os.WriteFile("sample.html", []byte(pageStr), 0666); err != nil {
-			log.Fatal(err)
+			logrus.Fatal(err)
 		}
 	*/
 
@@ -730,7 +731,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
+			logrus.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)
@@ -741,7 +742,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
 			w.Write(json)
-			log.Printf("json.Marshal error: %s", err)
+			logrus.Printf("json.Marshal error: %s", err)
 		} else {
 			w.WriteHeader(http.StatusOK)
 			w.Write(jsonResp)

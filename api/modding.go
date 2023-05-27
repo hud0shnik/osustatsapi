@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // ---------------------- Структуры для парсинга ------------------------
@@ -629,7 +630,7 @@ func getModdingInfoString(id string) moddingResponseString {
 	// Сохранение html"ки в файл sample.html (для тестов)
 
 	/*if err := os.WriteFile("sample2.html", []byte(pageStr), 0666); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}*/
 
 	// Структура, которую будет возвращать функция
@@ -672,7 +673,7 @@ func Modding(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
 		w.Write(json)
-		log.Printf("json.Marshal error: %s", err)
+		logrus.Printf("json.Marshal error: %s", err)
 	} else {
 		w.WriteHeader(http.StatusOK)
 		w.Write(jsonResp)
