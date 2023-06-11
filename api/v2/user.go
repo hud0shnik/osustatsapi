@@ -67,9 +67,15 @@ type userInfo struct {
 	MappingFollowerCount    int           `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  int           `json:"pending_beatmapset_count"`
 	Names                   []string      `json:"previous_usernames"`
+	RankHighest             int           `json:"rank_highest"`
+	Count100                int           `json:"count_100"`
+	Count300                int           `json:"count_300"`
+	Count50                 int           `json:"count_50"`
+	CountMiss               int           `json:"count_miss"`
 	Level                   int           `json:"level"`
 	GlobalRank              int64         `json:"global_rank"`
 	PP                      float64       `json:"pp"`
+	PPExp                   int           `json:"pp_exp"`
 	RankedScore             int           `json:"ranked_score"`
 	Accuracy                float64       `json:"accuracy"`
 	PlayCount               int           `json:"play_count"`
@@ -174,9 +180,15 @@ type userInfoString struct {
 	MappingFollowerCount    string              `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
 	Names                   []string            `json:"previous_usernames"`
+	RankHighest             string              `json:"rank_highest"`
+	Count100                string              `json:"count_100"`
+	Count300                string              `json:"count_300"`
+	Count50                 string              `json:"count_50"`
+	CountMiss               string              `json:"count_miss"`
 	Level                   string              `json:"level"`
 	GlobalRank              string              `json:"global_rank"`
 	PP                      string              `json:"pp"`
+	PPExp                   string              `json:"pp_exp"`
 	RankedScore             string              `json:"ranked_score"`
 	Accuracy                string              `json:"accuracy"`
 	PlayCount               string              `json:"play_count"`
@@ -535,9 +547,15 @@ func getUserInfoString(id string) (userInfoString, error) {
 	if result.Names[0] == "" {
 		result.Names = nil
 	}
+	result.RankHighest, left = findWithIndex(pageStr, "rank_highest :{ rank :", ",", left, -1)
+	result.Count100, left = findWithIndex(pageStr, "count_100 :", ",", left, -1)
+	result.Count300, left = findWithIndex(pageStr, "count_300 :", ",", left, -1)
+	result.Count50, left = findWithIndex(pageStr, "count_50 :", ",", left, -1)
+	result.CountMiss, left = findWithIndex(pageStr, "count_miss :", ",", left, -1)
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left, -1)
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left, -1)
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left, -1)
+	result.PPExp, left = findWithIndex(pageStr, "pp_exp :", ",", left, -1)
 	result.RankedScore, left = findWithIndex(pageStr, "ranked_score :", ",", left, -1)
 	result.Accuracy, left = findWithIndex(pageStr, "hit_accuracy :", ",", left, -1)
 	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left, -1)
@@ -662,9 +680,15 @@ func getUserInfo(id string) (userInfo, error) {
 		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
 		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
 		Names:                   resultStr.Names,
+		RankHighest:             toInt(resultStr.RankHighest),
+		Count100:                toInt(resultStr.Count100),
+		Count300:                toInt(resultStr.Count300),
+		Count50:                 toInt(resultStr.Count50),
+		CountMiss:               toInt(resultStr.CountMiss),
 		Level:                   toInt(resultStr.Level),
 		GlobalRank:              toInt64(resultStr.GlobalRank),
 		PP:                      toFloat64(resultStr.PP),
+		PPExp:                   toInt(resultStr.PPExp),
 		RankedScore:             toInt(resultStr.RankedScore),
 		Accuracy:                toFloat64(resultStr.Accuracy),
 		PlayCount:               toInt(resultStr.PlayCount),
