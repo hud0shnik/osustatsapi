@@ -675,6 +675,7 @@ func parseActivity(pageStr string) []activityString {
 		a.Mode, left = findStringWithIndex(pageStr, "mode\":", ",", left, -1)
 		a.BeatmapTitle, left = findWithIndex(pageStr, "title\":\"", "\",", left, -1)
 		a.BeatmapUrl, left = findWithIndex(pageStr, "url\":\"", "\"},", left, -1)
+		a.BeatmapUrl = "https://osu.ppy.sh" + strings.ReplaceAll(a.BeatmapUrl, "\\", "")
 		result = append(result, a)
 	}
 
