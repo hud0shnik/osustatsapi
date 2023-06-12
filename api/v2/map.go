@@ -686,8 +686,18 @@ func formatComments(cms []commentString) []comment {
 // Функция получения статистики карты
 func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 
+	// Ссылка на страницу карты
+	var url string
+
+	// Проверка на наличие параметра beatmapset
+	if beatmapset == "" {
+		url = "https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id
+	} else {
+		url = "https://osu.ppy.sh/b/" + id + "?m=0"
+	}
+
 	// Формирование и исполнение запроса
-	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
+	resp, err := http.Get(url)
 	if err != nil {
 		return mapStringResponse{}, fmt.Errorf("in http.Get: %w", err)
 	}
@@ -882,7 +892,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	beatmapset := r.URL.Query().Get("beatmapset")
 
 	// Проверка на наличие параметров
-	if id == "" || beatmapset == "" {
+	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		json, _ := json.Marshal(apiError{Error: "please insert map id and beatmapset id"})
 		w.Write(json)
