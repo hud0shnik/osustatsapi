@@ -1,20 +1,32 @@
-# 🖌️ OsuStatsApi 🎶
-
-<i><b>OsuStatsApi</b></i> provides fast and powerful access to player statistics, including real PP count and real Accuracy percentage
+# 🖌️ OsuStatsApi v2 🎶
 
 ## Overview
 
 - [Overview](#overview)
+- [Difference between v1 and v2](#difference)
 - [User](#user)
 - [Online](#online)
 - [Map](#map)
+
+## Difference
+
+Version 2 use special structure for errors
+
+#### apiError
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+success                     |       bool         | always "false" for errors
+error                       |      string        |
+
+Version 2 has new structures (without "success" and "error") and HTTP response status codes (200, 404, 500 and 400)
 
 ## User
 
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/user
+https://osustatsapi.vercel.app/api/v2/user
 ```
 
 Parameter       | Value type | Required | Description  
@@ -25,12 +37,10 @@ type            |   string   |   No     |response type (like "string")
 
 ### Structures
 
-#### UserInfo
+#### userInfo
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | "true" or "false" 
-error                       |       string       | api error response (default value= "")
 avatar_url                  |       string       |
 country_code                |       string       | like "RU" or "JP"
 default_group               |       string       |
@@ -63,7 +73,7 @@ title_url                   |       string       |
 twitter                     |       string       |
 website                     |       string       |
 country_name                |       string       | like "Japan"
-cover                       |       Cover        |
+cover                       |   [cover](#cover)  |
 is_admin                    |        bool        |    
 is_bng                      |        bool        | Beatmap Nominators Group
 is_full_bn                  |        bool        | full ban
@@ -75,16 +85,22 @@ is_restricted               |        bool        | timeout from the community
 is_silenced                 |        bool        |
 account_history             |       string       |
 active_tournament_banner    |       string       |
-badges                      |      []Badge       |
+badges                      | [[]badges](#badges)|
 comments_count              |        int         |
 follower_count              |        int         |
 groups                      |       string       | like "Developers"
 mapping_follower_count      |        int         |
 pending_beatmapset_count    |        int         |
 previous_usernames          |      []string      |
+rank_highest                |        int         | highest rank
+count_100                   |        int         | 
+count_300                   |        int         |
+count_50                    |        int         |
+count_miss                  |        int         |
 level                       |        int         |
 global_rank                 |        int         |
 pp                          |       float        | float value, 4 decimals
+pp_exp                      |        int         |
 ranked_score                |        int         |
 accuracy                    |       float        | like "97.132"
 play_count                  |        int         |
@@ -102,13 +118,13 @@ sh                          |        int         | silver s
 a                           |        int         |
 country_rank                |        int         |
 support_level               |        int         |
-achievements                |    []Achievement   |
+achievements                |[[]achievement](#achievement)|
 medals                      |        int         |
-rank_history                |       History      |
+rank_history                |[history](#history) |
 unranked_beatmapset_count   |        int         |
 
 
-#### Cover
+#### cover
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -117,7 +133,7 @@ url                         |       string       |
 id                          |        int         |
 
 
-#### Badge
+#### badge
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -126,7 +142,7 @@ description                 |       string       |
 image_url                   |       string       |
 
 
-#### Achievement
+#### achievement
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -134,7 +150,7 @@ achieved_at                 |       string       | UTC format date (yyyy-mm-ddTh
 achievement_id              |       string       |
 
 
-#### History
+#### history
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -148,7 +164,7 @@ data                        |       []int        |
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/online
+https://osustatsapi.vercel.app/api/v2/online
 ```
 
 Parameter       | Value type | Required | Description   
@@ -158,12 +174,10 @@ type            |   string   |   No     | response type (like "string")
 
 ### Structures
 
-#### OnlineResponse
+#### onlineResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | 
-error                       |       string       | api error response (default value= "")
 status                      |        bool        | true = online
 
 
@@ -172,7 +186,7 @@ status                      |        bool        | true = online
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/map
+https://osustatsapi.vercel.app/api/v2/map
 ```
 
 Parameter       | Value type | Required | Description   
@@ -184,15 +198,13 @@ type            |   string   |   No     | response type (like "string")
 
 ### Structures
 
-#### MapResponse
+#### mapResponse
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
-success                     |        bool        | "true" or "false" 
-error                       |       string       | api error response 
 artist                      |       string       |
 artist_string               |       string       |
-covers                      |       Covers       |
+covers                      |  [covers](#covers) |
 creator                     |       string       |
 favorite_count              |        int         |
 hype_current                |        int         |
@@ -218,30 +230,30 @@ discussion_locked           |        bool        |
 is_scoreable                |        bool        |
 last_updated                |       string       |
 legacy_thread_url           |       string       |
-nominations_summary         | NominationsSummary |
+nominations_summary         |[nominationsSummary](#nominationsSummary)|
 ranked                      |        int         |
 ranked_date                 |       string       |
 storyboard                  |        bool        |
 submitted_date              |       string       |
 tags                        |      []string      |
-beatmaps                    |       []Maps       |
-converts                    |       []Maps       |
-current_nominations         |[]CurrentNomination |
+beatmaps                    |  [[]maps](#maps)   |
+converts                    |  [[]maps](#maps)   |
+current_nominations         |[[]currentNomination](#currentNomination)|
 description                 |       string       |
 genre_id                    |        int         |
 genre_name                  |       string       |
 language_id                 |        int         |
 language_name               |       string       |
 ratings                     |       []int        |
-recent_favourites           |      []BmUser      |
-related_users               |      []BmUser      |
-user                        |       BmUser       |
-comments                    |      []Comment     |
-pinned_comments             |      []Comment     |
+recent_favourites           | [[]bmUser](#bmUser)|
+related_users               | [[]bmUser](#bmUser)|
+user                        | [bmUser](#bmUser)  |
+comments                    |[[]comment](#comment)|
+pinned_comments             |[[]comment](#comment)|
 user_follow                 |        bool        |
 
   
-#### Covers
+#### covers
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -255,7 +267,7 @@ slimcover                   |       string       |
 slimcover@2x                |       string       |
 
   
-#### NominationsSummary
+#### nominationsSummary
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -263,7 +275,7 @@ current                     |        int         |
 required                    |        int         |
 
 
-#### Maps
+#### maps
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -294,11 +306,11 @@ play_count                  |        int         |
 ranked                      |        int         |
 url                         |       string       |
 checksum                    |       string       |
-failtimes                   |     Failtimes      |
+failtimes                   |[failtimes](#failtimes)|
 max_combo                   |        int         |
 
 
-#### Failtimes
+#### failtimes
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -306,7 +318,7 @@ Fail                        |       []int        |
 Exit                        |       []int        |
   
 
-#### CurrentNomination
+#### currentNomination
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -316,7 +328,7 @@ reset                       |        bool        |
 user_id                     |        int         |
 
 
-#### BmUser
+#### bmUser
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -335,7 +347,7 @@ profile_color               |       string       |
 username                    |       string       |
 
 
-#### Comment
+#### comment
 
 Field                       |       Type         | Description
 ----------------------------|--------------------|------------
@@ -355,8 +367,3 @@ edited_at                   |       string       |
 edited_by_id                |       string       |
 message                     |       string       |
 message_html                |       string       |
-
-
-<img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
-
-[![License - BSD 3-Clause](https://img.shields.io/static/v1?label=License&message=BSD+3-Clause&color=%239a68af&style=for-the-badge)](/LICENSE)
