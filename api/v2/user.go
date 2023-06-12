@@ -136,6 +136,7 @@ type activity struct {
 	Mode         string `json:"mode"`
 	BeatmapTitle string `json:"beatmap_title"`
 	BeatmapUrl   string `json:"beatmap_url"`
+	BeatmapId    int    `json:"beatmap_id"`
 }
 
 // ---------------------- Структуры для парсинга ------------------------
@@ -255,6 +256,7 @@ type activityString struct {
 	Mode         string `json:"mode"`
 	BeatmapTitle string `json:"beatmap_title"`
 	BeatmapUrl   string `json:"beatmap_url"`
+	BeatmapId    string `json:"beatmap_id"`
 }
 
 // Структура ошибки
@@ -676,6 +678,7 @@ func parseActivity(pageStr string) []activityString {
 		a.BeatmapTitle, left = findWithIndex(pageStr, "title\":\"", "\",", left, -1)
 		a.BeatmapUrl, left = findWithIndex(pageStr, "url\":\"", "\"},", left, -1)
 		a.BeatmapUrl = "https://osu.ppy.sh" + strings.ReplaceAll(a.BeatmapUrl, "\\", "")
+		a.BeatmapId, _ = findWithIndex(a.BeatmapUrl, "osu.ppy.sh/b/", "?", 0, -1)
 		result = append(result, a)
 	}
 
@@ -804,6 +807,7 @@ func getUserInfo(id string) (userInfo, error) {
 			Mode:         a.Mode,
 			BeatmapTitle: a.BeatmapTitle,
 			BeatmapUrl:   a.BeatmapUrl,
+			BeatmapId:    toInt(a.BeatmapId),
 		})
 	}
 

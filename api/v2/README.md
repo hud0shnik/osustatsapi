@@ -164,6 +164,7 @@ rank                        |        int         |
 mode                        |       string       |
 beatmap_title               |       string       |
 beatmap_url                 |       string       |
+beatmap_id                  |        int         |
 
 
 
@@ -200,7 +201,7 @@ https://osustatsapi.vercel.app/api/v2/map
 Parameter       | Value type | Required | Description   
 ----------------|------------|----------|-------------
 id              |    int     |   Yes    | map id
-beatmapset      |    int     |   Yes    | beatmapset id
+beatmapset      |    int     |   No     | beatmapset id
 type            |   string   |   No     | response type (like "string")
 
 
