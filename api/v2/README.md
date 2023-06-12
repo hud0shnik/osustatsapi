@@ -116,6 +116,7 @@ achievements                |[[]achievement](#achievement)|
 medals                      |        int         |
 rank_history                |[history](#history) |
 unranked_beatmapset_count   |        int         |
+recent_activity             |[activity](#activity)| 
 
 
 #### cover
@@ -150,6 +151,19 @@ Field                       |       Type         | Description
 ----------------------------|--------------------|------------
 mode                        |       string       | like "osu"
 data                        |       []int        |
+
+#### activity
+
+Field                       |       Type         | Description
+----------------------------|--------------------|------------
+created_at                  |       string       | like "2023-06-11T20:49:11+00:00"
+id                          |        int         |
+type                        |       string       |
+score_rank                  |       string       |
+rank                        |        int         |
+mode                        |       string       |
+beatmap_title               |       string       |
+beatmap_url                 |       string       |
 
 
 
