@@ -690,7 +690,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 	var url string
 
 	// Проверка на наличие параметра beatmapset
-	if beatmapset == "" {
+	if beatmapset != "" {
 		url = "https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id
 	} else {
 		url = "https://osu.ppy.sh/b/" + id + "?m=0"
@@ -887,14 +887,14 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
 
-	// Получение параметра id из реквеста
+	// Получение параметров из реквеста
 	id := r.URL.Query().Get("id")
 	beatmapset := r.URL.Query().Get("beatmapset")
 
 	// Проверка на наличие параметров
 	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(apiError{Error: "please insert map id and beatmapset id"})
+		json, _ := json.Marshal(apiError{Error: "please insert map id"})
 		w.Write(json)
 		return
 	}
