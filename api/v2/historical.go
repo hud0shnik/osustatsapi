@@ -60,7 +60,7 @@ type Beatmap struct {
 	Version          string  `json:"version"`
 	Accuracy         float64 `json:"accuracy"`
 	Ar               float64 `json:"ar"`
-	Bpm              int     `json:"bpm"`
+	Bpm              float64 `json:"bpm"`
 	Convert          bool    `json:"convert"`
 	CountCircles     int     `json:"count_circles"`
 	CountSliders     int     `json:"count_sliders"`
