@@ -191,7 +191,7 @@ type beatmapsetString struct {
 	Video          string `json:"video"`
 }
 
-// Функция получения текстовой информации о пользователе
+// Функция получения недавних карт
 func getUserHistorical(id string) (response, error) {
 
 	// Формирование и исполнение запроса
@@ -221,8 +221,10 @@ func getUserHistorical(id string) (response, error) {
 
 }
 
+// Функция конвертации недавних карт
 func getUserHistoricalString(id string) (responseString, error) {
 
+	// Получение классической версии
 	classic, err := getUserHistorical(id)
 	if err != nil {
 		return responseString{}, err
@@ -230,6 +232,7 @@ func getUserHistoricalString(id string) (responseString, error) {
 
 	var result responseString
 
+	// Конвертация
 	for _, c := range classic.Recent.Items {
 		recent := recentScoresString{
 			Accuracy:  fmt.Sprint(c.Accuracy),
@@ -330,6 +333,7 @@ func Historical(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на тип
 	if r.URL.Query().Get("type") == "string" {
+
 		// Получение статистики
 		result, err := getUserHistoricalString(id)
 		if err != nil {
