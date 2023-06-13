@@ -29,17 +29,6 @@ type playcount struct {
 	Version          string  `json:"version"`
 }
 
-type beatmapSmall struct {
-	BeatmapsetID     int     `json:"beatmapset_id"`
-	DifficultyRating float64 `json:"difficulty_rating"`
-	ID               int     `json:"id"`
-	Mode             string  `json:"mode"`
-	Status           string  `json:"status"`
-	TotalLength      int     `json:"total_length"`
-	UserID           int     `json:"user_id"`
-	Version          string  `json:"version"`
-}
-
 type recent struct {
 	Items []recentScores `json:"items"`
 }
@@ -90,7 +79,7 @@ type Beatmap struct {
 	CountCircles     int     `json:"count_circles"`
 	CountSliders     int     `json:"count_sliders"`
 	CountSpinners    int     `json:"count_spinners"`
-	Cs               int     `json:"cs"`
+	Cs               float64 `json:"cs"`
 	DeletedAt        string  `json:"deleted_at"`
 	Drain            int     `json:"drain"`
 	HitLength        int     `json:"hit_length"`
