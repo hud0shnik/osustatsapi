@@ -37,6 +37,7 @@ func main() {
 	router.HandleFunc("/api/v2/map", api2.Map).Methods("GET")
 
 	router.HandleFunc("/api/modding", api.Modding).Methods("GET")
+	router.HandleFunc("/api/v2/historical", api2.Historical).Methods("GET")
 
 	// Запуск API
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
