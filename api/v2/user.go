@@ -97,7 +97,6 @@ type userInfo struct {
 	Medals                  int           `json:"medals"`
 	RankHistory             history       `json:"rank_history"`
 	UnrankedBeatmapsetCount int           `json:"unranked_beatmapset_count"`
-	RecentActivity          []activity    `json:"recent_activity"`
 }
 
 // Ковёр пользователя
@@ -124,19 +123,6 @@ type achievement struct {
 type history struct {
 	Mode string `json:"mode"`
 	Data []int  `json:"data"`
-}
-
-// Структура активности
-type activity struct {
-	CreatedAt    string `json:"created_at"`
-	Id           int    `json:"id"`
-	Type         string `json:"type"`
-	ScoreRank    string `json:"score_rank"`
-	Rank         int    `json:"rank"`
-	Mode         string `json:"mode"`
-	BeatmapTitle string `json:"beatmap_title"`
-	BeatmapUrl   string `json:"beatmap_url"`
-	BeatmapId    int    `json:"beatmap_id"`
 }
 
 // ---------------------- Структуры для парсинга ------------------------
@@ -224,7 +210,6 @@ type userInfoString struct {
 	Medals                  string              `json:"medals"`
 	RankHistory             historyString       `json:"rank_history"`
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
-	RecentActivity          []activityString    `json:"recent_activity"`
 }
 
 // Ковёр пользователя
@@ -244,19 +229,6 @@ type achievementString struct {
 type historyString struct {
 	Mode string   `json:"mode"`
 	Data []string `json:"data"`
-}
-
-// Структура активности
-type activityString struct {
-	CreatedAt    string `json:"created_at"`
-	Id           string `json:"id"`
-	Type         string `json:"type"`
-	ScoreRank    string `json:"score_rank"`
-	Rank         string `json:"rank"`
-	Mode         string `json:"mode"`
-	BeatmapTitle string `json:"beatmap_title"`
-	BeatmapUrl   string `json:"beatmap_url"`
-	BeatmapId    string `json:"beatmap_id"`
 }
 
 // Структура ошибки
@@ -638,51 +610,8 @@ func getUserInfoString(id string) (userInfoString, error) {
 
 	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
 
-	// Формирование и исполнение запроса на дополнительную статистику
-	resp2, err := http.Get("https://osu.ppy.sh/users/" + result.UserID + "/extra-pages/recent_activity")
-	if err != nil {
-		return userInfoString{}, fmt.Errorf("in http.Get: %w", err)
-	}
-	defer resp2.Body.Close()
-
-	// Запись респонса
-	body2, _ := ioutil.ReadAll(resp2.Body)
-
-	// Запись активностей
-	result.RecentActivity = parseActivity(string(body2))
-
 	return result, nil
 
-}
-
-// Функция парсинга активностей
-func parseActivity(pageStr string) []activityString {
-
-	// Проверка на наличие активности
-	pageStr, _ = findWithIndex(pageStr, "items\":[", "],\"pagination", 0, -1)
-	if pageStr == "" {
-		return nil
-	}
-
-	var result []activityString
-
-	// Запись активностей
-	for left := 0; strings.Contains(pageStr[left:], "created_at"); {
-		var a activityString
-		a.CreatedAt, left = findStringWithIndex(pageStr, "created_at\":", ",", left, -1)
-		a.Id, left = findWithIndex(pageStr, "id\":", ",", left, -1)
-		a.Type, left = findStringWithIndex(pageStr, "type\":", ",", left, -1)
-		a.ScoreRank, left = findStringWithIndex(pageStr, "scoreRank\":", ",", left, -1)
-		a.Rank, left = findWithIndex(pageStr, "rank\":", ",", left, -1)
-		a.Mode, left = findStringWithIndex(pageStr, "mode\":", ",", left, -1)
-		a.BeatmapTitle, left = findWithIndex(pageStr, "title\":\"", "\",", left, -1)
-		a.BeatmapUrl, left = findWithIndex(pageStr, "url\":\"", "\"},", left, -1)
-		a.BeatmapUrl = "https://osu.ppy.sh" + strings.ReplaceAll(a.BeatmapUrl, "\\", "")
-		a.BeatmapId, _ = findWithIndex(a.BeatmapUrl, "osu.ppy.sh/b/", "?", 0, -1)
-		result = append(result, a)
-	}
-
-	return result
 }
 
 // Функция получения информации о пользователе
@@ -794,21 +723,6 @@ func getUserInfo(id string) (userInfo, error) {
 
 	for _, d := range resultStr.RankHistory.Data {
 		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
-	}
-
-	// Перевод активности
-	for _, a := range resultStr.RecentActivity {
-		result.RecentActivity = append(result.RecentActivity, activity{
-			CreatedAt:    a.CreatedAt,
-			Id:           toInt(a.Id),
-			Type:         a.Type,
-			ScoreRank:    a.ScoreRank,
-			Rank:         toInt(a.Rank),
-			Mode:         a.Mode,
-			BeatmapTitle: a.BeatmapTitle,
-			BeatmapUrl:   a.BeatmapUrl,
-			BeatmapId:    toInt(a.BeatmapId),
-		})
 	}
 
 	return result, nil
