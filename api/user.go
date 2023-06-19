@@ -16,8 +16,6 @@ import (
 
 // Информация о пользователе
 type userInfo struct {
-	Success                 bool          `json:"success"`
-	Error                   string        `json:"error"`
 	AvatarUrl               string        `json:"avatar_url"`
 	CountryCode             string        `json:"country_code"`
 	DefaultGroup            string        `json:"default_group"`
@@ -69,9 +67,15 @@ type userInfo struct {
 	MappingFollowerCount    int           `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  int           `json:"pending_beatmapset_count"`
 	Names                   []string      `json:"previous_usernames"`
+	RankHighest             int           `json:"rank_highest"`
+	Count100                int           `json:"count_100"`
+	Count300                int           `json:"count_300"`
+	Count50                 int           `json:"count_50"`
+	CountMiss               int           `json:"count_miss"`
 	Level                   int           `json:"level"`
 	GlobalRank              int64         `json:"global_rank"`
 	PP                      float64       `json:"pp"`
+	PPExp                   int           `json:"pp_exp"`
 	RankedScore             int           `json:"ranked_score"`
 	Accuracy                float64       `json:"accuracy"`
 	PlayCount               int           `json:"play_count"`
@@ -125,8 +129,6 @@ type history struct {
 
 // Информация о пользователе
 type userInfoString struct {
-	Success                 bool                `json:"success"`
-	Error                   string              `json:"error"`
 	AvatarUrl               string              `json:"avatar_url"`
 	CountryCode             string              `json:"country_code"`
 	DefaultGroup            string              `json:"default_group"`
@@ -178,9 +180,15 @@ type userInfoString struct {
 	MappingFollowerCount    string              `json:"mapping_follower_count"`
 	PendingBeatmapsetCount  string              `json:"pending_beatmapset_count"`
 	Names                   []string            `json:"previous_usernames"`
+	RankHighest             string              `json:"rank_highest"`
+	Count100                string              `json:"count_100"`
+	Count300                string              `json:"count_300"`
+	Count50                 string              `json:"count_50"`
+	CountMiss               string              `json:"count_miss"`
 	Level                   string              `json:"level"`
 	GlobalRank              string              `json:"global_rank"`
 	PP                      string              `json:"pp"`
+	PPExp                   string              `json:"pp_exp"`
 	RankedScore             string              `json:"ranked_score"`
 	Accuracy                string              `json:"accuracy"`
 	PlayCount               string              `json:"play_count"`
@@ -223,204 +231,34 @@ type historyString struct {
 	Data []string `json:"data"`
 }
 
-// ---------------------- Функции поиска ------------------------
-
-// Функция поиска. Возвращает искомое значение и индекс последнего символа
-func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
-
-	// Обрезка левой границы поиска
-	str = str[start:]
-
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
-
-	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
-
-		// Поиск и проверка правой границы
-		right := strings.Index(str[left:], stopChar)
-		if right == -1 {
-			return "", start
-		}
-
-		// Обрезка и вывод результата
-		return str[left : left+right], right + left + start
-	}
-
-	// Вывод ненайденных значений для тестов
-	// fmt.Println("error foundn't \t", subStr, "-")
-
-	return "", start
-}
-
-// Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
-func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
-
-	// Обрезка левой границы поиска
-	str = str[start:]
-
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
-
-	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
-
-		// Поиск и проверка правой границы
-		right := strings.Index(str[left:], stopChar)
-		if right == -1 {
-			return "", start
-		}
-
-		// Обрезка и вывод результата
-		return strings.ReplaceAll(str[left:left+right], "\"", ""), right + left + start
-	}
-
-	// Вывод ненайденных значений для тестов
-	// fmt.Println("error foundn't \t", subStr, "-")
-
-	return "", start
-}
-
-// Облегчённая функция поиска. Возвращает только искомое значение
-func find(str, subStr, stopChar string, start int) string {
-
-	// Обрезка левой границы поиска
-	str = str[start:]
-
-	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr)
-
-	// Проверка на существование нужной строки
-	if left != -1 {
-
-		// Обрезка левой части
-		str = str[left+len(subStr):]
-
-		// Поиск и проверка правой границы
-		right := strings.Index(str, stopChar)
-		if right == -1 {
-			return ""
-		}
-
-		// Обрезка правой части и вывод результата
-		return str[:right]
-	}
-
-	return ""
-}
-
-// Функция поиска индекса
-func index(str, subStr string, start, end int) int {
-
-	res := strings.Index(str[start:], subStr)
-
-	// Проверка на существование нужной строки в диапазоне
-	if res != -1 && ((end == -1) || (res+start < end)) {
-
-		//fmt.Println(res+start, " - ", subStr)
-		return res + start
-	}
-
-	//fmt.Println("index error: \t", subStr)
-	return -1
-}
-
-// Функция проверки наличия подстроки
-func contains(str, subStr string, left int) bool {
-
-	return strings.Contains(str[left:], subStr)
-}
-
-// ---------------------- Функции перевода ----------------------
-
-func toInt(s string) int {
-	i, err := strconv.Atoi(s)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
-func toInt64(s string) int64 {
-	i, err := strconv.ParseInt(s, 10, 64)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
-func toBool(s string) bool {
-	f, err := strconv.ParseBool(s)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return false
-	}
-
-	return f
-}
-
-func toFloat64(s string) float64 {
-	i, err := strconv.ParseFloat(s, 64)
-
-	if err != nil {
-		fmt.Println("parsing error: \t", s)
-		return 0
-	}
-
-	return i
-}
-
-func toSlice(s string) []int {
-
-	var result []int
-	sliceStr := strings.Split(s, ",")
-
-	if len(sliceStr) == 1 && sliceStr[0] == "" {
-		return nil
-	}
-
-	for _, digit := range sliceStr {
-		result = append(result, toInt(digit))
-	}
-
-	return result
+// Структура ошибки
+type apiError struct {
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
 }
 
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения текстовой информации о пользователе
-func getUserInfoString(id string) userInfoString {
+func getUserInfoString(id string) (userInfoString, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return userInfoString{
-			Success: false,
-			Error:   "http get error",
-		}
+		return userInfoString{}, fmt.Errorf("in http.Get: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// Проверка статускода
+	if resp.StatusCode != 200 {
+		return userInfoString{}, fmt.Errorf("response status: %s", resp.Status)
 	}
 
 	// Запись респонса
-	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// HTML полученной страницы в формате string
 	pageStr := string(body)[80000:]
-
-	// Проверка на страницу пользователя
-	if strings.Contains(pageStr, "<h1>User not found! ;_;</h1>") {
-		return userInfoString{
-			Success: false,
-			Error:   "user not found",
-		}
-	}
 
 	// Обрезка юзелесс части html"ки
 	pageStr = strings.ReplaceAll(pageStr[strings.Index(pageStr, "current_mode"):], "&quot;", " ")
@@ -433,9 +271,7 @@ func getUserInfoString(id string) userInfoString {
 	*/
 
 	// Структура, которую будет возвращать функция
-	result := userInfoString{
-		Success: true,
-	}
+	result := userInfoString{}
 
 	// Крайняя левая граница поиска
 	left := 0
@@ -532,9 +368,15 @@ func getUserInfoString(id string) userInfoString {
 	if result.Names[0] == "" {
 		result.Names = nil
 	}
+	result.RankHighest, left = findWithIndex(pageStr, "rank_highest :{ rank :", ",", left, -1)
+	result.Count100, left = findWithIndex(pageStr, "count_100 :", ",", left, -1)
+	result.Count300, left = findWithIndex(pageStr, "count_300 :", ",", left, -1)
+	result.Count50, left = findWithIndex(pageStr, "count_50 :", ",", left, -1)
+	result.CountMiss, left = findWithIndex(pageStr, "count_miss :", ",", left, -1)
 	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left, -1)
 	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left, -1)
 	result.PP, left = findWithIndex(pageStr, "pp :", ",", left, -1)
+	result.PPExp, left = findWithIndex(pageStr, "pp_exp :", ",", left, -1)
 	result.RankedScore, left = findWithIndex(pageStr, "ranked_score :", ",", left, -1)
 	result.Accuracy, left = findWithIndex(pageStr, "hit_accuracy :", ",", left, -1)
 	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left, -1)
@@ -589,27 +431,21 @@ func getUserInfoString(id string) userInfoString {
 
 	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
 
-	return result
+	return result, nil
+
 }
 
 // Функция получения информации о пользователе
-func getUserInfo(id string) userInfo {
+func getUserInfo(id string) (userInfo, error) {
 
 	// Получение текстовой версии статистики
-	resultStr := getUserInfoString(id)
-
-	// Проверка на ошибки при парсинге
-	if !resultStr.Success {
-		return userInfo{
-			Success: false,
-			Error:   resultStr.Error,
-		}
+	resultStr, err := getUserInfoString(id)
+	if err != nil {
+		return userInfo{}, err
 	}
 
 	// Перевод в классическую версию
 	result := userInfo{
-		Success:       true,
-		Error:         resultStr.Error,
 		AvatarUrl:     resultStr.AvatarUrl,
 		CountryCode:   resultStr.CountryCode,
 		DefaultGroup:  resultStr.DefaultGroup,
@@ -665,9 +501,15 @@ func getUserInfo(id string) userInfo {
 		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
 		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
 		Names:                   resultStr.Names,
+		RankHighest:             toInt(resultStr.RankHighest),
+		Count100:                toInt(resultStr.Count100),
+		Count300:                toInt(resultStr.Count300),
+		Count50:                 toInt(resultStr.Count50),
+		CountMiss:               toInt(resultStr.CountMiss),
 		Level:                   toInt(resultStr.Level),
 		GlobalRank:              toInt64(resultStr.GlobalRank),
 		PP:                      toFloat64(resultStr.PP),
+		PPExp:                   toInt(resultStr.PPExp),
 		RankedScore:             toInt(resultStr.RankedScore),
 		Accuracy:                toFloat64(resultStr.Accuracy),
 		PlayCount:               toInt(resultStr.PlayCount),
@@ -704,7 +546,8 @@ func getUserInfo(id string) userInfo {
 		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
 	}
 
-	return result
+	return result, nil
+
 }
 
 // Роут "/user"
@@ -716,36 +559,77 @@ func User(w http.ResponseWriter, r *http.Request) {
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 
-	// Если параметра нет, отправка ошибки
+	// Проверка на наличие параметра
 	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(map[string]string{"Error": "Please insert user id"})
+		json, _ := json.Marshal(apiError{Error: "please insert user id"})
 		w.Write(json)
 		return
 	}
 
-	// Проверка на тип, получение статистики, форматирование и отправка
+	// Проверка на тип
 	if r.URL.Query().Get("type") == "string" {
-		jsonResp, err := json.Marshal(getUserInfoString(id))
+
+		// Получение статистики
+		result, err := getUserInfoString(id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			logrus.Printf("getUserInfo err: %s", err)
+			return
+		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			logrus.Printf("json.Marshal error: %s", err)
-		} else {
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			logrus.Printf("json.Marshal err: %s", err)
+			return
 		}
+
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
+
 	} else {
-		jsonResp, err := json.Marshal(getUserInfo(id))
+
+		// Получение статистики
+		result, err := getUserInfo(id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			logrus.Printf("getUserInfo err: %s", err)
+			return
+		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			logrus.Printf("json.Marshal error: %s", err)
-		} else {
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			logrus.Printf("json.Marshal err: %s", err)
+			return
 		}
+
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
+
 	}
+
 }

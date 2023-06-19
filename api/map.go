@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -13,8 +14,6 @@ import (
 
 // Структура респонса
 type mapResponse struct {
-	Success            bool                `json:"success"`
-	Error              string              `json:"error"`
 	Artist             string              `json:"artist"`
 	ArtistUnicode      string              `json:"artist_string"`
 	Covers             covers              `json:"covers"`
@@ -172,8 +171,6 @@ type comment struct {
 
 // Структура респонса
 type mapStringResponse struct {
-	Success            bool                      `json:"success"`
-	Error              string                    `json:"error"`
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
 	Covers             covers                    `json:"covers"`
@@ -352,6 +349,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]curr
 	}
 
 	return result, end
+
 }
 
 // Функция парсинга карты
@@ -396,6 +394,7 @@ func parseMapString(pageStr string, left int) (mapsString, int) {
 	bm.MaxCombo, left = findWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
 
 	return bm, left
+
 }
 
 // Функция парсинга карт
@@ -426,9 +425,11 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, 
 
 		// Добавление карты к результату
 		result = append(result, bm)
+
 	}
 
 	return result, end
+
 }
 
 // Функция парсинга пользователей
@@ -459,9 +460,11 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, i
 
 		// Добавление пользователя к результату
 		result = append(result, user)
+
 	}
 
 	return result, end
+
 }
 
 // функция парсинга пользователей
@@ -486,6 +489,7 @@ func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 	user.Username, left = findStringWithIndex(pageStr, "username\":", "}", left, -1)
 
 	return user, left
+
 }
 
 // Функция парсинга комментов
@@ -534,9 +538,11 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentS
 
 		// Добавление комментария к результату
 		result = append(result, cm)
+
 	}
 
 	return result, end
+
 }
 
 // ---------------------- Функции перевода ----------------------
@@ -589,6 +595,7 @@ func formatBeatmap(mpss []mapsString) []maps {
 	}
 
 	return result
+
 }
 
 // Функция перевода номинаций
@@ -607,10 +614,12 @@ func formatCurrentNominations(cns []currentNominationString) []currentNomination
 	}
 
 	return result
+
 }
 
 // Функция перевода пользователя
 func formatBmUser(usr bmUserString) bmUser {
+
 	return bmUser{
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
@@ -626,10 +635,12 @@ func formatBmUser(usr bmUserString) bmUser {
 		ProfileColor:  usr.ProfileColor,
 		Username:      usr.Username,
 	}
+
 }
 
 // Функция перевода пользователей
 func formatBmUsers(usrs []bmUserString) []bmUser {
+
 	var result []bmUser
 
 	for _, usr := range usrs {
@@ -637,10 +648,12 @@ func formatBmUsers(usrs []bmUserString) []bmUser {
 	}
 
 	return result
+
 }
 
 // Функция перевода комментариев
 func formatComments(cms []commentString) []comment {
+
 	var result []comment
 
 	for _, cm := range cms {
@@ -665,32 +678,37 @@ func formatComments(cms []commentString) []comment {
 	}
 
 	return result
+
 }
 
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения статистики карты
-func GetMapInfoString(beatmapset, id string) mapStringResponse {
+func getMapInfoString(beatmapset, id string) (mapStringResponse, error) {
 
-	// Формирование и исполнение запроса
-	resp, err := http.Get("https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id)
-	if err != nil {
-		return mapStringResponse{
-			Success: false,
-			Error:   "http get error",
-		}
+	// Ссылка на страницу карты
+	var url string
+
+	// Проверка на наличие параметра beatmapset
+	if beatmapset != "" {
+		url = "https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id
+	} else {
+		url = "https://osu.ppy.sh/b/" + id + "?m=0"
 	}
 
-	// Проверка на ошибки
+	// Формирование и исполнение запроса
+	resp, err := http.Get(url)
+	if err != nil {
+		return mapStringResponse{}, fmt.Errorf("in http.Get: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return mapStringResponse{
-			Success: false,
-			Error:   resp.Status,
-		}
+		return mapStringResponse{}, fmt.Errorf("response status: %s", resp.Status)
 	}
 
 	// Запись респонса
-	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// Полученная страница в формате string
@@ -702,9 +720,8 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 		logrus.Fatal(err)
 	}*/
 
-	result := mapStringResponse{
-		Success: true,
-	}
+	// Структура результата и указатель отработанной части
+	result := mapStringResponse{}
 	left := 0
 
 	result.Artist, left = findWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
@@ -791,27 +808,21 @@ func GetMapInfoString(beatmapset, id string) mapStringResponse {
 
 	result.UserFollow, _ = findWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
 
-	return result
+	return result, nil
+
 }
 
 // Функция получения статистики карты
-func GetMapInfo(beatmapset, id string) mapResponse {
+func getMapInfo(beatmapset, id string) (mapResponse, error) {
 
 	// Получение текстовой версии статистики
-	resultStr := GetMapInfoString(beatmapset, id)
-
-	// Проверка на ошибки при парсинге
-	if !resultStr.Success {
-		return mapResponse{
-			Success: false,
-			Error:   resultStr.Error,
-		}
+	resultStr, err := getMapInfoString(beatmapset, id)
+	if err != nil {
+		return mapResponse{}, err
 	}
 
 	// Перевод в классическую версию
 	result := mapResponse{
-		Success:           true,
-		Error:             resultStr.Error,
 		Artist:            resultStr.Artist,
 		ArtistUnicode:     resultStr.ArtistUnicode,
 		Covers:            resultStr.Covers,
@@ -866,7 +877,8 @@ func GetMapInfo(beatmapset, id string) mapResponse {
 		UserFollow:         toBool(resultStr.UserFollow),
 	}
 
-	return result
+	return result, nil
+
 }
 
 // Роут "/map"
@@ -875,40 +887,83 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	// Передача в заголовок респонса типа данных
 	w.Header().Set("Content-Type", "application/json")
 
-	// Получение параметра id из реквеста
+	// Получение параметров из реквеста
 	id := r.URL.Query().Get("id")
 	beatmapset := r.URL.Query().Get("beatmapset")
 
-	// Если параметра нет, отправка ошибки
-	if id == "" || beatmapset == "" {
+	// Проверка на наличие параметров
+	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(map[string]string{"Error": "Please insert map id and beatmapset id"})
+		json, _ := json.Marshal(apiError{Error: "please insert map id"})
 		w.Write(json)
 		return
 	}
 
-	// Проверка на тип, получение статистики, форматирование и отправка
+	// Проверка на тип
 	if r.URL.Query().Get("type") == "string" {
-		jsonResp, err := json.Marshal(GetMapInfoString(beatmapset, id))
+
+		// Получение статистики
+		result, err := getMapInfoString(beatmapset, id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			logrus.Printf("getMapInfo err: %s", err)
+			return
+		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			logrus.Printf("json.Marshal error: %s", err)
-		} else {
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			logrus.Printf("json.Marshal err: %s", err)
+			return
 		}
+
+		// Формирование и запись респонса
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
+
 	} else {
-		jsonResp, err := json.Marshal(GetMapInfo(beatmapset, id))
+
+		// Получение статистики
+		result, err := getMapInfo(beatmapset, id)
+		if err != nil {
+			if err.Error() == "response status: 404 Not Found" {
+				w.WriteHeader(http.StatusNotFound)
+				json, _ := json.Marshal(apiError{Error: "not found"})
+				w.Write(json)
+				return
+			}
+			w.WriteHeader(http.StatusInternalServerError)
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.Write(json)
+			logrus.Printf("getMapInfo err: %s", err)
+			return
+		}
+
+		// Перевод в json
+		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(map[string]string{"Error": "Internal Server Error"})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
-			logrus.Printf("json.Marshal error: %s", err)
-		} else {
-			w.WriteHeader(http.StatusOK)
-			w.Write(jsonResp)
+			logrus.Printf("json.Marshal err: %s", err)
+			return
 		}
+
+		// Формирование и запись респонса
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResp)
+
 	}
+
 }

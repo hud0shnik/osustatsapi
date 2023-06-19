@@ -1,25 +1,12 @@
-# 🖌️ OsuStatsApi v2 🎶
+# 🖌️ OsuStatsApi 🎶
 
 ## Overview
 
 - [Overview](#overview)
-- [Difference between v1 and v2](#difference)
 - [User](#user)
 - [Online](#online)
 - [Map](#map)
 
-## Difference
-
-Version 2 use special structure for errors
-
-#### apiError
-
-Field                       |       Type         | Description
-----------------------------|--------------------|------------
-success                     |       bool         | always "false" for errors
-error                       |      string        |
-
-Version 2 has new structures (without "success" and "error") and HTTP response status codes (200, 404, 500 and 400)
 
 ## User
 
@@ -92,15 +79,9 @@ groups                      |       string       | like "Developers"
 mapping_follower_count      |        int         |
 pending_beatmapset_count    |        int         |
 previous_usernames          |      []string      |
-rank_highest                |        int         | highest rank
-count_100                   |        int         | 
-count_300                   |        int         |
-count_50                    |        int         |
-count_miss                  |        int         |
 level                       |        int         |
 global_rank                 |        int         |
 pp                          |       float        | float value, 4 decimals
-pp_exp                      |        int         |
 ranked_score                |        int         |
 accuracy                    |       float        | like "97.132"
 play_count                  |        int         |
@@ -158,7 +139,6 @@ mode                        |       string       | like "osu"
 data                        |       []int        |
 
 
-
 ## Online
 
 ### Request
@@ -192,7 +172,7 @@ https://osustatsapi.vercel.app/api/v2/map
 Parameter       | Value type | Required | Description   
 ----------------|------------|----------|-------------
 id              |    int     |   Yes    | map id
-beatmapset      |    int     |   Yes    | beatmapset id
+beatmapset      |    int     |   No     | beatmapset id
 type            |   string   |   No     | response type (like "string")
 
 
