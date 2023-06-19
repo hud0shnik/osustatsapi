@@ -1,4 +1,4 @@
-package api
+package utils
 
 import (
 	"strconv"
@@ -8,7 +8,7 @@ import (
 // ---------------------- Функции поиска ------------------------
 
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
-func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
+func FindWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
 	str = str[start:]
@@ -37,7 +37,7 @@ func findWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 }
 
 // Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
-func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
+func FindStringWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
 	str = str[start:]
@@ -66,7 +66,7 @@ func findStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
-func find(str, subStr, stopChar string, start int) string {
+func Find(str, subStr, stopChar string, start int) string {
 
 	// Обрезка левой границы поиска
 	str = str[start:]
@@ -95,7 +95,7 @@ func find(str, subStr, stopChar string, start int) string {
 }
 
 // Функция поиска индекса
-func index(str, subStr string, start, end int) int {
+func Index(str, subStr string, start, end int) int {
 
 	res := strings.Index(str[start:], subStr)
 
@@ -112,14 +112,14 @@ func index(str, subStr string, start, end int) int {
 }
 
 // Функция проверки наличия подстроки
-func contains(str, subStr string, left int) bool {
+func Contains(str, subStr string, left int) bool {
 
 	return strings.Contains(str[left:], subStr)
 }
 
 // ---------------------- Функции перевода ----------------------
 
-func toInt(s string) int {
+func ToInt(s string) int {
 
 	i, err := strconv.Atoi(s)
 	if err != nil {
@@ -131,7 +131,7 @@ func toInt(s string) int {
 
 }
 
-func toInt64(s string) int64 {
+func ToInt64(s string) int64 {
 
 	i, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
@@ -143,7 +143,7 @@ func toInt64(s string) int64 {
 
 }
 
-func toBool(s string) bool {
+func ToBool(s string) bool {
 
 	f, err := strconv.ParseBool(s)
 	if err != nil {
@@ -155,7 +155,7 @@ func toBool(s string) bool {
 
 }
 
-func toFloat64(s string) float64 {
+func ToFloat64(s string) float64 {
 
 	i, err := strconv.ParseFloat(s, 64)
 	if err != nil {
@@ -167,7 +167,7 @@ func toFloat64(s string) float64 {
 
 }
 
-func toSlice(s string) []int {
+func ToSlice(s string) []int {
 
 	var result []int
 	sliceStr := strings.Split(s, ",")
@@ -177,7 +177,7 @@ func toSlice(s string) []int {
 	}
 
 	for _, digit := range sliceStr {
-		result = append(result, toInt(digit))
+		result = append(result, ToInt(digit))
 	}
 
 	return result

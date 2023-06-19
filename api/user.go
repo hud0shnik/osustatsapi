@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"osustatsapi/utils"
 	"strconv"
 	"strings"
 	"time"
@@ -278,129 +279,129 @@ func getUserInfoString(id string) (userInfoString, error) {
 
 	//--------------------------- Статистика игрока ------------------------------
 
-	result.AvatarUrl, left = findWithIndex(pageStr, "avatar_url : ", " ", left, -1)
+	result.AvatarUrl, left = utils.FindWithIndex(pageStr, "avatar_url : ", " ", left, -1)
 	result.AvatarUrl = strings.ReplaceAll(result.AvatarUrl, "\\", "")
-	result.CountryCode, left = findWithIndex(pageStr, "country_code : ", " ", left, -1)
-	result.DefaultGroup, left = findWithIndex(pageStr, "default_group : ", " ", left, -1)
-	result.UserID, left = findWithIndex(pageStr, " id :", ",", left, -1)
-	result.IsActive, left = findWithIndex(pageStr, "is_active :", ",", left, -1)
-	result.IsBot, left = findWithIndex(pageStr, "is_bot :", ",", left, -1)
-	result.IsDeleted, left = findWithIndex(pageStr, "is_deleted :", ",", left, -1)
-	result.IsOnline, left = findWithIndex(pageStr, "is_online :", ",", left, -1)
-	result.IsSupporter, left = findWithIndex(pageStr, "is_supporter :", ",", left, -1)
-	result.LastVisit, left = findWithIndex(pageStr, "last_visit : ", " ", left, -1)
-	result.PmFriendsOnly, left = findWithIndex(pageStr, "pm_friends_only :", ",", left, -1)
-	result.ProfileColor, left = findWithIndex(pageStr, "profile_colour : ", " ,", left, -1)
-	result.Username, left = findWithIndex(pageStr, "username : ", " ", left, -1)
-	result.CoverUrl, left = findWithIndex(pageStr, "cover_url : ", " ", left, -1)
+	result.CountryCode, left = utils.FindWithIndex(pageStr, "country_code : ", " ", left, -1)
+	result.DefaultGroup, left = utils.FindWithIndex(pageStr, "default_group : ", " ", left, -1)
+	result.UserID, left = utils.FindWithIndex(pageStr, " id :", ",", left, -1)
+	result.IsActive, left = utils.FindWithIndex(pageStr, "is_active :", ",", left, -1)
+	result.IsBot, left = utils.FindWithIndex(pageStr, "is_bot :", ",", left, -1)
+	result.IsDeleted, left = utils.FindWithIndex(pageStr, "is_deleted :", ",", left, -1)
+	result.IsOnline, left = utils.FindWithIndex(pageStr, "is_online :", ",", left, -1)
+	result.IsSupporter, left = utils.FindWithIndex(pageStr, "is_supporter :", ",", left, -1)
+	result.LastVisit, left = utils.FindWithIndex(pageStr, "last_visit : ", " ", left, -1)
+	result.PmFriendsOnly, left = utils.FindWithIndex(pageStr, "pm_friends_only :", ",", left, -1)
+	result.ProfileColor, left = utils.FindWithIndex(pageStr, "profile_colour : ", " ,", left, -1)
+	result.Username, left = utils.FindWithIndex(pageStr, "username : ", " ", left, -1)
+	result.CoverUrl, left = utils.FindWithIndex(pageStr, "cover_url : ", " ", left, -1)
 	result.CoverUrl = strings.ReplaceAll(result.CoverUrl, "\\", "")
-	result.Discord, left = findWithIndex(pageStr, "discord : ", " ,", left, -1)
-	result.HasSupported, left = findWithIndex(pageStr, "has_supported :", ",", left, -1)
-	result.Interests, left = findWithIndex(pageStr, "interests : ", " , join_date", left, -1)
-	result.JoinDate, left = findWithIndex(pageStr, "join_date : ", " ,", left, -1)
-	result.Kudosu, left = findWithIndex(pageStr, "kudosu :{ total :", ",", left, -1)
-	result.Location, left = findWithIndex(pageStr, "location : ", " ,", left, -1)
-	result.MaxBLock, left = findWithIndex(pageStr, "max_blocks :", ",", left, -1)
-	result.MaxFriends, left = findWithIndex(pageStr, "max_friends :", ",", left, -1)
-	result.Occupation, left = findWithIndex(pageStr, "occupation : ", " ,", left, -1)
-	result.Playmode, left = findWithIndex(pageStr, "playmode : ", " ,", left, -1)
-	result.Playstyle = strings.Split(find(pageStr, "playstyle :[ ", " ],", left), " , ")
+	result.Discord, left = utils.FindWithIndex(pageStr, "discord : ", " ,", left, -1)
+	result.HasSupported, left = utils.FindWithIndex(pageStr, "has_supported :", ",", left, -1)
+	result.Interests, left = utils.FindWithIndex(pageStr, "interests : ", " , join_date", left, -1)
+	result.JoinDate, left = utils.FindWithIndex(pageStr, "join_date : ", " ,", left, -1)
+	result.Kudosu, left = utils.FindWithIndex(pageStr, "kudosu :{ total :", ",", left, -1)
+	result.Location, left = utils.FindWithIndex(pageStr, "location : ", " ,", left, -1)
+	result.MaxBLock, left = utils.FindWithIndex(pageStr, "max_blocks :", ",", left, -1)
+	result.MaxFriends, left = utils.FindWithIndex(pageStr, "max_friends :", ",", left, -1)
+	result.Occupation, left = utils.FindWithIndex(pageStr, "occupation : ", " ,", left, -1)
+	result.Playmode, left = utils.FindWithIndex(pageStr, "playmode : ", " ,", left, -1)
+	result.Playstyle = strings.Split(utils.Find(pageStr, "playstyle :[ ", " ],", left), " , ")
 	if result.Playstyle[0] == "" {
 		result.Playstyle = nil
 	}
-	result.PostCount, left = findWithIndex(pageStr, "post_count :", ",", left, -1)
-	result.ProfileOrder = strings.Split(find(pageStr, "profile_order :[ ", " ]", left), " , ")
+	result.PostCount, left = utils.FindWithIndex(pageStr, "post_count :", ",", left, -1)
+	result.ProfileOrder = strings.Split(utils.Find(pageStr, "profile_order :[ ", " ]", left), " , ")
 	if result.ProfileOrder[0] == "" {
 		result.ProfileOrder = nil
 	}
-	result.Title, left = findWithIndex(pageStr, "title :", ",", left, -1)
-	result.TitleUrl, left = findWithIndex(pageStr, "title_url : ", " ,", left, -1)
-	result.Twitter, left = findWithIndex(pageStr, "twitter : ", " ,", left, -1)
-	result.Website, left = findWithIndex(pageStr, "website : ", " ,", left, -1)
+	result.Title, left = utils.FindWithIndex(pageStr, "title :", ",", left, -1)
+	result.TitleUrl, left = utils.FindWithIndex(pageStr, "title_url : ", " ,", left, -1)
+	result.Twitter, left = utils.FindWithIndex(pageStr, "twitter : ", " ,", left, -1)
+	result.Website, left = utils.FindWithIndex(pageStr, "website : ", " ,", left, -1)
 	result.Website = strings.ReplaceAll(result.Website, "\\", "")
-	result.CountyName, left = findWithIndex(pageStr, " name : ", " }", left, -1)
+	result.CountyName, left = utils.FindWithIndex(pageStr, " name : ", " }", left, -1)
 
-	result.UserCover.CustomUrl, left = findWithIndex(pageStr, "custom_url : ", " ,", left, -1)
+	result.UserCover.CustomUrl, left = utils.FindWithIndex(pageStr, "custom_url : ", " ,", left, -1)
 	result.UserCover.CustomUrl = strings.ReplaceAll(result.UserCover.CustomUrl, "\\", "")
-	result.UserCover.Url, left = findWithIndex(pageStr, "url : ", " ,", left, -1)
+	result.UserCover.Url, left = utils.FindWithIndex(pageStr, "url : ", " ,", left, -1)
 	result.UserCover.Url = strings.ReplaceAll(result.UserCover.Url, "\\", "")
-	result.UserCover.Id, left = findWithIndex(pageStr, " , id : ", " }", left, -1)
+	result.UserCover.Id, left = utils.FindWithIndex(pageStr, " , id : ", " }", left, -1)
 
-	result.IsAdmin, left = findWithIndex(pageStr, "is_admin :", ",", left, -1)
-	result.IsBng, left = findWithIndex(pageStr, "is_bng :", ",", left, -1)
-	result.IsFullBan, left = findWithIndex(pageStr, "is_full_bn :", ",", left, -1)
-	result.IsGmt, left = findWithIndex(pageStr, "is_gmt :", ",", left, -1)
-	result.IsLimitedBan, left = findWithIndex(pageStr, "is_limited_bn :", ",", left, -1)
-	result.IsModerator, left = findWithIndex(pageStr, "is_moderator :", ",", left, -1)
-	result.IsNat, left = findWithIndex(pageStr, "is_nat :", ",", left, -1)
-	result.IsRestricted, left = findWithIndex(pageStr, "is_restricted :", ",", left, -1)
-	result.IsSilenced, left = findWithIndex(pageStr, "is_silenced :", ",", left, -1)
-	result.ActiveTournamentBanner, left = findWithIndex(pageStr, "active_tournament_banner :", ", badges", left, -1)
+	result.IsAdmin, left = utils.FindWithIndex(pageStr, "is_admin :", ",", left, -1)
+	result.IsBng, left = utils.FindWithIndex(pageStr, "is_bng :", ",", left, -1)
+	result.IsFullBan, left = utils.FindWithIndex(pageStr, "is_full_bn :", ",", left, -1)
+	result.IsGmt, left = utils.FindWithIndex(pageStr, "is_gmt :", ",", left, -1)
+	result.IsLimitedBan, left = utils.FindWithIndex(pageStr, "is_limited_bn :", ",", left, -1)
+	result.IsModerator, left = utils.FindWithIndex(pageStr, "is_moderator :", ",", left, -1)
+	result.IsNat, left = utils.FindWithIndex(pageStr, "is_nat :", ",", left, -1)
+	result.IsRestricted, left = utils.FindWithIndex(pageStr, "is_restricted :", ",", left, -1)
+	result.IsSilenced, left = utils.FindWithIndex(pageStr, "is_silenced :", ",", left, -1)
+	result.ActiveTournamentBanner, left = utils.FindWithIndex(pageStr, "active_tournament_banner :", ", badges", left, -1)
 	result.ActiveTournamentBanner = strings.ReplaceAll(result.ActiveTournamentBanner, "\\", "")
 
 	// Значки
-	for c := index(pageStr, "badges :[", left, -1); pageStr[c] != ']'; c++ {
+	for c := utils.Index(pageStr, "badges :[", left, -1); pageStr[c] != ']'; c++ {
 		if pageStr[c:c+13] == "awarded_at : " {
 			result.Badges = append(result.Badges, badge{
-				AwardedAt:   find(pageStr[c:], "awarded_at : ", " ", 0),
-				Description: find(pageStr[c:], "description : ", " ,", 0),
-				ImageUrl:    strings.ReplaceAll(find(pageStr[c:], "image_url : ", " ", 0), "\\", ""),
+				AwardedAt:   utils.Find(pageStr[c:], "awarded_at : ", " ", 0),
+				Description: utils.Find(pageStr[c:], "description : ", " ,", 0),
+				ImageUrl:    strings.ReplaceAll(utils.Find(pageStr[c:], "image_url : ", " ", 0), "\\", ""),
 			})
 		}
 	}
 
-	result.CommentsCount, left = findWithIndex(pageStr, "comments_count :", ",", left, -1)
-	result.FollowerCount, left = findWithIndex(pageStr, "follower_count :", ",", left, -1)
+	result.CommentsCount, left = utils.FindWithIndex(pageStr, "comments_count :", ",", left, -1)
+	result.FollowerCount, left = utils.FindWithIndex(pageStr, "follower_count :", ",", left, -1)
 
 	// Принадлежность к группам
-	for c := index(pageStr, "groups :[", left, -1); pageStr[c] != ']'; c++ {
+	for c := utils.Index(pageStr, "groups :[", left, -1); pageStr[c] != ']'; c++ {
 		if pageStr[c] == '{' {
-			result.Groups += find(pageStr[c:], "name : ", " ,", 0) + ", "
+			result.Groups += utils.Find(pageStr[c:], "name : ", " ,", 0) + ", "
 		}
 	}
 	if result.Groups != "" {
 		result.Groups = result.Groups[:len(result.Groups)-2]
 	}
 
-	result.MappingFollowerCount, left = findWithIndex(pageStr, "mapping_follower_count :", ",", left, -1)
-	result.PendingBeatmapsetCount, left = findWithIndex(pageStr, "pending_beatmapset_count :", ",", left, -1)
-	result.Names = strings.Split(find(pageStr, "previous_usernames :[ ", " ],", left), " , ")
+	result.MappingFollowerCount, left = utils.FindWithIndex(pageStr, "mapping_follower_count :", ",", left, -1)
+	result.PendingBeatmapsetCount, left = utils.FindWithIndex(pageStr, "pending_beatmapset_count :", ",", left, -1)
+	result.Names = strings.Split(utils.Find(pageStr, "previous_usernames :[ ", " ],", left), " , ")
 	if result.Names[0] == "" {
 		result.Names = nil
 	}
-	result.RankHighest, left = findWithIndex(pageStr, "rank_highest :{ rank :", ",", left, -1)
-	result.Count100, left = findWithIndex(pageStr, "count_100 :", ",", left, -1)
-	result.Count300, left = findWithIndex(pageStr, "count_300 :", ",", left, -1)
-	result.Count50, left = findWithIndex(pageStr, "count_50 :", ",", left, -1)
-	result.CountMiss, left = findWithIndex(pageStr, "count_miss :", ",", left, -1)
-	result.Level, left = findWithIndex(pageStr, "level :{ current :", ",", left, -1)
-	result.GlobalRank, left = findWithIndex(pageStr, "global_rank :", ",", left, -1)
-	result.PP, left = findWithIndex(pageStr, "pp :", ",", left, -1)
-	result.PPExp, left = findWithIndex(pageStr, "pp_exp :", ",", left, -1)
-	result.RankedScore, left = findWithIndex(pageStr, "ranked_score :", ",", left, -1)
-	result.Accuracy, left = findWithIndex(pageStr, "hit_accuracy :", ",", left, -1)
-	result.PlayCount, left = findWithIndex(pageStr, "play_count :", ",", left, -1)
-	result.PlayTimeSeconds, left = findWithIndex(pageStr, "play_time :", ",", left, -1)
+	result.RankHighest, left = utils.FindWithIndex(pageStr, "rank_highest :{ rank :", ",", left, -1)
+	result.Count100, left = utils.FindWithIndex(pageStr, "count_100 :", ",", left, -1)
+	result.Count300, left = utils.FindWithIndex(pageStr, "count_300 :", ",", left, -1)
+	result.Count50, left = utils.FindWithIndex(pageStr, "count_50 :", ",", left, -1)
+	result.CountMiss, left = utils.FindWithIndex(pageStr, "count_miss :", ",", left, -1)
+	result.Level, left = utils.FindWithIndex(pageStr, "level :{ current :", ",", left, -1)
+	result.GlobalRank, left = utils.FindWithIndex(pageStr, "global_rank :", ",", left, -1)
+	result.PP, left = utils.FindWithIndex(pageStr, "pp :", ",", left, -1)
+	result.PPExp, left = utils.FindWithIndex(pageStr, "pp_exp :", ",", left, -1)
+	result.RankedScore, left = utils.FindWithIndex(pageStr, "ranked_score :", ",", left, -1)
+	result.Accuracy, left = utils.FindWithIndex(pageStr, "hit_accuracy :", ",", left, -1)
+	result.PlayCount, left = utils.FindWithIndex(pageStr, "play_count :", ",", left, -1)
+	result.PlayTimeSeconds, left = utils.FindWithIndex(pageStr, "play_time :", ",", left, -1)
 	duration, _ := time.ParseDuration(result.PlayTimeSeconds + "s")
 	result.PlayTime = duration.String()
-	result.TotalScore, left = findWithIndex(pageStr, "total_score :", ",", left, -1)
-	result.TotalHits, left = findWithIndex(pageStr, "total_hits :", ",", left, -1)
-	result.MaximumCombo, left = findWithIndex(pageStr, "maximum_combo :", ",", left, -1)
-	result.Replays, left = findWithIndex(pageStr, "replays_watched_by_others :", ",", left, -1)
-	result.IsRanked, left = findWithIndex(pageStr, "is_ranked :", ",", left, -1)
-	result.SS, left = findWithIndex(pageStr, "grade_counts :{ ss :", ",", left, -1)
-	result.SSH, left = findWithIndex(pageStr, "ssh :", ",", left, -1)
-	result.S, left = findWithIndex(pageStr, "s :", ",", left, -1)
-	result.SH, left = findWithIndex(pageStr, "sh :", ",", left, -1)
-	result.A, left = findWithIndex(pageStr, "a :", "}", left, -1)
-	result.CountryRank, left = findWithIndex(pageStr, "country_rank :", ",", left, -1)
-	result.SupportLvl, left = findWithIndex(pageStr, "support_level :", ",", left, -1)
+	result.TotalScore, left = utils.FindWithIndex(pageStr, "total_score :", ",", left, -1)
+	result.TotalHits, left = utils.FindWithIndex(pageStr, "total_hits :", ",", left, -1)
+	result.MaximumCombo, left = utils.FindWithIndex(pageStr, "maximum_combo :", ",", left, -1)
+	result.Replays, left = utils.FindWithIndex(pageStr, "replays_watched_by_others :", ",", left, -1)
+	result.IsRanked, left = utils.FindWithIndex(pageStr, "is_ranked :", ",", left, -1)
+	result.SS, left = utils.FindWithIndex(pageStr, "grade_counts :{ ss :", ",", left, -1)
+	result.SSH, left = utils.FindWithIndex(pageStr, "ssh :", ",", left, -1)
+	result.S, left = utils.FindWithIndex(pageStr, "s :", ",", left, -1)
+	result.SH, left = utils.FindWithIndex(pageStr, "sh :", ",", left, -1)
+	result.A, left = utils.FindWithIndex(pageStr, "a :", "}", left, -1)
+	result.CountryRank, left = utils.FindWithIndex(pageStr, "country_rank :", ",", left, -1)
+	result.SupportLvl, left = utils.FindWithIndex(pageStr, "support_level :", ",", left, -1)
 
 	// Проверка на наличие достижений
-	if !contains(pageStr, "user_achievements :[]", left) {
+	if !utils.Contains(pageStr, "user_achievements :[]", left) {
 
 		// Конец блока достижений
-		end := index(pageStr, "]", left, -1) - 10
+		end := utils.Index(pageStr, "]", left, -1) - 10
 		medals := 0
 
 		// Цикл обработки достижений
@@ -410,8 +411,8 @@ func getUserInfoString(id string) (userInfoString, error) {
 			var achieve achievementString
 
 			// Генерация достижения
-			achieve.AchievedAt, left = findWithIndex(pageStr, "achieved_at : ", " ,", left, -1)
-			achieve.AchievementId, left = findWithIndex(pageStr, "achievement_id :", "}", left, -1)
+			achieve.AchievedAt, left = utils.FindWithIndex(pageStr, "achieved_at : ", " ,", left, -1)
+			achieve.AchievementId, left = utils.FindWithIndex(pageStr, "achievement_id :", "}", left, -1)
 
 			// Добавление достижения
 			result.Achievements = append(result.Achievements, achieve)
@@ -424,12 +425,12 @@ func getUserInfoString(id string) (userInfoString, error) {
 	}
 
 	// Проверка на наличие статистики
-	if !contains(pageStr, " rank_history :null", left) {
-		result.RankHistory.Mode, left = findWithIndex(pageStr, "mode : ", " ,", left, -1)
-		result.RankHistory.Data = strings.Split(find(pageStr, "data :[", "]", left), ",")
+	if !utils.Contains(pageStr, " rank_history :null", left) {
+		result.RankHistory.Mode, left = utils.FindWithIndex(pageStr, "mode : ", " ,", left, -1)
+		result.RankHistory.Data = strings.Split(utils.Find(pageStr, "data :[", "]", left), ",")
 	}
 
-	result.UnrankedBeatmapsetCount, _ = findWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
+	result.UnrankedBeatmapsetCount, _ = utils.FindWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
 
 	return result, nil
 
@@ -449,29 +450,29 @@ func getUserInfo(id string) (userInfo, error) {
 		AvatarUrl:     resultStr.AvatarUrl,
 		CountryCode:   resultStr.CountryCode,
 		DefaultGroup:  resultStr.DefaultGroup,
-		UserID:        toInt(resultStr.UserID),
-		IsActive:      toBool(resultStr.IsActive),
-		IsBot:         toBool(resultStr.IsBot),
-		IsDeleted:     toBool(resultStr.IsDeleted),
-		IsOnline:      toBool(resultStr.IsOnline),
-		IsSupporter:   toBool(resultStr.IsSupporter),
+		UserID:        utils.ToInt(resultStr.UserID),
+		IsActive:      utils.ToBool(resultStr.IsActive),
+		IsBot:         utils.ToBool(resultStr.IsBot),
+		IsDeleted:     utils.ToBool(resultStr.IsDeleted),
+		IsOnline:      utils.ToBool(resultStr.IsOnline),
+		IsSupporter:   utils.ToBool(resultStr.IsSupporter),
 		LastVisit:     resultStr.LastVisit,
-		PmFriendsOnly: toBool(resultStr.PmFriendsOnly),
+		PmFriendsOnly: utils.ToBool(resultStr.PmFriendsOnly),
 		ProfileColor:  resultStr.ProfileColor,
 		Username:      resultStr.Username,
 		CoverUrl:      resultStr.CoverUrl,
 		Discord:       resultStr.Discord,
-		HasSupported:  toBool(resultStr.HasSupported),
+		HasSupported:  utils.ToBool(resultStr.HasSupported),
 		Interests:     resultStr.Interests,
 		JoinDate:      resultStr.JoinDate,
-		Kudosu:        toInt(resultStr.Kudosu),
+		Kudosu:        utils.ToInt(resultStr.Kudosu),
 		Location:      resultStr.Location,
-		MaxFriends:    toInt(resultStr.MaxFriends),
-		MaxBLock:      toInt(resultStr.MaxBLock),
+		MaxFriends:    utils.ToInt(resultStr.MaxFriends),
+		MaxBLock:      utils.ToInt(resultStr.MaxBLock),
 		Occupation:    resultStr.Occupation,
 		Playmode:      resultStr.Playmode,
 		Playstyle:     resultStr.Playstyle,
-		PostCount:     toInt(resultStr.PostCount),
+		PostCount:     utils.ToInt(resultStr.PostCount),
 		ProfileOrder:  resultStr.ProfileOrder,
 		Title:         resultStr.Title,
 		TitleUrl:      resultStr.TitleUrl,
@@ -481,69 +482,69 @@ func getUserInfo(id string) (userInfo, error) {
 		UserCover: cover{
 			CustomUrl: resultStr.UserCover.CustomUrl,
 			Url:       resultStr.UserCover.Url,
-			Id:        toInt(resultStr.UserCover.Id),
+			Id:        utils.ToInt(resultStr.UserCover.Id),
 		},
-		IsAdmin:                 toBool(resultStr.IsAdmin),
-		IsBng:                   toBool(resultStr.IsBng),
-		IsFullBan:               toBool(resultStr.IsFullBan),
-		IsGmt:                   toBool(resultStr.IsGmt),
-		IsLimitedBan:            toBool(resultStr.IsLimitedBan),
-		IsModerator:             toBool(resultStr.IsModerator),
-		IsNat:                   toBool(resultStr.IsNat),
-		IsRestricted:            toBool(resultStr.IsRestricted),
-		IsSilenced:              toBool(resultStr.IsSilenced),
+		IsAdmin:                 utils.ToBool(resultStr.IsAdmin),
+		IsBng:                   utils.ToBool(resultStr.IsBng),
+		IsFullBan:               utils.ToBool(resultStr.IsFullBan),
+		IsGmt:                   utils.ToBool(resultStr.IsGmt),
+		IsLimitedBan:            utils.ToBool(resultStr.IsLimitedBan),
+		IsModerator:             utils.ToBool(resultStr.IsModerator),
+		IsNat:                   utils.ToBool(resultStr.IsNat),
+		IsRestricted:            utils.ToBool(resultStr.IsRestricted),
+		IsSilenced:              utils.ToBool(resultStr.IsSilenced),
 		AccountHistory:          resultStr.AccountHistory,
 		ActiveTournamentBanner:  resultStr.ActiveTournamentBanner,
 		Badges:                  resultStr.Badges,
-		CommentsCount:           toInt(resultStr.CommentsCount),
-		FollowerCount:           toInt(resultStr.FollowerCount),
+		CommentsCount:           utils.ToInt(resultStr.CommentsCount),
+		FollowerCount:           utils.ToInt(resultStr.FollowerCount),
 		Groups:                  resultStr.Groups,
-		MappingFollowerCount:    toInt(resultStr.MappingFollowerCount),
-		PendingBeatmapsetCount:  toInt(resultStr.PendingBeatmapsetCount),
+		MappingFollowerCount:    utils.ToInt(resultStr.MappingFollowerCount),
+		PendingBeatmapsetCount:  utils.ToInt(resultStr.PendingBeatmapsetCount),
 		Names:                   resultStr.Names,
-		RankHighest:             toInt(resultStr.RankHighest),
-		Count100:                toInt(resultStr.Count100),
-		Count300:                toInt(resultStr.Count300),
-		Count50:                 toInt(resultStr.Count50),
-		CountMiss:               toInt(resultStr.CountMiss),
-		Level:                   toInt(resultStr.Level),
-		GlobalRank:              toInt64(resultStr.GlobalRank),
-		PP:                      toFloat64(resultStr.PP),
-		PPExp:                   toInt(resultStr.PPExp),
-		RankedScore:             toInt(resultStr.RankedScore),
-		Accuracy:                toFloat64(resultStr.Accuracy),
-		PlayCount:               toInt(resultStr.PlayCount),
+		RankHighest:             utils.ToInt(resultStr.RankHighest),
+		Count100:                utils.ToInt(resultStr.Count100),
+		Count300:                utils.ToInt(resultStr.Count300),
+		Count50:                 utils.ToInt(resultStr.Count50),
+		CountMiss:               utils.ToInt(resultStr.CountMiss),
+		Level:                   utils.ToInt(resultStr.Level),
+		GlobalRank:              utils.ToInt64(resultStr.GlobalRank),
+		PP:                      utils.ToFloat64(resultStr.PP),
+		PPExp:                   utils.ToInt(resultStr.PPExp),
+		RankedScore:             utils.ToInt(resultStr.RankedScore),
+		Accuracy:                utils.ToFloat64(resultStr.Accuracy),
+		PlayCount:               utils.ToInt(resultStr.PlayCount),
 		PlayTime:                resultStr.PlayTime,
-		PlayTimeSeconds:         toInt64(resultStr.PlayTimeSeconds),
-		TotalScore:              toInt64(resultStr.TotalScore),
-		TotalHits:               toInt64(resultStr.TotalHits),
-		MaximumCombo:            toInt(resultStr.MaximumCombo),
-		Replays:                 toInt(resultStr.Replays),
-		IsRanked:                toBool(resultStr.IsRanked),
-		SS:                      toInt(resultStr.SS),
-		SSH:                     toInt(resultStr.SSH),
-		S:                       toInt(resultStr.S),
-		SH:                      toInt(resultStr.SH),
-		A:                       toInt(resultStr.A),
-		CountryRank:             toInt(resultStr.CountryRank),
-		SupportLvl:              toInt(resultStr.SupportLvl),
-		UnrankedBeatmapsetCount: toInt(resultStr.UnrankedBeatmapsetCount),
+		PlayTimeSeconds:         utils.ToInt64(resultStr.PlayTimeSeconds),
+		TotalScore:              utils.ToInt64(resultStr.TotalScore),
+		TotalHits:               utils.ToInt64(resultStr.TotalHits),
+		MaximumCombo:            utils.ToInt(resultStr.MaximumCombo),
+		Replays:                 utils.ToInt(resultStr.Replays),
+		IsRanked:                utils.ToBool(resultStr.IsRanked),
+		SS:                      utils.ToInt(resultStr.SS),
+		SSH:                     utils.ToInt(resultStr.SSH),
+		S:                       utils.ToInt(resultStr.S),
+		SH:                      utils.ToInt(resultStr.SH),
+		A:                       utils.ToInt(resultStr.A),
+		CountryRank:             utils.ToInt(resultStr.CountryRank),
+		SupportLvl:              utils.ToInt(resultStr.SupportLvl),
+		UnrankedBeatmapsetCount: utils.ToInt(resultStr.UnrankedBeatmapsetCount),
 	}
 
 	// Перевод достижений
 	for _, c := range resultStr.Achievements {
 		result.Achievements = append(result.Achievements, achievement{
 			AchievedAt:    c.AchievedAt,
-			AchievementId: toInt(c.AchievementId),
+			AchievementId: utils.ToInt(c.AchievementId),
 		})
 	}
 
 	// Перевод количества медалей и истории рейтинга
-	result.Medals = toInt(resultStr.Medals)
+	result.Medals = utils.ToInt(resultStr.Medals)
 	result.RankHistory.Mode = resultStr.RankHistory.Mode
 
 	for _, d := range resultStr.RankHistory.Data {
-		result.RankHistory.Data = append(result.RankHistory.Data, toInt(d))
+		result.RankHistory.Data = append(result.RankHistory.Data, utils.ToInt(d))
 	}
 
 	return result, nil

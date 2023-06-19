@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"osustatsapi/utils"
 
 	"github.com/sirupsen/logrus"
 )
@@ -49,7 +50,7 @@ func getOnlineInfoString(id string) (onlineInfoString, error) {
 
 	// Поиск статуса пользователя и вывод результата
 	return onlineInfoString{
-		Status: find(pageStr, "is_online&quot;:", ",", 0),
+		Status: utils.Find(pageStr, "is_online&quot;:", ",", 0),
 	}, nil
 
 }
@@ -65,7 +66,7 @@ func getOnlineInfo(id string) (onlineInfo, error) {
 
 	// Перевод в классическую версию
 	return onlineInfo{
-		Status: toBool(resultStr.Status),
+		Status: utils.ToBool(resultStr.Status),
 	}, nil
 
 }
