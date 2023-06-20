@@ -29,9 +29,6 @@ func FindWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 		return str[left : left+right], right + left + start
 	}
 
-	// Вывод ненайденных значений для тестов
-	// fmt.Println("error foundn't \t", subStr, "-")
-
 	return "", start
 
 }
@@ -57,9 +54,6 @@ func FindStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 		// Обрезка и вывод результата
 		return strings.ReplaceAll(str[left:left+right], "\"", ""), right + left + start
 	}
-
-	// Вывод ненайденных значений для тестов
-	// fmt.Println("error foundn't \t", subStr, "-")
 
 	return "", start
 

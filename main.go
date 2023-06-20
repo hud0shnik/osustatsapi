@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -18,8 +17,8 @@ func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	// Вывод времени начала работы
-	fmt.Println("API Start: " + string(time.Now().Format("2006-01-02 15:04:05")))
-	fmt.Println("Port:\t" + os.Getenv("PORT"))
+	logrus.Info("API Start: " + string(time.Now().Format("2006-01-02 15:04:05")))
+	logrus.Info("Port:\t" + os.Getenv("PORT"))
 
 	// Роутер
 	router := mux.NewRouter()
