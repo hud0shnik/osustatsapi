@@ -107,7 +107,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
 			logrus.Printf("json.Marshal err: %s", err)
 			return
@@ -131,7 +131,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		jsonResp, err := json.Marshal(result)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
+			json, _ := json.Marshal(apiError{Error: "internal server error"})
 			w.Write(json)
 			logrus.Printf("json.Marshal err: %s", err)
 			return
