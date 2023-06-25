@@ -192,18 +192,20 @@ type beatmapsetString struct {
 }
 
 // Функция получения недавних карт
-func getUserHistorical(id string) (response, error) {
+func getUserHistorical(id string) (response, int, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/extra-pages/historical?mode=osu")
 	if err != nil {
-		return response{}, fmt.Errorf("in http.Get: %w", err)
+		return response{}, http.StatusInternalServerError,
+			fmt.Errorf("in http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 
 	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return response{}, fmt.Errorf("response status: %s", resp.Status)
+		return response{}, resp.StatusCode,
+			fmt.Errorf("response status: %s", resp.Status)
 	}
 
 	// Запись респонса
@@ -214,20 +216,20 @@ func getUserHistorical(id string) (response, error) {
 	// Запись статистики в структуру
 	err = json.Unmarshal(body, &result)
 	if err != nil {
-		return response{}, err
+		return response{}, resp.StatusCode, err
 	}
 
-	return result, nil
+	return result, http.StatusOK, nil
 
 }
 
 // Функция конвертации недавних карт
-func getUserHistoricalString(id string) (responseString, error) {
+func getUserHistoricalString(id string) (responseString, int, error) {
 
 	// Получение классической версии
-	classic, err := getUserHistorical(id)
+	classic, statusCode, err := getUserHistorical(id)
 	if err != nil {
-		return responseString{}, err
+		return responseString{}, statusCode, err
 	}
 
 	var result responseString
@@ -310,7 +312,7 @@ func getUserHistoricalString(id string) (responseString, error) {
 
 	}
 
-	return result, nil
+	return result, http.StatusOK, nil
 
 }
 
@@ -335,18 +337,11 @@ func Historical(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 
 		// Получение статистики
-		result, err := getUserHistoricalString(id)
+		result, statusCode, err := getUserHistoricalString(id)
 		if err != nil {
-			if err.Error() == "response status: 404 Not Found" {
-				w.WriteHeader(http.StatusNotFound)
-				json, _ := json.Marshal(apiError{Error: "not found"})
-				w.Write(json)
-				return
-			}
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.WriteHeader(statusCode)
+			json, _ := json.Marshal(apiError{Error: err.Error()})
 			w.Write(json)
-			logrus.Printf("getUserHistorical err: %s", err)
 			return
 		}
 
@@ -366,18 +361,11 @@ func Historical(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// Получение статистики
-		result, err := getUserHistorical(id)
+		result, statusCode, err := getUserHistorical(id)
 		if err != nil {
-			if err.Error() == "response status: 404 Not Found" {
-				w.WriteHeader(http.StatusNotFound)
-				json, _ := json.Marshal(apiError{Error: "not found"})
-				w.Write(json)
-				return
-			}
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.WriteHeader(statusCode)
+			json, _ := json.Marshal(apiError{Error: err.Error()})
 			w.Write(json)
-			logrus.Printf("getUserHistorical err: %s", err)
 			return
 		}
 
