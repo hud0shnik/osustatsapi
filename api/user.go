@@ -242,18 +242,20 @@ type apiError struct {
 // ----------------- Функции получения статистики ----------------
 
 // Функция получения текстовой информации о пользователе
-func getUserInfoString(id string) (userInfoString, error) {
+func getUserInfoString(id string) (userInfoString, int, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id)
 	if err != nil {
-		return userInfoString{}, fmt.Errorf("in http.Get: %w", err)
+		return userInfoString{}, http.StatusInternalServerError,
+			fmt.Errorf("in http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 
 	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return userInfoString{}, fmt.Errorf("response status: %s", resp.Status)
+		return userInfoString{}, resp.StatusCode,
+			fmt.Errorf(resp.Status)
 	}
 
 	// Запись респонса
@@ -433,17 +435,17 @@ func getUserInfoString(id string) (userInfoString, error) {
 
 	result.UnrankedBeatmapsetCount, _ = utils.FindWithIndex(pageStr, "unranked_beatmapset_count :", "}", left, -1)
 
-	return result, nil
+	return result, http.StatusOK, nil
 
 }
 
 // Функция получения информации о пользователе
-func getUserInfo(id string) (userInfo, error) {
+func getUserInfo(id string) (userInfo, int, error) {
 
 	// Получение текстовой версии статистики
-	resultStr, err := getUserInfoString(id)
+	resultStr, statusCode, err := getUserInfoString(id)
 	if err != nil {
-		return userInfo{}, err
+		return userInfo{}, statusCode, err
 	}
 
 	// Перевод в классическую версию
@@ -548,7 +550,7 @@ func getUserInfo(id string) (userInfo, error) {
 		result.RankHistory.Data = append(result.RankHistory.Data, utils.ToInt(d))
 	}
 
-	return result, nil
+	return result, http.StatusOK, nil
 
 }
 
@@ -573,18 +575,11 @@ func User(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 
 		// Получение статистики
-		result, err := getUserInfoString(id)
+		result, statusCode, err := getUserInfoString(id)
 		if err != nil {
-			if err.Error() == "response status: 404 Not Found" {
-				w.WriteHeader(http.StatusNotFound)
-				json, _ := json.Marshal(apiError{Error: "not found"})
-				w.Write(json)
-				return
-			}
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.WriteHeader(statusCode)
+			json, _ := json.Marshal(apiError{Error: err.Error()})
 			w.Write(json)
-			logrus.Printf("getUserInfo err: %s", err)
 			return
 		}
 
@@ -604,18 +599,11 @@ func User(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// Получение статистики
-		result, err := getUserInfo(id)
+		result, statusCode, err := getUserInfo(id)
 		if err != nil {
-			if err.Error() == "response status: 404 Not Found" {
-				w.WriteHeader(http.StatusNotFound)
-				json, _ := json.Marshal(apiError{Error: "not found"})
-				w.Write(json)
-				return
-			}
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
+			w.WriteHeader(statusCode)
+			json, _ := json.Marshal(apiError{Error: err.Error()})
 			w.Write(json)
-			logrus.Printf("getUserInfo err: %s", err)
 			return
 		}
 
