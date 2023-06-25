@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"osustatsapi/utils"
+
+	"github.com/hud0shnik/OsuStatsApi/utils"
 
 	"github.com/sirupsen/logrus"
 )

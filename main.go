@@ -4,8 +4,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"osustatsapi/api"
 	"time"
+
+	"github.com/hud0shnik/OsuStatsApi/api"
 
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
