@@ -3,12 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
+
 	"os"
 	"time"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/hud0shnik/OsuStatsApi/api"
-
-	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
 
@@ -24,14 +24,14 @@ func main() {
 	logrus.Info("Port: " + os.Getenv("PORT"))
 
 	// Роутер
-	router := mux.NewRouter()
+	router := chi.NewRouter()
 
 	// Маршруты
 
-	router.HandleFunc("/api/user", api.User).Methods("GET")
-	router.HandleFunc("/api/online", api.Online).Methods("GET")
-	router.HandleFunc("/api/map", api.Map).Methods("GET")
-	router.HandleFunc("/api/historical", api.Historical).Methods("GET")
+	router.Get("/api/user", api.User)
+	router.Get("/api/online", api.Online)
+	router.Get("/api/map", api.Map)
+	router.Get("/api/historical", api.Historical)
 
 	// Запуск API
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
