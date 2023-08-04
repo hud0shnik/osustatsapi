@@ -3,11 +3,10 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -46,7 +45,7 @@ func getOnlineInfoString(id string) (onlineInfoString, int, error) {
 	}
 
 	// Запись респонса
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// Полученная страница в формате string
 	pageStr := string(body)[80000:]

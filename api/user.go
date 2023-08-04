@@ -3,14 +3,13 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -259,7 +258,7 @@ func getUserInfoString(id string) (userInfoString, int, error) {
 	}
 
 	// Запись респонса
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// HTML полученной страницы в формате string
 	pageStr := string(body)[80000:]

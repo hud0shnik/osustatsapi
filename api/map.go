@@ -3,12 +3,11 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -713,7 +712,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, int, error) {
 	}
 
 	// Запись респонса
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// Полученная страница в формате string
 	pageStr := string(body)
