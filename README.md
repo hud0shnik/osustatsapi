@@ -347,3 +347,5 @@ edited_at                   |       string       |
 edited_by_id                |       string       |
 message                     |       string       |
 message_html                |       string       |
+
+<img src="https://wakatime.com/badge/user/ee2709af-fc5f-498b-aaa1-3ea47bf12a00/project/eeb27ba3-3b0a-487f-9650-64aefd7a8458.svg?style=for-the-badge">
