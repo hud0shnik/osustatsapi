@@ -13,9 +13,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// ---------------------- Классические структуры ------------------------
+// apiError - структура ошибки
+type apiError struct {
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
+}
 
-// Информация о пользователе
+// userInfo - информация о пользователе
 type userInfo struct {
 	AvatarUrl               string        `json:"avatar_url"`
 	CountryCode             string        `json:"country_code"`
@@ -100,35 +104,33 @@ type userInfo struct {
 	UnrankedBeatmapsetCount int           `json:"unranked_beatmapset_count"`
 }
 
-// Ковёр пользователя
+// cover - ковёр пользователя
 type cover struct {
 	CustomUrl string `json:"custom_url"`
 	Url       string `json:"url"`
 	Id        int    `json:"id"`
 }
 
-// Значок профиля
+// badge - значок профиля
 type badge struct {
 	AwardedAt   string `json:"awarded_at"`
 	Description string `json:"description"`
 	ImageUrl    string `json:"image_url"`
 }
 
-// Достижение
+// achievement - достижение
 type achievement struct {
 	AchievedAt    string `json:"achieved_at"`
 	AchievementId int    `json:"achievement_id"`
 }
 
-// История рейтинга
+// history - история рейтинга
 type history struct {
 	Mode string `json:"mode"`
 	Data []int  `json:"data"`
 }
 
-// ---------------------- Структуры для парсинга ------------------------
-
-// Информация о пользователе
+// userInfoString - информация о пользователе в формате строк
 type userInfoString struct {
 	AvatarUrl               string              `json:"avatar_url"`
 	CountryCode             string              `json:"country_code"`
@@ -213,34 +215,26 @@ type userInfoString struct {
 	UnrankedBeatmapsetCount string              `json:"unranked_beatmapset_count"`
 }
 
-// Ковёр пользователя
+// coverString - ковёр пользователя в формате строк
 type coverString struct {
 	CustomUrl string `json:"custom_url"`
 	Url       string `json:"url"`
 	Id        string `json:"id"`
 }
 
-// Достижение
+// achievementString - достижение в формате строк
 type achievementString struct {
 	AchievedAt    string `json:"achieved_at"`
 	AchievementId string `json:"achievement_id"`
 }
 
-// История рейтинга
+// historyString - история рейтинга в формате строк
 type historyString struct {
 	Mode string   `json:"mode"`
 	Data []string `json:"data"`
 }
 
-// Структура ошибки
-type apiError struct {
-	Success bool   `json:"success"`
-	Error   string `json:"error"`
-}
-
-// ----------------- Функции получения статистики ----------------
-
-// Функция получения текстовой информации о пользователе
+// getUserInfoString возвращает структуру с информацией пользователя в формате строк, статус код и ошибку
 func getUserInfoString(id string) (userInfoString, int, error) {
 
 	// Формирование и исполнение запроса
@@ -438,7 +432,7 @@ func getUserInfoString(id string) (userInfoString, int, error) {
 
 }
 
-// Функция получения информации о пользователе
+// getUserInfo возвращает структуру с информацией пользователя, статус код и ошибку
 func getUserInfo(id string) (userInfo, int, error) {
 
 	// Получение текстовой версии статистики
@@ -553,7 +547,7 @@ func getUserInfo(id string) (userInfo, int, error) {
 
 }
 
-// Роут "/user"
+// User - роут "/user"
 func User(w http.ResponseWriter, r *http.Request) {
 
 	// Передача в заголовок респонса типа данных
