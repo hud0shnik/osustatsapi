@@ -214,8 +214,7 @@ func getUserHistorical(id string) (response, int, error) {
 	var result response
 
 	// Запись статистики в структуру
-	err = json.Unmarshal(body, &result)
-	if err != nil {
+	if err = json.Unmarshal(body, &result); err != nil {
 		return response{}, resp.StatusCode, err
 	}
 

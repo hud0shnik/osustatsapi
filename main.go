@@ -27,7 +27,6 @@ func main() {
 	router := chi.NewRouter()
 
 	// Маршруты
-
 	router.Get("/api/user", api.User)
 	router.Get("/api/online", api.Online)
 	router.Get("/api/map", api.Map)
