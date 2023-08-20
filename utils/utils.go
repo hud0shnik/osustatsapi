@@ -111,11 +111,7 @@ func Contains(s, substr string, left int) bool {
 // ToInt переводит string в int
 func ToInt(s string) int {
 
-	i, err := strconv.Atoi(s)
-	if err != nil {
-		// fmt.Println("parsing error: \t", s)
-		return 0
-	}
+	i, _ := strconv.Atoi(s)
 
 	return i
 
@@ -124,11 +120,7 @@ func ToInt(s string) int {
 // ToInt64 переводит string в int64
 func ToInt64(s string) int64 {
 
-	i, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		// fmt.Println("parsing error: \t", s)
-		return 0
-	}
+	i, _ := strconv.ParseInt(s, 10, 64)
 
 	return i
 
@@ -137,11 +129,7 @@ func ToInt64(s string) int64 {
 // ToBool переводит string в bool
 func ToBool(s string) bool {
 
-	f, err := strconv.ParseBool(s)
-	if err != nil {
-		// fmt.Println("parsing error: \t", s)
-		return false
-	}
+	f, _ := strconv.ParseBool(s)
 
 	return f
 
@@ -150,11 +138,7 @@ func ToBool(s string) bool {
 // ToFloat64 переводит string в float64
 func ToFloat64(s string) float64 {
 
-	i, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		// fmt.Println("parsing error: \t", s)
-		return 0
-	}
+	i, _ := strconv.ParseFloat(s, 64)
 
 	return i
 
@@ -163,7 +147,7 @@ func ToFloat64(s string) float64 {
 // ToSlice переводи string в []int. За сепаратор используется запятая
 func ToSlice(s string) []int {
 
-	var result []int
+	result := []int{}
 	sliceStr := strings.Split(s, ",")
 
 	if len(sliceStr) == 1 && sliceStr[0] == "" {
