@@ -8,25 +8,25 @@ import (
 // ---------------------- Функции поиска ------------------------
 
 // Функция поиска. Возвращает искомое значение и индекс последнего символа
-func FindWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
+func FindWithIndex(s, substr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
-	str = str[start:]
+	s = s[start:]
 
 	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
+	left := strings.Index(s, substr) + len(substr)
 
 	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
+	if left != len(substr)-1 && ((end == -1) || (left+start < end)) {
 
 		// Поиск и проверка правой границы
-		right := strings.Index(str[left:], stopChar)
+		right := strings.Index(s[left:], stopChar)
 		if right == -1 {
 			return "", start
 		}
 
 		// Обрезка и вывод результата
-		return str[left : left+right], right + left + start
+		return s[left : left+right], right + left + start
 	}
 
 	return "", start
@@ -34,25 +34,25 @@ func FindWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
 }
 
 // Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
-func FindStringWithIndex(str, subStr, stopChar string, start, end int) (string, int) {
+func FindStringWithIndex(s, substr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
-	str = str[start:]
+	s = s[start:]
 
 	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr) + len(subStr)
+	left := strings.Index(s, substr) + len(substr)
 
 	// Проверка на существование нужной строки и попадание в диапазон
-	if left != len(subStr)-1 && ((end == -1) || (left+start < end)) {
+	if left != len(substr)-1 && ((end == -1) || (left+start < end)) {
 
 		// Поиск и проверка правой границы
-		right := strings.Index(str[left:], stopChar)
+		right := strings.Index(s[left:], stopChar)
 		if right == -1 {
 			return "", start
 		}
 
 		// Обрезка и вывод результата
-		return strings.ReplaceAll(str[left:left+right], "\"", ""), right + left + start
+		return strings.ReplaceAll(s[left:left+right], "\"", ""), right + left + start
 	}
 
 	return "", start
@@ -60,28 +60,28 @@ func FindStringWithIndex(str, subStr, stopChar string, start, end int) (string, 
 }
 
 // Облегчённая функция поиска. Возвращает только искомое значение
-func Find(str, subStr, stopChar string, start int) string {
+func Find(s, substr, stopChar string, start int) string {
 
 	// Обрезка левой границы поиска
-	str = str[start:]
+	s = s[start:]
 
 	// Поиск индекса начала нужной строки
-	left := strings.Index(str, subStr)
+	left := strings.Index(s, substr)
 
 	// Проверка на существование нужной строки
 	if left != -1 {
 
 		// Обрезка левой части
-		str = str[left+len(subStr):]
+		s = s[left+len(substr):]
 
 		// Поиск и проверка правой границы
-		right := strings.Index(str, stopChar)
+		right := strings.Index(s, stopChar)
 		if right == -1 {
 			return ""
 		}
 
 		// Обрезка правой части и вывод результата
-		return str[:right]
+		return s[:right]
 	}
 
 	return ""
@@ -89,26 +89,25 @@ func Find(str, subStr, stopChar string, start int) string {
 }
 
 // Функция поиска индекса
-func Index(str, subStr string, start, end int) int {
+func Index(s, substr string, start, end int) int {
 
-	res := strings.Index(str[start:], subStr)
+	res := strings.Index(s[start:], substr)
 
 	// Проверка на существование нужной строки в диапазоне
 	if res != -1 && ((end == -1) || (res+start < end)) {
 
-		//fmt.Println(res+start, " - ", subStr)
+		//fmt.Println(res+start, " - ", substr)
 		return res + start
 	}
 
-	//fmt.Println("index error: \t", subStr)
+	//fmt.Println("index error: \t", substr)
 	return -1
 
 }
 
 // Функция проверки наличия подстроки
-func Contains(str, subStr string, left int) bool {
-
-	return strings.Contains(str[left:], subStr)
+func Contains(s, substr string, left int) bool {
+	return strings.Contains(s[left:], substr)
 }
 
 // ---------------------- Функции перевода ----------------------
