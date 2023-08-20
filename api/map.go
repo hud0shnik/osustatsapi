@@ -11,9 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// ---------------------- Классические структуры ------------------------
-
-// Структура респонса
+// mapResponse - структура респонса
 type mapResponse struct {
 	Artist             string              `json:"artist"`
 	ArtistUnicode      string              `json:"artist_string"`
@@ -66,7 +64,7 @@ type mapResponse struct {
 	UserFollow         bool                `json:"user_follow"`
 }
 
-// Картинки
+// covers - заставки карты
 type covers struct {
 	Cover       string `json:"cover"`
 	Cover2X     string `json:"cover@2x"`
@@ -78,13 +76,13 @@ type covers struct {
 	SlimCover2X string `json:"slimcover@2x"`
 }
 
-// Оценка номинаций
+// nominationsSummary - оценка номинаций карты
 type nominationsSummary struct {
 	Current  int `json:"current"`
 	Required int `json:"required"`
 }
 
-// Структура карты
+// maps - карта внутри сета
 type maps struct {
 	BeatmapSetId     int       `json:"beatmapset_id"`
 	DifficultyRating float64   `json:"difficulty_rating"`
@@ -117,13 +115,13 @@ type maps struct {
 	MaxCombo         int       `json:"max_combo"`
 }
 
-// Структура проигрышей
+// failtimes - проигрыши карты
 type failtimes struct {
 	Fail []int `json:"fail"`
 	Exit []int `json:"exit"`
 }
 
-// Структура номинации
+// currentNomination - номинация
 type currentNomination struct {
 	BeatmapsetId int    `json:"beatmapset_id"`
 	Rulesets     string `json:"rulesets"`
@@ -131,7 +129,7 @@ type currentNomination struct {
 	UserId       int    `json:"user_id"`
 }
 
-// Структура пользователя
+// bmUser - пользователь карты
 type bmUser struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
@@ -148,7 +146,7 @@ type bmUser struct {
 	Username      string `json:"username"`
 }
 
-// Структура комментария
+// comment - комментарий к карте
 type comment struct {
 	Id              int    `json:"id"`
 	ParentId        int    `json:"parent_id"`
@@ -168,9 +166,7 @@ type comment struct {
 	MessageHtml     string `json:"message_html"`
 }
 
-// ---------------------- Структуры для парсинга ------------------------
-
-// Структура респонса
+// mapStringResponse - респонс в формате строк
 type mapStringResponse struct {
 	Artist             string                    `json:"artist"`
 	ArtistUnicode      string                    `json:"artist_unicode"`
@@ -223,13 +219,13 @@ type mapStringResponse struct {
 	UserFollow         string                    `json:"user_follow"`
 }
 
-// Оценка номинаций
+// nominationsSummaryString - оценка номинаций в формате строк
 type nominationsSummaryString struct {
 	Current  string `json:"current"`
 	Required string `json:"required"`
 }
 
-// Структура карты
+// mapsString - карта в формате строк
 type mapsString struct {
 	BeatmapSetId     string          `json:"beatmapset_id"`
 	DifficultyRating string          `json:"difficulty_rating"`
@@ -262,13 +258,13 @@ type mapsString struct {
 	MaxCombo         string          `json:"max_combo"`
 }
 
-// Структура проигрышей
+// failtimesString - проигрыши в формате строк
 type failtimesString struct {
 	Fail string `json:"fail"`
 	Exit string `json:"exit"`
 }
 
-// Структура номинации
+// currentNominationString - номинация в формате строк
 type currentNominationString struct {
 	BeatmapsetId string `json:"beatmapset_id"`
 	Rulesets     string `json:"rulesets"`
@@ -276,7 +272,7 @@ type currentNominationString struct {
 	UserId       string `json:"user_id"`
 }
 
-// Структура пользователя
+// bmUserString - пользователь в формате строк
 type bmUserString struct {
 	AvatarUrl     string `json:"avatar_url"`
 	CountryCode   string `json:"country_code"`
@@ -293,7 +289,7 @@ type bmUserString struct {
 	Username      string `json:"username"`
 }
 
-// Структура комментария
+// commentString - комментарий в формате строк
 type commentString struct {
 	Id              string `json:"id"`
 	ParentId        string `json:"parent_id"`
@@ -313,9 +309,7 @@ type commentString struct {
 	MessageHtml     string `json:"message_html"`
 }
 
-// ---------------------- Функции парсинга ----------------------
-
-// Функция парсинга текущих номинаций
+// parseCurrentNominations парсит номинации в pageStr[left+index(subStr):] и возвращает их в формате строк вместе с индексом конца
 func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]currentNominationString, int) {
 
 	// Индекс конца номинаций
@@ -353,7 +347,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]curr
 
 }
 
-// Функция парсинга карты
+// parseMapString парсит карту в pageStr[left:] и возвращает их в формате строк с индексом конца
 func parseMapString(pageStr string, left int) (mapsString, int) {
 
 	// Структура карты
@@ -398,7 +392,7 @@ func parseMapString(pageStr string, left int) (mapsString, int) {
 
 }
 
-// Функция парсинга карт
+// parseMapsString парсит карты сета в pageStr[left+index(subStr):] и возвращает их в формате строк с индексом конца
 func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, int) {
 
 	// Индекс конца карт
@@ -433,7 +427,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, 
 
 }
 
-// Функция парсинга пользователей
+// parseBmUsers парсит список игроков карты в pageStr[left+index(subStr):] и возвращает их в формате строк с индексом конца
 func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, int) {
 
 	// Индекс конца пользователей
@@ -468,7 +462,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, i
 
 }
 
-// функция парсинга пользователей
+// parseBmUserString парсит игрока карты в pageStr[left+index(subStr):] и возвращает его в формате строк с индексом конца
 func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 
 	// Структура пользователя
@@ -493,7 +487,7 @@ func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 
 }
 
-// Функция парсинга комментов
+// parseCommentsString парсит комментарии в pageStr[left+index(subStr):index(stopChar)] и возвращает их в формате строк с индексом конца
 func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentString, int) {
 
 	// Индекс конца комментариев
@@ -546,9 +540,7 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentS
 
 }
 
-// ---------------------- Функции перевода ----------------------
-
-// Функция перевода карты
+// formatBeatmap переводит карту из string формата в стандартный
 func formatBeatmap(mpss []mapsString) []maps {
 
 	var result []maps
@@ -599,7 +591,7 @@ func formatBeatmap(mpss []mapsString) []maps {
 
 }
 
-// Функция перевода номинаций
+// formatCurrentNominations переводит номинации из string формата в стандартный
 func formatCurrentNominations(cns []currentNominationString) []currentNomination {
 
 	var result []currentNomination
@@ -618,7 +610,7 @@ func formatCurrentNominations(cns []currentNominationString) []currentNomination
 
 }
 
-// Функция перевода пользователя
+// formatBmUser переводит пользователя из string формата в стандартный
 func formatBmUser(usr bmUserString) bmUser {
 
 	return bmUser{
@@ -639,7 +631,7 @@ func formatBmUser(usr bmUserString) bmUser {
 
 }
 
-// Функция перевода пользователей
+// formatBmUsers переводит пользователей из string формата в стандартный
 func formatBmUsers(usrs []bmUserString) []bmUser {
 
 	var result []bmUser
@@ -652,7 +644,7 @@ func formatBmUsers(usrs []bmUserString) []bmUser {
 
 }
 
-// Функция перевода комментариев
+// formatComments переводит комментарии из string формата в стандартный
 func formatComments(cms []commentString) []comment {
 
 	var result []comment
@@ -682,9 +674,7 @@ func formatComments(cms []commentString) []comment {
 
 }
 
-// ----------------- Функции получения статистики ----------------
-
-// Функция получения статистики карты
+// getMapInfoString возвращает статистику карты в формате строк, статус код и ошибку
 func getMapInfoString(beatmapset, id string) (mapStringResponse, int, error) {
 
 	// Ссылка на страницу карты
@@ -815,7 +805,7 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, int, error) {
 
 }
 
-// Функция получения статистики карты
+// getMapInfo возвращает статистику карты, статус код и ошибку
 func getMapInfo(beatmapset, id string) (mapResponse, int, error) {
 
 	// Получение текстовой версии статистики
@@ -884,7 +874,7 @@ func getMapInfo(beatmapset, id string) (mapResponse, int, error) {
 
 }
 
-// Роут "/map"
+// Map - роут "/map"
 func Map(w http.ResponseWriter, r *http.Request) {
 
 	// Передача в заголовок респонса типа данных
