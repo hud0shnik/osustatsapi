@@ -5,9 +5,7 @@ import (
 	"strings"
 )
 
-// ---------------------- Функции поиска ------------------------
-
-// Функция поиска. Возвращает искомое значение и индекс последнего символа
+// FindWithIndex производит поиск substr в s[start:end] и возвращает строку от конца substr до stopChar
 func FindWithIndex(s, substr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
@@ -33,7 +31,7 @@ func FindWithIndex(s, substr, stopChar string, start, end int) (string, int) {
 
 }
 
-// Функция поиска. Возвращает искомое значение без кавычек и индекс последнего символа
+// FindStringWithIndex работает как FindWithIndex, только убирает кавычки
 func FindStringWithIndex(s, substr, stopChar string, start, end int) (string, int) {
 
 	// Обрезка левой границы поиска
@@ -59,7 +57,7 @@ func FindStringWithIndex(s, substr, stopChar string, start, end int) (string, in
 
 }
 
-// Облегчённая функция поиска. Возвращает только искомое значение
+// Find работает как FindWithIndex, но не возвращает индекс
 func Find(s, substr, stopChar string, start int) string {
 
 	// Обрезка левой границы поиска
@@ -88,7 +86,7 @@ func Find(s, substr, stopChar string, start int) string {
 
 }
 
-// Функция поиска индекса
+// Index возвращает индекс substr в рамках s[start:end]
 func Index(s, substr string, start, end int) int {
 
 	res := strings.Index(s[start:], substr)
@@ -105,13 +103,12 @@ func Index(s, substr string, start, end int) int {
 
 }
 
-// Функция проверки наличия подстроки
+// Contains показывает существует ли substr в s
 func Contains(s, substr string, left int) bool {
 	return strings.Contains(s[left:], substr)
 }
 
-// ---------------------- Функции перевода ----------------------
-
+// ToInt переводит string в int
 func ToInt(s string) int {
 
 	i, err := strconv.Atoi(s)
@@ -124,6 +121,7 @@ func ToInt(s string) int {
 
 }
 
+// ToInt64 переводит string в int64
 func ToInt64(s string) int64 {
 
 	i, err := strconv.ParseInt(s, 10, 64)
@@ -136,6 +134,7 @@ func ToInt64(s string) int64 {
 
 }
 
+// ToBool переводит string в bool
 func ToBool(s string) bool {
 
 	f, err := strconv.ParseBool(s)
@@ -148,6 +147,7 @@ func ToBool(s string) bool {
 
 }
 
+// ToFloat64 переводит string в float64
 func ToFloat64(s string) float64 {
 
 	i, err := strconv.ParseFloat(s, 64)
@@ -160,6 +160,7 @@ func ToFloat64(s string) float64 {
 
 }
 
+// ToSlice переводи string в []int. За сепаратор используется запятая
 func ToSlice(s string) []int {
 
 	var result []int
