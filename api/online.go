@@ -10,17 +10,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Структура статуса пользователя
+// onlineInfo - статус пользователя
 type onlineInfo struct {
 	Status bool `json:"is_online"`
 }
 
-// Структура статуса пользователя для парсинга
+// onlineInfoString - статус пользователя в формате строк
 type onlineInfoString struct {
 	Status string `json:"is_online"`
 }
 
-// Функция парсинга информации о пользователе
+// getOnlineInfoString возвращает статус пользователя в сети в формате строк, статус код и ошибку
 func getOnlineInfoString(id string) (onlineInfoString, int, error) {
 
 	// Формирование и исполнение запроса
@@ -57,7 +57,7 @@ func getOnlineInfoString(id string) (onlineInfoString, int, error) {
 
 }
 
-// Функция получения информации о пользователе
+// getOnlineInfo возвращает статус пользователя в сети, статус код и ошибку
 func getOnlineInfo(id string) (onlineInfo, int, error) {
 
 	// Получение текстовой версии
@@ -73,7 +73,7 @@ func getOnlineInfo(id string) (onlineInfo, int, error) {
 
 }
 
-// Роут "/online"
+// Online - роут "/online"
 func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Передача в заголовок респонса типа данных
