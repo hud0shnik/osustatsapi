@@ -675,20 +675,10 @@ func formatComments(cms []commentString) []comment {
 }
 
 // getMapInfoString возвращает статистику карты в формате строк, статус код и ошибку
-func getMapInfoString(beatmapset, id string) (mapStringResponse, int, error) {
-
-	// Ссылка на страницу карты
-	var url string
-
-	// Проверка на наличие параметра beatmapset
-	if beatmapset != "" {
-		url = "https://osu.ppy.sh/beatmapsets/" + beatmapset + "#osu/" + id
-	} else {
-		url = "https://osu.ppy.sh/b/" + id + "?m=0"
-	}
+func getMapInfoString(id string) (mapStringResponse, int, error) {
 
 	// Формирование и исполнение запроса
-	resp, err := http.Get(url)
+	resp, err := http.Get("https://osu.ppy.sh/b/" + id + "?m=0")
 	if err != nil {
 		return mapStringResponse{}, http.StatusInternalServerError,
 			fmt.Errorf("in http.Get: %w", err)
@@ -806,10 +796,10 @@ func getMapInfoString(beatmapset, id string) (mapStringResponse, int, error) {
 }
 
 // getMapInfo возвращает статистику карты, статус код и ошибку
-func getMapInfo(beatmapset, id string) (mapResponse, int, error) {
+func getMapInfo(id string) (mapResponse, int, error) {
 
 	// Получение текстовой версии статистики
-	resultStr, statusCode, err := getMapInfoString(beatmapset, id)
+	resultStr, statusCode, err := getMapInfoString(id)
 	if err != nil {
 		return mapResponse{}, statusCode, err
 	}
@@ -882,7 +872,6 @@ func Map(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметров из реквеста
 	id := r.URL.Query().Get("id")
-	beatmapset := r.URL.Query().Get("beatmapset")
 
 	// Проверка на наличие параметров
 	if id == "" {
@@ -896,7 +885,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Query().Get("type") == "string" {
 
 		// Получение статистики
-		result, statusCode, err := getMapInfoString(beatmapset, id)
+		result, statusCode, err := getMapInfoString(id)
 		if err != nil {
 			w.WriteHeader(statusCode)
 			json, _ := json.Marshal(apiError{Error: err.Error()})
@@ -921,7 +910,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// Получение статистики
-		result, statusCode, err := getMapInfo(beatmapset, id)
+		result, statusCode, err := getMapInfo(id)
 		if err != nil {
 			w.WriteHeader(statusCode)
 			json, _ := json.Marshal(apiError{Error: err.Error()})
