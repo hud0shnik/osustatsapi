@@ -910,7 +910,7 @@ func Map(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		// Получение статистики
-		result, statusCode, err := getMapInfo(beatmapset, id)
+		result, statusCode, err := getMapInfo(id)
 		if err != nil {
 			w.WriteHeader(statusCode)
 			json, _ := json.Marshal(apiError{Error: err.Error()})
