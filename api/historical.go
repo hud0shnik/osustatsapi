@@ -10,8 +10,7 @@ import (
 )
 
 // ---------------------- Классические структуры ------------------------
-
-type response struct {
+type historicalResponse struct {
 	Recent recent `json:"recent"`
 }
 
@@ -102,7 +101,7 @@ type beatmapset struct {
 
 // ---------------------- Текстовые структуры ------------------------
 
-type responseString struct {
+type historicalResponseString struct {
 	Recent recentString `json:"recent"`
 }
 
@@ -192,30 +191,30 @@ type beatmapsetString struct {
 }
 
 // Функция получения недавних карт
-func getUserHistorical(id string) (response, int, error) {
+func getUserHistorical(id string) (historicalResponse, int, error) {
 
 	// Формирование и исполнение запроса
 	resp, err := http.Get("https://osu.ppy.sh/users/" + id + "/extra-pages/historical?mode=osu")
 	if err != nil {
-		return response{}, http.StatusInternalServerError,
+		return historicalResponse{}, http.StatusInternalServerError,
 			fmt.Errorf("in http.Get: %w", err)
 	}
 	defer resp.Body.Close()
 
 	// Проверка статускода
 	if resp.StatusCode != 200 {
-		return response{}, resp.StatusCode,
+		return historicalResponse{}, resp.StatusCode,
 			fmt.Errorf("response status: %s", resp.Status)
 	}
 
 	// Запись респонса
 	body, _ := io.ReadAll(resp.Body)
 
-	var result response
+	var result historicalResponse
 
 	// Запись статистики в структуру
 	if err = json.Unmarshal(body, &result); err != nil {
-		return response{}, resp.StatusCode, err
+		return historicalResponse{}, resp.StatusCode, err
 	}
 
 	return result, http.StatusOK, nil
@@ -223,15 +222,15 @@ func getUserHistorical(id string) (response, int, error) {
 }
 
 // Функция конвертации недавних карт
-func getUserHistoricalString(id string) (responseString, int, error) {
+func getUserHistoricalString(id string) (historicalResponseString, int, error) {
 
 	// Получение классической версии
 	classic, statusCode, err := getUserHistorical(id)
 	if err != nil {
-		return responseString{}, statusCode, err
+		return historicalResponseString{}, statusCode, err
 	}
 
-	var result responseString
+	var result historicalResponseString
 
 	// Конвертация
 	for _, c := range classic.Recent.Items {
