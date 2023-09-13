@@ -1,16 +1,35 @@
 package main
 
 import (
-	"log"
-	"net/http"
-
 	"os"
 	"time"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/hud0shnik/OsuStatsApi/api"
+	"github.com/hud0shnik/OsuStatsApi/controllers"
 	"github.com/sirupsen/logrus"
+	"gopkg.in/yaml.v2"
 )
+
+// config - структура конфигов
+type config struct {
+	Server controllers.Config `yaml:"server"`
+}
+
+// configure получает конфиги из файла
+func configure(fileName string) (*config, error) {
+
+	data, err := os.ReadFile(fileName)
+	if err != nil {
+		return nil, err
+	}
+
+	var config config
+
+	if err = yaml.Unmarshal(data, &config); err != nil {
+		return nil, err
+	}
+
+	return &config, nil
+}
 
 func main() {
 
@@ -19,20 +38,19 @@ func main() {
 		TimestampFormat: time.DateTime,
 	})
 
+	// Получение конфигов
+	config, err := configure("config.yaml")
+	if err != nil {
+		logrus.WithError(err).Fatal("can't read config")
+	}
+
 	// Вывод времени начала работы
-	logrus.Info("API Start")
-	logrus.Info("Port: " + os.Getenv("PORT"))
+	logrus.Println("API Start at 8080 port")
 
-	// Роутер
-	router := chi.NewRouter()
-
-	// Маршруты
-	router.Get("/api/user", api.User)
-	router.Get("/api/online", api.Online)
-	router.Get("/api/map", api.Map)
-	router.Get("/api/historical", api.Historical)
+	// Создание сервера
+	s := controllers.NewServer(&config.Server)
 
 	// Запуск API
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
+	logrus.Fatal(s.Server.ListenAndServe())
 
 }
