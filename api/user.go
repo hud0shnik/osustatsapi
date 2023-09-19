@@ -248,7 +248,7 @@ func getUserInfoString(id string) (userInfoString, int, error) {
 	// Проверка статускода
 	if resp.StatusCode != 200 {
 		return userInfoString{}, resp.StatusCode,
-			fmt.Errorf(resp.Status)
+			fmt.Errorf("in http.Get: status code is not 200: %d %s", resp.StatusCode, resp.Status)
 	}
 
 	// Запись респонса
