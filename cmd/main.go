@@ -36,6 +36,7 @@ func main() {
 	// Настройка логгера
 	logrus.SetFormatter(&logrus.JSONFormatter{
 		TimestampFormat: time.DateTime,
+		PrettyPrint:     true,
 	})
 
 	// Получение конфигов
@@ -45,7 +46,7 @@ func main() {
 	}
 
 	// Вывод времени начала работы
-	logrus.Println("API Start at 8080 port")
+	logrus.Printf("API Starts at %s port", config.Server.ServerPort)
 
 	// Создание сервера
 	s := controllers.NewServer(&config.Server)
