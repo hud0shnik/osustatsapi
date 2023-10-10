@@ -1,13 +1,11 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-	"github.com/sirupsen/logrus"
 )
 
 // onlineInfo - статус пользователя
@@ -76,18 +74,12 @@ func getOnlineInfo(id string) (onlineInfo, int, error) {
 // Online - роут "/online"
 func Online(w http.ResponseWriter, r *http.Request) {
 
-	// Установка заголовков
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 
 	// Проверка на наличие параметра
 	if id == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(apiError{Error: "please insert user id"})
-		w.Write(json)
+		response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 
@@ -97,48 +89,22 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getOnlineInfoString(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getOnlineInfo(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		response(w, statusCode, result)
 
 	}
 

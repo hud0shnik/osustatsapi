@@ -10,11 +10,10 @@ import (
 	"time"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-	"github.com/sirupsen/logrus"
 )
 
 // apiError - структура ошибки
-type apiError struct {
+type apiErresponse(ror struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 }
@@ -547,21 +546,28 @@ func getUserInfo(id string) (userInfo, int, error) {
 
 }
 
-// User - роут "/user"
-func User(w http.ResponseWriter, r *http.Request) {
+// Response отправляет ответ на реквест
+func response(w http.ResponseWriter, statusCode int, body any) {
 
 	// Установка заголовков
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
+
+	// Установка статускода и запись тела респонса
+	w.WriteHeader(statusCode)
+	json.NewEncoder(w).Encode(body)
+
+}
+
+// User - роут "/user"
+func User(w http.ResponseWriter, r *http.Request) {
 
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 
 	// Проверка на наличие параметра
 	if id == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(apiError{Error: "please insert user id"})
-		w.Write(json)
+		response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 
@@ -571,48 +577,22 @@ func User(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getUserInfoString(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getUserInfo(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		response(w, statusCode, result)
 
 	}
 
