@@ -13,7 +13,7 @@ import (
 )
 
 // apiError - структура ошибки
-type apiErresponse(ror struct {
+type apiError struct {
 	Success bool   `json:"success"`
 	Error   string `json:"error"`
 }
