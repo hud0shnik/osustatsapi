@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-	"github.com/sirupsen/logrus"
 )
 
 // mapResponse - структура респонса
@@ -887,50 +886,22 @@ func Map(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getMapInfoString(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			Response(w, err, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		// Формирование и запись респонса
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		Response(w, err, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getMapInfo(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			Response(w, err, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		// Формирование и запись респонса
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		Response(w, err, statusCode, result)
 
 	}
 

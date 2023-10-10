@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/hud0shnik/OsuStatsApi/utils"
-	"github.com/sirupsen/logrus"
 )
 
 // apiError - структура ошибки
@@ -547,6 +546,18 @@ func getUserInfo(id string) (userInfo, int, error) {
 
 }
 
+// Response отправляет ответ на реквест
+func Response(w http.ResponseWriter, err error, statusCode int, body any) {
+
+	// Установка заголовков
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+
+	w.WriteHeader(statusCode)
+
+	json.NewEncoder(w).Encode(body)
+}
+
 // User - роут "/user"
 func User(w http.ResponseWriter, r *http.Request) {
 
@@ -570,48 +581,22 @@ func User(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getUserInfoString(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			Response(w, err, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		Response(w, err, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getUserInfo(id)
 		if err != nil {
-			w.WriteHeader(statusCode)
-			json, _ := json.Marshal(apiError{Error: err.Error()})
-			w.Write(json)
+			Response(w, err, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		// Перевод в json
-		jsonResp, err := json.Marshal(result)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			json, _ := json.Marshal(apiError{Error: "internal server error"})
-			w.Write(json)
-			logrus.Printf("json.Marshal err: %s", err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
-		w.Write(jsonResp)
+		Response(w, err, statusCode, result)
 
 	}
 
