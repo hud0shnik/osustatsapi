@@ -547,7 +547,7 @@ func getUserInfo(id string) (userInfo, int, error) {
 }
 
 // Response отправляет ответ на реквест
-func Response(w http.ResponseWriter, statusCode int, body any) {
+func response(w http.ResponseWriter, statusCode int, body any) {
 
 	// Установка заголовков
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -567,7 +567,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на наличие параметра
 	if id == "" {
-		Response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
+		response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 
@@ -577,22 +577,22 @@ func User(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getUserInfoString(id)
 		if err != nil {
-			Response(w, statusCode, apiError{Error: err.Error()})
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, statusCode, result)
+		response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getUserInfo(id)
 		if err != nil {
-			Response(w, statusCode, apiError{Error: err.Error()})
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, statusCode, result)
+		response(w, statusCode, result)
 
 	}
 

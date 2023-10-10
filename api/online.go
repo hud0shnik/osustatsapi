@@ -79,7 +79,7 @@ func Online(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на наличие параметра
 	if id == "" {
-		Response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
+		response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 
@@ -89,22 +89,22 @@ func Online(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getOnlineInfoString(id)
 		if err != nil {
-			Response(w, statusCode, apiError{Error: err.Error()})
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, statusCode, result)
+		response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getOnlineInfo(id)
 		if err != nil {
-			Response(w, statusCode, apiError{Error: err.Error()})
+			response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, statusCode, result)
+		response(w, statusCode, result)
 
 	}
 
