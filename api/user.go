@@ -547,7 +547,7 @@ func getUserInfo(id string) (userInfo, int, error) {
 }
 
 // Response отправляет ответ на реквест
-func Response(w http.ResponseWriter, err error, statusCode int, body any) {
+func Response(w http.ResponseWriter, statusCode int, body any) {
 
 	// Установка заголовков
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -560,9 +560,6 @@ func Response(w http.ResponseWriter, err error, statusCode int, body any) {
 
 // User - роут "/user"
 func User(w http.ResponseWriter, r *http.Request) {
-
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
 
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
@@ -581,22 +578,22 @@ func User(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getUserInfoString(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getUserInfo(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	}
 

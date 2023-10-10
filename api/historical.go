@@ -315,9 +315,6 @@ func getUserHistoricalString(id string) (historicalResponseString, int, error) {
 // Роут "/historical"
 func Historical(w http.ResponseWriter, r *http.Request) {
 
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
-
 	// Получение параметра id из реквеста
 	id := r.URL.Query().Get("id")
 
@@ -335,22 +332,22 @@ func Historical(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getUserHistoricalString(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getUserHistorical(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	}
 

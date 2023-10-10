@@ -866,9 +866,6 @@ func getMapInfo(id string) (mapResponse, int, error) {
 // Map - роут "/map"
 func Map(w http.ResponseWriter, r *http.Request) {
 
-	// Передача в заголовок респонса типа данных
-	w.Header().Set("Content-Type", "application/json")
-
 	// Получение параметров из реквеста
 	id := r.URL.Query().Get("id")
 
@@ -886,22 +883,22 @@ func Map(w http.ResponseWriter, r *http.Request) {
 		// Получение статистики
 		result, statusCode, err := getMapInfoString(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	} else {
 
 		// Получение статистики
 		result, statusCode, err := getMapInfo(id)
 		if err != nil {
-			Response(w, err, statusCode, apiError{Error: err.Error()})
+			Response(w, statusCode, apiError{Error: err.Error()})
 			return
 		}
 
-		Response(w, err, statusCode, result)
+		Response(w, statusCode, result)
 
 	}
 
