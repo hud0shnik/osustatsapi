@@ -553,9 +553,10 @@ func Response(w http.ResponseWriter, statusCode int, body any) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
+	// Установка статускода и запись тела респонса
 	w.WriteHeader(statusCode)
-
 	json.NewEncoder(w).Encode(body)
+
 }
 
 // User - роут "/user"
@@ -566,9 +567,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на наличие параметра
 	if id == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(apiError{Error: "please insert user id"})
-		w.Write(json)
+		Response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 

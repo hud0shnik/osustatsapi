@@ -320,9 +320,7 @@ func Historical(w http.ResponseWriter, r *http.Request) {
 
 	// Проверка на наличие параметра
 	if id == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		json, _ := json.Marshal(apiError{Error: "please insert user id"})
-		w.Write(json)
+		Response(w, http.StatusBadRequest, apiError{Error: "please insert user id"})
 		return
 	}
 
