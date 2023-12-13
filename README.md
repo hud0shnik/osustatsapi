@@ -13,7 +13,7 @@
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/v2/user
+https://osustatsapi.vercel.app/api/user
 ```
 
 Parameter       | Value type | Required | Description  
@@ -144,7 +144,7 @@ data                        |       []int        |
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/v2/online
+https://osustatsapi.vercel.app/api/online
 ```
 
 Parameter       | Value type | Required | Description   
@@ -166,7 +166,7 @@ status                      |        bool        | true = online
 ### Request
 
 ``` Elixir
-https://osustatsapi.vercel.app/api/v2/map
+https://osustatsapi.vercel.app/api/map
 ```
 
 Parameter       | Value type | Required | Description   
