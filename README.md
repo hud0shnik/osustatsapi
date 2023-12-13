@@ -172,7 +172,6 @@ https://osustatsapi.vercel.app/api/map
 Parameter       | Value type | Required | Description   
 ----------------|------------|----------|-------------
 id              |    int     |   Yes    | map id
-beatmapset      |    int     |   No     | beatmapset id
 type            |   string   |   No     | response type (like "string")
 
 
