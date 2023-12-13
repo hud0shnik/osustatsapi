@@ -192,9 +192,9 @@ id                          |        int         |
 nsfw                        |        bool        |
 offset                      |        int         |
 play_count                  |        int         |
-preview_url                 |       string       |
+preview_url                 |       string       | track preview (like "b.ppy.sh/preview/26154.mp3")
 source                      |       string       |
-spotlight                   |        bool        |
+spotlight                   |        bool        | spotlight map (a recurring curation program for recommending and highlighting beatmaps)
 status                      |       string       |
 title                       |       string       |
 title_unicode               |       string       |
@@ -267,15 +267,15 @@ total_length                |        int         |
 user_id                     |        int         |
 version                     |       string       |
 accuracy                    |       float        |
-ar                          |       float        |
-bpm                         |       float        |
+ar                          |       float        | approach rate (a beatmap difficulty setting that defines when hit objects start to fade in relative to when they should be hit or collected)
+bpm                         |       float        | beat per minute
 convert                     |        bool        |
 count_circles               |        int         |
 count_sliders               |        int         |
 count_spinners              |        int         |
-cs                          |       float        |
+cs                          |       float        | circle size
 deleted_at                  |       string       |
-drain                       |       float        |
+drain                       |       float        | drain time refers to the total duration of a beatmap that requires the player to be active
 hit_length                  |        int         |
 is_scoreable                |        bool        |
 last_updated                |       string       |
