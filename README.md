@@ -1,4 +1,5 @@
-# 🖌️ OsuStatsApi 🎶
+# 🖌️ OsuStatsApi-vercel-branch 🎶
+Branch for deploying on Vercel 
 
 ## Overview
 
