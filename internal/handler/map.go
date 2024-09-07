@@ -1,4 +1,4 @@
-package api
+package handler
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/hud0shnik/OsuStatsApi/utils"
+	"github.com/hud0shnik/osustatsapi/utils"
 )
 
 // mapResponse - структура респонса

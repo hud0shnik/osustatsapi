@@ -1,4 +1,4 @@
-package api
+package handler
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hud0shnik/OsuStatsApi/utils"
+	"github.com/hud0shnik/osustatsapi/utils"
 )
 
 // apiError - структура ошибки

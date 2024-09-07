@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/hud0shnik/OsuStatsApi/controllers"
+	"github.com/hud0shnik/osustatsapi/controllers"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )

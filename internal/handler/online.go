@@ -1,11 +1,11 @@
-package api
+package handler
 
 import (
 	"fmt"
 	"io"
 	"net/http"
 
-	"github.com/hud0shnik/OsuStatsApi/utils"
+	"github.com/hud0shnik/osustatsapi/utils"
 )
 
 // onlineInfo - статус пользователя

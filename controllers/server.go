@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/hud0shnik/OsuStatsApi/api"
+	"github.com/hud0shnik/osustatsapi/internal/handler"
 )
 
 // Server - структура сервера
@@ -43,10 +43,10 @@ func (s *Server) NewRouter() {
 	router := chi.NewRouter()
 
 	// Маршруты
-	router.Get(s.basePath+"/user", api.User)
-	router.Get(s.basePath+"/online", api.Online)
-	router.Get(s.basePath+"/map", api.Map)
-	router.Get(s.basePath+"/historical", api.Historical)
+	router.Get(s.basePath+"/user", handler.User)
+	router.Get(s.basePath+"/online", handler.Online)
+	router.Get(s.basePath+"/map", handler.Map)
+	router.Get(s.basePath+"/historical", handler.Historical)
 
 	s.router = router
 

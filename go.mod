@@ -1,4 +1,4 @@
-module github.com/hud0shnik/OsuStatsApi
+module github.com/hud0shnik/osustatsapi
 
 go 1.21
 
