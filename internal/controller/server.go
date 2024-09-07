@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/hud0shnik/osustatsapi/internal/handler"
 )
 
-// Server - структура сервера
+// Server - структура http сервера
 type Server struct {
 	basePath       string
 	requestTimeout time.Duration
@@ -16,8 +16,8 @@ type Server struct {
 	Server         *http.Server
 }
 
-// NewServer создаёт новый сервер
-func NewServer(config *Config) *Server {
+// NewServer создаёт новый http сервер
+func NewHttpServer(config *Config) *Server {
 
 	s := &Server{
 		basePath:       config.BasePath,
