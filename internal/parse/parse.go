@@ -1,9 +1,6 @@
-package utils
+package parse
 
-import (
-	"strconv"
-	"strings"
-)
+import "strings"
 
 // FindWithIndex производит поиск substr в s[start:end] и возвращает строку от конца substr до stopChar
 func FindWithIndex(s, substr, stopChar string, start, end int) (string, int) {
@@ -106,58 +103,4 @@ func Index(s, substr string, start, end int) int {
 // Contains показывает существует ли substr в s
 func Contains(s, substr string, left int) bool {
 	return strings.Contains(s[left:], substr)
-}
-
-// ToInt переводит string в int
-func ToInt(s string) int {
-
-	i, _ := strconv.Atoi(s)
-
-	return i
-
-}
-
-// ToInt64 переводит string в int64
-func ToInt64(s string) int64 {
-
-	i, _ := strconv.ParseInt(s, 10, 64)
-
-	return i
-
-}
-
-// ToBool переводит string в bool
-func ToBool(s string) bool {
-
-	f, _ := strconv.ParseBool(s)
-
-	return f
-
-}
-
-// ToFloat64 переводит string в float64
-func ToFloat64(s string) float64 {
-
-	i, _ := strconv.ParseFloat(s, 64)
-
-	return i
-
-}
-
-// ToSlice переводи string в []int. За сепаратор используется запятая
-func ToSlice(s string) []int {
-
-	result := []int{}
-	sliceStr := strings.Split(s, ",")
-
-	if len(sliceStr) == 1 && sliceStr[0] == "" {
-		return nil
-	}
-
-	for _, digit := range sliceStr {
-		result = append(result, ToInt(digit))
-	}
-
-	return result
-
 }

@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/hud0shnik/osustatsapi/utils"
+	"github.com/hud0shnik/osustatsapi/internal/convert"
+	"github.com/hud0shnik/osustatsapi/internal/parse"
 )
 
 // mapResponse - структура респонса
@@ -314,7 +315,7 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]curr
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = utils.FindWithIndex(pageStr, subStr, stopChar, left, -1)
+	pageStr, end = parse.FindWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие номинаций
 	if len(pageStr) == 0 {
@@ -326,16 +327,16 @@ func parseCurrentNominations(pageStr, subStr, stopChar string, left int) ([]curr
 	left = 0
 
 	// Пока есть необработанные карты
-	for utils.Index(pageStr, "beatmapset_id", left, -1) != -1 {
+	for parse.Index(pageStr, "beatmapset_id", left, -1) != -1 {
 
 		// Структура номинации
 		var cn currentNominationString
 
 		// Запись данных
-		cn.BeatmapsetId, left = utils.FindWithIndex(pageStr, "beatmapset_id\":", ",", left, -1)
-		cn.Rulesets, left = utils.FindWithIndex(pageStr, "rulesets\":[", "]", left, -1)
-		cn.Reset, left = utils.FindWithIndex(pageStr, "reset\":", ",", left, -1)
-		cn.UserId, left = utils.FindWithIndex(pageStr, "user_id\":", "}", left, -1)
+		cn.BeatmapsetId, left = parse.FindWithIndex(pageStr, "beatmapset_id\":", ",", left, -1)
+		cn.Rulesets, left = parse.FindWithIndex(pageStr, "rulesets\":[", "]", left, -1)
+		cn.Reset, left = parse.FindWithIndex(pageStr, "reset\":", ",", left, -1)
+		cn.UserId, left = parse.FindWithIndex(pageStr, "user_id\":", "}", left, -1)
 
 		// Добавление карты к результату
 		result = append(result, cn)
@@ -352,39 +353,39 @@ func parseMapString(pageStr string, left int) (mapsString, int) {
 	var bm mapsString
 
 	// Запись данных
-	bm.BeatmapSetId, left = utils.FindWithIndex(pageStr, "\"beatmapset_id\":", ",", left, -1)
-	bm.DifficultyRating, left = utils.FindWithIndex(pageStr, "\"difficulty_rating\":", ",", left, -1)
-	bm.Id, left = utils.FindWithIndex(pageStr, "\"id\":", ",", left, -1)
-	bm.Mode, left = utils.FindStringWithIndex(pageStr, "\"mode\":", ",", left, -1)
-	bm.Status, left = utils.FindStringWithIndex(pageStr, "\"status\":", ",", left, -1)
-	bm.TotalLength, left = utils.FindWithIndex(pageStr, "total_length\":", ",", left, -1)
-	bm.UserId, left = utils.FindWithIndex(pageStr, "\"user_id\":", ",", left, -1)
-	bm.Version, left = utils.FindWithIndex(pageStr, "\"version\":\"", "\"", left, -1)
-	bm.Accuracy, left = utils.FindWithIndex(pageStr, "\"accuracy\":", ",", left, -1)
-	bm.Ar, left = utils.FindWithIndex(pageStr, "\"ar\":", ",", left, -1)
-	bm.Bpm, left = utils.FindWithIndex(pageStr, "\"bpm\":", ",", left, -1)
-	bm.Convert, left = utils.FindWithIndex(pageStr, "\"convert\":", ",", left, -1)
-	bm.CountCircles, left = utils.FindWithIndex(pageStr, "\"count_circles\":", ",", left, -1)
-	bm.CountSliders, left = utils.FindWithIndex(pageStr, "\"count_sliders\":", ",", left, -1)
-	bm.CountSpinners, left = utils.FindWithIndex(pageStr, "\"count_spinners\":", ",", left, -1)
-	bm.Cs, left = utils.FindWithIndex(pageStr, "\"cs\":", ",", left, -1)
-	bm.DeletedAt, left = utils.FindStringWithIndex(pageStr, "\"deleted_at\":", ",", left, -1)
-	bm.Drain, left = utils.FindWithIndex(pageStr, "\"drain\":", ",", left, -1)
-	bm.HitLength, left = utils.FindWithIndex(pageStr, "\"hit_length\":", ",", left, -1)
-	bm.IsScoreable, left = utils.FindWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
-	bm.LastUpdated, left = utils.FindStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
-	bm.ModeInt, left = utils.FindWithIndex(pageStr, "\"mode_int\":", ",", left, -1)
-	bm.PassCount, left = utils.FindWithIndex(pageStr, "\"passcount\":", ",", left, -1)
-	bm.PlayCount, left = utils.FindWithIndex(pageStr, "\"playcount\":", ",", left, -1)
-	bm.Ranked, left = utils.FindWithIndex(pageStr, "\"ranked\":", ",", left, -1)
-	bm.Url, left = utils.FindStringWithIndex(pageStr, "\"url\":", ",", left, -1)
+	bm.BeatmapSetId, left = parse.FindWithIndex(pageStr, "\"beatmapset_id\":", ",", left, -1)
+	bm.DifficultyRating, left = parse.FindWithIndex(pageStr, "\"difficulty_rating\":", ",", left, -1)
+	bm.Id, left = parse.FindWithIndex(pageStr, "\"id\":", ",", left, -1)
+	bm.Mode, left = parse.FindStringWithIndex(pageStr, "\"mode\":", ",", left, -1)
+	bm.Status, left = parse.FindStringWithIndex(pageStr, "\"status\":", ",", left, -1)
+	bm.TotalLength, left = parse.FindWithIndex(pageStr, "total_length\":", ",", left, -1)
+	bm.UserId, left = parse.FindWithIndex(pageStr, "\"user_id\":", ",", left, -1)
+	bm.Version, left = parse.FindWithIndex(pageStr, "\"version\":\"", "\"", left, -1)
+	bm.Accuracy, left = parse.FindWithIndex(pageStr, "\"accuracy\":", ",", left, -1)
+	bm.Ar, left = parse.FindWithIndex(pageStr, "\"ar\":", ",", left, -1)
+	bm.Bpm, left = parse.FindWithIndex(pageStr, "\"bpm\":", ",", left, -1)
+	bm.Convert, left = parse.FindWithIndex(pageStr, "\"convert\":", ",", left, -1)
+	bm.CountCircles, left = parse.FindWithIndex(pageStr, "\"count_circles\":", ",", left, -1)
+	bm.CountSliders, left = parse.FindWithIndex(pageStr, "\"count_sliders\":", ",", left, -1)
+	bm.CountSpinners, left = parse.FindWithIndex(pageStr, "\"count_spinners\":", ",", left, -1)
+	bm.Cs, left = parse.FindWithIndex(pageStr, "\"cs\":", ",", left, -1)
+	bm.DeletedAt, left = parse.FindStringWithIndex(pageStr, "\"deleted_at\":", ",", left, -1)
+	bm.Drain, left = parse.FindWithIndex(pageStr, "\"drain\":", ",", left, -1)
+	bm.HitLength, left = parse.FindWithIndex(pageStr, "\"hit_length\":", ",", left, -1)
+	bm.IsScoreable, left = parse.FindWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
+	bm.LastUpdated, left = parse.FindStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
+	bm.ModeInt, left = parse.FindWithIndex(pageStr, "\"mode_int\":", ",", left, -1)
+	bm.PassCount, left = parse.FindWithIndex(pageStr, "\"passcount\":", ",", left, -1)
+	bm.PlayCount, left = parse.FindWithIndex(pageStr, "\"playcount\":", ",", left, -1)
+	bm.Ranked, left = parse.FindWithIndex(pageStr, "\"ranked\":", ",", left, -1)
+	bm.Url, left = parse.FindStringWithIndex(pageStr, "\"url\":", ",", left, -1)
 	bm.Url = strings.ReplaceAll(bm.Url, "\\", "")
-	bm.Checksum, left = utils.FindStringWithIndex(pageStr, "\"checksum\":", ",", left, -1)
+	bm.Checksum, left = parse.FindStringWithIndex(pageStr, "\"checksum\":", ",", left, -1)
 
-	bm.Failtimes.Fail, left = utils.FindWithIndex(pageStr, "\"fail\":[", "]", left, -1)
-	bm.Failtimes.Exit, left = utils.FindWithIndex(pageStr, "\"exit\":[", "]", left, -1)
+	bm.Failtimes.Fail, left = parse.FindWithIndex(pageStr, "\"fail\":[", "]", left, -1)
+	bm.Failtimes.Exit, left = parse.FindWithIndex(pageStr, "\"exit\":[", "]", left, -1)
 
-	bm.MaxCombo, left = utils.FindWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
+	bm.MaxCombo, left = parse.FindWithIndex(pageStr, "\"max_combo\":", "}", left, -1)
 
 	return bm, left
 
@@ -397,7 +398,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, 
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = utils.FindWithIndex(pageStr, subStr, stopChar, left, -1)
+	pageStr, end = parse.FindWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие карт
 	if len(pageStr) == 0 {
@@ -409,7 +410,7 @@ func parseMapsString(pageStr, subStr, stopChar string, left int) ([]mapsString, 
 	left = 0
 
 	// Пока есть необработанные карты
-	for utils.Index(pageStr, "\"beatmapset_id\"", left, -1) != -1 {
+	for parse.Index(pageStr, "\"beatmapset_id\"", left, -1) != -1 {
 
 		// Структура карты
 		var bm mapsString
@@ -432,7 +433,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, i
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = utils.FindWithIndex(pageStr, subStr, stopChar, left, -1)
+	pageStr, end = parse.FindWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
@@ -444,7 +445,7 @@ func parseBmUsers(pageStr, subStr, stopChar string, left int) ([]bmUserString, i
 	left = 0
 
 	// Пока есть необработанные пользователи
-	for utils.Index(pageStr, "avatar_url", left, -1) != -1 {
+	for parse.Index(pageStr, "avatar_url", left, -1) != -1 {
 
 		// Структура пользователя
 		var user bmUserString
@@ -467,19 +468,19 @@ func parseBmUserString(pageStr string, left int) (bmUserString, int) {
 	var user bmUserString
 
 	// Запись данных
-	user.AvatarUrl, left = utils.FindStringWithIndex(pageStr, "avatar_url\":", ",", left, -1)
-	user.CountryCode, left = utils.FindStringWithIndex(pageStr, "country_code\":", ",", left, -1)
-	user.DefaultGroup, left = utils.FindStringWithIndex(pageStr, "default_group\":", ",", left, -1)
-	user.Id, left = utils.FindWithIndex(pageStr, "id\":", ",", left, -1)
-	user.IsActive, left = utils.FindWithIndex(pageStr, "is_active\":", ",", left, -1)
-	user.IsBot, left = utils.FindWithIndex(pageStr, "is_bot\":", ",", left, -1)
-	user.IsDeleted, left = utils.FindWithIndex(pageStr, "is_deleted\":", ",", left, -1)
-	user.IsOnline, left = utils.FindWithIndex(pageStr, "is_online\":", ",", left, -1)
-	user.IsSupporter, left = utils.FindWithIndex(pageStr, "is_supporter\":", ",", left, -1)
-	user.LastVisit, left = utils.FindStringWithIndex(pageStr, "last_visit\":", ",", left, -1)
-	user.PmFriendsOnly, left = utils.FindWithIndex(pageStr, "pm_friends_only\":", ",", left, -1)
-	user.ProfileColor, left = utils.FindStringWithIndex(pageStr, "profile_colour\":", ",", left, -1)
-	user.Username, left = utils.FindStringWithIndex(pageStr, "username\":", "}", left, -1)
+	user.AvatarUrl, left = parse.FindStringWithIndex(pageStr, "avatar_url\":", ",", left, -1)
+	user.CountryCode, left = parse.FindStringWithIndex(pageStr, "country_code\":", ",", left, -1)
+	user.DefaultGroup, left = parse.FindStringWithIndex(pageStr, "default_group\":", ",", left, -1)
+	user.Id, left = parse.FindWithIndex(pageStr, "id\":", ",", left, -1)
+	user.IsActive, left = parse.FindWithIndex(pageStr, "is_active\":", ",", left, -1)
+	user.IsBot, left = parse.FindWithIndex(pageStr, "is_bot\":", ",", left, -1)
+	user.IsDeleted, left = parse.FindWithIndex(pageStr, "is_deleted\":", ",", left, -1)
+	user.IsOnline, left = parse.FindWithIndex(pageStr, "is_online\":", ",", left, -1)
+	user.IsSupporter, left = parse.FindWithIndex(pageStr, "is_supporter\":", ",", left, -1)
+	user.LastVisit, left = parse.FindStringWithIndex(pageStr, "last_visit\":", ",", left, -1)
+	user.PmFriendsOnly, left = parse.FindWithIndex(pageStr, "pm_friends_only\":", ",", left, -1)
+	user.ProfileColor, left = parse.FindStringWithIndex(pageStr, "profile_colour\":", ",", left, -1)
+	user.Username, left = parse.FindStringWithIndex(pageStr, "username\":", "}", left, -1)
 
 	return user, left
 
@@ -492,7 +493,7 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentS
 	var end int
 
 	// Получение рабочей части и индекса её конца
-	pageStr, end = utils.FindWithIndex(pageStr, subStr, stopChar, left, -1)
+	pageStr, end = parse.FindWithIndex(pageStr, subStr, stopChar, left, -1)
 
 	// Проверка на наличие пользователей
 	if len(pageStr) == 0 {
@@ -504,29 +505,29 @@ func parseCommentsString(pageStr, subStr, stopChar string, left int) ([]commentS
 	left = 0
 
 	// Пока есть необработанные пользователи
-	for i := 0; utils.Index(pageStr, "id\":", left, -1) != -1; i++ {
+	for i := 0; parse.Index(pageStr, "id\":", left, -1) != -1; i++ {
 
 		// Структура комментария
 		var cm commentString
-		cm.Id, left = utils.FindWithIndex(pageStr, "id\":", ",", left, -1)
-		cm.ParentId, left = utils.FindWithIndex(pageStr, "parent_id\":", ",", left, -1)
-		cm.UserId, left = utils.FindWithIndex(pageStr, "user_id\":", ",", left, -1)
-		cm.Pinned, left = utils.FindWithIndex(pageStr, "pinned\":", ",", left, -1)
-		cm.RepliesCount, left = utils.FindWithIndex(pageStr, "replies_count\":", ",", left, -1)
-		cm.VotesCount, left = utils.FindWithIndex(pageStr, "votes_count\":", ",", left, -1)
-		cm.CommentableType, left = utils.FindStringWithIndex(pageStr, "commentable_type\":", ",", left, -1)
-		cm.CommentableId, left = utils.FindWithIndex(pageStr, "commentable_id\":", ",", left, -1)
-		cm.LegacyName, left = utils.FindWithIndex(pageStr, "legacy_name\":", ",", left, -1)
-		cm.CreatedAt, left = utils.FindStringWithIndex(pageStr, "created_at\":", ",", left, -1)
-		cm.UpdatedAt, left = utils.FindStringWithIndex(pageStr, "updated_at\":", ",", left, -1)
-		cm.DeletedAt, left = utils.FindStringWithIndex(pageStr, "deleted_at\":", ",", left, -1)
-		cm.EditedAt, left = utils.FindStringWithIndex(pageStr, "edited_at\":", ",", left, -1)
-		cm.EditedById, left = utils.FindStringWithIndex(pageStr, "edited_by_id\":", ",", left, -1)
+		cm.Id, left = parse.FindWithIndex(pageStr, "id\":", ",", left, -1)
+		cm.ParentId, left = parse.FindWithIndex(pageStr, "parent_id\":", ",", left, -1)
+		cm.UserId, left = parse.FindWithIndex(pageStr, "user_id\":", ",", left, -1)
+		cm.Pinned, left = parse.FindWithIndex(pageStr, "pinned\":", ",", left, -1)
+		cm.RepliesCount, left = parse.FindWithIndex(pageStr, "replies_count\":", ",", left, -1)
+		cm.VotesCount, left = parse.FindWithIndex(pageStr, "votes_count\":", ",", left, -1)
+		cm.CommentableType, left = parse.FindStringWithIndex(pageStr, "commentable_type\":", ",", left, -1)
+		cm.CommentableId, left = parse.FindWithIndex(pageStr, "commentable_id\":", ",", left, -1)
+		cm.LegacyName, left = parse.FindWithIndex(pageStr, "legacy_name\":", ",", left, -1)
+		cm.CreatedAt, left = parse.FindStringWithIndex(pageStr, "created_at\":", ",", left, -1)
+		cm.UpdatedAt, left = parse.FindStringWithIndex(pageStr, "updated_at\":", ",", left, -1)
+		cm.DeletedAt, left = parse.FindStringWithIndex(pageStr, "deleted_at\":", ",", left, -1)
+		cm.EditedAt, left = parse.FindStringWithIndex(pageStr, "edited_at\":", ",", left, -1)
+		cm.EditedById, left = parse.FindStringWithIndex(pageStr, "edited_by_id\":", ",", left, -1)
 		strings.Replace(cm.EditedById, "}", "", 1)
 
 		if i != 0 {
-			cm.Message, left = utils.FindWithIndex(pageStr, "message\":", "message_html\"", left, -1)
-			cm.MessageHtml, left = utils.FindWithIndex(pageStr, "message_html\":\"", "\"}", left, -1)
+			cm.Message, left = parse.FindWithIndex(pageStr, "message\":", "message_html\"", left, -1)
+			cm.MessageHtml, left = parse.FindWithIndex(pageStr, "message_html\":\"", "\"}", left, -1)
 		}
 
 		// Добавление комментария к результату
@@ -547,38 +548,38 @@ func formatBeatmap(mpss []mapsString) []maps {
 	for _, mps := range mpss {
 
 		mp := maps{
-			BeatmapSetId:     utils.ToInt(mps.BeatmapSetId),
-			DifficultyRating: utils.ToFloat64(mps.DifficultyRating),
-			Id:               utils.ToInt(mps.Id),
+			BeatmapSetId:     convert.ToInt(mps.BeatmapSetId),
+			DifficultyRating: convert.ToFloat64(mps.DifficultyRating),
+			Id:               convert.ToInt(mps.Id),
 			Mode:             mps.Mode,
 			Status:           mps.Status,
-			TotalLength:      utils.ToInt(mps.TotalLength),
-			UserId:           utils.ToInt(mps.UserId),
+			TotalLength:      convert.ToInt(mps.TotalLength),
+			UserId:           convert.ToInt(mps.UserId),
 			Version:          mps.Version,
-			Accuracy:         utils.ToFloat64(mps.Accuracy),
-			Ar:               utils.ToFloat64(mps.Ar),
-			Bpm:              utils.ToFloat64(mps.Bpm),
-			Convert:          utils.ToBool(mps.Convert),
-			CountCircles:     utils.ToInt(mps.CountCircles),
-			CountSliders:     utils.ToInt(mps.CountSliders),
-			CountSpinners:    utils.ToInt(mps.CountSpinners),
-			Cs:               utils.ToFloat64(mps.Cs),
+			Accuracy:         convert.ToFloat64(mps.Accuracy),
+			Ar:               convert.ToFloat64(mps.Ar),
+			Bpm:              convert.ToFloat64(mps.Bpm),
+			Convert:          convert.ToBool(mps.Convert),
+			CountCircles:     convert.ToInt(mps.CountCircles),
+			CountSliders:     convert.ToInt(mps.CountSliders),
+			CountSpinners:    convert.ToInt(mps.CountSpinners),
+			Cs:               convert.ToFloat64(mps.Cs),
 			DeletedAt:        mps.DeletedAt,
-			Drain:            utils.ToFloat64(mps.Drain),
-			HitLength:        utils.ToInt(mps.HitLength),
-			IsScoreable:      utils.ToBool(mps.IsScoreable),
+			Drain:            convert.ToFloat64(mps.Drain),
+			HitLength:        convert.ToInt(mps.HitLength),
+			IsScoreable:      convert.ToBool(mps.IsScoreable),
 			LastUpdated:      mps.LastUpdated,
-			ModeInt:          utils.ToInt(mps.ModeInt),
-			PassCount:        utils.ToInt(mps.PassCount),
-			PlayCount:        utils.ToInt(mps.PlayCount),
-			Ranked:           utils.ToInt(mps.Ranked),
+			ModeInt:          convert.ToInt(mps.ModeInt),
+			PassCount:        convert.ToInt(mps.PassCount),
+			PlayCount:        convert.ToInt(mps.PlayCount),
+			Ranked:           convert.ToInt(mps.Ranked),
 			Url:              mps.Url,
 			Checksum:         mps.Checksum,
 			Failtimes: failtimes{
-				Fail: utils.ToSlice(mps.Failtimes.Fail),
-				Exit: utils.ToSlice(mps.Failtimes.Exit),
+				Fail: convert.ToSlice(mps.Failtimes.Fail),
+				Exit: convert.ToSlice(mps.Failtimes.Exit),
 			},
-			MaxCombo: utils.ToInt(mps.MaxCombo),
+			MaxCombo: convert.ToInt(mps.MaxCombo),
 		}
 
 		// Форматирование и добавление рекорда
@@ -597,10 +598,10 @@ func formatCurrentNominations(cns []currentNominationString) []currentNomination
 	// Обработка текстовых номинаций
 	for _, cn := range cns {
 		result = append(result, currentNomination{
-			BeatmapsetId: utils.ToInt(cn.BeatmapsetId),
+			BeatmapsetId: convert.ToInt(cn.BeatmapsetId),
 			Rulesets:     cn.Rulesets,
-			Reset:        utils.ToBool(cn.Reset),
-			UserId:       utils.ToInt(cn.UserId),
+			Reset:        convert.ToBool(cn.Reset),
+			UserId:       convert.ToInt(cn.UserId),
 		})
 	}
 
@@ -615,14 +616,14 @@ func formatBmUser(usr bmUserString) bmUser {
 		AvatarUrl:     usr.AvatarUrl,
 		CountryCode:   usr.CountryCode,
 		DefaultGroup:  usr.DefaultGroup,
-		Id:            utils.ToInt(usr.Id),
-		IsActive:      utils.ToBool(usr.IsActive),
-		IsBot:         utils.ToBool(usr.IsActive),
-		IsDeleted:     utils.ToBool(usr.IsDeleted),
-		IsOnline:      utils.ToBool(usr.IsOnline),
-		IsSupporter:   utils.ToBool(usr.IsSupporter),
+		Id:            convert.ToInt(usr.Id),
+		IsActive:      convert.ToBool(usr.IsActive),
+		IsBot:         convert.ToBool(usr.IsActive),
+		IsDeleted:     convert.ToBool(usr.IsDeleted),
+		IsOnline:      convert.ToBool(usr.IsOnline),
+		IsSupporter:   convert.ToBool(usr.IsSupporter),
 		LastVisit:     usr.LastVisit,
-		PmFriendsOnly: utils.ToBool(usr.PmFriendsOnly),
+		PmFriendsOnly: convert.ToBool(usr.PmFriendsOnly),
 		ProfileColor:  usr.ProfileColor,
 		Username:      usr.Username,
 	}
@@ -649,14 +650,14 @@ func formatComments(cms []commentString) []comment {
 
 	for _, cm := range cms {
 		result = append(result, comment{
-			Id:              utils.ToInt(cm.Id),
-			ParentId:        utils.ToInt(cm.ParentId),
-			UserId:          utils.ToInt(cm.UserId),
-			Pinned:          utils.ToBool(cm.Pinned),
-			RepliesCount:    utils.ToInt(cm.RepliesCount),
-			VotesCount:      utils.ToInt(cm.VotesCount),
+			Id:              convert.ToInt(cm.Id),
+			ParentId:        convert.ToInt(cm.ParentId),
+			UserId:          convert.ToInt(cm.UserId),
+			Pinned:          convert.ToBool(cm.Pinned),
+			RepliesCount:    convert.ToInt(cm.RepliesCount),
+			VotesCount:      convert.ToInt(cm.VotesCount),
 			CommentableType: cm.CommentableType,
-			CommentableId:   utils.ToInt(cm.CommentableId),
+			CommentableId:   convert.ToInt(cm.CommentableId),
 			LegacyName:      cm.LegacyName,
 			CreatedAt:       cm.CreatedAt,
 			UpdatedAt:       cm.UpdatedAt,
@@ -694,7 +695,7 @@ func getMapInfoString(id string) (mapStringResponse, int, error) {
 
 	// Полученная страница в формате string
 	pageStr := string(body)
-	pageStr = pageStr[utils.Index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000, -1)+61:]
+	pageStr = pageStr[parse.Index(pageStr, "<script id=\"json-beatmapset\" type=\"application/json", 80000, -1)+61:]
 
 	// Сохранение html"ки в файл sample.html (для тестов)
 	/*if err := os.WriteFile("sampleMap.html", []byte(pageStr), 0666); err != nil {
@@ -705,80 +706,80 @@ func getMapInfoString(id string) (mapStringResponse, int, error) {
 	result := mapStringResponse{}
 	left := 0
 
-	result.Artist, left = utils.FindWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
-	result.ArtistUnicode, left = utils.FindWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left, -1)
+	result.Artist, left = parse.FindWithIndex(pageStr, "\"artist\":\"", "\",", left, -1)
+	result.ArtistUnicode, left = parse.FindWithIndex(pageStr, "\"artist_unicode\":\"", "\",", left, -1)
 
-	result.Covers.Cover, left = utils.FindWithIndex(pageStr, "\"cover\":\"", "\"", left, -1)
+	result.Covers.Cover, left = parse.FindWithIndex(pageStr, "\"cover\":\"", "\"", left, -1)
 	result.Covers.Cover = strings.ReplaceAll(result.Covers.Cover, "\\", "")
-	result.Covers.Cover2X, left = utils.FindWithIndex(pageStr, "\"cover@2x\":\"", "\"", left, -1)
+	result.Covers.Cover2X, left = parse.FindWithIndex(pageStr, "\"cover@2x\":\"", "\"", left, -1)
 	result.Covers.Cover2X = strings.ReplaceAll(result.Covers.Cover2X, "\\", "")
-	result.Covers.Card, left = utils.FindWithIndex(pageStr, "\"card\":\"", "\"", left, -1)
+	result.Covers.Card, left = parse.FindWithIndex(pageStr, "\"card\":\"", "\"", left, -1)
 	result.Covers.Card = strings.ReplaceAll(result.Covers.Card, "\\", "")
-	result.Covers.Card2X, left = utils.FindWithIndex(pageStr, "\"card@2x\":\"", "\"", left, -1)
+	result.Covers.Card2X, left = parse.FindWithIndex(pageStr, "\"card@2x\":\"", "\"", left, -1)
 	result.Covers.Card2X = strings.ReplaceAll(result.Covers.Card2X, "\\", "")
-	result.Covers.List, left = utils.FindWithIndex(pageStr, "\"list\":\"", "\"", left, -1)
+	result.Covers.List, left = parse.FindWithIndex(pageStr, "\"list\":\"", "\"", left, -1)
 	result.Covers.List = strings.ReplaceAll(result.Covers.List, "\\", "")
-	result.Covers.List2X, left = utils.FindWithIndex(pageStr, "\"list@2x\":\"", "\"", left, -1)
+	result.Covers.List2X, left = parse.FindWithIndex(pageStr, "\"list@2x\":\"", "\"", left, -1)
 	result.Covers.List2X = strings.ReplaceAll(result.Covers.List2X, "\\", "")
-	result.Covers.SlimCover, left = utils.FindWithIndex(pageStr, "\"slimcover\":\"", "\"", left, -1)
+	result.Covers.SlimCover, left = parse.FindWithIndex(pageStr, "\"slimcover\":\"", "\"", left, -1)
 	result.Covers.SlimCover = strings.ReplaceAll(result.Covers.SlimCover, "\\", "")
-	result.Covers.SlimCover2X, left = utils.FindWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left, -1)
+	result.Covers.SlimCover2X, left = parse.FindWithIndex(pageStr, "\"slimcover@2x\":\"", "\"", left, -1)
 	result.Covers.SlimCover2X = strings.ReplaceAll(result.Covers.SlimCover2X, "\\", "")
 
-	result.Creator, left = utils.FindWithIndex(pageStr, "\"creator\":\"", "\",", left, -1)
-	result.FavoriteCount, left = utils.FindWithIndex(pageStr, "\"favourite_count\":", ",", left, -1)
+	result.Creator, left = parse.FindWithIndex(pageStr, "\"creator\":\"", "\",", left, -1)
+	result.FavoriteCount, left = parse.FindWithIndex(pageStr, "\"favourite_count\":", ",", left, -1)
 
-	if !utils.Contains(pageStr, "\"hype\":null", left) {
-		result.HypeCurrent, left = utils.FindWithIndex(pageStr, "hype\":{\"current\":", ",", left, -1)
-		result.HypeRequired, left = utils.FindWithIndex(pageStr, "required\":", "}", left, -1)
+	if !parse.Contains(pageStr, "\"hype\":null", left) {
+		result.HypeCurrent, left = parse.FindWithIndex(pageStr, "hype\":{\"current\":", ",", left, -1)
+		result.HypeRequired, left = parse.FindWithIndex(pageStr, "required\":", "}", left, -1)
 	}
 
-	result.Id, left = utils.FindWithIndex(pageStr, "\"id\":", ",", left, -1)
-	result.Nsfw, left = utils.FindWithIndex(pageStr, "\"nsfw\":", ",", left, -1)
-	result.Offset, left = utils.FindWithIndex(pageStr, "\"offset\":", ",", left, -1)
-	result.PlayCount, left = utils.FindWithIndex(pageStr, "\"play_count\":", ",", left, -1)
-	result.PreviewUrl, left = utils.FindWithIndex(pageStr, "\"preview_url\":\"\\/\\/", "\",", left, -1)
+	result.Id, left = parse.FindWithIndex(pageStr, "\"id\":", ",", left, -1)
+	result.Nsfw, left = parse.FindWithIndex(pageStr, "\"nsfw\":", ",", left, -1)
+	result.Offset, left = parse.FindWithIndex(pageStr, "\"offset\":", ",", left, -1)
+	result.PlayCount, left = parse.FindWithIndex(pageStr, "\"play_count\":", ",", left, -1)
+	result.PreviewUrl, left = parse.FindWithIndex(pageStr, "\"preview_url\":\"\\/\\/", "\",", left, -1)
 	result.PreviewUrl = strings.ReplaceAll(result.PreviewUrl, "\\", "")
-	result.Source, left = utils.FindWithIndex(pageStr, "\"source\":\"", "\",", left, -1)
-	result.Spotlight, left = utils.FindWithIndex(pageStr, "\"spotlight\":", ",", left, -1)
-	result.Status, left = utils.FindWithIndex(pageStr, "\"status\":\"", "\",", left, -1)
-	result.Title, left = utils.FindWithIndex(pageStr, "\"title\":\"", "\",", left, -1)
-	result.TitleUnicode, left = utils.FindWithIndex(pageStr, "\"title_unicode\":\"", "\",", left, -1)
-	result.TrackId, left = utils.FindWithIndex(pageStr, "\"track_id\":", ",", left, -1)
-	result.UserId, left = utils.FindWithIndex(pageStr, "\"user_id\":", ",", left, -1)
-	result.Video, left = utils.FindWithIndex(pageStr, "\"video\":", ",", left, -1)
-	result.Bpm, left = utils.FindWithIndex(pageStr, "\"bpm\":", ",", left, -1)
-	result.CanBeHyped, left = utils.FindWithIndex(pageStr, "\"can_be_hyped\":", ",", left, -1)
-	result.DiscussionEnabled, left = utils.FindWithIndex(pageStr, "\"discussion_enabled\":", ",", left, -1)
-	result.DiscussionLocked, left = utils.FindWithIndex(pageStr, "\"discussion_locked\":", ",", left, -1)
-	result.IsScoreable, left = utils.FindWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
-	result.LastUpdated, left = utils.FindStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
-	result.LegacyThreadUrl, left = utils.FindStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left, -1)
+	result.Source, left = parse.FindWithIndex(pageStr, "\"source\":\"", "\",", left, -1)
+	result.Spotlight, left = parse.FindWithIndex(pageStr, "\"spotlight\":", ",", left, -1)
+	result.Status, left = parse.FindWithIndex(pageStr, "\"status\":\"", "\",", left, -1)
+	result.Title, left = parse.FindWithIndex(pageStr, "\"title\":\"", "\",", left, -1)
+	result.TitleUnicode, left = parse.FindWithIndex(pageStr, "\"title_unicode\":\"", "\",", left, -1)
+	result.TrackId, left = parse.FindWithIndex(pageStr, "\"track_id\":", ",", left, -1)
+	result.UserId, left = parse.FindWithIndex(pageStr, "\"user_id\":", ",", left, -1)
+	result.Video, left = parse.FindWithIndex(pageStr, "\"video\":", ",", left, -1)
+	result.Bpm, left = parse.FindWithIndex(pageStr, "\"bpm\":", ",", left, -1)
+	result.CanBeHyped, left = parse.FindWithIndex(pageStr, "\"can_be_hyped\":", ",", left, -1)
+	result.DiscussionEnabled, left = parse.FindWithIndex(pageStr, "\"discussion_enabled\":", ",", left, -1)
+	result.DiscussionLocked, left = parse.FindWithIndex(pageStr, "\"discussion_locked\":", ",", left, -1)
+	result.IsScoreable, left = parse.FindWithIndex(pageStr, "\"is_scoreable\":", ",", left, -1)
+	result.LastUpdated, left = parse.FindStringWithIndex(pageStr, "\"last_updated\":", ",", left, -1)
+	result.LegacyThreadUrl, left = parse.FindStringWithIndex(pageStr, "\"legacy_thread_url\":", ",", left, -1)
 	result.LegacyThreadUrl = strings.ReplaceAll(result.LegacyThreadUrl, "\\", "")
-	result.NominationsSummary.Current, left = utils.FindWithIndex(pageStr, "\"current\":", ",", left, -1)
-	result.NominationsSummary.Required, left = utils.FindWithIndex(pageStr, "\"required\":", "}", left, -1)
+	result.NominationsSummary.Current, left = parse.FindWithIndex(pageStr, "\"current\":", ",", left, -1)
+	result.NominationsSummary.Required, left = parse.FindWithIndex(pageStr, "\"required\":", "}", left, -1)
 
-	result.Ranked, left = utils.FindWithIndex(pageStr, "\"ranked\":", ",", left, -1)
-	result.RankedDate, left = utils.FindStringWithIndex(pageStr, "\"ranked_date\":", ",", left, -1)
-	result.Storyboard, left = utils.FindWithIndex(pageStr, "\"storyboard\":", ",", left, -1)
-	result.SubmittedDate, left = utils.FindStringWithIndex(pageStr, "\"submitted_date\":", ",", left, -1)
+	result.Ranked, left = parse.FindWithIndex(pageStr, "\"ranked\":", ",", left, -1)
+	result.RankedDate, left = parse.FindStringWithIndex(pageStr, "\"ranked_date\":", ",", left, -1)
+	result.Storyboard, left = parse.FindWithIndex(pageStr, "\"storyboard\":", ",", left, -1)
+	result.SubmittedDate, left = parse.FindStringWithIndex(pageStr, "\"submitted_date\":", ",", left, -1)
 
-	result.Tags = strings.Split(utils.Find(pageStr, "\"tags\":\"", "\",", left), " ")
+	result.Tags = strings.Split(parse.Find(pageStr, "\"tags\":\"", "\",", left), " ")
 	if result.Tags[0] == "" {
 		result.Tags = nil
 	}
 
-	result.DownloadDisabled, left = utils.FindWithIndex(pageStr, "\"download_disabled\":", ",", left, -1)
+	result.DownloadDisabled, left = parse.FindWithIndex(pageStr, "\"download_disabled\":", ",", left, -1)
 	result.Beatmaps, left = parseMapsString(pageStr, "\"beatmaps\":[", "],\"converts\":[", left)
 	result.Converts, left = parseMapsString(pageStr, "\"converts\":[", "\"current_nominations\":[", left)
 	result.CurrentNominations, left = parseCurrentNominations(pageStr, "current_nominations\":[", "\"description\":{\"description\":", left)
 
-	result.Description, left = utils.FindWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left, -1)
-	result.GenreId, left = utils.FindWithIndex(pageStr, "\"genre\":{\"id\":", ",", left, -1)
-	result.GenreName, left = utils.FindWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
-	result.LanguageId, left = utils.FindWithIndex(pageStr, "\"language\":{\"id\":", ",", left, -1)
-	result.LanguageName, left = utils.FindWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
-	result.Ratings, left = utils.FindWithIndex(pageStr, "ratings\":[", "]", left, -1)
+	result.Description, left = parse.FindWithIndex(pageStr, "\"description\":{\"description\":\"", "},\"genre\":", left, -1)
+	result.GenreId, left = parse.FindWithIndex(pageStr, "\"genre\":{\"id\":", ",", left, -1)
+	result.GenreName, left = parse.FindWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
+	result.LanguageId, left = parse.FindWithIndex(pageStr, "\"language\":{\"id\":", ",", left, -1)
+	result.LanguageName, left = parse.FindWithIndex(pageStr, "\"name\":\"", "\"}", left, -1)
+	result.Ratings, left = parse.FindWithIndex(pageStr, "ratings\":[", "]", left, -1)
 
 	result.RecentFavourites, left = parseBmUsers(pageStr, "recent_favourites\":[", "related_users\":[", left)
 	result.RelatedUsers, left = parseBmUsers(pageStr, "related_users\":[", "user\":{", left)
@@ -787,7 +788,7 @@ func getMapInfoString(id string) (mapStringResponse, int, error) {
 	result.Comments, left = parseCommentsString(pageStr, "comments\":[", "has_more\":", left)
 	result.PinnedComments, left = parseCommentsString(pageStr, "\"pinned_comments\":[", "\"user_votes\":[", left)
 
-	result.UserFollow, _ = utils.FindWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
+	result.UserFollow, _ = parse.FindWithIndex(pageStr, "\"user_follow\":", ",", left, -1)
 
 	return result, http.StatusOK, nil
 
@@ -808,54 +809,54 @@ func getMapInfo(id string) (mapResponse, int, error) {
 		ArtistUnicode:     resultStr.ArtistUnicode,
 		Covers:            resultStr.Covers,
 		Creator:           resultStr.Creator,
-		FavoriteCount:     utils.ToInt(resultStr.FavoriteCount),
-		HypeCurrent:       utils.ToInt(resultStr.HypeCurrent),
-		HypeRequired:      utils.ToInt(resultStr.HypeRequired),
-		Id:                utils.ToInt(resultStr.Id),
-		Nsfw:              utils.ToBool(resultStr.Nsfw),
-		Offset:            utils.ToInt(resultStr.Offset),
-		PlayCount:         utils.ToInt(resultStr.PlayCount),
+		FavoriteCount:     convert.ToInt(resultStr.FavoriteCount),
+		HypeCurrent:       convert.ToInt(resultStr.HypeCurrent),
+		HypeRequired:      convert.ToInt(resultStr.HypeRequired),
+		Id:                convert.ToInt(resultStr.Id),
+		Nsfw:              convert.ToBool(resultStr.Nsfw),
+		Offset:            convert.ToInt(resultStr.Offset),
+		PlayCount:         convert.ToInt(resultStr.PlayCount),
 		PreviewUrl:        resultStr.PreviewUrl,
 		Source:            resultStr.Source,
-		Spotlight:         utils.ToBool(resultStr.Spotlight),
+		Spotlight:         convert.ToBool(resultStr.Spotlight),
 		Status:            resultStr.Status,
 		Title:             resultStr.Title,
 		TitleUnicode:      resultStr.TitleUnicode,
-		TrackId:           utils.ToInt(resultStr.TrackId),
-		UserId:            utils.ToInt(resultStr.UserId),
-		Video:             utils.ToBool(resultStr.Video),
-		DownloadDisabled:  utils.ToBool(resultStr.DownloadDisabled),
-		Bpm:               utils.ToFloat64(resultStr.Bpm),
-		CanBeHyped:        utils.ToBool(resultStr.CanBeHyped),
-		DiscussionEnabled: utils.ToBool(resultStr.DiscussionEnabled),
-		DiscussionLocked:  utils.ToBool(resultStr.DiscussionLocked),
-		IsScoreable:       utils.ToBool(resultStr.IsScoreable),
+		TrackId:           convert.ToInt(resultStr.TrackId),
+		UserId:            convert.ToInt(resultStr.UserId),
+		Video:             convert.ToBool(resultStr.Video),
+		DownloadDisabled:  convert.ToBool(resultStr.DownloadDisabled),
+		Bpm:               convert.ToFloat64(resultStr.Bpm),
+		CanBeHyped:        convert.ToBool(resultStr.CanBeHyped),
+		DiscussionEnabled: convert.ToBool(resultStr.DiscussionEnabled),
+		DiscussionLocked:  convert.ToBool(resultStr.DiscussionLocked),
+		IsScoreable:       convert.ToBool(resultStr.IsScoreable),
 		LastUpdated:       resultStr.LastUpdated,
 		LegacyThreadUrl:   resultStr.LegacyThreadUrl,
 		NominationsSummary: nominationsSummary{
-			Current:  utils.ToInt(resultStr.NominationsSummary.Current),
-			Required: utils.ToInt(resultStr.NominationsSummary.Required),
+			Current:  convert.ToInt(resultStr.NominationsSummary.Current),
+			Required: convert.ToInt(resultStr.NominationsSummary.Required),
 		},
-		Ranked:             utils.ToInt(resultStr.Ranked),
+		Ranked:             convert.ToInt(resultStr.Ranked),
 		RankedDate:         resultStr.RankedDate,
-		Storyboard:         utils.ToBool(resultStr.Storyboard),
+		Storyboard:         convert.ToBool(resultStr.Storyboard),
 		SubmittedDate:      resultStr.SubmittedDate,
 		Tags:               resultStr.Tags,
 		Beatmaps:           formatBeatmap(resultStr.Beatmaps),
 		Converts:           formatBeatmap(resultStr.Converts),
 		CurrentNominations: formatCurrentNominations(resultStr.CurrentNominations),
 		Description:        resultStr.Description,
-		GenreId:            utils.ToInt(resultStr.GenreId),
+		GenreId:            convert.ToInt(resultStr.GenreId),
 		GenreName:          resultStr.GenreName,
-		LanguageId:         utils.ToInt(resultStr.LanguageId),
+		LanguageId:         convert.ToInt(resultStr.LanguageId),
 		LanguageName:       resultStr.LanguageName,
-		Ratings:            utils.ToSlice(resultStr.Ratings),
+		Ratings:            convert.ToSlice(resultStr.Ratings),
 		RecentFavourites:   formatBmUsers(resultStr.RecentFavourites),
 		RelatedUsers:       formatBmUsers(resultStr.RelatedUsers),
 		User:               formatBmUser(resultStr.User),
 		Comments:           formatComments(resultStr.Comments),
 		PinnedComments:     formatComments(resultStr.PinnedComments),
-		UserFollow:         utils.ToBool(resultStr.UserFollow),
+		UserFollow:         convert.ToBool(resultStr.UserFollow),
 	}
 
 	return result, http.StatusOK, nil

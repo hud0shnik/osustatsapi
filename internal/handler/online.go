@@ -5,7 +5,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/hud0shnik/osustatsapi/utils"
+	"github.com/hud0shnik/osustatsapi/internal/convert"
+	"github.com/hud0shnik/osustatsapi/internal/parse"
 )
 
 // onlineInfo - статус пользователя
@@ -50,7 +51,7 @@ func getOnlineInfoString(id string) (onlineInfoString, int, error) {
 
 	// Поиск статуса пользователя и вывод результата
 	return onlineInfoString{
-		Status: utils.Find(pageStr, "is_online&quot;:", ",", 0),
+		Status: parse.Find(pageStr, "is_online&quot;:", ",", 0),
 	}, http.StatusOK, nil
 
 }
@@ -66,7 +67,7 @@ func getOnlineInfo(id string) (onlineInfo, int, error) {
 
 	// Перевод в классическую версию
 	return onlineInfo{
-		Status: utils.ToBool(resultStr.Status),
+		Status: convert.ToBool(resultStr.Status),
 	}, http.StatusOK, nil
 
 }
